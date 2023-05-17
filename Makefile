@@ -8,7 +8,7 @@ DEBUG = 1
 
 # Compiler options
 CC = cc
-CFLAGS = -Wall -Werror -Wextra -D DEBUG=$(DEBUG)
+CFLAGS = -D DEBUG=$(DEBUG) #-fsanitize=address #-Wall -Werror -Wextra 
 CLIBS = -L$(LIB_FOLDER)libft_printf -L$(LIB_FOLDER)minilibx
 CINCLUDES  = -I$(INCLUDE_FOLDER) -I$(MLX_FOLDER)
 RM = rm -f
@@ -50,7 +50,7 @@ fclean: clean
 
 re: fclean all
 
-run: re
+run: all
 	./$(NAME)
 
 god:
