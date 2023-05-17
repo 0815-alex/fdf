@@ -33,7 +33,7 @@ OBJS = $(SRCS:.c=.o)
 all: $(NAME)
 
 $(NAME): $(OBJS) $(LIBFT_PRINTF)
-	$(CC) $(OBJS) $(CLIBS) $(CINCLUDES) -lmlx -lX11 -lXext -lm -o $(NAME)
+	$(CC) $(OBJS) $(CLIBS) $(CINCLUDES) -lft_printf -lmlx -lX11 -lXext -lm -o $(NAME)
 
 $(LIBFT_PRINTF):
 	@echo "\ncompiling libft_printf.a...\n"
@@ -51,7 +51,7 @@ fclean: clean
 re: fclean all
 
 run: re
-	./$(NAME) $(MAPS_FOLDER)10-2.fdf
+	./$(NAME)
 
 god:
 	git status
