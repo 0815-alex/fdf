@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 18:50:54 by astein            #+#    #+#             */
-/*   Updated: 2023/05/18 18:54:11 by astein           ###   ########.fr       */
+/*   Updated: 2023/05/18 18:58:19 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	node_add_front(t_node **lst, t_node *new)
 void	node_add_back(t_node **lst, t_node *new)
 {
 	if (!*lst)
-		ft_lstadd_front(lst, new);
+		node_add_front(lst, new);
 	else
-		ft_lstlast(*lst)->next = new;
+		node_last(*lst)->next = new;
 }

@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 15:31:40 by astein            #+#    #+#             */
-/*   Updated: 2023/05/18 18:55:50 by astein           ###   ########.fr       */
+/*   Updated: 2023/05/18 19:29:43 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,19 @@ void	put_line(t_win *win, t_point *pnt_a, t_point *pnt_b, int color)
 	}
 }
 
+void	put_net(t_win *win, t_node **net, int color)
+{
+	while (*net)
+	{
+		if ((*net)->z)
+			mlx_pixel_put(win->mlx, win->win, 30 * ((*net)->x), 30
+					* ((*net)->y), color);
+		*net = (*net)->next;
+	}
+	// free(cur_node);
+	// free(cur_point);
+}
+
 int	deal_key(int key, void *param)
 {
 	ft_printf("Key pressed: %c (%i)\n", key, key);
@@ -104,7 +117,7 @@ int	main(int argc, char **argv)
 	// 3. hook keys
 	mlx_key_hook(window->win, deal_key, curr_point);
 	// 4. draw
-	// put_net(net);
+	put_net(window, net, 0x00FFFF);
 	// curr_point = malloc(sizeof(t_point));
 	// curr_point2 = malloc(sizeof(t_point));
 	// curr_point->x = 10;

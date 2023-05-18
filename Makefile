@@ -8,7 +8,7 @@ DEBUG = 1
 
 # Compiler options
 CC = cc
-CFLAGS = -D DEBUG=$(DEBUG) -g#-fsanitize=address #-Wall -Werror -Wextra 
+CFLAGS = -D DEBUG=$(DEBUG) -g #-Wall -Werror -Wextra #-fsanitize=address #
 CLIBS = -L$(LIB_FOLDER)libft_printf -L$(LIB_FOLDER)minilibx
 CINCLUDES  = -I$(INCLUDE_FOLDER) -I$(MLX_FOLDER)
 RM = rm -f
@@ -30,7 +30,7 @@ SRCS = $(SRC_FOLDER)main.c \
 OBJS = $(SRCS:.c=.o)
 
 # TARGETS
-.PHONY: all clean fclean re run god
+.PHONY: all clean fclean re r rr god
 
 all: $(NAME)
 
@@ -52,9 +52,11 @@ fclean: clean
 
 re: fclean all
 
-run: all
+r: all
 	./$(NAME) ./maps/42.fdf
 
+rr: re
+	./$(NAME) ./maps/42.fdf
 god:
 	git status
 	git add .
