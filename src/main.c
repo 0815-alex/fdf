@@ -6,11 +6,20 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 15:31:40 by astein            #+#    #+#             */
-/*   Updated: 2023/05/18 19:29:43 by astein           ###   ########.fr       */
+/*   Updated: 2023/05/18 20:02:29 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/ftf.h"
+
+void	node2point(t_node *node, t_point *point)
+{
+	int	offset;
+
+	offset = 20;
+	point->x = node->x * 10 + offset * node->z;
+	point->y = node->y * 10 + offset * node->z;
+}
 
 void	put_point(t_win *win, t_point *point, int color)
 {
@@ -62,15 +71,33 @@ void	put_line(t_win *win, t_point *pnt_a, t_point *pnt_b, int color)
 
 void	put_net(t_win *win, t_node **net, int color)
 {
+	t_point	*cur_point;
+	t_point	*cur_conn_point;
+
+	cur_point = malloc(sizeof(t_point));
+	cur_conn_point = malloc(sizeof(t_point));
 	while (*net)
 	{
-		if ((*net)->z)
-			mlx_pixel_put(win->mlx, win->win, 30 * ((*net)->x), 30
-					* ((*net)->y), color);
+		node2point(*net, cur_point);
+		//draw point (unnsessarry when drawing lines)
+		mlx_pixel_put(win->mlx, win->win, cur_point->x, cur_point->y, color);
+		//draw line to west
+		if ((*net)->west)
+		{
+			node2point((*net)->west, cur_conn_point);
+			put_line(win, cur_point, cur_conn_point, color);
+		}
+		//draw line to north
+		if ((*net)->north)
+		{
+			node2point((*net)->north, cur_conn_point);
+			put_line(win, cur_point, cur_conn_point, color);
+		}
 		*net = (*net)->next;
 	}
 	// free(cur_node);
 	// free(cur_point);
+	// free(cur_conn_point);
 }
 
 int	deal_key(int key, void *param)

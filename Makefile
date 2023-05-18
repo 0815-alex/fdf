@@ -53,10 +53,10 @@ fclean: clean
 re: fclean all
 
 r: all
-	./$(NAME) ./maps/42.fdf
+	./$(NAME) ./maps/astein.fdf
 
 rr: re
-	./$(NAME) ./maps/42.fdf
+	./$(NAME) ./maps/astein.fdf
 god:
 	git status
 	git add .
