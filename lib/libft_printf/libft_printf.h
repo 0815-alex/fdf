@@ -1,22 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libft_ft_printf.h                                  :+:      :+:    :+:   */
+/*   libft_printf.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 13:11:36 by astein            #+#    #+#             */
-/*   Updated: 2023/05/09 01:26:34 by astein           ###   ########.fr       */
+/*   Updated: 2023/05/18 17:08:37 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIBFT_FT_PRINTF_H
-# define LIBFT_FT_PRINTF_H
+#ifndef LIBFT_PRINTF_H
+# define LIBFT_PRINTF_H
 
+# include <fcntl.h>
 # include <stdarg.h>
+# include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
 # include <unistd.h>
+
+//******************************************************************************
+// BUFFER SIZE FOR GET NEXT LINE
+//******************************************************************************
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 4096
+# endif
 
 //******************************************************************************
 // Hexadecimal Value Definitions
@@ -124,5 +133,10 @@ void				ft_lstclear(t_list **lst, void (*del)(void *));
 void				ft_lstiter(t_list *lst, void (*f)(void *));
 t_list				*ft_lstmap(t_list *lst, void *(*f)(void *),
 						void (*del)(void *));
+
+//******************************************************************************
+//			get_next_line.c
+//******************************************************************************
+char				*get_next_line(int fd);
 
 #endif

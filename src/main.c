@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 15:31:40 by astein            #+#    #+#             */
-/*   Updated: 2023/05/17 23:24:23 by astein           ###   ########.fr       */
+/*   Updated: 2023/05/18 17:13:43 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ void	put_line(t_win *win, t_point *pnt_a, t_point *pnt_b, int color)
 	t_point	*sign;
 	int		err;
 	int		e2;
-curr_point= malloc(sizeof(t_point));
+
+	curr_point = malloc(sizeof(t_point));
 	delta = malloc(sizeof(t_point));
 	sign = malloc(sizeof(t_point));
 	curr_point->x = pnt_a->x;
@@ -85,7 +86,7 @@ void	*ini_win(int width, int heigth, char *title)
 	return (new_window);
 }
 
-int	main(void)
+int	main(int argc, char **argv)
 {
 	t_win	*window;
 	t_point	*curr_point;
@@ -93,6 +94,8 @@ int	main(void)
 	t_point	*curr_point3;
 	t_point	*curr_point4;
 
+	//1. load File
+	load_file(argc, argv);
 	// void	*mlx_ptr;
 	// void	*win_ptr;
 	// mlx_ptr = mlx_init();

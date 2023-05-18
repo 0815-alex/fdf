@@ -22,7 +22,8 @@ MAPS_FOLDER = ./maps/
 
 # ->Files
 LIBFT_PRINTF = $(LIB_FOLDER)/libft_printf/libft_printf.a
-SRCS = $(SRC_FOLDER)main.c
+SRCS = $(SRC_FOLDER)main.c \
+	$(SRC_FOLDER)parser.c
 
 # Object files
 OBJS = $(SRCS:.c=.o)
@@ -51,7 +52,7 @@ fclean: clean
 re: fclean all
 
 run: all
-	./$(NAME)
+	./$(NAME) /maps/10-2.fdf
 
 god:
 	git status

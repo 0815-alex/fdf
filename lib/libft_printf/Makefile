@@ -57,6 +57,7 @@ SRCS = $(SRC_FOLDER)ft_isalpha.c \
 	$(SRC_FOLDER)print_dez_to_hexa.c \
 	$(SRC_FOLDER)print_ptr.c \
 	$(SRC_FOLDER)print_nbr.c \
+	$(SRC_FOLDER)get_next_line.c 
 
 # Object files
 OBJS = $(SRCS:.c=.o)
