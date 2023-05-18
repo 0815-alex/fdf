@@ -1,0 +1,36 @@
+READ FILE AND STORE DATA
+----------------------------------------------------------------------------------
+
+Read the files line by line
+	each line length represents the column with
+	create a linked list "line" storing all the points
+	when finished add to a linked list "rows"
+
+POINT DATA
+----------------------------------------------------------------------------------
+	Coordinates:			x,y,z
+	Pointer to two other points	west, north
+
+SETUP WINDOW
+----------------------------------------------------------------------------------
+Count the elements in the first row to get the width to setup the window width
+Count the elements in the list rows and get the height of the window
+
+SHIT MATH PART
+----------------------------------------------------------------------------------
+depending on the perspective the x,y,z coordinates need to be "converted" in only a
+x,y, cordinate
+I wann use a different linked list therefore
+
+
+DRAW POINTS AND LINES
+----------------------------------------------------------------------------------
+loop trough rows
+	loop trough columns
+		call a function that takes the point and prints it
+		call a function that takes the point and draws the lines to the west and north 
+
+
+
+
+TRYING TO IMPLEMENT GET NEXT LINE INTO THE PROJECT - CONTINUE CHANGEING MAKEFILE AND MERGING BONUS FILES
