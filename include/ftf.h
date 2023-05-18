@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 16:51:18 by astein            #+#    #+#             */
-/*   Updated: 2023/05/18 17:11:25 by astein           ###   ########.fr       */
+/*   Updated: 2023/05/18 18:54:34 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,19 +30,35 @@
 
 typedef struct s_win
 {
-	void	*mlx;
-	void	*win;
-}			t_win;
+	void			*mlx;
+	void			*win;
+}					t_win;
 
 typedef struct s_point
 {
-	int		x;
-	int		y;
-}			t_point;
+	int				x;
+	int				y;
+}					t_point;
+
+typedef struct s_node
+{
+	int				x;
+	int				y;
+	int				z;
+	struct s_node	*next;
+	struct s_node	*west;
+	struct s_node	*north;
+}					t_node;
 
 //******************************************************************************
 //		PARSER.C
 //******************************************************************************
-void		load_file(int argc, char **argv);
+void				load_file(int argc, char **argv, t_node **net);
 
+//******************************************************************************
+//		NODE.C
+//******************************************************************************
+t_node				*node_last(t_node *lst);
+void				node_add_front(t_node **lst, t_node *new);
+void				node_add_back(t_node **lst, t_node *new);
 #endif

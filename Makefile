@@ -8,7 +8,7 @@ DEBUG = 1
 
 # Compiler options
 CC = cc
-CFLAGS = -D DEBUG=$(DEBUG) #-fsanitize=address #-Wall -Werror -Wextra 
+CFLAGS = -D DEBUG=$(DEBUG) -g#-fsanitize=address #-Wall -Werror -Wextra 
 CLIBS = -L$(LIB_FOLDER)libft_printf -L$(LIB_FOLDER)minilibx
 CINCLUDES  = -I$(INCLUDE_FOLDER) -I$(MLX_FOLDER)
 RM = rm -f
@@ -23,7 +23,8 @@ MAPS_FOLDER = ./maps/
 # ->Files
 LIBFT_PRINTF = $(LIB_FOLDER)/libft_printf/libft_printf.a
 SRCS = $(SRC_FOLDER)main.c \
-	$(SRC_FOLDER)parser.c
+	$(SRC_FOLDER)parser.c \
+	$(SRC_FOLDER)node.c
 
 # Object files
 OBJS = $(SRCS:.c=.o)
@@ -52,7 +53,7 @@ fclean: clean
 re: fclean all
 
 run: all
-	./$(NAME) /maps/10-2.fdf
+	./$(NAME) ./maps/42.fdf
 
 god:
 	git status

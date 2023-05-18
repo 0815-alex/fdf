@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 15:31:40 by astein            #+#    #+#             */
-/*   Updated: 2023/05/18 17:13:43 by astein           ###   ########.fr       */
+/*   Updated: 2023/05/18 18:55:50 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,38 +91,30 @@ int	main(int argc, char **argv)
 	t_win	*window;
 	t_point	*curr_point;
 	t_point	*curr_point2;
-	t_point	*curr_point3;
-	t_point	*curr_point4;
+	t_node	**net;
 
-	//1. load File
-	load_file(argc, argv);
-	// void	*mlx_ptr;
-	// void	*win_ptr;
-	// mlx_ptr = mlx_init();
-	// win_ptr = mlx_new_window(mlx_ptr, 800, 800, "Hello World");
+	// 0. create net
+	*net = malloc(sizeof(t_node));
+	*net = NULL;
 	ft_putstr_fd("Lets go!\n\n", 1);
-	window = ini_win(800, 800, "Hi");
-	curr_point = malloc(sizeof(t_point));
-	curr_point2 = malloc(sizeof(t_point));
-	curr_point3 = malloc(sizeof(t_point));
-	curr_point4 = malloc(sizeof(t_point));
-	curr_point->x = 10;
-	curr_point->y = 10;
-	curr_point2->x = 500;
-	curr_point2->y = 500;
-	curr_point3->x = 500;
-	curr_point3->y = 10;
-	curr_point4->x = 400;
-	curr_point4->y = 678;
-	put_point(window, curr_point, 0x00FFFF);
-	put_point(window, curr_point2, 0x00FFFF);
-	put_point(window, curr_point3, 0x00FFFF);
-	put_point(window, curr_point4, 0x00FFFF);
-	put_line(window, curr_point, curr_point2, 0x00FFFF);
-	put_line(window, curr_point2, curr_point3, 0x00FFFF);
-	put_line(window, curr_point3, curr_point4, 0x00FFFF);
-	put_line(window, curr_point4, curr_point, 0x00FFFF);
+	// 1. load File
+	load_file(argc, argv, net);
+	// 2. creat Window
+	window = ini_win(1000, 1000, "Hi");
+	// 3. hook keys
 	mlx_key_hook(window->win, deal_key, curr_point);
+	// 4. draw
+	// put_net(net);
+	// curr_point = malloc(sizeof(t_point));
+	// curr_point2 = malloc(sizeof(t_point));
+	// curr_point->x = 10;
+	// curr_point->y = 10;
+	// curr_point2->x = 500;
+	// curr_point2->y = 500;
+	// put_point(window, curr_point, 0x00FFFF);
+	// put_point(window, curr_point2, 0x00FFFF);
+	// put_line(window, curr_point, curr_point2, 0x00FFFF);
+	// 5. loop for ever
 	mlx_loop(window->mlx);
 	return (0);
 }
