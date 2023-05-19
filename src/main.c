@@ -6,19 +6,39 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 15:31:40 by astein            #+#    #+#             */
-/*   Updated: 2023/05/18 20:02:29 by astein           ###   ########.fr       */
+/*   Updated: 2023/05/19 17:00:38 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/ftf.h"
 
-void	node2point(t_node *node, t_point *point)
+void	node2pointtopview(t_node *node, t_point *point)
 {
 	int	offset;
 
 	offset = 20;
 	point->x = node->x * 10 + offset * node->z;
 	point->y = node->y * 10 + offset * node->z;
+}
+
+void	node2pointsideview(t_node *node, t_point *point)
+{
+	int	zoom;
+
+	zoom = 10;
+	point->x = node->x * 10;
+	point->y = 500 - (node->z * zoom);
+}
+
+void	node2point45(t_node *node, t_point *point)
+{
+	int		zoom;
+	float	degree;
+
+	zoom = 10;
+	degree = 45 / 90;
+	point->x = node->x * 10;
+	point->y = 500 - (node->z * zoom) + (1 + degree);
 }
 
 void	put_point(t_win *win, t_point *point, int color)
@@ -78,19 +98,19 @@ void	put_net(t_win *win, t_node **net, int color)
 	cur_conn_point = malloc(sizeof(t_point));
 	while (*net)
 	{
-		node2point(*net, cur_point);
+		node2point45(*net, cur_point);
 		//draw point (unnsessarry when drawing lines)
 		mlx_pixel_put(win->mlx, win->win, cur_point->x, cur_point->y, color);
 		//draw line to west
 		if ((*net)->west)
 		{
-			node2point((*net)->west, cur_conn_point);
+			node2point45((*net)->west, cur_conn_point);
 			put_line(win, cur_point, cur_conn_point, color);
 		}
 		//draw line to north
 		if ((*net)->north)
 		{
-			node2point((*net)->north, cur_conn_point);
+			node2point45((*net)->north, cur_conn_point);
 			put_line(win, cur_point, cur_conn_point, color);
 		}
 		*net = (*net)->next;
@@ -107,10 +127,12 @@ int	deal_key(int key, void *param)
 	// ft_putchar_fd(key, 1);
 	if (key == 'q')
 		exit(0);
-	if (key == K_ARROW_DOWN)
-	{
-		// tparam->y =param->y +1;
-	}
+	if (key == 't')
+		if (key == 's')
+			if (key == K_ARROW_DOWN)
+			{
+				// tparam->y =param->y +1;
+			}
 	return (0);
 }
 
@@ -134,6 +156,7 @@ int	main(int argc, char **argv)
 	t_node	**net;
 
 	// 0. create net
+	net = malloc(sizeof(t_node *));
 	*net = malloc(sizeof(t_node));
 	*net = NULL;
 	ft_putstr_fd("Lets go!\n\n", 1);
