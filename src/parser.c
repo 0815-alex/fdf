@@ -6,27 +6,17 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 15:30:35 by astein            #+#    #+#             */
-/*   Updated: 2023/05/18 20:03:42 by astein           ###   ########.fr       */
+/*   Updated: 2023/05/20 00:31:30 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/ftf.h"
 
-void	print_node(t_node *node)
-{
-	if (node == NULL)
-		ft_printf("(no node)");
-	else
-	{
-		ft_printf("(%i|%i|%i)", node->x, node->y, node->z);
-	}
-}
-
 /*
 	first split it to array
 	then create 
 */
-static t_node	*str_line(char *line, int y, t_node *last_row, t_node **net)
+static t_node	*str_line(char *line, int y, t_node *last_row, t_model *model)
 {
 	char	**arr;
 	int		i;
@@ -36,7 +26,8 @@ static t_node	*str_line(char *line, int y, t_node *last_row, t_node **net)
 	t_node	*new_node;
 	t_node	*new_last_row;
 
-	ft_printf("Parsing the line %i\n", y);
+	dbg_printf(model, start_block, "str_line");
+	dbg_printf(model, no_block, "parsing the line no.: %i\n", y);
 	last_node = malloc(sizeof(t_node));
 	last_node = NULL;
 	new_last_row = malloc(sizeof(t_node));
@@ -57,15 +48,17 @@ static t_node	*str_line(char *line, int y, t_node *last_row, t_node **net)
 			new_node->north = last_row;
 			last_row = last_row->next;
 		}
-		print_node(new_node);
-		node_add_back(net, new_node);
+		print_node(model, new_node);
+		node_add_back(&model->net, new_node);
 		last_node = new_node;
 		if (i == 0)
 			new_last_row = new_node;
 		x++;
 		i++;
 	}
+	ft_printf("\n");
 	free(arr);
+	dbg_printf(model, end_block, "str_line");
 	return (new_last_row);
 }
 
@@ -74,7 +67,7 @@ static t_node	*str_line(char *line, int y, t_node *last_row, t_node **net)
     read line by line and create rows and columns linked list
     return that
 */
-void	load_file(int argc, char **argv, t_node **net)
+void	load_file(int argc, char **argv, t_model *model)
 {
 	int		fd;
 	char	*line;
@@ -82,29 +75,32 @@ void	load_file(int argc, char **argv, t_node **net)
 	t_point	*curr_point;
 	t_node	*last_row;
 
+	dbg_printf(model, start_block, "load_file");
 	if (argc != 2)
 	{
-		ft_printf("\n\nERROR!\nMissing a filename as a parameter!\n\n");
+		dbg_printf(model, no_block,
+				"\n\nERROR!\nMissing a filename as a parameter!\n\n");
 		exit(0);
 	}
 	last_row = malloc(sizeof(t_node));
 	last_row = NULL;
-	ft_printf("Open file: %s\n", argv[1]);
+	dbg_printf(model, no_block, "open file: %s\n", argv[1]);
 	fd = open(argv[1], O_RDONLY);
 	line = get_next_line(fd);
 	cur_row = 1;
 	while (line)
 	{
-		ft_printf("read Line: %s\n", line);
+		dbg_printf(model, no_block, "read Line: %s", line);
 		//store it somehow
-		last_row = str_line(line, cur_row, last_row, net);
+		last_row = str_line(line, cur_row, last_row, model);
 		//free it
 		free(line);
 		//load nex one
 		line = get_next_line(fd);
 		cur_row++;
 	}
-	ft_printf("read Line: %s\n", line);
+	dbg_printf(model, no_block, "read Line: %s", line);
 	free(line);
 	close(fd);
+	dbg_printf(model, end_block, "load_file");
 }

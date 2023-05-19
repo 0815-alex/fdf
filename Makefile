@@ -23,8 +23,13 @@ MAPS_FOLDER = ./maps/
 # ->Files
 LIBFT_PRINTF = $(LIB_FOLDER)/libft_printf/libft_printf.a
 SRCS = $(SRC_FOLDER)main.c \
+	$(SRC_FOLDER)view.c \
+	$(SRC_FOLDER)controller.c \
+	$(SRC_FOLDER)model.c \
 	$(SRC_FOLDER)parser.c \
-	$(SRC_FOLDER)node.c
+	$(SRC_FOLDER)node.c \
+	$(SRC_FOLDER)point.c \
+	$(SRC_FOLDER)debug.c 
 
 # Object files
 OBJS = $(SRCS:.c=.o)
@@ -35,7 +40,7 @@ OBJS = $(SRCS:.c=.o)
 all: $(NAME)
 
 $(NAME): $(OBJS) $(LIBFT_PRINTF)
-	$(CC) $(OBJS) $(CLIBS) $(CINCLUDES) -lft_printf -lmlx -lX11 -lXext -lm -o $(NAME)
+	$(CC) $(OBJS) -D DEBUG=$(DEBUG) $(CLIBS) $(CINCLUDES) -lft_printf -lmlx -lX11 -lXext -lm -o $(NAME)
 
 $(LIBFT_PRINTF):
 	@echo "\ncompiling libft_printf.a...\n"
@@ -54,9 +59,15 @@ re: fclean all
 
 r: all
 	./$(NAME) ./maps/easy.fdf
-
 rr: re
 	./$(NAME) ./maps/easy.fdf
+
+42: all
+	./$(NAME) ./maps/42.fdf
+
+a: all
+	./$(NAME) ./maps/astein.fdf
+
 god:
 	git status
 	git add .

@@ -1,30 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   controller.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/16 15:31:40 by astein            #+#    #+#             */
-/*   Updated: 2023/05/19 23:47:23 by astein           ###   ########.fr       */
+/*   Created: 2023/05/19 17:10:48 by astein            #+#    #+#             */
+/*   Updated: 2023/05/19 17:45:16 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/ftf.h"
 
-int	main(int argc, char **argv)
+int	deal_key(int key, void *param)
 {
-	t_model	*model;
-	t_point	*curr_point;
-	t_point	*curr_point2;
-
-	ft_putstr_fd("\n\nLets go!\n===========================\n\n", 1);
-	model = new_model(argc, argv);
-	// 4. draw
-	put_test_line(model);
-	put_net(model, COLOR_WHITE, 0, 0);
-	// 5. loop for ever
-	dbg_printf(model, no_block, "start deamon...\n");
-	mlx_loop(model->mlx);
+	ft_printf("Key pressed: %c (%i)\n", key, key);
+	
+	if (key == 'q')
+		exit(0);
+	// if (key == 't')
+	// 	if (key == 's')
+	// 		if (key == K_ARROW_DOWN)
+	// 		{
+	// 			// tparam->y =param->y +1;
+	// 		}
 	return (0);
+}
+
+int	deal_mouse(int code, void *param)
+{
+	ft_printf("Mouse action. code: (%i)", code);
 }
