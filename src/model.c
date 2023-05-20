@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 17:13:13 by astein            #+#    #+#             */
-/*   Updated: 2023/05/20 17:27:33 by astein           ###   ########.fr       */
+/*   Updated: 2023/05/20 17:55:44 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,10 @@ t_model	*new_model(int argc, char **argv)
 	mlx_key_hook(new_model->win, deal_key, new_model);
 	mlx_mouse_hook(new_model->win, deal_mouse, new_model);
 	dbg_printf(new_model, end_block, "hooking keys and mouse to model...");
-	new_model->x_translate = 500;
-	new_model->y_translate = 500;
-	new_model->x_rotate_radian = degree2radian(45);
-	new_model->x_rotate_radian = degree2radian(45);
+	new_model->x_trans = 500;
+	new_model->y_trans = 500;
+	new_model->x_rot_rad = degree2radian(45);
+	new_model->x_rot_rad = degree2radian(45);
 	new_model->zoom = 10;
 	new_model->z_factor = 1;
 	new_model->color = COLOR_GREEN;
@@ -102,16 +102,16 @@ void	node2point(t_model *model, t_node *node, t_point *point)
 	if (!point)
 		dbg_printf(model, error_block, "no memmory for point exists");
 	//get node value from perspective
-	x = node->x * cos(model->x_rotate_radian) - node->z * model->z_factor
-		* sin(model->x_rotate_radian);
-	y = node->y * cos(model->y_rotate_radian) - node->z * model->z_factor
-		* sin(model->y_rotate_radian);
+	x = node->x * cos(model->x_rot_rad) - node->z * model->z_factor
+		* sin(model->x_rot_rad);
+	y = node->y * cos(model->y_rot_rad) - node->z * model->z_factor
+		* sin(model->y_rot_rad);
 	//scale
 	x *= model->zoom;
 	y *= model->zoom;
 	//translate
-	x += model->x_translate;
-	y += model->y_translate;
+	x += model->x_trans;
+	y += model->y_trans;
 	//set value
 	point->x = x;
 	point->y = y;

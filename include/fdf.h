@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 16:51:18 by astein            #+#    #+#             */
-/*   Updated: 2023/05/20 17:28:32 by astein           ###   ########.fr       */
+/*   Updated: 2023/05/20 17:55:44 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,12 +76,12 @@ typedef struct s_model
 	struct s_node	*net;
 	int				width;
 	int				height;
-	int				x_translate;
-	int				y_translate;
-	double			x_rotate_radian;
-	double			y_rotate_radian;
+	int				x_trans;
+	int				y_trans;
+	double			x_rot_rad;
+	double			y_rot_rad;
 	int				zoom;
-	float				z_factor;
+	float			z_factor;
 	int				color;
 	struct s_dbg	*dbg;
 }					t_model;
@@ -145,5 +145,6 @@ void				dbg_printf(t_model *model, t_dbg_flag dbg_flg, char *str,
 //		FDF_UTILS.C
 //******************************************************************************
 double				degree2radian(int degree);
+int					radian2degree2(double radian);
 
 #endif
