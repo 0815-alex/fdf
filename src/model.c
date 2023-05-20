@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 17:13:13 by astein            #+#    #+#             */
-/*   Updated: 2023/05/20 00:33:03 by astein           ###   ########.fr       */
+/*   Updated: 2023/05/20 14:47:15 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,12 @@ t_model	*new_model(int argc, char **argv)
 	// 2. create Window
 	ini_win(new_model, 1800, 1000, "Hi");
 	// 3. hook keys
-	dbg_printf(new_model, no_block, "hooking keys and mouse to model...\n");
+	dbg_printf(new_model, start_block, "hooking keys and mouse to model...");
 	mlx_key_hook(new_model->win, deal_key, new_model);
 	mlx_mouse_hook(new_model->win, deal_mouse, new_model);
-	dbg_printf(new_model, no_block, "hooking keys and mouse to model...done\n");
-	dbg_printf(new_model, no_block, "creating a new model...done\n");
+	dbg_printf(new_model, end_block, "hooking keys and mouse to model...");
 	print_net(new_model);
-	dbg_printf(new_model, end_block, "DONE new_model\n");
+	dbg_printf(new_model, end_block, "new_model");
 	return (new_model);
 }
 
@@ -70,20 +69,17 @@ void	node2point(t_model *model, t_node *node, t_point *point, int x_rotate,
 	float	x_rotate_percentage;
 	int		scale;
 
-	dbg_printf(model, start_block, "START node2point\n");
+	dbg_printf(model, start_block, "START node2point");
 	if (!node)
-		ft_printf("convert node->point FAIL: no node exists");
+		dbg_printf(model, error_block, "no node exists");
 	if (!point)
-		ft_printf("convert node->point FAIL: no memmory for point exists");
+		dbg_printf(model, error_block, "no memmory for point exists");
 	scale = 40;
 	zoom = 10;
 	x_rotate_percentage = x_rotate / 90;
 	point->x = node->x * scale;
 	point->y = node->y * scale;
-	ft_printf("converted node->point ");
-	print_node(model, node);
-	ft_printf(" -> ");
-	print_point(model, point);
-	ft_printf("\n");
-	dbg_printf(model, end_block, "DONE node2point\n");
+	dbg_printf(model, no_block, ft_strjoin(ft_strjoin(node2str(model, node),
+					"-> "), point2str(model, point)));
+	dbg_printf(model, end_block, "DONE node2point");
 }

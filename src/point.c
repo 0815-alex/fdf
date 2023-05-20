@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 21:58:19 by astein            #+#    #+#             */
-/*   Updated: 2023/05/20 00:29:18 by astein           ###   ########.fr       */
+/*   Updated: 2023/05/20 14:23:33 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,5 +19,21 @@ void	print_point(t_model *model, t_point *point)
 	else
 	{
 		dbg_printf(model, no_block, "(%i|%i)", point->x, point->y);
+	}
+}
+
+char	*point2str(t_model *model, t_point *point)
+{
+	char	*str;
+
+	if (point == NULL)
+		return ("(no point)");
+	else
+	{
+		str = ft_strjoin("(", ft_itoa(point->x));
+		str = ft_strjoin(str, "|");
+		str = ft_strjoin(str, ft_itoa(point->y));
+		str = ft_strjoin(str, ")");
+		return (str);
 	}
 }

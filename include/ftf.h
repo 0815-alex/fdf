@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 16:51:18 by astein            #+#    #+#             */
-/*   Updated: 2023/05/20 00:34:22 by astein           ###   ########.fr       */
+/*   Updated: 2023/05/20 14:26:16 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,9 +80,10 @@ typedef struct s_model
 
 typedef enum e_dbg_flag
 {
+	error_block = -1,
+	no_block = 0,
 	start_block = 1,
-	end_block = -1,
-	no_block = 0
+	end_block = 2
 }					t_dbg_flag;
 
 //******************************************************************************
@@ -114,8 +115,9 @@ void				load_file(int argc, char **argv, t_model *model);
 //******************************************************************************
 //		NODE.C
 //******************************************************************************
-void				print_net(t_model *model);
 void				print_node(t_model *model, t_node *node);
+char				*node2str(t_model *model, t_node *node);
+void				print_net(t_model *model);
 t_node				*node_last(t_node *lst);
 void				node_add_front(t_node **lst, t_node *new);
 void				node_add_back(t_node **lst, t_node *new);
@@ -124,6 +126,7 @@ void				node_add_back(t_node **lst, t_node *new);
 //		POINT.C
 //******************************************************************************
 void				print_point(t_model *model, t_point *point);
+char				*point2str(t_model *model, t_point *point);
 
 //******************************************************************************
 //		DEBUG.C

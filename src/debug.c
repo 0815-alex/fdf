@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 23:11:27 by astein            #+#    #+#             */
-/*   Updated: 2023/05/20 00:36:26 by astein           ###   ########.fr       */
+/*   Updated: 2023/05/20 14:12:46 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	dbg_printf(t_model *model, t_dbg_flag dbg_flg, char *str, ...)
 
 	tabs = 0;
 	tab_width = 5;
-	if (DEBUG == 1)
+	if (DEBUG == 1 || dbg_flg == error_block)
 	{
 		//change stack DONE
 		if (dbg_flg == end_block)
@@ -43,13 +43,15 @@ void	dbg_printf(t_model *model, t_dbg_flag dbg_flg, char *str, ...)
 			model->dbg->count_stack_depth++;
 		//Change color and print START and DONEreset color
 		if (dbg_flg == start_block)
-			ft_putstr_fd(WRITE_COLOR_ORANGE "[START] ", 1);
+			ft_putstr_fd(WRITE_COLOR_ORANGE "  [START] >", 1);
 		else if (dbg_flg == end_block)
-			ft_putstr_fd(WRITE_COLOR_GREEN "[DONE] ", 1);
+			ft_putstr_fd(WRITE_COLOR_GREEN "  [DONE] >>", 1);
+		else if (dbg_flg == error_block)
+			ft_putstr_fd(WRITE_COLOR_RED "[ERROR] ", 1);
 		//reset color
 		ft_putstr_fd(WRITE_COLOR_DEFAULT, 1);
 		//print the actual string
-		print_char('>', &len);
+		// print_char('>', &len);
 		va_start(args, str);
 		len = 0;
 		while (*str)
@@ -65,7 +67,8 @@ void	dbg_printf(t_model *model, t_dbg_flag dbg_flg, char *str, ...)
 		}
 		va_end(args);
 		//print a new line
-		if (dbg_flg == start_block || dbg_flg == end_block)
-			ft_putstr_fd("\n", 1);
+		ft_putstr_fd("\n", 1);
+		if (dbg_flg == error_block)
+			exit(0);
 	}
 }

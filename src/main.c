@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 15:31:40 by astein            #+#    #+#             */
-/*   Updated: 2023/05/19 23:47:23 by astein           ###   ########.fr       */
+/*   Updated: 2023/05/20 14:47:53 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	main(int argc, char **argv)
 	model = new_model(argc, argv);
 	// 4. draw
 	put_test_line(model);
-	put_net(model, COLOR_WHITE, 0, 0);
+	// put_net(model, COLOR_WHITE, 0, 0);
 	// 5. loop for ever
 	dbg_printf(model, no_block, "start deamon...\n");
 	mlx_loop(model->mlx);

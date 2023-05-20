@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 15:30:35 by astein            #+#    #+#             */
-/*   Updated: 2023/05/20 00:31:30 by astein           ###   ########.fr       */
+/*   Updated: 2023/05/20 14:08:49 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static t_node	*str_line(char *line, int y, t_node *last_row, t_model *model)
 	t_node	*new_last_row;
 
 	dbg_printf(model, start_block, "str_line");
-	dbg_printf(model, no_block, "parsing the line no.: %i\n", y);
+	dbg_printf(model, no_block, "parsing the line no.: %i", y);
 	last_node = malloc(sizeof(t_node));
 	last_node = NULL;
 	new_last_row = malloc(sizeof(t_node));
@@ -56,7 +56,6 @@ static t_node	*str_line(char *line, int y, t_node *last_row, t_model *model)
 		x++;
 		i++;
 	}
-	ft_printf("\n");
 	free(arr);
 	dbg_printf(model, end_block, "str_line");
 	return (new_last_row);
@@ -77,14 +76,12 @@ void	load_file(int argc, char **argv, t_model *model)
 
 	dbg_printf(model, start_block, "load_file");
 	if (argc != 2)
-	{
-		dbg_printf(model, no_block,
-				"\n\nERROR!\nMissing a filename as a parameter!\n\n");
-		exit(0);
-	}
+	
+		dbg_printf(model, error_block, "Missing a filename as a parameter!");
+	
 	last_row = malloc(sizeof(t_node));
 	last_row = NULL;
-	dbg_printf(model, no_block, "open file: %s\n", argv[1]);
+	dbg_printf(model, no_block, "open file: %s", argv[1]);
 	fd = open(argv[1], O_RDONLY);
 	line = get_next_line(fd);
 	cur_row = 1;
