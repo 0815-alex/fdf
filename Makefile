@@ -4,7 +4,7 @@
 NAME = ftf
 
 # Prints DEBUG Messages
-DEBUG = 1
+DEBUG = 0
 # Compiler options
 CC = cc
 CFLAGS = -D DEBUG=$(DEBUG) -g #-Wall -Werror -Wextra #-fsanitize=address #
@@ -28,7 +28,8 @@ SRCS = $(SRC_FOLDER)main.c \
 	$(SRC_FOLDER)parser.c \
 	$(SRC_FOLDER)node.c \
 	$(SRC_FOLDER)point.c \
-	$(SRC_FOLDER)debug.c 
+	$(SRC_FOLDER)debug.c \
+	$(SRC_FOLDER)fdf_utils.c 
 
 # Object files
 OBJS = $(SRCS:.c=.o)
@@ -63,6 +64,8 @@ rr: re
 
 42: all
 	./$(NAME) ./maps/42.fdf
+t: all
+	./$(NAME) ./maps/til.fdf
 
 a: all
 	./$(NAME) ./maps/astein.fdf

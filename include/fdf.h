@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ftf.h                                              :+:      :+:    :+:   */
+/*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 16:51:18 by astein            #+#    #+#             */
-/*   Updated: 2023/05/20 15:13:25 by astein           ###   ########.fr       */
+/*   Updated: 2023/05/20 17:28:32 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FTF_H
-# define FTF_H
+#ifndef FDF_H
+# define FDF_H
 # ifndef DEBUG
 #  define DEBUG 0
 # endif
@@ -76,6 +76,13 @@ typedef struct s_model
 	struct s_node	*net;
 	int				width;
 	int				height;
+	int				x_translate;
+	int				y_translate;
+	double			x_rotate_radian;
+	double			y_rotate_radian;
+	int				zoom;
+	float				z_factor;
+	int				color;
 	struct s_dbg	*dbg;
 }					t_model;
 
@@ -90,23 +97,21 @@ typedef enum e_dbg_flag
 //******************************************************************************
 //		VIEW.C
 //******************************************************************************
-void				ini_win(t_model *model, int width, int heigth, char *title);
+void				ini_win(t_model *model);
 void				draw_test_line(t_model *model);
-void				draw_net(t_model *model, int color, int x_rotate,
-						int y_rotate);
+void				draw_net(t_model *model);
 
 //******************************************************************************
 //		CONTROLLER.C
 //******************************************************************************
-int					deal_key(int key, void *param);
-int					deal_mouse(int button, void *param);
+int					deal_key(int key, t_model *model);
+int					deal_mouse(int button, t_model *model);
 
 //******************************************************************************
 //		MODEL.C
 //******************************************************************************
 t_model				*new_model(int argc, char **argv);
-void				node2point(t_model *model, t_node *node, t_point *point,
-						int x_rotate, int y_rotate);
+void				node2point(t_model *model, t_node *node, t_point *point);
 
 //******************************************************************************
 //		PARSER.C
@@ -135,5 +140,10 @@ char				*point2str(t_model *model, t_point *point);
 void				init_debug(t_model *model, int curr_stack_depth);
 void				dbg_printf(t_model *model, t_dbg_flag dbg_flg, char *str,
 						...);
+
+//******************************************************************************
+//		FDF_UTILS.C
+//******************************************************************************
+double				degree2radian(int degree);
 
 #endif

@@ -6,11 +6,11 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 23:11:27 by astein            #+#    #+#             */
-/*   Updated: 2023/05/20 14:12:46 by astein           ###   ########.fr       */
+/*   Updated: 2023/05/20 16:45:03 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/ftf.h"
+#include "../include/fdf.h"
 
 void	init_debug(t_model *model, int curr_stack_depth)
 {

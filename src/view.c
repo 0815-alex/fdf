@@ -6,17 +6,25 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 17:08:26 by astein            #+#    #+#             */
-/*   Updated: 2023/05/20 15:02:22 by astein           ###   ########.fr       */
+/*   Updated: 2023/05/20 17:01:39 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/ftf.h"
+#include "../include/fdf.h"
 
-void	ini_win(t_model *model, int width, int heigth, char *title)
+void	ini_win(t_model *model)
 {
+	int	screen_width;
+	int	screen_height;
+
+	screen_width = 0;
+	screen_height = 0;
 	dbg_printf(model, start_block, "ini_win");
 	model->mlx = mlx_init();
-	model->win = mlx_new_window(model->mlx, width, heigth, title);
+	mlx_get_screen_size(model->mlx, &screen_width, &screen_height);
+	model->width = screen_width-20;
+	model->height = screen_height-70;
+	model->win = mlx_new_window(model->mlx, model->width, model->height, "astein | fdf");
 	dbg_printf(model, end_block, "ini_win");
 }
 
@@ -94,7 +102,7 @@ void	draw_test_line(t_model *model)
 	dbg_printf(model, end_block, "draw_test_line");
 }
 
-void	draw_net(t_model *model, int color, int x_rotate, int y_rotate)
+void	draw_net(t_model *model)
 {
 	t_node	*cur_node;
 	t_point	*cur_point;
@@ -106,22 +114,20 @@ void	draw_net(t_model *model, int color, int x_rotate, int y_rotate)
 	cur_conn_point = malloc(sizeof(t_point));
 	while (cur_node)
 	{
-		node2point(model, cur_node, cur_point, x_rotate, y_rotate);
+		node2point(model, cur_node, cur_point);
 		//draw point
 		draw_point(model, cur_point, COLOR_GREEN);
 		//draw line to west
 		if (cur_node->west)
 		{
-			node2point(model, cur_node->west, cur_conn_point, x_rotate,
-					y_rotate);
-			draw_line(model, cur_point, cur_conn_point, color);
+			node2point(model, cur_node->west, cur_conn_point);
+			draw_line(model, cur_point, cur_conn_point, model->color);
 		}
 		// // //draw line to north
 		if (cur_node->north)
 		{
-			node2point(model,cur_node->north, cur_conn_point, x_rotate,
-		y_rotate);
-			draw_line(model, cur_point, cur_conn_point, color);
+			node2point(model, cur_node->north, cur_conn_point);
+			draw_line(model, cur_point, cur_conn_point, model->color);
 		}
 		(cur_node) = (cur_node)->next;
 	}

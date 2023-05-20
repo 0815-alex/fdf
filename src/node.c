@@ -6,11 +6,11 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 18:50:54 by astein            #+#    #+#             */
-/*   Updated: 2023/05/20 14:38:48 by astein           ###   ########.fr       */
+/*   Updated: 2023/05/20 16:45:16 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/ftf.h"
+#include "../include/fdf.h"
 
 void	print_net(t_model *model)
 {

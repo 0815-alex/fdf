@@ -6,11 +6,11 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 15:30:35 by astein            #+#    #+#             */
-/*   Updated: 2023/05/20 14:08:49 by astein           ###   ########.fr       */
+/*   Updated: 2023/05/20 16:45:21 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/ftf.h"
+#include "../include/fdf.h"
 
 /*
 	first split it to array

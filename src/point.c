@@ -6,11 +6,11 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 21:58:19 by astein            #+#    #+#             */
-/*   Updated: 2023/05/20 14:23:33 by astein           ###   ########.fr       */
+/*   Updated: 2023/05/20 16:45:25 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/ftf.h"
+#include "../include/fdf.h"
 
 void	print_point(t_model *model, t_point *point)
 {
