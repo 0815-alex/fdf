@@ -4,7 +4,7 @@
 NAME = ftf
 
 # Prints DEBUG Messages
-DEBUG = 0
+DEBUG = 1
 # Compiler options
 CC = cc
 CFLAGS = -D DEBUG=$(DEBUG) -g #-Wall -Werror -Wextra #-fsanitize=address #
@@ -23,7 +23,8 @@ MAPS_FOLDER = ./maps/
 LIBFT_PRINTF = $(LIB_FOLDER)/libft_printf/libft_printf.a
 SRCS = $(SRC_FOLDER)main.c \
 	$(SRC_FOLDER)view.c \
-	$(SRC_FOLDER)controller.c \
+	$(SRC_FOLDER)controller_keys.c \
+	$(SRC_FOLDER)controller_mouse.c \
 	$(SRC_FOLDER)model.c \
 	$(SRC_FOLDER)parser.c \
 	$(SRC_FOLDER)node.c \

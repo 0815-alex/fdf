@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 15:30:35 by astein            #+#    #+#             */
-/*   Updated: 2023/05/20 16:45:21 by astein           ###   ########.fr       */
+/*   Updated: 2023/05/20 22:33:17 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,9 +76,7 @@ void	load_file(int argc, char **argv, t_model *model)
 
 	dbg_printf(model, start_block, "load_file");
 	if (argc != 2)
-	
 		dbg_printf(model, error_block, "Missing a filename as a parameter!");
-	
 	last_row = malloc(sizeof(t_node));
 	last_row = NULL;
 	dbg_printf(model, no_block, "open file: %s", argv[1]);
@@ -88,11 +86,8 @@ void	load_file(int argc, char **argv, t_model *model)
 	while (line)
 	{
 		dbg_printf(model, no_block, "read Line: %s", line);
-		//store it somehow
 		last_row = str_line(line, cur_row, last_row, model);
-		//free it
 		free(line);
-		//load nex one
 		line = get_next_line(fd);
 		cur_row++;
 	}

@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 17:08:26 by astein            #+#    #+#             */
-/*   Updated: 2023/05/20 21:53:56 by astein           ###   ########.fr       */
+/*   Updated: 2023/05/20 22:35:13 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,18 +22,16 @@ void	ini_win(t_model *model)
 	dbg_printf(model, start_block, "ini_win");
 	model->mlx = mlx_init();
 	mlx_get_screen_size(model->mlx, &screen_width, &screen_height);
-	model->width = screen_width-20;
-	model->height = screen_height-70;
-	model->win = mlx_new_window(model->mlx, model->width, model->height, "astein | fdf");
+	model->width = screen_width - 20;
+	model->height = screen_height - 70;
+	model->win = mlx_new_window(model->mlx, model->width, model->height,
+			"astein | fdf");
 	dbg_printf(model, end_block, "ini_win");
 }
 
 void	draw_point(t_model *model, t_point *point)
 {
-	// dbg_printf(model, start_block, "draw_point");
 	mlx_pixel_put(model->mlx, model->win, point->x, point->y, model->color);
-	// print_point(model, point);
-	// dbg_printf(model, end_block, "draw_point");
 }
 
 void	draw_line(t_model *model, t_point *pnt_a, t_point *pnt_b, int color)
@@ -45,10 +43,8 @@ void	draw_line(t_model *model, t_point *pnt_a, t_point *pnt_b, int color)
 	int		e2;
 
 	dbg_printf(model, start_block, "draw_line");
-	// print_point(model, pnt_a);
 	dbg_printf(model, no_block, ft_strjoin(ft_strjoin(point2str(model, pnt_a),
 					"-> "), point2str(model, pnt_b)));
-	// print_point(model, pnt_b);
 	curr_point = malloc(sizeof(t_point));
 	delta = malloc(sizeof(t_point));
 	sign = malloc(sizeof(t_point));
@@ -67,7 +63,6 @@ void	draw_line(t_model *model, t_point *pnt_a, t_point *pnt_b, int color)
 	err = delta->x + delta->y;
 	while (1)
 	{
-		// ft_printf("got point and delta...");
 		draw_point(model, curr_point);
 		if (curr_point->x == pnt_b->x && curr_point->y == pnt_b->y)
 			break ;
@@ -115,15 +110,12 @@ void	draw_net(t_model *model)
 	while (cur_node)
 	{
 		node2point(model, cur_node, cur_point);
-		//draw point
 		draw_point(model, cur_point);
-		//draw line to west
 		if (cur_node->west)
 		{
 			node2point(model, cur_node->west, cur_conn_point);
 			draw_line(model, cur_point, cur_conn_point, model->color);
 		}
-		// // //draw line to north
 		if (cur_node->north)
 		{
 			node2point(model, cur_node->north, cur_conn_point);

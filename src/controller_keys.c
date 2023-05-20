@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   controller.c                                       :+:      :+:    :+:   */
+/*   controller_keys.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 17:10:48 by astein            #+#    #+#             */
-/*   Updated: 2023/05/20 22:06:24 by astein           ###   ########.fr       */
+/*   Updated: 2023/05/20 22:21:38 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ static t_bool	check_rotate(int key, t_model *model)
 	t_bool	check;
 	int		step_degree;
 
-	// check = malloc(sizeof(t_bool));
 	check = ft_false;
 	step_degree = 10;
 	if (key == 'a')
@@ -85,7 +84,6 @@ static t_bool	check_zoom(int key, t_model *model)
 {
 	t_bool	check;
 
-	// check = malloc(sizeof(t_bool));
 	check = ft_false;
 	if (key == '1')
 	{
@@ -114,7 +112,6 @@ static t_bool	check_presets(int key, t_model *model)
 {
 	t_bool	check;
 
-	// check = malloc(sizeof(t_bool));
 	check = ft_false;
 	if (key == 't')
 	{
@@ -175,10 +172,4 @@ int	deal_key(int key, t_model *model)
 	if (key == K_ESC)
 		exit(0);
 	return (0);
-}
-
-int	deal_mouse(int code, t_model *model)
-{
-	// dbg_printf(model, no_block,"Mouse action. code: (%i)", code);
-	ft_printf("Mouse action. code: (%i)", code);
 }
