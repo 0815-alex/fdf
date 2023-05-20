@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 17:13:13 by astein            #+#    #+#             */
-/*   Updated: 2023/05/20 17:55:44 by astein           ###   ########.fr       */
+/*   Updated: 2023/05/20 18:11:12 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,25 +93,40 @@ t_model	*new_model(int argc, char **argv)
 
 void	node2point(t_model *model, t_node *node, t_point *point)
 {
-	int	x;
-	int	y;
+	int x;
+	int y;
+	int z;
+	int new_z;
 
 	dbg_printf(model, start_block, "START node2point");
 	if (!node)
 		dbg_printf(model, error_block, "no node exists");
 	if (!point)
 		dbg_printf(model, error_block, "no memmory for point exists");
-	//get node value from perspective
-	x = node->x * cos(model->x_rot_rad) - node->z * model->z_factor
-		* sin(model->x_rot_rad);
-	y = node->y * cos(model->y_rot_rad) - node->z * model->z_factor
-		* sin(model->y_rot_rad);
+	//get node values
+	x = node->x;
+	y = node->y;
+	z = node->z;
+	// x = node->x * cos(model->x_rot_rad) - node->z * model->z_factor
+	// 	* sin(model->x_rot_rad);
+	// y = node->y * cos(model->y_rot_rad) - node->z * model->z_factor
+	// 	* sin(model->y_rot_rad);
+
+	//rotate y axis
+	x = x * cos(model->y_rot_rad) + z * sin(model->y_rot_rad);
+	new_z = -node->x * sin(model->y_rot_rad) + z * cos(model->y_rot_rad);
+
+	//rotate x axis
+	y = y * cos(model->x_rot_rad) - new_z * sin(model->x_rot_rad);
+
 	//scale
 	x *= model->zoom;
 	y *= model->zoom;
+
 	//translate
 	x += model->x_trans;
 	y += model->y_trans;
+
 	//set value
 	point->x = x;
 	point->y = y;
