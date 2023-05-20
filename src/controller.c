@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 17:10:48 by astein            #+#    #+#             */
-/*   Updated: 2023/05/20 18:01:25 by astein           ###   ########.fr       */
+/*   Updated: 2023/05/20 22:06:24 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,22 +20,22 @@ static t_bool	check_translate(int key, t_model *model)
 	if (key == K_ARROW_UP)
 	{
 		check = ft_true;
-		model->y_trans -= 5;
+		model->y_trans -= 10;
 	}
 	else if (key == K_ARROW_DOWN)
 	{
 		check = ft_true;
-		model->y_trans += 5;
+		model->y_trans += 10;
 	}
 	else if (key == K_ARROW_LEFT)
 	{
 		check = ft_true;
-		model->x_trans -= 5;
+		model->x_trans -= 10;
 	}
 	else if (key == K_ARROW_RIGHT)
 	{
 		check = ft_true;
-		model->x_trans += 5;
+		model->x_trans += 10;
 	}
 	return (check);
 }
@@ -47,26 +47,36 @@ static t_bool	check_rotate(int key, t_model *model)
 
 	// check = malloc(sizeof(t_bool));
 	check = ft_false;
-	step_degree = 5;
+	step_degree = 10;
 	if (key == 'a')
-	{
-		check = ft_true;
-		model->x_rot_rad += step_degree * (M_PI / 180.0);
-	}
-	else if (key == 'd')
-	{
-		check = ft_true;
-		model->x_rot_rad -= step_degree * (M_PI / 180.0);
-	}
-	else if (key == 'w')
 	{
 		check = ft_true;
 		model->y_rot_rad += step_degree * (M_PI / 180.0);
 	}
-	else if (key == 's')
+	else if (key == 'd')
 	{
 		check = ft_true;
 		model->y_rot_rad -= step_degree * (M_PI / 180.0);
+	}
+	else if (key == 'w')
+	{
+		check = ft_true;
+		model->x_rot_rad += step_degree * (M_PI / 180.0);
+	}
+	else if (key == 's')
+	{
+		check = ft_true;
+		model->x_rot_rad -= step_degree * (M_PI / 180.0);
+	}
+	else if (key == 'q')
+	{
+		check = ft_true;
+		model->z_rot_rad += step_degree * (M_PI / 180.0);
+	}
+	else if (key == 'e')
+	{
+		check = ft_true;
+		model->z_rot_rad -= step_degree * (M_PI / 180.0);
 	}
 	return (check);
 }
@@ -90,12 +100,12 @@ static t_bool	check_zoom(int key, t_model *model)
 	else if (key == '3')
 	{
 		check = ft_true;
-		model->z_factor -= 0.1;
+		model->z_factor -= 1;
 	}
 	else if (key == '4')
 	{
 		check = ft_true;
-		model->z_factor += 0.1;
+		model->z_factor += 1;
 	}
 	return (check);
 }
@@ -111,30 +121,35 @@ static t_bool	check_presets(int key, t_model *model)
 		check = ft_true;
 		model->x_rot_rad = degree2radian(0);
 		model->y_rot_rad = degree2radian(0);
+		model->z_rot_rad = degree2radian(0);
 	}
 	else if (key == 'f')
 	{
 		check = ft_true;
 		model->x_rot_rad = degree2radian(0);
 		model->y_rot_rad = degree2radian(90);
+		model->z_rot_rad = degree2radian(0);
 	}
 	else if (key == 'b')
 	{
 		check = ft_true;
 		model->x_rot_rad = degree2radian(0);
 		model->y_rot_rad = degree2radian(180);
+		model->z_rot_rad = degree2radian(0);
 	}
 	else if (key == 's')
 	{
 		check = ft_true;
 		model->x_rot_rad = degree2radian(90);
 		model->y_rot_rad = degree2radian(0);
+		model->z_rot_rad = degree2radian(0);
 	}
 	else if (key == 'p')
 	{
 		check = ft_true;
 		model->x_rot_rad = degree2radian(45);
 		model->y_rot_rad = degree2radian(45);
+		model->z_rot_rad = degree2radian(0);
 	}
 	return (check);
 }
@@ -143,7 +158,6 @@ int	deal_key(int key, t_model *model)
 {
 	t_bool	check;
 
-	// check = malloc(sizeof(t_bool));
 	check = ft_false;
 	if (check_translate(key, model))
 		check = ft_true;
@@ -158,7 +172,7 @@ int	deal_key(int key, t_model *model)
 		mlx_clear_window(model->mlx, model->win);
 		draw_net(model);
 	}
-	if (key == 'q')
+	if (key == K_ESC)
 		exit(0);
 	return (0);
 }

@@ -68,7 +68,7 @@ t: all
 	./$(NAME) ./maps/til.fdf
 
 a: all
-	./$(NAME) ./maps/astein.fdf
+	./$(NAME) ./maps/astein2.0.fdf
 
 god:
 	git status

@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 17:08:26 by astein            #+#    #+#             */
-/*   Updated: 2023/05/20 17:01:39 by astein           ###   ########.fr       */
+/*   Updated: 2023/05/20 21:53:56 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,10 @@ void	ini_win(t_model *model)
 	dbg_printf(model, end_block, "ini_win");
 }
 
-void	draw_point(t_model *model, t_point *point, int color)
+void	draw_point(t_model *model, t_point *point)
 {
 	// dbg_printf(model, start_block, "draw_point");
-	mlx_pixel_put(model->mlx, model->win, point->x, point->y, color);
+	mlx_pixel_put(model->mlx, model->win, point->x, point->y, model->color);
 	// print_point(model, point);
 	// dbg_printf(model, end_block, "draw_point");
 }
@@ -68,7 +68,7 @@ void	draw_line(t_model *model, t_point *pnt_a, t_point *pnt_b, int color)
 	while (1)
 	{
 		// ft_printf("got point and delta...");
-		draw_point(model, curr_point, color);
+		draw_point(model, curr_point);
 		if (curr_point->x == pnt_b->x && curr_point->y == pnt_b->y)
 			break ;
 		e2 = 2 * err;
@@ -116,7 +116,7 @@ void	draw_net(t_model *model)
 	{
 		node2point(model, cur_node, cur_point);
 		//draw point
-		draw_point(model, cur_point, COLOR_GREEN);
+		draw_point(model, cur_point);
 		//draw line to west
 		if (cur_node->west)
 		{
