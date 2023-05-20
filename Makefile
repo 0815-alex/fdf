@@ -5,7 +5,6 @@ NAME = ftf
 
 # Prints DEBUG Messages
 DEBUG = 1
-
 # Compiler options
 CC = cc
 CFLAGS = -D DEBUG=$(DEBUG) -g #-Wall -Werror -Wextra #-fsanitize=address #

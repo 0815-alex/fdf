@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 16:51:18 by astein            #+#    #+#             */
-/*   Updated: 2023/05/20 14:26:16 by astein           ###   ########.fr       */
+/*   Updated: 2023/05/20 15:13:25 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 
 # include "../lib/libft_printf/libft_printf.h"
 # include "../lib/minilibx/mlx.h"
+# include <math.h>
 
 //******************************************************************************
 //		DEFINE KEYS
@@ -90,8 +91,8 @@ typedef enum e_dbg_flag
 //		VIEW.C
 //******************************************************************************
 void				ini_win(t_model *model, int width, int heigth, char *title);
-void				put_test_line(t_model *model);
-void				put_net(t_model *model, int color, int x_rotate,
+void				draw_test_line(t_model *model);
+void				draw_net(t_model *model, int color, int x_rotate,
 						int y_rotate);
 
 //******************************************************************************

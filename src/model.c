@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 17:13:13 by astein            #+#    #+#             */
-/*   Updated: 2023/05/20 14:47:15 by astein           ###   ########.fr       */
+/*   Updated: 2023/05/20 15:21:13 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,12 +62,38 @@ t_model	*new_model(int argc, char **argv)
 //     scale   =   distance between points
 // */
 
+//BACKUP WORKING!
+//==============================================================================
+// void	node2point(t_model *model, t_node *node, t_point *point, int x_rotate,
+// 		int y_rotate)
+// {
+// 	int		zoom;
+// 	float	x_rotate_percentage;
+// 	int		scale;
+
+// 	dbg_printf(model, start_block, "START node2point");
+// 	if (!node)
+// 		dbg_printf(model, error_block, "no node exists");
+// 	if (!point)
+// 		dbg_printf(model, error_block, "no memmory for point exists");
+// 	scale = 40;
+// 	zoom = 10;
+// 	x_rotate_percentage = x_rotate / 90;
+// 	point->x = node->x * scale;
+// 	point->y = node->y * scale;
+// 	dbg_printf(model, no_block, ft_strjoin(ft_strjoin(node2str(model, node),
+// 					"-> "), point2str(model, point)));
+// 	dbg_printf(model, end_block, "DONE node2point");
+// }
+//==============================================================================
+
 void	node2point(t_model *model, t_node *node, t_point *point, int x_rotate,
 		int y_rotate)
 {
-	int		zoom;
-	float	x_rotate_percentage;
-	int		scale;
+	int zoom;
+	double x_rotate_radian;
+	double y_rotate_radian;
+	int scale;
 
 	dbg_printf(model, start_block, "START node2point");
 	if (!node)
@@ -75,10 +101,13 @@ void	node2point(t_model *model, t_node *node, t_point *point, int x_rotate,
 	if (!point)
 		dbg_printf(model, error_block, "no memmory for point exists");
 	scale = 40;
-	zoom = 10;
-	x_rotate_percentage = x_rotate / 90;
-	point->x = node->x * scale;
-	point->y = node->y * scale;
+	zoom = 5;
+	x_rotate_radian = x_rotate * M_PI / 180.0;
+	y_rotate_radian = y_rotate * M_PI / 180.0;
+	point->x = 500 + node->x * zoom * cos(y_rotate_radian) - node->z
+		* sin(y_rotate_radian) * zoom;
+	point->y = 500 + node->y * zoom * cos(x_rotate_radian) - node->z
+		* sin(x_rotate_radian) * zoom;
 	dbg_printf(model, no_block, ft_strjoin(ft_strjoin(node2str(model, node),
 					"-> "), point2str(model, point)));
 	dbg_printf(model, end_block, "DONE node2point");
