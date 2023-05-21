@@ -7,7 +7,7 @@ NORM AND STUFF
 HANDLING
 - average of z values should set z_factor
 - size of data file should set zoom
-- 
+- rotate around mid of solid not around axis
 
 
 BONUS
