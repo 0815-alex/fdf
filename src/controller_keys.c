@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 17:10:48 by astein            #+#    #+#             */
-/*   Updated: 2023/05/20 23:07:57 by astein           ###   ########.fr       */
+/*   Updated: 2023/05/21 01:58:48 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,6 +170,10 @@ int	deal_key(int key, t_model *model)
 		draw_net(model);
 	}
 	if (key == K_ESC)
+	{
+		free_model(model);
+		free(model);
 		exit(0);
+	}
 	return (0);
 }

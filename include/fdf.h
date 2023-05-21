@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 16:51:18 by astein            #+#    #+#             */
-/*   Updated: 2023/05/20 22:43:14 by astein           ###   ########.fr       */
+/*   Updated: 2023/05/21 02:00:43 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,7 @@ int					deal_mouse(int button, t_model *model);
 //******************************************************************************
 t_model				*new_model(int argc, char **argv);
 void				node2point(t_model *model, t_node *node, t_point *point);
+void				free_model(t_model *model);
 
 //******************************************************************************
 //		PARSER.C
@@ -141,6 +142,7 @@ void				print_net(t_model *model);
 t_node				*node_last(t_node *lst);
 void				node_add_front(t_node **lst, t_node *new);
 void				node_add_back(t_node **lst, t_node *new);
+void				free_list(t_node *head);
 
 //******************************************************************************
 //		POINT.C

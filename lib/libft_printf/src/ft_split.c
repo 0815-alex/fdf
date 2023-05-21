@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 13:24:38 by astein            #+#    #+#             */
-/*   Updated: 2023/05/09 15:38:12 by astein           ###   ########.fr       */
+/*   Updated: 2023/05/21 01:45:22 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,12 @@ char	**ft_split(char const *s, char c)
 		len = wrdlen(s, c);
 		res[i] = ft_substr(s, 0, len);
 		if (!res[i])
+		{
+			while (i > 0)
+				free(res[--i]);
+			free(res);
 			return (NULL);
+		}
 		s += len;
 		i++;
 	}

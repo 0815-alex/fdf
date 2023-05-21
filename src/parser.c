@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 15:30:35 by astein            #+#    #+#             */
-/*   Updated: 2023/05/21 01:29:07 by astein           ###   ########.fr       */
+/*   Updated: 2023/05/21 02:08:48 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,14 @@ static void	str_line(char *line, int y, t_node **last_row, t_model *model)
 		x++;
 		i++;
 	}
+	//START CHAT GBT EDIT
+	i = 0;
+	while (arr[i])
+	{
+		free(arr[i]);
+		i++;
+	}
+	//ENDD CHAT GBT EDIT
 	free(arr);
 	arr = NULL;
 	*last_row = first_node;

@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 17:08:26 by astein            #+#    #+#             */
-/*   Updated: 2023/05/21 00:40:44 by astein           ###   ########.fr       */
+/*   Updated: 2023/05/21 01:52:53 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,9 @@ void	draw_line(t_model *model, t_point *pnt_a, t_point *pnt_b)
 	int		err;
 	int		e2;
 
-	dbg_printf(model, start_block, "draw_line");
-	dbg_printf(model, no_block, ft_strjoin(ft_strjoin(point2str(model, pnt_a),
-					"-> "), point2str(model, pnt_b)));
+	// dbg_printf(model, start_block, "draw_line");
+	// dbg_printf(model, no_block, ft_strjoin(ft_strjoin(point2str(model, pnt_a),
+					// "-> "), point2str(model, pnt_b)));
 	curr_point = malloc(sizeof(t_point));
 	delta = malloc(sizeof(t_point));
 	sign = malloc(sizeof(t_point));
@@ -78,7 +78,10 @@ void	draw_line(t_model *model, t_point *pnt_a, t_point *pnt_b)
 			curr_point->y += sign->y;
 		}
 	}
-	dbg_printf(model, end_block, "draw_line");
+	free(curr_point);
+	free(delta);
+	free(sign);
+	// dbg_printf(model, end_block, "draw_line");
 }
 
 void	draw_test_line(t_model *model)
