@@ -1,0 +1,17 @@
+NORM AND STUFF
+- Check Memmory it probably leaks as fuck
+- Check Norminette
+- check functions which file should they be in
+- aka split functions
+
+HANDLING
+- average of z values should set z_factor
+- size of data file should set zoom
+- 
+
+
+BONUS
+- automate a random rotation
+- change colors
+- print zoom level and stuff to screen
+- add a help on F1

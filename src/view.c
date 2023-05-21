@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 17:08:26 by astein            #+#    #+#             */
-/*   Updated: 2023/05/20 22:35:13 by astein           ###   ########.fr       */
+/*   Updated: 2023/05/21 00:40:44 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ void	ini_win(t_model *model)
 	dbg_printf(model, start_block, "ini_win");
 	model->mlx = mlx_init();
 	mlx_get_screen_size(model->mlx, &screen_width, &screen_height);
-	model->width = screen_width - 20;
-	model->height = screen_height - 70;
+	model->width = screen_width - 700;
+	model->height = screen_height - 300;
 	model->win = mlx_new_window(model->mlx, model->width, model->height,
 			"astein | fdf");
 	dbg_printf(model, end_block, "ini_win");
@@ -34,7 +34,7 @@ void	draw_point(t_model *model, t_point *point)
 	mlx_pixel_put(model->mlx, model->win, point->x, point->y, model->color);
 }
 
-void	draw_line(t_model *model, t_point *pnt_a, t_point *pnt_b, int color)
+void	draw_line(t_model *model, t_point *pnt_a, t_point *pnt_b)
 {
 	t_point	*curr_point;
 	t_point	*delta;
@@ -93,8 +93,10 @@ void	draw_test_line(t_model *model)
 	point_a->y = 15;
 	point_b->x = 25;
 	point_b->y = 25;
-	draw_line(model, point_a, point_b, COLOR_GREEN);
+	draw_line(model, point_a, point_b);
 	dbg_printf(model, end_block, "draw_test_line");
+	free(point_a);
+	free(point_b);
 }
 
 void	draw_net(t_model *model)
@@ -114,17 +116,17 @@ void	draw_net(t_model *model)
 		if (cur_node->west)
 		{
 			node2point(model, cur_node->west, cur_conn_point);
-			draw_line(model, cur_point, cur_conn_point, model->color);
+			draw_line(model, cur_point, cur_conn_point);
 		}
 		if (cur_node->north)
 		{
 			node2point(model, cur_node->north, cur_conn_point);
-			draw_line(model, cur_point, cur_conn_point, model->color);
+			draw_line(model, cur_point, cur_conn_point);
 		}
 		(cur_node) = (cur_node)->next;
 	}
+	free(cur_node);
+	free(cur_point);
+	free(cur_conn_point);
 	dbg_printf(model, end_block, "draw_net");
-	// free(cur_node);
-	// free(cur_point);
-	// free(cur_conn_point);
 }

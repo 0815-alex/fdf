@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 16:51:18 by astein            #+#    #+#             */
-/*   Updated: 2023/05/20 22:22:47 by astein           ###   ########.fr       */
+/*   Updated: 2023/05/20 22:43:14 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,14 @@
 # define K_ARROW_RIGHT 65363
 # define K_ARROW_DOWN 65364
 # define K_ESC 65307
+
+//******************************************************************************
+//		DEFINE MOUSE CODES
+//******************************************************************************
+# define M_SCROLL_DOWN 4
+# define M_SCROLL_UP 5
+# define M_SCROLL_RIGHT 6
+# define M_SCROLL_LEFT 7
 
 //******************************************************************************
 //		DEFINE COLOR
@@ -82,7 +90,7 @@ typedef struct s_model
 	double			x_rot_rad;
 	double			y_rot_rad;
 	double			z_rot_rad;
-	double				zoom;
+	double			zoom;
 	float			z_factor;
 	int				color;
 	struct s_dbg	*dbg;

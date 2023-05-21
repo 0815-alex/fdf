@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 17:13:13 by astein            #+#    #+#             */
-/*   Updated: 2023/05/20 22:32:37 by astein           ###   ########.fr       */
+/*   Updated: 2023/05/21 00:38:36 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,10 @@ t_model	*new_model(int argc, char **argv)
 	mlx_key_hook(new_model->win, deal_key, new_model);
 	mlx_mouse_hook(new_model->win, deal_mouse, new_model);
 	dbg_printf(new_model, end_block, "hooking keys and mouse to model...");
-	new_model->x_trans = 500;
-	new_model->y_trans = 500;
-	new_model->x_rot_rad = degree2radian(45);
-	new_model->y_rot_rad = degree2radian(45);
+	new_model->x_trans = 100;
+	new_model->y_trans = 100;
+	new_model->x_rot_rad = degree2radian(0);
+	new_model->y_rot_rad = degree2radian(0);
 	new_model->z_rot_rad = degree2radian(0);
 	new_model->zoom = 10;
 	new_model->z_factor = 1;
@@ -44,7 +44,7 @@ void	node2point(t_model *model, t_node *node, t_point *point)
 	int		z;
 	int		x_new;
 	int		y_new;
-	int		z_new;
+	// int		z_new;
 	double	a;
 	double	b;
 	double	c;
@@ -67,7 +67,7 @@ void	node2point(t_model *model, t_node *node, t_point *point)
 			* sin(c)) + z * (cos(a) * cos(c) * sin(b) + sin(a) * sin(c));
 	y_new = x * (cos(b) * sin(c)) + y * (cos(a) * cos(c) + sin(a) * sin(b)
 			* sin(c)) + z * (-cos(c) * sin(a) + cos(a) * sin(b) * sin(c));
-	z_new = -x * sin(b) + y * cos(b) * sin(a) + z * (cos(a) * cos(b));
+	// z_new = -x * sin(b) + y * cos(b) * sin(a) + z * (cos(a) * cos(b));
 	x_new += model->x_trans;
 	y_new += model->y_trans;
 	point->x = x_new;

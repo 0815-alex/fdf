@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 17:10:48 by astein            #+#    #+#             */
-/*   Updated: 2023/05/20 22:21:38 by astein           ###   ########.fr       */
+/*   Updated: 2023/05/20 23:07:57 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,12 @@ static t_bool	check_rotate(int key, t_model *model)
 
 	check = ft_false;
 	step_degree = 10;
-	if (key == 'a')
+	if (key == 'd')
 	{
 		check = ft_true;
 		model->y_rot_rad += step_degree * (M_PI / 180.0);
 	}
-	else if (key == 'd')
+	else if (key == 'a')
 	{
 		check = ft_true;
 		model->y_rot_rad -= step_degree * (M_PI / 180.0);
@@ -123,15 +123,15 @@ static t_bool	check_presets(int key, t_model *model)
 	else if (key == 'f')
 	{
 		check = ft_true;
-		model->x_rot_rad = degree2radian(0);
-		model->y_rot_rad = degree2radian(90);
+		model->x_rot_rad = degree2radian(90);
+		model->y_rot_rad = degree2radian(0);
 		model->z_rot_rad = degree2radian(0);
 	}
 	else if (key == 'b')
 	{
 		check = ft_true;
-		model->x_rot_rad = degree2radian(0);
-		model->y_rot_rad = degree2radian(180);
+		model->x_rot_rad = degree2radian(-180);
+		model->y_rot_rad = degree2radian(0);
 		model->z_rot_rad = degree2radian(0);
 	}
 	else if (key == 's')

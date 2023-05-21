@@ -7,7 +7,7 @@ NAME = ftf
 DEBUG = 1
 # Compiler options
 CC = cc
-CFLAGS = -D DEBUG=$(DEBUG) -g #-Wall -Werror -Wextra #-fsanitize=address #
+CFLAGS = -D DEBUG=$(DEBUG) -g -Wall -Werror -Wextra -fsanitize=address -fsanitize-address-use-after-scope
 CLIBS = -L$(LIB_FOLDER)libft_printf -L$(LIB_FOLDER)minilibx
 CINCLUDES  = -I$(INCLUDE_FOLDER) -I$(MLX_FOLDER)
 RM = rm -f
@@ -41,7 +41,7 @@ OBJS = $(SRCS:.c=.o)
 all: $(NAME)
 
 $(NAME): $(OBJS) $(LIBFT_PRINTF)
-	$(CC) $(OBJS) -D DEBUG=$(DEBUG) $(CLIBS) $(CINCLUDES) -lft_printf -lmlx -lX11 -lXext -lm -o $(NAME)
+	$(CC) $(OBJS) $(CFLAGS) -D DEBUG=$(DEBUG) $(CLIBS) $(CINCLUDES) -lft_printf -lmlx -lX11 -lXext -lm -o $(NAME)
 
 $(LIBFT_PRINTF):
 	@echo "\ncompiling libft_printf.a...\n"
@@ -68,8 +68,11 @@ rr: re
 t: all
 	./$(NAME) ./maps/til.fdf
 
-a: all
+a: re
 	./$(NAME) ./maps/astein2.0.fdf
+
+p: all
+	./$(NAME) ./maps/pylone.fdf
 
 god:
 	git status
