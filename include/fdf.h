@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 16:51:18 by astein            #+#    #+#             */
-/*   Updated: 2023/05/21 17:57:02 by astein           ###   ########.fr       */
+/*   Updated: 2023/05/22 16:02:01 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ typedef struct s_model
 	int					z_max;
 	int					z_min;
 	struct s_point_3d	center_point;
-	t_img				cur_img;
+	t_img				img;
 	enum e_bool			auto_rotate;
 }						t_model;
 
@@ -132,9 +132,9 @@ typedef enum e_dbg_flag
 //******************************************************************************
 void					ini_win(t_model *model);
 void					draw_test_line(t_model *model);
-void					draw_net(t_model *model);
 int						auto_rotate(void *void_model);
 void					create_new_img(t_model *model);
+void					display_next_image(t_model *model);
 
 //******************************************************************************
 //		CONTROLLER_KEYS.C
@@ -192,5 +192,12 @@ void					dbg_printf(t_model *model, t_dbg_flag dbg_flg,
 //******************************************************************************
 double					degree2radian(int degree);
 int						radian2degree2(double radian);
+
+//******************************************************************************
+//		IMG.C
+//******************************************************************************
+void					create_next_img(t_model *model);
+void					draw_line(t_model *model, t_point *pnt_a,
+							t_point *pnt_b);
 
 #endif

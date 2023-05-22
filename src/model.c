@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 17:13:13 by astein            #+#    #+#             */
-/*   Updated: 2023/05/21 16:55:50 by astein           ###   ########.fr       */
+/*   Updated: 2023/05/22 16:20:43 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,31 +14,34 @@
 
 t_model	*new_model(int argc, char **argv)
 {
-	t_model	*new_model;
+	t_model	*model;
 
-	new_model = malloc(sizeof(t_model));
-	init_debug(new_model, 1);
-	init_net_details(new_model);
-	load_file(argc, argv, new_model);
-	determine_net_center(new_model);
-	ini_win(new_model);
-	dbg_printf(new_model, start_block, "hooking keys and mouse to model...");
-	mlx_key_hook(new_model->win, deal_key, new_model);
-	mlx_mouse_hook(new_model->win, deal_mouse, new_model);
-	mlx_loop_hook(new_model->mlx, auto_rotate, new_model);
-	dbg_printf(new_model, end_block, "hooking keys and mouse to model...");
-	new_model->x_trans = 100;
-	new_model->y_trans = 100;
-	new_model->x_rot_rad = degree2radian(0);
-	new_model->y_rot_rad = degree2radian(0);
-	new_model->z_rot_rad = degree2radian(0);
-	new_model->zoom = 10;
-	new_model->z_factor = 1;
-	new_model->color = COLOR_RED;
-	print_net(new_model);
-	draw_net(new_model);
-	dbg_printf(new_model, end_block, "new_model");
-	return (new_model);
+	model = malloc(sizeof(t_model));
+	init_debug(model, 1);
+	init_net_details(model);
+	load_file(argc, argv, model);
+	determine_net_center(model);
+	ini_win(model);
+	dbg_printf(model, start_block, "hooking keys and mouse to model...");
+	mlx_key_hook(model->win, deal_key, model);
+	mlx_mouse_hook(model->win, deal_mouse, model);
+	mlx_loop_hook(model->mlx, auto_rotate, model);
+	dbg_printf(model, end_block, "hooking keys and mouse to model...");
+	model->x_trans = 100;
+	model->y_trans = 100;
+	model->x_rot_rad = degree2radian(0);
+	model->y_rot_rad = degree2radian(0);
+	model->z_rot_rad = degree2radian(0);
+	model->zoom = 10;
+	model->z_factor = 1;
+	model->color = COLOR_GREEN;
+	model->img.mlx_img = NULL;
+	model->img.addr = NULL;
+	center_model(model);
+	print_net(model);
+	display_next_image(model);
+	dbg_printf(model, end_block, "new_model");
+	return (model);
 }
 
 void	init_net_details(t_model *model)
@@ -97,7 +100,6 @@ void	node2point(t_model *model, t_node *node, t_point *point)
 	double	b;
 	double	c;
 
-	// int		z_new;
 	// dbg_printf(model, start_block, "START node2point");
 	if (!node)
 		dbg_printf(model, error_block, "no node exists");
@@ -135,7 +137,9 @@ void	node2point(t_model *model, t_node *node, t_point *point)
 void	free_model(t_model *model)
 {
 	dbg_printf(model, start_block, "free_model");
+	mlx_destroy_window(model->mlx, model->win);
 	free(model->dbg);
 	free_list(model->net);
-	mlx_destroy_window(model->mlx, model->win);
+	free(model->img.mlx_img);
+	free(model);
 }

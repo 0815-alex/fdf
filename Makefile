@@ -7,7 +7,7 @@ NAME = fdf
 DEBUG = 0
 # Compiler options
 CC = cc
-CFLAGS = -D DEBUG=$(DEBUG) -g -Wall -Werror -Wextra -fsanitize=address -fsanitize-address-use-after-scope
+CFLAGS = -D DEBUG=$(DEBUG) -g -Wall -Werror -Wextra #-fsanitize=address -fsanitize-address-use-after-scope
 CLIBS = -L$(LIB_FOLDER)libft_printf -L$(LIB_FOLDER)minilibx
 CINCLUDES  = -I$(INCLUDE_FOLDER) -I$(MLX_FOLDER)
 RM = rm -f
@@ -30,7 +30,8 @@ SRCS = $(SRC_FOLDER)main.c \
 	$(SRC_FOLDER)node.c \
 	$(SRC_FOLDER)point.c \
 	$(SRC_FOLDER)debug.c \
-	$(SRC_FOLDER)fdf_utils.c 
+	$(SRC_FOLDER)fdf_utils.c \
+	$(SRC_FOLDER)img.c 
 
 # Object files
 OBJS = $(SRCS:.c=.o)
