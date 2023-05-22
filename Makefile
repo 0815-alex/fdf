@@ -1,10 +1,10 @@
 # Makefile for ftf
 
 # Variables
-NAME = ftf
+NAME = fdf
 
 # Prints DEBUG Messages
-DEBUG = 1
+DEBUG = 0
 # Compiler options
 CC = cc
 CFLAGS = -D DEBUG=$(DEBUG) -g -Wall -Werror -Wextra -fsanitize=address -fsanitize-address-use-after-scope

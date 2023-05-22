@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 18:50:54 by astein            #+#    #+#             */
-/*   Updated: 2023/05/21 01:55:43 by astein           ###   ########.fr       */
+/*   Updated: 2023/05/21 14:38:53 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,12 +61,10 @@ char	*node2str(t_model *model, t_node *node)
 
 t_node	*node_last(t_node *lst)
 {
-	printf("node_last - lst address: %p\n", lst);
 	if (!lst)
 		return (NULL);
 	while (lst->next)
 	{
-		printf("node_last - lst->next address: %p\n", lst->next);
 		lst = lst->next;
 	}
 	return (lst);
@@ -80,8 +78,7 @@ void	node_add_front(t_node **lst, t_node *new)
 
 void	node_add_back(t_node **lst, t_node *new)
 {
-	printf("node_add_back - lst address: %p\n", *lst);
-	printf("node_add_back - new node address: %p\n", new);
+	
 	if (!*lst)
 		node_add_front(lst, new);
 	else

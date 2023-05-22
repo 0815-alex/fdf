@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 15:30:35 by astein            #+#    #+#             */
-/*   Updated: 2023/05/21 02:08:48 by astein           ###   ########.fr       */
+/*   Updated: 2023/05/21 15:05:04 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ static void	str_line(char *line, int y, t_node **last_row, t_model *model)
 		new_node->x = x;
 		new_node->y = y;
 		new_node->z = ft_atoi(arr[i]);
+		update_max_values(model, x, y, new_node->z);
 		new_node->next = NULL;
 		new_node->west = last_node;
 		new_node->north = NULL;

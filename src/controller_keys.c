@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 17:10:48 by astein            #+#    #+#             */
-/*   Updated: 2023/05/21 01:58:48 by astein           ###   ########.fr       */
+/*   Updated: 2023/05/21 16:48:51 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,12 @@ static t_bool	check_rotate(int key, t_model *model)
 	{
 		check = ft_true;
 		model->z_rot_rad -= step_degree * (M_PI / 180.0);
+	}
+	else if (key == 'r')
+	{
+		check = ft_true;
+		model->auto_rotate = !model->auto_rotate;
+		dbg_printf(model, no_block, "autorotate: %i", model->auto_rotate);
 	}
 	return (check);
 }
@@ -147,6 +153,11 @@ static t_bool	check_presets(int key, t_model *model)
 		model->x_rot_rad = degree2radian(45);
 		model->y_rot_rad = degree2radian(45);
 		model->z_rot_rad = degree2radian(0);
+	}
+	else if (key == 'c')
+	{
+		center_model(model);
+		check = ft_true;
 	}
 	return (check);
 }
