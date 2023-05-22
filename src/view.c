@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 17:08:26 by astein            #+#    #+#             */
-/*   Updated: 2023/05/22 16:15:01 by astein           ###   ########.fr       */
+/*   Updated: 2023/05/22 17:12:50 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,12 +64,21 @@ int	auto_rotate(void *void_model)
 
 void	center_model(t_model *model)
 {
+	int	possbile_zoom_x;
+	int	possbile_zoom_y;
+
 	//trans soll gesetzt werden
 	// so dass die mitte des netz auf die mitte der fensterbreite faellt
 	model->x_trans = ((model->win_width / 2) - (model->center_point.x
 				* model->zoom) / model->zoom);
 	model->y_trans = ((model->win_height / 2) - (model->center_point.y
 				* model->zoom) / model->zoom);
+	possbile_zoom_x = (model->win_width - 100) / model->net_dim.x;
+	possbile_zoom_y = (model->win_height - 100) / model->net_dim.y;
+	if (possbile_zoom_x > possbile_zoom_y)
+		model->zoom = possbile_zoom_y;
+	else
+		model->zoom = possbile_zoom_x;
 	//aktuelle koordinate der mitte des netz
 	// model->center_point.x * model->zoom;
 	// model->center_point.y * model->zoom;

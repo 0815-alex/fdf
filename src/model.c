@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 17:13:13 by astein            #+#    #+#             */
-/*   Updated: 2023/05/22 16:20:43 by astein           ###   ########.fr       */
+/*   Updated: 2023/05/22 17:07:11 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ t_model	*new_model(int argc, char **argv)
 	model = malloc(sizeof(t_model));
 	init_debug(model, 1);
 	init_net_details(model);
+	init_max_values(model);
 	load_file(argc, argv, model);
 	determine_net_center(model);
 	ini_win(model);
@@ -46,14 +47,18 @@ t_model	*new_model(int argc, char **argv)
 
 void	init_net_details(t_model *model)
 {
-	model->net_dim.x = INT_MIN;
-	model->net_dim.y = INT_MIN;
-	model->z_min = INT_MAX;
-	model->z_max = INT_MIN;
 	model->center_point.x = INT_MIN;
 	model->center_point.y = INT_MIN;
 	model->center_point.z = INT_MIN;
 	model->auto_rotate = ft_false;
+}
+
+void	init_max_values(t_model *model)
+{
+	model->net_dim.x = INT_MIN;
+	model->net_dim.y = INT_MIN;
+	model->z_min = INT_MAX;
+	model->z_max = INT_MIN;
 }
 
 void	update_max_values(t_model *model, int x, int y, int z)

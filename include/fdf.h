@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 16:51:18 by astein            #+#    #+#             */
-/*   Updated: 2023/05/22 16:02:01 by astein           ###   ########.fr       */
+/*   Updated: 2023/05/22 17:06:59 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,6 +157,7 @@ void					node2point(t_model *model, t_node *node,
 void					free_model(t_model *model);
 void					update_max_values(t_model *model, int x, int y, int z);
 void					center_model(t_model *model);
+void					init_max_values(t_model *model);
 
 //******************************************************************************
 //		PARSER.C

@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 14:11:35 by astein            #+#    #+#             */
-/*   Updated: 2023/05/22 15:52:52 by astein           ###   ########.fr       */
+/*   Updated: 2023/05/22 17:09:47 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,18 +17,25 @@ void	img_pix_put(t_model *model, t_point *point)
 	char	*pixel;
 	int		i;
 
-	i = model->img.bpp - 8;
-	pixel = model->img.addr + (point->y * model->img.line_len + point->x
-			* (model->img.bpp / 8));
-	while (i >= 0)
+	if (point->x < 1 || point->x >= model->win_width)
+		dbg_printf(model, no_block, "pixel x coordinate inst printable");
+	else if (point->y < 1 || point->y > model->win_height)
+		dbg_printf(model, no_block, "pixel y coordinate inst printable");
+	else
 	{
-		/* big endian, MSB is the leftmost bit */
-		if (model->img.endian != 0)
-			*pixel++ = (model->color >> i) & 0xFF;
-		/* little endian, LSB is the leftmost bit */
-		else
-			*pixel++ = (model->color >> (model->img.bpp - 8 - i)) & 0xFF;
-		i -= 8;
+		i = model->img.bpp - 8;
+		pixel = model->img.addr + (point->y * model->img.line_len + point->x
+				* (model->img.bpp / 8));
+		while (i >= 0)
+		{
+			/* big endian, MSB is the leftmost bit */
+			if (model->img.endian != 0)
+				*pixel++ = (model->color >> i) & 0xFF;
+			/* little endian, LSB is the leftmost bit */
+			else
+				*pixel++ = (model->color >> (model->img.bpp - 8 - i)) & 0xFF;
+			i -= 8;
+		}
 	}
 }
 
@@ -38,8 +45,8 @@ void	create_next_img(t_model *model)
 	t_point	*cur_point;
 	t_point	*cur_conn_point;
 
-	free(model->img.mlx_img);
 	dbg_printf(model, start_block, "create_next_img");
+	free(model->img.mlx_img);
 	model->img.mlx_img = mlx_new_image(model->mlx, model->win_width,
 			model->win_height);
 	dbg_printf(model, no_block, "new image size: %i, %i", model->win_width,
@@ -55,6 +62,7 @@ void	create_next_img(t_model *model)
 	while (cur_node)
 	{
 		node2point(model, cur_node, cur_point);
+		
 		img_pix_put(model, cur_point);
 		if (cur_node->west)
 		{
