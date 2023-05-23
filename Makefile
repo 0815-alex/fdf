@@ -30,8 +30,11 @@ SRCS = $(SRC_FOLDER)main.c \
 	$(SRC_FOLDER)node.c \
 	$(SRC_FOLDER)point.c \
 	$(SRC_FOLDER)debug.c \
-	$(SRC_FOLDER)fdf_utils.c \
-	$(SRC_FOLDER)img.c 
+	$(SRC_FOLDER)utils.c \
+	$(SRC_FOLDER)img.c \
+	$(SRC_FOLDER)data.c \
+	$(SRC_FOLDER)model_move.c \
+	$(SRC_FOLDER)list.c
 
 # Object files
 OBJS = $(SRCS:.c=.o)
@@ -51,11 +54,11 @@ $(LIBFT_PRINTF):
 
 clean:
 	$(RM) $(OBJS)
-	make -C $(LIB_FOLDER)libft_printf clean
+	#make -C $(LIB_FOLDER)libft_printf clean
 
 fclean: clean
 	$(RM) $(NAME)
-	make -C $(LIB_FOLDER)libft_printf fclean
+	#make -C $(LIB_FOLDER)libft_printf fclean
 
 re: fclean all
 

@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 17:10:48 by astein            #+#    #+#             */
-/*   Updated: 2023/05/23 15:40:10 by astein           ###   ########.fr       */
+/*   Updated: 2023/05/23 20:02:12 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,14 +120,8 @@ static t_bool	check_presets(int key, t_model *model)
 
 int	deal_key(int key, t_model *model)
 {
-	t_bool	check;
-
-	check = ft_true;
 	if (key == K_ESC)
-	{
 		free_model(model);
-		exit(0);
-	}
 	if (check_translate(key, model))
 		;
 	else if (check_rotate(key, model))
@@ -136,9 +130,5 @@ int	deal_key(int key, t_model *model)
 		;
 	else if (check_presets(key, model))
 		;
-	else
-		check = ft_false;
-	if (check)
-		display_next_image(model);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 16:51:18 by astein            #+#    #+#             */
-/*   Updated: 2023/05/23 16:11:09 by astein           ###   ########.fr       */
+/*   Updated: 2023/05/23 20:06:31 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,15 +71,22 @@ typedef struct s_point_3d
 	float				z;
 }						t_point_3d;
 
+typedef struct s_point_2d
+{
+	float				x;
+	float				y;
+}						t_point_2d;
+
 typedef struct s_node
 {
 	int					x;
 	int					y;
 	int					z;
+	t_point_3d			*pnt;
 	struct s_node		*next;
 	struct s_node		*west;
 	struct s_node		*north;
-	int color;
+	int					color;
 }						t_node;
 
 typedef struct s_img
@@ -117,7 +124,7 @@ typedef struct s_model
 	int					z_max;
 	int					z_min;
 	struct s_point_3d	center_point;
-	
+
 	t_img				img;
 }						t_model;
 
@@ -128,6 +135,13 @@ typedef enum e_dbg_flag
 	start_block = 1,
 	end_block = 2
 }						t_dbg_flag;
+
+typedef enum e_pnt_dim
+{
+	pnt_dim_error = -1,
+	pnt_dim_2 = 2,
+	pnt_dim_3 = 3
+}						t_pnt_dim;
 
 //      ALL FILES AND THEIR NON STATIC FUNCTIONS LISTED ALPHABETICALLY
 
@@ -143,10 +157,11 @@ void					init_debug(t_model *model, int curr_stack_depth);
 void					dbg_printf(t_model *model, t_dbg_flag dbg_flg,
 							char *str, ...);
 
-//______FDF_UTILS.C_____________________________________________________________
+//______UTILS.C_________________________________________________________________
 
 double					degree2radian(int degree);
 int						radian2degree2(double radian);
+void					*free_ptr(void *ptr);
 
 //______IMG.C___________________________________________________________________
 
@@ -170,6 +185,7 @@ void					init_max_values(t_model *model);
 
 //______NODE.C__________________________________________________________________
 
+t_node					*new_node(t_point_3d *point, int color);
 void					print_node(t_model *model, t_node *node);
 char					*node2str(t_model *model, t_node *node);
 void					print_net(t_model *model);
@@ -184,15 +200,21 @@ void					load_file(int argc, char **argv, t_model *model);
 
 //______POINT.C_________________________________________________________________
 
+void					*new_point(t_pnt_dim dim, int x, int y, int z);
 void					print_point(t_model *model, t_point *point);
 char					*point2str(t_model *model, t_point *point);
 
 //______VIEW.C__________________________________________________________________
 
 void					ini_win(t_model *model);
-void					draw_test_line(t_model *model);
-int						auto_rotate(void *void_model);
 void					create_new_img(t_model *model);
-void					display_next_image(t_model *model);
+void					update_image(t_model *model);
 
 #endif
+
+//______MODEL_MOVE.C
+int						auto_rotate(void *void_model);
+//______DATA.C
+//______LIST.C
+//______
+//______

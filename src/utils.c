@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf_utils.c                                        :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 17:06:51 by astein            #+#    #+#             */
-/*   Updated: 2023/05/20 17:38:29 by astein           ###   ########.fr       */
+/*   Updated: 2023/05/23 19:26:53 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,4 +26,11 @@ int	radian2degree2(double radian)
 
 	degree = (int)(radian * (180.0 / M_PI));
 	return (degree);
+}
+
+void	*free_ptr(void *ptr)
+{
+	if (ptr)
+		free(ptr);
+	return (ptr);
 }

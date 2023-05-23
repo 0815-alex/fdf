@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 17:08:26 by astein            #+#    #+#             */
-/*   Updated: 2023/05/23 17:22:20 by astein           ###   ########.fr       */
+/*   Updated: 2023/05/23 19:59:26 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,42 +27,6 @@ void	ini_win(t_model *model)
 	model->win = mlx_new_window(model->mlx, model->win_width, model->win_height,
 			"astein | fdf");
 	dbg_printf(model, end_block, "ini_win");
-}
-
-int	auto_rotate(void *void_model)
-{
-	t_model			*model;
-	static double	randomValue;
-	static int		random_axis;
-	static int		step;
-
-	model = (t_model *)void_model;
-	if (model->auto_rotate)
-	{
-		if (random_axis == 0 || step >= 45)
-		{
-			randomValue = drand48();
-			random_axis = 1 + round(randomValue * 2);
-		}
-		if (step >= 45)
-			step = 0;
-		step++;
-		if (random_axis == 1)
-			model->x_rot_rad += (M_PI / 180.0);
-		else if (random_axis == 2)
-			model->y_rot_rad += (M_PI / 180.0);
-		else if (random_axis == 3)
-			model->z_rot_rad += (M_PI / 180.0);
-		// mlx_clear_window(model->mlx, model->win);
-		display_next_image(model);
-	}
-	else
-	{
-		step = 0;
-		sleep(1);
-	}
-	dbg_printf(model, no_block, "Auto Rotate...");
-	return (0);
 }
 
 void	center_model(t_model *model)
@@ -98,11 +62,9 @@ void	center_model(t_model *model)
 	// /model->zoom
 }
 
-void	display_next_image(t_model *model)
+void	update_image(t_model *model)
 {
-	create_next_img(model);
 	mlx_put_image_to_window(model->mlx, model->win, model->img.mlx_img, 0, 0);
-	//because of itoa it leeks!!!
 	mlx_string_put(model->mlx, model->win, 100, 100, COLOR_GREEN,
 			ft_itoa(model->zoom));
 }

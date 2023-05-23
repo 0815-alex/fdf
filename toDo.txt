@@ -25,15 +25,15 @@ PLAN HO TO FINISH IT!
 
 1 SORT CODE
 -------------------
-- create new files
-	- move the fucntions
-	- add missing function
-	- check the max line length of functions
-	- implement the missiong functions in all of the code
-	- implement z scale on startup
-	- fix zoom aka center
+DONE	- create new files
+- move the fucntions
+- add missing function
+- check the max line length of functions
+- implement the missiong functions in all of the code
 - check if all functions are static if they need to be
 - update h-file
+- implement z scale on startup
+- fix zoom aka center
 - norminette should be fine now
 
 2 Rethink Structs
@@ -44,6 +44,7 @@ PLAN HO TO FINISH IT!
 	- ...
 	- ...
 	- ...
+- check if all mallocs are safe to fail
 
 3 Bonus
 -------------------
