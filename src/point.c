@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 21:58:19 by astein            #+#    #+#             */
-/*   Updated: 2023/05/23 20:06:41 by astein           ###   ########.fr       */
+/*   Updated: 2023/05/23 22:31:34 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	*new_point(t_pnt_dim dim, int x, int y, int z)
 		return (NULL);
 }
 
-void	print_point(t_model *model, t_point *point)
+void	print_point(t_model *model, t_point_2d*point)
 {
 	if (point == NULL)
 		dbg_printf(model, no_block, "(no point)");
@@ -67,7 +67,7 @@ void	print_point(t_model *model, t_point *point)
 	}
 }
 
-char	*point2str(t_model *model, t_point *point)
+char	*point2str(t_model *model, t_point_2d*point)
 {
 	char	*str;
 

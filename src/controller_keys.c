@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 17:10:48 by astein            #+#    #+#             */
-/*   Updated: 2023/05/23 20:02:12 by astein           ###   ########.fr       */
+/*   Updated: 2023/05/23 22:47:45 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,18 @@
 static t_bool	check_translate(int key, t_model *model)
 {
 	t_bool	check;
+	int		offset;
 
+	offset = 5;
 	check = ft_true;
 	if (key == K_ARROW_UP)
-		model->y_trans -= 10;
+		translate_model(model, ft_false, new_point(pnt_dim_2, 0, -offset, 0));
 	else if (key == K_ARROW_DOWN)
-		model->y_trans += 10;
+		translate_model(model, ft_false, new_point(pnt_dim_2, 0, offset, 0));
 	else if (key == K_ARROW_LEFT)
-		model->x_trans -= 10;
+		translate_model(model, ft_false, new_point(pnt_dim_2, -offset, 0, 0));
 	else if (key == K_ARROW_RIGHT)
-		model->x_trans += 10;
+		translate_model(model, ft_false, new_point(pnt_dim_2, offset, 0, 0));
 	else
 		check = ft_false;
 	return (check);
@@ -33,24 +35,24 @@ static t_bool	check_translate(int key, t_model *model)
 static t_bool	check_rotate(int key, t_model *model)
 {
 	t_bool	check;
-	int		step_degree;
+	int		degree;
 
 	check = ft_true;
-	step_degree = 10;
+	degree = 10;
 	if (key == 'd')
-		model->y_rot_rad += step_degree * (M_PI / 180.0);
+		rotate_model(model, ft_false, new_point(pnt_dim_3, 0, degree, 0));
 	else if (key == 'a')
-		model->y_rot_rad -= step_degree * (M_PI / 180.0);
+		rotate_model(model, ft_false, new_point(pnt_dim_3, 0, -degree, 0));
 	else if (key == 'w')
-		model->x_rot_rad += step_degree * (M_PI / 180.0);
+		rotate_model(model, ft_false, new_point(pnt_dim_3, degree, 0, 0));
 	else if (key == 's')
-		model->x_rot_rad -= step_degree * (M_PI / 180.0);
+		rotate_model(model, ft_false, new_point(pnt_dim_3, -degree, 0, 0));
 	else if (key == 'q')
-		model->z_rot_rad += step_degree * (M_PI / 180.0);
+		rotate_model(model, ft_false, new_point(pnt_dim_3, 0, 0, degree));
 	else if (key == 'e')
-		model->z_rot_rad -= step_degree * (M_PI / 180.0);
+		rotate_model(model, ft_false, new_point(pnt_dim_3, 0, 0, -degree));
 	else if (key == 'r')
-		model->auto_rotate = !model->auto_rotate;
+		model->dof.auto_rotate = !model->dof.auto_rotate;
 	else
 		check = ft_false;
 	return (check);
@@ -62,13 +64,13 @@ static t_bool	check_zoom(int key, t_model *model)
 
 	check = ft_true;
 	if (key == '1')
-		model->zoom -= 5;
+		scale_model(model, ft_false, -5, 0);
 	else if (key == '2')
-		model->zoom += 5;
+		scale_model(model, ft_false, 5, 0);
 	else if (key == '3')
-		model->z_factor -= 1;
+		scale_model(model, ft_false, 0, -1);
 	else if (key == '4')
-		model->z_factor += 1;
+		scale_model(model, ft_false, 0, 1);
 	else
 		check = ft_false;
 	return (check);
@@ -80,35 +82,15 @@ static t_bool	check_presets(int key, t_model *model)
 
 	check = ft_true;
 	if (key == 't')
-	{
-		model->x_rot_rad = degree2radian(0);
-		model->y_rot_rad = degree2radian(0);
-		model->z_rot_rad = degree2radian(0);
-	}
+		rotate_model(model, ft_true, new_point(pnt_dim_3, 0, 0, 0));
 	else if (key == 'f')
-	{
-		model->x_rot_rad = degree2radian(90);
-		model->y_rot_rad = degree2radian(0);
-		model->z_rot_rad = degree2radian(0);
-	}
+		rotate_model(model, ft_true, new_point(pnt_dim_3, 90, 0, 0));
 	else if (key == 'b')
-	{
-		model->x_rot_rad = degree2radian(-180);
-		model->y_rot_rad = degree2radian(0);
-		model->z_rot_rad = degree2radian(0);
-	}
+		rotate_model(model, ft_true, new_point(pnt_dim_3, 180, 00, 0));
 	else if (key == 's')
-	{
-		model->x_rot_rad = degree2radian(90);
-		model->y_rot_rad = degree2radian(0);
-		model->z_rot_rad = degree2radian(0);
-	}
+		rotate_model(model, ft_true, new_point(pnt_dim_3, 90, 90, 0));
 	else if (key == 'p')
-	{
-		model->x_rot_rad = degree2radian(45);
-		model->y_rot_rad = degree2radian(45);
-		model->z_rot_rad = degree2radian(0);
-	}
+		rotate_model(model, ft_true, new_point(pnt_dim_3, 45, 45, 0));
 	else if (key == 'c')
 	{
 		center_model(model);

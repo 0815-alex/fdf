@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 19:33:36 by astein            #+#    #+#             */
-/*   Updated: 2023/05/23 19:34:22 by astein           ###   ########.fr       */
+/*   Updated: 2023/05/23 22:34:16 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ void	free_list(t_node *head)
 	while (current != NULL)
 	{
 		next = current->next;
+		free(current->pnt);
 		free(current);
 		current = next;
 	}

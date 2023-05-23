@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 17:13:13 by astein            #+#    #+#             */
-/*   Updated: 2023/05/23 20:08:47 by astein           ###   ########.fr       */
+/*   Updated: 2023/05/24 00:07:24 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,21 +25,13 @@ t_model	*new_model(int argc, char **argv)
 	ini_win(model);
 	mlx_key_hook(model->win, deal_key, model);
 	mlx_mouse_hook(model->win, deal_mouse, model);
-	mlx_loop_hook(model->mlx, auto_rotate, model);
-	model->x_trans = 100;
-	model->y_trans = 100;
-	model->x_rot_rad = degree2radian(0);
-	model->y_rot_rad = degree2radian(0);
-	model->z_rot_rad = degree2radian(0);
-	model->zoom = 10;
-	model->z_factor = 1;
+	ini_dof_plus(model);
+	ini_img(model);
 	model->color = COLOR_RED;
-	model->img.mlx_img = NULL;
-	model->img.addr = NULL;
 	center_model(model);
 	print_net(model);
-	create_next_img(model);
-	update_image(model);
+	zoom_to_start(model);
+	mlx_loop_hook(model->mlx, auto_rotate, model);
 	dbg_printf(model, end_block, "new_model");
 	return (model);
 }

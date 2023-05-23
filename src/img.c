@@ -6,13 +6,26 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 14:11:35 by astein            #+#    #+#             */
-/*   Updated: 2023/05/23 18:48:56 by astein           ###   ########.fr       */
+/*   Updated: 2023/05/23 22:17:22 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/fdf.h"
 
-static void	img_pix_put(t_model *model, t_point *point, int color)
+void	ini_img(t_model *model)
+{
+	size_t	img_size;
+
+	model->img.mlx_img = mlx_new_image(model->mlx, model->win_width,
+			model->win_height);
+	model->img.addr = mlx_get_data_addr(model->img.mlx_img,
+			(&(model->img.bpp)), (&(model->img.line_len)),
+			(&(model->img.endian)));
+	img_size = model->win_height * model->win_width * sizeof(model->img.bpp);
+	ft_bzero(model->img.addr, img_size);
+}
+
+static void	img_pix_put(t_model *model, t_point_2d *point, int color)
 {
 	char	*pixel;
 	int		i;
@@ -28,10 +41,8 @@ static void	img_pix_put(t_model *model, t_point *point, int color)
 				* (model->img.bpp / 8));
 		while (i >= 0)
 		{
-			/* big endian, MSB is the leftmost bit */
 			if (model->img.endian != 0)
 				*pixel++ = (color >> i) & 0xFF;
-			/* little endian, LSB is the leftmost bit */
 			else
 				*pixel++ = (color >> (model->img.bpp - 8 - i)) & 0xFF;
 			i -= 8;
@@ -39,21 +50,17 @@ static void	img_pix_put(t_model *model, t_point *point, int color)
 	}
 }
 
-static void	draw_line(t_model *model, t_point *pnt_a, t_point *pnt_b)
+static void	draw_line(t_model *model, t_point_2d *pnt_a, t_point_2d *pnt_b)
 {
-	t_point	*curr_point;
-	t_point	*delta;
-	t_point	*sign;
-	int		err;
-	int		e2;
+	t_point_2d	*curr_point;
+	t_point_2d	*delta;
+	t_point_2d	*sign;
+	int			err;
+	int			e2;
 
-	// dbg_printf(model, start_block, "draw_line");
-	// dbg_printf(model, no_block, ft_strjoin(ft_strjoin(point2str(model,
-	// pnt_a),
-	// "-> "), point2str(model, pnt_b)));
-	curr_point = malloc(sizeof(t_point));
-	delta = malloc(sizeof(t_point));
-	sign = malloc(sizeof(t_point));
+	curr_point = malloc(sizeof(t_point_2d));
+	delta = malloc(sizeof(t_point_2d));
+	sign = malloc(sizeof(t_point_2d));
 	curr_point->x = pnt_a->x;
 	curr_point->y = pnt_a->y;
 	delta->x = abs(pnt_b->x - curr_point->x);
@@ -84,49 +91,23 @@ static void	draw_line(t_model *model, t_point *pnt_a, t_point *pnt_b)
 			curr_point->y += sign->y;
 		}
 	}
-	free(curr_point);
-	free(delta);
-	free(sign);
-	// dbg_printf(model, end_block, "draw_line");
+	free_3_ptr(curr_point, delta, sign);
 }
 
 void	create_next_img(t_model *model)
 {
-	t_node	*cur_node;
-	t_point	*cur_point;
-	t_point	*cur_conn_point;
-	int		i;
-	int		j;
+	t_node		*cur_node;
+	t_point_2d	*cur_point;
+	t_point_2d	*cur_conn_point;
 
-	dbg_printf(model, start_block, "create_next_img");
-	dbg_printf(model, no_block, "new image size: %i, %i", model->win_width,
-			model->win_height);
-	i = 0;
-	j = 0;
-	if (!model->img.mlx_img)
-	{
-		model->img.mlx_img = mlx_new_image(model->mlx, model->win_width,
-				model->win_height);
-		model->img.addr = mlx_get_data_addr(model->img.mlx_img,
-											&(model->img.bpp),
-											&(model->img.line_len),
-											&(model->img.endian));
-	}
-	else
-	{
-		dbg_printf(model, start_block, "blacked picture");
-		ft_bzero(model->img.addr, model->win_height * model->win_width
-				* sizeof(model->img.bpp));
-		dbg_printf(model, end_block, "blacked picture");
-	}
-	dbg_printf(model, no_block, "new img adress: %s", model->img.addr);
+	ft_bzero(model->img.addr, model->win_height * model->win_width
+		* sizeof(model->img.bpp));
 	cur_node = model->net;
-	cur_point = malloc(sizeof(t_point));
-	cur_conn_point = malloc(sizeof(t_point));
+	cur_point = malloc(sizeof(t_point_2d));
+	cur_conn_point = malloc(sizeof(t_point_2d));
 	while (cur_node)
 	{
 		node2point(model, cur_node, cur_point);
-		img_pix_put(model, cur_point, model->color);
 		if (cur_node->west)
 		{
 			node2point(model, cur_node->west, cur_conn_point);
@@ -139,8 +120,6 @@ void	create_next_img(t_model *model)
 		}
 		(cur_node) = (cur_node)->next;
 	}
-	free(cur_node);
-	free(cur_point);
-	free(cur_conn_point);
-	dbg_printf(model, end_block, "create_next_img");
+	free_3_ptr(cur_node, cur_point, cur_conn_point);
+	update_image(model);
 }

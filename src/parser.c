@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 15:30:35 by astein            #+#    #+#             */
-/*   Updated: 2023/05/23 19:43:08 by astein           ###   ########.fr       */
+/*   Updated: 2023/05/23 22:28:32 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void	str_line(char *line, int y, t_node **last_row, t_model *model)
 	int		x;
 	t_node	*last_node;
 	t_node	*last_row_local;
-	t_node	*new_node;
+	t_node	*node;
 	t_node	*first_node;
 
 	first_node = NULL;
@@ -36,39 +36,31 @@ static void	str_line(char *line, int y, t_node **last_row, t_model *model)
 	x = 1;
 	while (arr[i])
 	{
-		new_node = malloc(sizeof(t_node));
-		new_node->x = x;
-		new_node->y = y;
-		new_node->z = ft_atoi(arr[i]);
-		update_max_values(model, x, y, new_node->z);
-		new_node->next = NULL;
-		new_node->west = last_node;
-		new_node->north = NULL;
+		node = new_node(new_point(pnt_dim_3, x, y, ft_atoi(arr[i])),
+			COLOR_WHITE);
+		update_max_values(model, x, y, node->pnt->z);
+		node->west = last_node;
 		if (last_row_local)
 		{
-			new_node->north = last_row_local;
+			node->north = last_row_local;
 			last_row_local = last_row_local->next;
 		}
-		print_node(model, new_node);
-		node_add_back(&model->net, new_node);
+		print_node(model, node);
+		node_add_back(&model->net, node);
 		if (i == 0)
-			first_node = new_node;
-		last_node = new_node;
+			first_node = node;
+		last_node = node;
 		x++;
 		i++;
 	}
-	//START CHAT GBT EDIT
 	i = 0;
 	while (arr[i])
 	{
 		free(arr[i]);
 		i++;
 	}
-	//ENDD CHAT GBT EDIT
-	free(arr);
-	arr = NULL;
+	free_ptr(arr);
 	*last_row = first_node;
-	dbg_printf(model, end_block, "str_line");
 }
 
 /*  check if there are args
@@ -83,7 +75,6 @@ void	load_file(int argc, char **argv, t_model *model)
 	int		cur_row;
 	t_node	*last_row;
 
-	dbg_printf(model, start_block, "load_file");
 	if (argc != 2)
 		dbg_printf(model, error_block, "Missing a filename as a parameter!");
 	model->net = NULL;
@@ -104,5 +95,4 @@ void	load_file(int argc, char **argv, t_model *model)
 	free(line);
 	line = NULL;
 	close(fd);
-	dbg_printf(model, end_block, "load_file");
 }

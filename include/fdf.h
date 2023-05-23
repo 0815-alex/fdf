@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 16:51:18 by astein            #+#    #+#             */
-/*   Updated: 2023/05/23 20:06:31 by astein           ###   ########.fr       */
+/*   Updated: 2023/05/24 00:00:58 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,35 +58,29 @@ typedef struct s_dbg
 	int					count_stack_depth;
 }						t_dbg;
 
-typedef struct s_point
+typedef struct s_point_2d
 {
 	int					x;
 	int					y;
-}						t_point;
-
-typedef struct s_point_3d
-{
-	float				x;
-	float				y;
-	float				z;
-}						t_point_3d;
-
-typedef struct s_point_2d
-{
-	float				x;
-	float				y;
 }						t_point_2d;
 
-typedef struct s_node
+typedef struct s_point_3d
 {
 	int					x;
 	int					y;
 	int					z;
+}						t_point_3d;
+
+typedef struct s_node
+{
+	// int					x;
+	// int					y;
+	// int					z;
 	t_point_3d			*pnt;
+	int					color;
 	struct s_node		*next;
 	struct s_node		*west;
 	struct s_node		*north;
-	int					color;
 }						t_node;
 
 typedef struct s_img
@@ -98,9 +92,24 @@ typedef struct s_img
 	int					endian;
 }						t_img;
 
+/**
+ * @brief dof degrees of fredoom
+ * 
+ */
+typedef struct s_dof_plus
+{
+	int					x_trans;
+	int					y_trans;
+	double				x_rot_rad;
+	double				y_rot_rad;
+	double				z_rot_rad;
+	double				zoom;
+	double				z_factor;
+	enum e_bool			auto_rotate;
+}						t_dof_plus;
+
 typedef struct s_model
 {
-	//MLX WINDOW INSTANCE
 	void				*mlx;
 	void				*win;
 	int					win_width;
@@ -109,18 +118,10 @@ typedef struct s_model
 	struct s_node		*net;
 	//DEBUG
 	struct s_dbg		*dbg;
-	//ORIENTATION
-	int					x_trans;
-	int					y_trans;
-	double				x_rot_rad;
-	double				y_rot_rad;
-	double				z_rot_rad;
-	double				zoom;
-	float				z_factor;
-	enum e_bool			auto_rotate;
+	t_dof_plus			dof;
 	//WHEN I IMPLEMENT THE COLOR SHIFT THIS WILL BE OBSOLETE
 	int					color;
-	struct s_point net_dim; //The x and y max of the file
+	t_point_2d net_dim; //The x and y max of the file
 	int					z_max;
 	int					z_min;
 	struct s_point_3d	center_point;
@@ -162,9 +163,11 @@ void					dbg_printf(t_model *model, t_dbg_flag dbg_flg,
 double					degree2radian(int degree);
 int						radian2degree2(double radian);
 void					*free_ptr(void *ptr);
+void					*free_2_ptr(void *ptr1, void *ptr2);
+void					*free_3_ptr(void *ptr1, void *ptr2, void *ptr3);
 
 //______IMG.C___________________________________________________________________
-
+void					ini_img(t_model *model);
 void					create_next_img(t_model *model);
 
 //______MAIN.C__________________________________________________________________
@@ -177,7 +180,7 @@ void					init_net_details(t_model *model);
 t_model					*new_model(int argc, char **argv);
 void					determine_net_center(t_model *model);
 void					node2point(t_model *model, t_node *node,
-							t_point *point);
+							t_point_2d *point);
 void					free_model(t_model *model);
 void					update_max_values(t_model *model, int x, int y, int z);
 void					center_model(t_model *model);
@@ -201,19 +204,27 @@ void					load_file(int argc, char **argv, t_model *model);
 //______POINT.C_________________________________________________________________
 
 void					*new_point(t_pnt_dim dim, int x, int y, int z);
-void					print_point(t_model *model, t_point *point);
-char					*point2str(t_model *model, t_point *point);
+void					print_point(t_model *model, t_point_2d *point);
+char					*point2str(t_model *model, t_point_2d *point);
 
 //______VIEW.C__________________________________________________________________
 
 void					ini_win(t_model *model);
+void					ini_dof_plus(t_model *model);
 void					create_new_img(t_model *model);
 void					update_image(t_model *model);
 
 #endif
 
 //______MODEL_MOVE.C
-int						auto_rotate(void *void_model);
+void					translate_model(t_model *model, t_bool overwrite,
+							t_point_2d *trans);
+void					rotate_model(t_model *model, t_bool overwrite,
+							t_point_3d *rot_degrees);
+void					scale_model(t_model *model, t_bool overwrite,
+							double zoom, double z_factor);
+int						auto_rotate(t_model *model);
+void					zoom_to_start(t_model *model);
 //______DATA.C
 //______LIST.C
 //______
