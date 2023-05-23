@@ -1,5 +1,5 @@
 NORM AND STUFF
-- Check Memmory it probably leaks as fuck
+- Check Memmory it probably leaks as fuck			- DONE
 - Check Norminette
 - check functions which file should they be in	
 - aka split functions
@@ -16,5 +16,47 @@ BONUS
 - change colors
 - print zoom level and stuff to screen
 - add a help on F1
-- mouse hook fix
+- mouse hook fix						- DONE
 - mouse click close add
+- add comments!
+
+
+PLAN HO TO FINISH IT!
+
+1 SORT CODE
+-------------------
+- create new files
+	- move the fucntions
+	- add missing function
+	- check the max line length of functions
+	- implement the missiong functions in all of the code
+	- implement z scale on startup
+	- fix zoom aka center
+- check if all functions are static if they need to be
+- update h-file
+- norminette should be fine now
+
+2 Rethink Structs
+-------------------
+- ptr vs no ptr, etc
+- color to node fo bonus
+- all the structs
+	- ...
+	- ...
+	- ...
+
+3 Bonus
+-------------------
+- Implement Color File
+	- change line to print color of node on line
+	- function get color for z
+	- change color presets by pressing key c or so
+- Print stats to screen
+	- maybe hook it to the key i
+- Print help to screen
+	- maybe hook it to the key F1 or mouse click
+- Animate a zoom in on start and start auto rotate after zoom in
+
+3 COMMENTING
+-------------------
+- Add the fucked up comments to all the shit!

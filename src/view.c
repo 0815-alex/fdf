@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 17:08:26 by astein            #+#    #+#             */
-/*   Updated: 2023/05/23 14:35:34 by astein           ###   ########.fr       */
+/*   Updated: 2023/05/23 17:22:20 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,4 +102,7 @@ void	display_next_image(t_model *model)
 {
 	create_next_img(model);
 	mlx_put_image_to_window(model->mlx, model->win, model->img.mlx_img, 0, 0);
+	//because of itoa it leeks!!!
+	mlx_string_put(model->mlx, model->win, 100, 100, COLOR_GREEN,
+			ft_itoa(model->zoom));
 }

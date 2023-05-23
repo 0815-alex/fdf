@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 16:51:18 by astein            #+#    #+#             */
-/*   Updated: 2023/05/23 14:55:29 by astein           ###   ########.fr       */
+/*   Updated: 2023/05/23 16:11:09 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,11 +93,16 @@ typedef struct s_img
 
 typedef struct s_model
 {
+	//MLX WINDOW INSTANCE
 	void				*mlx;
 	void				*win;
-	struct s_node		*net;
 	int					win_width;
 	int					win_height;
+	//DATA
+	struct s_node		*net;
+	//DEBUG
+	struct s_dbg		*dbg;
+	//ORIENTATION
 	int					x_trans;
 	int					y_trans;
 	double				x_rot_rad;
@@ -105,14 +110,15 @@ typedef struct s_model
 	double				z_rot_rad;
 	double				zoom;
 	float				z_factor;
+	enum e_bool			auto_rotate;
+	//WHEN I IMPLEMENT THE COLOR SHIFT THIS WILL BE OBSOLETE
 	int					color;
-	struct s_dbg		*dbg;
-	struct s_point net_dim; //
+	struct s_point net_dim; //The x and y max of the file
 	int					z_max;
 	int					z_min;
 	struct s_point_3d	center_point;
+	
 	t_img				img;
-	enum e_bool			auto_rotate;
 }						t_model;
 
 typedef enum e_dbg_flag
