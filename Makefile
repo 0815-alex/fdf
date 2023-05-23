@@ -30,7 +30,8 @@ SRCS = $(SRC_FOLDER)main.c \
 	$(SRC_FOLDER)node.c \
 	$(SRC_FOLDER)point.c \
 	$(SRC_FOLDER)debug.c \
-	$(SRC_FOLDER)fdf_utils.c 
+	$(SRC_FOLDER)fdf_utils.c \
+	$(SRC_FOLDER)img.c 
 
 # Object files
 OBJS = $(SRCS:.c=.o)
