@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 17:08:26 by astein            #+#    #+#             */
-/*   Updated: 2023/05/22 17:12:50 by astein           ###   ########.fr       */
+/*   Updated: 2023/05/23 14:35:34 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,10 @@ int	auto_rotate(void *void_model)
 		display_next_image(model);
 	}
 	else
+	{
+		step = 0;
 		sleep(1);
+	}
 	dbg_printf(model, no_block, "Auto Rotate...");
 	return (0);
 }

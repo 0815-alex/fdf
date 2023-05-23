@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 17:13:13 by astein            #+#    #+#             */
-/*   Updated: 2023/05/22 17:07:11 by astein           ###   ########.fr       */
+/*   Updated: 2023/05/23 13:22:22 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ t_model	*new_model(int argc, char **argv)
 	model->z_rot_rad = degree2radian(0);
 	model->zoom = 10;
 	model->z_factor = 1;
-	model->color = COLOR_GREEN;
+	model->color = COLOR_RED;
 	model->img.mlx_img = NULL;
 	model->img.addr = NULL;
 	center_model(model);
@@ -143,8 +143,8 @@ void	free_model(t_model *model)
 {
 	dbg_printf(model, start_block, "free_model");
 	mlx_destroy_window(model->mlx, model->win);
-	free(model->dbg);
 	free_list(model->net);
-	free(model->img.mlx_img);
+	mlx_destroy_image(model->mlx, model->img.mlx_img);
+	free(model->dbg);
 	free(model);
 }

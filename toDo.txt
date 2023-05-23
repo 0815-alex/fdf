@@ -1,17 +1,20 @@
 NORM AND STUFF
 - Check Memmory it probably leaks as fuck
 - Check Norminette
-- check functions which file should they be in
+- check functions which file should they be in	
 - aka split functions
+- check structs (pointer vs no pointer)
 
 HANDLING
 - average of z values should set z_factor
 - size of data file should set zoom
-- rotate around mid of solid not around axis
+- rotate around mid of solid not around axis			- DONE
 
 
 BONUS
-- automate a random rotation
+- automate a random rotation					- DONE
 - change colors
 - print zoom level and stuff to screen
 - add a help on F1
+- mouse hook fix
+- mouse click close add
