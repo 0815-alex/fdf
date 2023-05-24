@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 16:51:18 by astein            #+#    #+#             */
-/*   Updated: 2023/05/24 12:25:07 by astein           ###   ########.fr       */
+/*   Updated: 2023/05/24 12:42:38 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@
 # define WRITE_COLOR_GREEN "\033[32m"
 # define WRITE_COLOR_ORANGE "\033[33m"
 
-//______STRUCTS FOR HANDLING LISTS______________________________________________
+//______STRUCTS ________________________________________________________________
 
 typedef struct s_dbg
 {
@@ -145,84 +145,75 @@ typedef enum e_pnt_dim
 }						t_pnt_dim;
 
 //      ALL FILES AND THEIR NON STATIC FUNCTIONS LISTED ALPHABETICALLY
+//==============================================================================
 
 //______CONTROLLER_KEYS.C_______________________________________________________
 int						deal_key(int key, t_model *model);
 
 //______CONTROLLER_MOUSE.C______________________________________________________
+int						deal_mouse(int code, t_model *model);
 
-int						deal_mouse(int button, t_model *model);
+//______DATA.C__________________________________________________________________
+void					ini_net_details(t_model *model);
+void					print_net(t_model *model);
+void					ini_max_values(t_model *model);
+void					update_max_values(t_model *model, int x, int y, int z);
+void					determine_net_center(t_model *model);
 
 //______DEBUG.C_________________________________________________________________
 void					ini_debug(t_model *model, int curr_stack_depth);
 void					dbg_printf(t_model *model, t_dbg_flag dbg_flg,
 							char *str, ...);
 
-//______UTILS.C_________________________________________________________________
-
-double					degree2radian(int degree);
-int						radian2degree2(double radian);
-void	*free_whatever(t_model *model, char *str, ...);
-
 //______IMG.C___________________________________________________________________
 void					ini_img(t_model *model);
 void					create_next_img(t_model *model);
 
-//______MAIN.C__________________________________________________________________
-
-int						main(int argc, char **argv);
-
-//______MODEL.C_________________________________________________________________
-
-void					ini_net_details(t_model *model);
-t_model					*new_model(int argc, char **argv);
-void					determine_net_center(t_model *model);
-void					node2point(t_model *model, t_node *node,
-							t_point_2d *point);
-void					free_model(t_model *model);
-void					update_max_values(t_model *model, int x, int y, int z);
-void					center_model(t_model *model);
-void					ini_max_values(t_model *model);
-
-//______NODE.C__________________________________________________________________
-
-t_node					*new_node(t_point_3d *point, int color);
-void					print_node(t_model *model, t_node *node);
-char					*node2str(t_model *model, t_node *node);
-void					print_net(t_model *model);
+//______LIST.C__________________________________________________________________
 void					node_add_front(t_node **lst, t_node *new);
 void					node_add_back(t_node **lst, t_node *new);
 void					free_list(t_node *head);
 
-//______PARSER.C________________________________________________________________
+//______MAIN.C__________________________________________________________________
+int						main(int argc, char **argv);
 
+//______MODEL_MOVE.C____________________________________________________________
+void					trans_mod(t_model *model, t_bool ovr,
+							t_point_2d *trans);
+void					rot_mod(t_model *model, t_bool ovr, t_point_3d *deg);
+void					scale_mod(t_model *model, t_bool ovr, double zoom,
+							double z_factor);
+int						auto_rotate(t_model *model);
+void					zoom_to_start(t_model *model);
+
+//______MODEL.C_________________________________________________________________
+t_model					*new_model(int argc, char **argv);
+void					free_model(t_model *model);
+
+//______NODE.C__________________________________________________________________
+t_node					*new_node(t_point_3d *point, int color);
+void					print_node(t_model *model, t_node *node);
+char					*node2str(t_model *model, t_node *node);
+void					node2point(t_model *model, t_node *node,
+							t_point_2d *point);
+
+//______PARSER.C________________________________________________________________
 void					load_file(int argc, char **argv, t_model *model);
 
 //______POINT.C_________________________________________________________________
-
 void					*new_point(t_pnt_dim dim, int x, int y, int z);
 void					print_point(t_model *model, t_point_2d *point);
 char					*point2str(t_model *model, t_point_2d *point);
 
-//______VIEW.C__________________________________________________________________
+//______UTILS.C_________________________________________________________________
+double					degree2radian(int degree);
+int						radian2degree2(double radian);
+void					*free_whatever(t_model *model, char *str, ...);
 
+//______VIEW.C__________________________________________________________________
 void					ini_win(t_model *model);
 void					ini_dof_plus(t_model *model);
-void					create_new_img(t_model *model);
+void					center_model(t_model *model);
 void					update_image(t_model *model);
 
 #endif
-
-//______MODEL_MOVE.C
-void					translate_model(t_model *model, t_bool overwrite,
-							t_point_2d *trans);
-void					rotate_model(t_model *model, t_bool overwrite,
-							t_point_3d *rot_degrees);
-void					scale_model(t_model *model, t_bool overwrite,
-							double zoom, double z_factor);
-int						auto_rotate(t_model *model);
-void					zoom_to_start(t_model *model);
-//______DATA.C
-//______LIST.C
-//______
-//______

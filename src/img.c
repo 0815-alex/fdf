@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 14:11:35 by astein            #+#    #+#             */
-/*   Updated: 2023/05/24 12:18:23 by astein           ###   ########.fr       */
+/*   Updated: 2023/05/24 12:32:12 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static void	img_pix_put(t_model *model, t_point_2d *point, int color)
 	}
 }
 
-static void	draw_line(t_model *model, t_point_2d *pnt_a, t_point_2d *pnt_b)
+static void	img_line_put(t_model *model, t_point_2d *pnt_a, t_point_2d *pnt_b)
 {
 	t_point_2d	*curr_point;
 	t_point_2d	*delta;
@@ -110,12 +110,12 @@ void	create_next_img(t_model *model)
 		if (cur_node->west)
 		{
 			node2point(model, cur_node->west, cur_conn_point);
-			draw_line(model, cur_point, cur_conn_point);
+			img_line_put(model, cur_point, cur_conn_point);
 		}
 		if (cur_node->north)
 		{
 			node2point(model, cur_node->north, cur_conn_point);
-			draw_line(model, cur_point, cur_conn_point);
+			img_line_put(model, cur_point, cur_conn_point);
 		}
 		(cur_node) = (cur_node)->next;
 	}
