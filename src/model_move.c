@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 18:42:22 by astein            #+#    #+#             */
-/*   Updated: 2023/05/24 12:42:31 by astein           ###   ########.fr       */
+/*   Updated: 2023/05/24 12:55:58 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,7 @@ void	rot_mod(t_model *model, t_bool ovr, t_point_3d *deg)
 	create_next_img(model);
 }
 
-void	scale_mod(t_model *model, t_bool ovr, double zoom,
-		double z_factor)
+void	scale_mod(t_model *model, t_bool ovr, double zoom, double z_factor)
 {
 	if (ovr)
 	{
@@ -86,7 +85,7 @@ int	auto_rotate(t_model *model)
 	}
 	else
 		sleep(1);
-    return(0);
+	return (0);
 }
 
 void	zoom_to_start(t_model *model)

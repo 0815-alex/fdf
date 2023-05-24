@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 16:51:18 by astein            #+#    #+#             */
-/*   Updated: 2023/05/24 12:42:38 by astein           ###   ########.fr       */
+/*   Updated: 2023/05/24 12:54:46 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,10 @@
 # define M_SCROLL_UP 5
 # define M_SCROLL_RIGHT 6
 # define M_SCROLL_LEFT 7
+
+//______DEFINE BUTTONS__________________________________________________________
+# define B_MIN_WIN 15
+# define B_CLS_WIN 17
 
 //______DEFINE COLOR____________________________________________________________
 
@@ -188,7 +192,7 @@ void					zoom_to_start(t_model *model);
 
 //______MODEL.C_________________________________________________________________
 t_model					*new_model(int argc, char **argv);
-void					free_model(t_model *model);
+int						close_model(t_model *model);
 
 //______NODE.C__________________________________________________________________
 t_node					*new_node(t_point_3d *point, int color);

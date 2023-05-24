@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 17:10:48 by astein            #+#    #+#             */
-/*   Updated: 2023/05/24 12:38:15 by astein           ###   ########.fr       */
+/*   Updated: 2023/05/24 12:45:16 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ static t_bool	check_presets(int key, t_model *model)
 int	deal_key(int key, t_model *model)
 {
 	if (key == K_ESC)
-		free_model(model);
+		close_model(model);
 	check_translate(key, model);
 	check_rotate(key, model);
 	check_zoom(key, model);

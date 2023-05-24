@@ -26,12 +26,12 @@ PLAN HO TO FINISH IT!
 1 SORT CODE
 -------------------
 DONE	- create new files
-- move the fucntions
-- add missing function
-- check the max line length of functions
-- implement the missiong functions in all of the code
-- check if all functions are static if they need to be
-- update h-file
+DONE	- move the fucntions
+DONE	- add missing function
+DONEISH	- check the max line length of functions
+DONEISH	- implement the missiong functions in all of the code
+DONE	- check if all functions are static if they need to be
+DONE	- update h-file
 - implement z scale on startup
 - fix zoom aka center
 - norminette should be fine now
@@ -56,7 +56,8 @@ DONE	- create new files
 	- maybe hook it to the key i
 - Print help to screen
 	- maybe hook it to the key F1 or mouse click
-- Animate a zoom in on start and start auto rotate after zoom in
+DONE	- Animate a zoom in on start and start auto rotate after zoom in
+- Animate zoom before closing
 
 3 COMMENTING
 -------------------
