@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 16:51:18 by astein            #+#    #+#             */
-/*   Updated: 2023/05/24 12:54:46 by astein           ###   ########.fr       */
+/*   Updated: 2023/05/24 14:03:43 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,9 +77,6 @@ typedef struct s_point_3d
 
 typedef struct s_node
 {
-	// int					x;
-	// int					y;
-	// int					z;
 	t_point_3d			*pnt;
 	int					color;
 	struct s_node		*next;

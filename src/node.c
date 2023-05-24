@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 18:50:54 by astein            #+#    #+#             */
-/*   Updated: 2023/05/24 12:16:04 by astein           ###   ########.fr       */
+/*   Updated: 2023/05/24 13:59:44 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,5 +84,4 @@ void	node2point(t_model *model, t_node *node, t_point_2d *point)
 			* sin(model->dof.y_rot_rad) * sin(model->dof.z_rot_rad));
 	point->x += model->center_point.x + model->dof.x_trans;
 	point->y += model->center_point.y + model->dof.y_trans;
-	update_max_values(model, x, y, 0);
 }
