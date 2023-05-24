@@ -6,19 +6,21 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 18:50:54 by astein            #+#    #+#             */
-/*   Updated: 2023/05/24 13:59:44 by astein           ###   ########.fr       */
+/*   Updated: 2023/05/24 17:19:25 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/fdf.h"
 
-t_node	*new_node(t_point_3d *point, int color)
+t_node	*new_node(t_point_3d *point)
 {
 	t_node	*new_node;
 
 	new_node = malloc(sizeof(t_node));
 	new_node->pnt = point;
-	new_node->color = color;
+	new_node->color.red = 255;
+    new_node->color.green = 255;
+    new_node->color.blue = 255;
 	new_node->next = NULL;
 	new_node->west = NULL;
 	new_node->north = NULL;
@@ -32,7 +34,7 @@ void	print_node(t_model *model, t_node *node)
 		dbg_printf(model, no_block, "(no node)");
 	else
 		dbg_printf(model, no_block, "(%i|%i|%i)", node->pnt->x, node->pnt->y,
-			node->pnt->z);
+				node->pnt->z);
 }
 
 //I should change it to call 3dpoint to string instead!
@@ -59,7 +61,7 @@ char	*node2str(t_model *model, t_node *node)
 	}
 }
 
-void	node2point(t_model *model, t_node *node, t_point_2d *point)
+void	node2point(t_model *model, t_node *node, t_point_2d_colored *point)
 {
 	double	x;
 	double	y;
@@ -70,18 +72,19 @@ void	node2point(t_model *model, t_node *node, t_point_2d *point)
 	x = (node->pnt->x - model->center_point.x) * model->dof.zoom;
 	y = (node->pnt->y - model->center_point.y) * model->dof.zoom;
 	z = (node->pnt->z - model->center_point.z) * model->dof.z_factor;
-	point->x = x * cos(model->dof.y_rot_rad) * cos(model->dof.z_rot_rad) + y
-		* (cos(model->dof.z_rot_rad) * sin(model->dof.x_rot_rad)
-			* sin(model->dof.y_rot_rad) - cos(model->dof.x_rot_rad)
-			* sin(model->dof.z_rot_rad)) + z * (cos(model->dof.x_rot_rad)
-			* cos(model->dof.z_rot_rad) * sin(model->dof.y_rot_rad)
-			+ sin(model->dof.x_rot_rad) * sin(model->dof.z_rot_rad));
-	point->y = x * (cos(model->dof.y_rot_rad) * sin(model->dof.z_rot_rad)) + y
-		* (cos(model->dof.x_rot_rad) * cos(model->dof.z_rot_rad)
-			+ sin(model->dof.x_rot_rad) * sin(model->dof.y_rot_rad)
-			* sin(model->dof.z_rot_rad)) + z * (-cos(model->dof.z_rot_rad)
-			* sin(model->dof.x_rot_rad) + cos(model->dof.x_rot_rad)
-			* sin(model->dof.y_rot_rad) * sin(model->dof.z_rot_rad));
-	point->x += model->center_point.x + model->dof.x_trans;
-	point->y += model->center_point.y + model->dof.y_trans;
+	point->x = x * cos(model->dof.rot_rad.y) * cos(model->dof.rot_rad.z) + y
+		* (cos(model->dof.rot_rad.z) * sin(model->dof.rot_rad.x)
+			* sin(model->dof.rot_rad.y) - cos(model->dof.rot_rad.x)
+			* sin(model->dof.rot_rad.z)) + z * (cos(model->dof.rot_rad.x)
+			* cos(model->dof.rot_rad.z) * sin(model->dof.rot_rad.y)
+			+ sin(model->dof.rot_rad.x) * sin(model->dof.rot_rad.z));
+	point->y = x * (cos(model->dof.rot_rad.y) * sin(model->dof.rot_rad.z)) + y
+		* (cos(model->dof.rot_rad.x) * cos(model->dof.rot_rad.z)
+			+ sin(model->dof.rot_rad.x) * sin(model->dof.rot_rad.y)
+			* sin(model->dof.rot_rad.z)) + z * (-cos(model->dof.rot_rad.z)
+			* sin(model->dof.rot_rad.x) + cos(model->dof.rot_rad.x)
+			* sin(model->dof.rot_rad.y) * sin(model->dof.rot_rad.z));
+	point->x += model->center_point.x + model->dof.trans.x;
+	point->y += model->center_point.y + model->dof.trans.y;
+	point->color = node->color;
 }

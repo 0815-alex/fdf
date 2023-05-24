@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 15:30:35 by astein            #+#    #+#             */
-/*   Updated: 2023/05/24 13:58:07 by astein           ###   ########.fr       */
+/*   Updated: 2023/05/24 17:18:14 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 	first split it to array
 	then create 
 */
-static void	str_line(char **arr, int y, t_node **last_row, t_model *model)
+static void	str_line(char **arr, int y, t_node **prev_row, t_model *model)
 {
 	int		i;
 	t_node	*node_prev;
@@ -27,13 +27,12 @@ static void	str_line(char **arr, int y, t_node **last_row, t_model *model)
 	i = 0;
 	while (arr[i])
 	{
-		node_new = new_node(new_point(pnt_dim_3, i + 1, y, ft_atoi(arr[i])),
-				COLOR_WHITE);
+		node_new = new_node(new_point(pnt_dim_3, i + 1, y, ft_atoi(arr[i])));
 		update_max_values(model, i + 1, y, node_new->pnt->z);
 		node_new->west = node_prev;
-		node_new->north = *last_row;
-		if (*last_row)
-			*last_row = (*last_row)->next;
+		node_new->north = *prev_row;
+		if (*prev_row)
+			*prev_row = (*prev_row)->next;
 		print_node(model, node_new);
 		node_add_back(&model->net, node_new);
 		if (i == 0)
@@ -42,7 +41,7 @@ static void	str_line(char **arr, int y, t_node **last_row, t_model *model)
 		i++;
 	}
 	free_whatever(model, "a", arr);
-	*last_row = node_first_in_row;
+	*prev_row = node_first_in_row;
 }
 
 /*  check if there are args
@@ -55,20 +54,21 @@ void	load_file(int argc, char **argv, t_model *model)
 	int		fd;
 	char	*line;
 	int		cur_row;
-	t_node	*last_row;
+	t_node	*prev_row;
 
 	if (argc != 2)
 		dbg_printf(model, err_block, "Missing a filename as a parameter!");
 	model->net = NULL;
-	dbg_printf(model, no_block, "open file: %s", argv[1]);
 	fd = open(argv[1], O_RDONLY);
+	if (fd == -1)
+		dbg_printf(model, err_block, "fdf file not found!");
 	line = get_next_line(fd);
 	cur_row = 1;
-	last_row = NULL;
+	prev_row = NULL;
 	while (line)
 	{
 		dbg_printf(model, no_block, "read Line: %s", line);
-		str_line(ft_split(line, ' '), cur_row, &last_row, model);
+		str_line(ft_split(line, ' '), cur_row, &prev_row, model);
 		free(line);
 		line = get_next_line(fd);
 		cur_row++;

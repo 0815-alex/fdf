@@ -8,7 +8,7 @@ DEBUG = 0
 # Compiler options
 CC = cc
 CFLAGS = -D DEBUG=$(DEBUG) -g -Wall -Werror -Wextra -fsanitize=address -fsanitize-address-use-after-scope
-CLIBS = -L$(LIB_FOLDER)libft_printf -L$(LIB_FOLDER)minilibx
+CLIBS = -L$(LIB_FOLDER)libft_printf -L$(LIB_FOLDER)minilibx -lm
 CINCLUDES  = -I$(INCLUDE_FOLDER) -I$(MLX_FOLDER)
 RM = rm -f
 
@@ -34,6 +34,7 @@ SRCS = $(SRC_FOLDER)main.c \
 	$(SRC_FOLDER)img.c \
 	$(SRC_FOLDER)data.c \
 	$(SRC_FOLDER)model_move.c \
+	$(SRC_FOLDER)color.c \
 	$(SRC_FOLDER)list.c
 
 # Object files

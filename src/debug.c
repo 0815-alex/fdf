@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 23:11:27 by astein            #+#    #+#             */
-/*   Updated: 2023/05/24 12:20:22 by astein           ###   ########.fr       */
+/*   Updated: 2023/05/24 15:06:54 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,7 @@
 
 void	ini_debug(t_model *model, int curr_stack_depth)
 {
-	model->dbg = malloc(sizeof(t_dbg));
-	model->dbg->count_stack_depth = curr_stack_depth;
+	model->dbg.count_stack_depth = curr_stack_depth;
 }
 
 static void	print_tab_level(t_model *model, t_dbg_flag dbg_flg)
@@ -26,14 +25,14 @@ static void	print_tab_level(t_model *model, t_dbg_flag dbg_flg)
 	tabs = 0;
 	tab_width = 5;
 	if (dbg_flg == end_block)
-		model->dbg->count_stack_depth--;
-	while (tabs < (model->dbg->count_stack_depth) * tab_width)
+		model->dbg.count_stack_depth--;
+	while (tabs < (model->dbg.count_stack_depth) * tab_width)
 	{
 		write(1, " ", 1);
 		tabs++;
 	}
 	if (dbg_flg == start_block)
-		model->dbg->count_stack_depth++;
+		model->dbg.count_stack_depth++;
 	if (dbg_flg == start_block)
 		ft_putstr_fd(WRITE_COLOR_ORANGE "  [START] >", 1);
 	else if (dbg_flg == end_block)
@@ -67,6 +66,9 @@ void	dbg_printf(t_model *model, t_dbg_flag dbg_flg, char *str, ...)
 		va_end(args);
 		ft_putstr_fd("\n", 1);
 		if (dbg_flg == err_block)
+		{
+			perror("\nSystem error msg");
 			exit(0);
+		}
 	}
 }

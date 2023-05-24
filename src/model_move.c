@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 18:42:22 by astein            #+#    #+#             */
-/*   Updated: 2023/05/24 13:36:43 by astein           ###   ########.fr       */
+/*   Updated: 2023/05/24 14:53:19 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,13 @@ void	trans_mod(t_model *model, t_bool ovr, t_point_2d *trans)
 {
 	if (ovr)
 	{
-		model->dof.x_trans = trans->x;
-		model->dof.y_trans = trans->y;
+		model->dof.trans.x = trans->x;
+		model->dof.trans.y = trans->y;
 	}
 	else
 	{
-		model->dof.x_trans += trans->x;
-		model->dof.y_trans += trans->y;
+		model->dof.trans.x += trans->x;
+		model->dof.trans.y += trans->y;
 	}
 	free_whatever(model, "p", trans);
 	create_next_img(model);
@@ -32,15 +32,15 @@ void	rot_mod(t_model *model, t_bool ovr, t_point_3d *deg)
 {
 	if (ovr == ft_true)
 	{
-		model->dof.x_rot_rad = degree2radian(deg->x);
-		model->dof.y_rot_rad = degree2radian(deg->y);
-		model->dof.z_rot_rad = degree2radian(deg->z);
+		model->dof.rot_rad.x = degree2radian(deg->x);
+		model->dof.rot_rad.y = degree2radian(deg->y);
+		model->dof.rot_rad.z = degree2radian(deg->z);
 	}
 	else
 	{
-		model->dof.x_rot_rad += degree2radian(deg->x);
-		model->dof.y_rot_rad += degree2radian(deg->y);
-		model->dof.z_rot_rad += degree2radian(deg->z);
+		model->dof.rot_rad.x += degree2radian(deg->x);
+		model->dof.rot_rad.y += degree2radian(deg->y);
+		model->dof.rot_rad.z += degree2radian(deg->z);
 	}
 	free_whatever(model, "p", deg);
 	create_next_img(model);

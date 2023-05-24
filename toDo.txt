@@ -1,8 +1,8 @@
 NORM AND STUFF
 - Check Memmory it probably leaks as fuck			- DONE
-- Check Norminette
-- check functions which file should they be in	
-- aka split functions
+- Check Norminette						- DONE
+- check functions which file should they be in			- DONE
+- aka split functions						- DONE
 - check structs (pointer vs no pointer)
 
 HANDLING
@@ -17,7 +17,7 @@ BONUS
 - print zoom level and stuff to screen
 - add a help on F1
 - mouse hook fix						- DONE
-- mouse click close add
+- mouse click close add						- DONE
 - add comments!
 
 
@@ -32,18 +32,18 @@ DONEISH	- check the max line length of functions
 DONEISH	- implement the missiong functions in all of the code
 DONE	- check if all functions are static if they need to be
 DONE	- update h-file
-- implement z scale on startup
-- fix zoom aka center
-- norminette should be fine now
+DONE	- implement z scale on startup
+DONE 	- fix zoom aka center
+DONISH	- norminette should be fine now
 
 2 Rethink Structs
 -------------------
-- ptr vs no ptr, etc
-- color to node fo bonus
-- all the structs
-	- ...
-	- ...
-	- ...
+DONE	- ptr vs no ptr, etc
+DONE	- color to node for bonus
+DONE	- all the structs
+DONE		- ...
+DONE		- ...
+DONE		- ...
 - check if all mallocs are safe to fail
 
 3 Bonus
@@ -52,6 +52,7 @@ DONE	- update h-file
 	- change line to print color of node on line
 	- function get color for z
 	- change color presets by pressing key c or so
+- key hold down move change hook
 - Print stats to screen
 	- maybe hook it to the key i
 - Print help to screen

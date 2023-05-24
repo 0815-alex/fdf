@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 17:08:26 by astein            #+#    #+#             */
-/*   Updated: 2023/05/24 14:41:18 by astein           ###   ########.fr       */
+/*   Updated: 2023/05/24 17:17:54 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,11 @@ void	ini_win(t_model *model)
 void	ini_dof_plus(t_model *model)
 {
 	dbg_printf(model, start_block, "ini_dof_plus");
-	model->dof.x_trans = 100;
-	model->dof.y_trans = 100;
-	model->dof.x_rot_rad = degree2radian(0);
-	model->dof.y_rot_rad = degree2radian(0);
-	model->dof.z_rot_rad = degree2radian(0);
+	model->dof.trans.x = 100;
+	model->dof.trans.y = 100;
+	model->dof.rot_rad.x = degree2radian(0);
+	model->dof.rot_rad.y = degree2radian(0);
+	model->dof.rot_rad.z = degree2radian(0);
 	model->dof.zoom = 10;
 	model->dof.z_factor = 1;
 	model->dof.auto_rotate = ft_true;
@@ -67,9 +67,9 @@ void	center_model(t_model *model)
 	int	possbile_zoom_x;
 	int	possbile_zoom_y;
 
-	model->dof.x_trans = ((model->win_width / 2) - (model->center_point.x
+	model->dof.trans.x = ((model->win_width / 2) - (model->center_point.x
 				* model->dof.zoom) / model->dof.zoom);
-	model->dof.y_trans = ((model->win_height / 2) - (model->center_point.y
+	model->dof.trans.y = ((model->win_height / 2) - (model->center_point.y
 				* model->dof.zoom) / model->dof.zoom);
 	possbile_zoom_x = (model->win_width - 100) / model->net_dim.x;
 	possbile_zoom_y = (model->win_height - 100) / model->net_dim.y;
@@ -90,8 +90,8 @@ void	update_image(t_model *model)
 
 	mlx_put_image_to_window(model->mlx, model->win, model->img.mlx_img, 0, 0);
 	zoom = ft_itoa(model->dof.zoom);
-	rot_x = ft_itoa(model->dof.x_rot_rad);
-	mlx_string_put(model->mlx, model->win, 100, 100, COLOR_GREEN, zoom);
-	mlx_string_put(model->mlx, model->win, 300, 100, COLOR_GREEN, rot_x);
+	rot_x = ft_itoa(model->dof.rot_rad.x);
+	// mlx_string_put(model->mlx, model->win, 100, 100, COLOR_GREEN, zoom);
+	// mlx_string_put(model->mlx, model->win, 300, 100, COLOR_GREEN, rot_x);
 	free_whatever(model, "pp", zoom, rot_x);
 }

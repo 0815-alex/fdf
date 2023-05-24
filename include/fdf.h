@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 16:51:18 by astein            #+#    #+#             */
-/*   Updated: 2023/05/24 14:03:43 by astein           ###   ########.fr       */
+/*   Updated: 2023/05/24 17:24:16 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include "../lib/minilibx/mlx.h"
 # include <limits.h>
 # include <math.h>
+# include <stdint.h>
 
 //______DEFINE KEYS_____________________________________________________________
 
@@ -42,11 +43,15 @@
 
 //______DEFINE COLOR____________________________________________________________
 
-# define COLOR_WHITE 0xFFFFFF
-# define COLOR_BLACK 0x000000
-# define COLOR_RED 0xFF0000
-# define COLOR_GREEN 0x00FF00
-# define COLOR_BLUE 0x0000FF
+// #define COLOR_WHITE ((uint8_t)255)
+// #define COLOR_RED ((uint8_t)255)
+// #define COLOR_GREEN ((uint8_t)0)
+// #define COLOR_BLACK ((uint8_t)0)
+// #define COLOR_BLUE ((uint8_t)255)
+// # define COLOR_BLACK 0x000000u
+// # define COLOR_RED 0xFF0000u
+// # define COLOR_GREEN 0x00FF00u
+// # define COLOR_BLUE 0x0000FFu
 
 //______DEFINE TEMINAL COLOR____________________________________________________
 
@@ -59,39 +64,51 @@
 
 typedef struct s_dbg
 {
-	int					count_stack_depth;
-}						t_dbg;
+	int				count_stack_depth;
+}					t_dbg;
+
+typedef struct s_color
+{
+	uint8_t			red;
+	uint8_t			green;
+	uint8_t			blue;
+}					t_color;
 
 typedef struct s_point_2d
 {
-	int					x;
-	int					y;
-}						t_point_2d;
+	int				x;
+	int				y;
+}					t_point_2d;
+
+typedef struct s_point_2d_colored
+{
+	int				x;
+	int				y;
+	t_color			color;
+}					t_point_2d_colored;
 
 typedef struct s_point_3d
 {
-	int					x;
-	int					y;
-	int					z;
-}						t_point_3d;
+	int				x;
+	int				y;
+	int				z;
+}					t_point_3d;
+
+typedef struct s_point_dbl_3d
+{
+	double			x;
+	double			y;
+	double			z;
+}					t_point_dbl_3d;
 
 typedef struct s_node
 {
-	t_point_3d			*pnt;
-	int					color;
-	struct s_node		*next;
-	struct s_node		*west;
-	struct s_node		*north;
-}						t_node;
-
-typedef struct s_img
-{
-	void				*mlx_img;
-	char				*addr;
-	int					bpp;
-	int					line_len;
-	int					endian;
-}						t_img;
+	t_point_3d		*pnt;
+	t_color			color;
+	struct s_node	*next;
+	struct s_node	*west;
+	struct s_node	*north;
+}					t_node;
 
 /**
  * @brief dof degrees of fredoom
@@ -99,36 +116,48 @@ typedef struct s_img
  */
 typedef struct s_dof_plus
 {
-	int					x_trans;
-	int					y_trans;
-	double				x_rot_rad;
-	double				y_rot_rad;
-	double				z_rot_rad;
-	double				zoom;
-	double				z_factor;
-	enum e_bool			auto_rotate;
-}						t_dof_plus;
+	t_point_2d		trans;
+	t_point_dbl_3d	rot_rad;
+	double			zoom;
+	double			z_factor;
+	enum e_bool		auto_rotate;
+}					t_dof_plus;
+
+typedef struct s_img
+{
+	void			*mlx_img;
+	char			*addr;
+	int				bpp;
+	int				line_len;
+	int				endian;
+}					t_img;
+
+/*
+True Color bla bla
+*/
+typedef struct s_color_map
+{
+	t_color			min;
+	t_color			zero;
+	t_color			max;
+}					t_color_map;
 
 typedef struct s_model
 {
-	void				*mlx;
-	void				*win;
-	int					win_width;
-	int					win_height;
-	//DATA
-	struct s_node		*net;
-	//DEBUG
-	struct s_dbg		*dbg;
-	t_dof_plus			dof;
-	//WHEN I IMPLEMENT THE COLOR SHIFT THIS WILL BE OBSOLETE
-	int					color;
-	t_point_2d net_dim; //The x and y max of the file
-	int					z_max;
-	int					z_min;
-	struct s_point_3d	center_point;
-
-	t_img				img;
-}						t_model;
+	void			*mlx;
+	void			*win;
+	int				win_width;
+	int				win_height;
+	t_node			*net;
+	t_color_map		*color_map;
+	t_dbg			dbg;
+	t_dof_plus		dof;
+	t_point_2d		net_dim;
+	int				z_max;
+	int				z_min;
+	t_point_3d		center_point;
+	t_img			img;
+}					t_model;
 
 typedef enum e_dbg_flag
 {
@@ -136,85 +165,93 @@ typedef enum e_dbg_flag
 	no_block = 0,
 	start_block = 1,
 	end_block = 2
-}						t_dbg_flag;
+}					t_dbg_flag;
 
 typedef enum e_pnt_dim
 {
 	pnt_dim_error = -1,
 	pnt_dim_2 = 2,
 	pnt_dim_3 = 3
-}						t_pnt_dim;
+}					t_pnt_dim;
 
 //      ALL FILES AND THEIR NON STATIC FUNCTIONS LISTED ALPHABETICALLY
 //==============================================================================
 
+//______COLOR.C_________________________________________________________________
+void				ini_color_map(t_model *model);
+t_color_map			*new_color_map(void);
+void				ini_colors(t_model *model);
+t_color	*calculate_step_color(t_color start_color,
+								t_color end_color,
+								int n_steps);
+int					color2int(t_color color);
+
 //______CONTROLLER_KEYS.C_______________________________________________________
-int						deal_key(int key, t_model *model);
+int					deal_key(int key, t_model *model);
 
 //______CONTROLLER_MOUSE.C______________________________________________________
-int						deal_mouse(int code, t_model *model);
+int					deal_mouse(int code, t_model *model);
 
 //______DATA.C__________________________________________________________________
-void					ini_net_details(t_model *model);
-void					print_net(t_model *model);
-void					ini_max_values(t_model *model);
-void					update_max_values(t_model *model, int x, int y, int z);
-void					determine_net_center(t_model *model);
+void				ini_net_details(t_model *model);
+void				print_net(t_model *model);
+void				ini_max_values(t_model *model);
+void				update_max_values(t_model *model, int x, int y, int z);
+void				determine_net_center(t_model *model);
 
 //______DEBUG.C_________________________________________________________________
-void					ini_debug(t_model *model, int curr_stack_depth);
-void					dbg_printf(t_model *model, t_dbg_flag dbg_flg,
-							char *str, ...);
+void				ini_debug(t_model *model, int curr_stack_depth);
+void				dbg_printf(t_model *model, t_dbg_flag dbg_flg, char *str,
+						...);
 
 //______IMG.C___________________________________________________________________
-void					ini_img(t_model *model);
-void					create_next_img(t_model *model);
+void				ini_img(t_model *model);
+void				create_next_img(t_model *model);
 
 //______LIST.C__________________________________________________________________
-void					node_add_front(t_node **lst, t_node *new);
-void					node_add_back(t_node **lst, t_node *new);
-void					free_list(t_node *head);
+void				node_add_front(t_node **lst, t_node *new);
+void				node_add_back(t_node **lst, t_node *new);
+void				free_list(t_node *head);
 
 //______MAIN.C__________________________________________________________________
-int						main(int argc, char **argv);
+int					main(int argc, char **argv);
 
 //______MODEL_MOVE.C____________________________________________________________
-void					trans_mod(t_model *model, t_bool ovr,
-							t_point_2d *trans);
-void					rot_mod(t_model *model, t_bool ovr, t_point_3d *deg);
-void					scale_mod(t_model *model, t_bool ovr, double zoom,
-							double z_factor);
-int						auto_rotate(t_model *model);
-void					zoom_to_start(t_model *model);
+void				trans_mod(t_model *model, t_bool ovr, t_point_2d *trans);
+void				rot_mod(t_model *model, t_bool ovr, t_point_3d *deg);
+void				scale_mod(t_model *model, t_bool ovr, double zoom,
+						double z_factor);
+int					auto_rotate(t_model *model);
+void				zoom_to_start(t_model *model);
 
 //______MODEL.C_________________________________________________________________
-t_model					*new_model(int argc, char **argv);
-int						close_model(t_model *model);
+t_model				*new_model(int argc, char **argv);
+int					close_model(t_model *model);
 
 //______NODE.C__________________________________________________________________
-t_node					*new_node(t_point_3d *point, int color);
-void					print_node(t_model *model, t_node *node);
-char					*node2str(t_model *model, t_node *node);
-void					node2point(t_model *model, t_node *node,
-							t_point_2d *point);
+t_node				*new_node(t_point_3d *point);
+void				print_node(t_model *model, t_node *node);
+char				*node2str(t_model *model, t_node *node);
+void				node2point(t_model *model, t_node *node,
+						t_point_2d_colored *point);
 
 //______PARSER.C________________________________________________________________
-void					load_file(int argc, char **argv, t_model *model);
+void				load_file(int argc, char **argv, t_model *model);
 
 //______POINT.C_________________________________________________________________
-void					*new_point(t_pnt_dim dim, int x, int y, int z);
-void					print_point(t_model *model, t_point_2d *point);
-char					*point2str(t_model *model, t_point_2d *point);
+void				*new_point(t_pnt_dim dim, int x, int y, int z);
+void				print_point(t_model *model, t_point_2d *point);
+char				*point2str(t_model *model, t_point_2d *point);
 
 //______UTILS.C_________________________________________________________________
-double					degree2radian(int degree);
-int						radian2degree2(double radian);
-void					*free_whatever(t_model *model, char *str, ...);
+double				degree2radian(int degree);
+int					radian2degree2(double radian);
+void				*free_whatever(t_model *model, char *str, ...);
 
 //______VIEW.C__________________________________________________________________
-void					ini_win(t_model *model);
-void					ini_dof_plus(t_model *model);
-void					center_model(t_model *model);
-void					update_image(t_model *model);
+void				ini_win(t_model *model);
+void				ini_dof_plus(t_model *model);
+void				center_model(t_model *model);
+void				update_image(t_model *model);
 
 #endif

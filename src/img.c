@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 14:11:35 by astein            #+#    #+#             */
-/*   Updated: 2023/05/24 12:32:12 by astein           ###   ########.fr       */
+/*   Updated: 2023/05/24 17:23:56 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ static void	img_pix_put(t_model *model, t_point_2d *point, int color)
 	int		i;
 
 	if (point->x < 1 || point->x >= model->win_width)
-		dbg_printf(model, no_block, "pixel x coordinate inst printable");
+		dbg_printf(model, no_block, "pixel x coordinate out of window");
 	else if (point->y < 1 || point->y > model->win_height)
-		dbg_printf(model, no_block, "pixel y coordinate inst printable");
+		dbg_printf(model, no_block, "pixel y coordinate out of window");
 	else
 	{
 		i = model->img.bpp - 8;
@@ -49,7 +49,8 @@ static void	img_pix_put(t_model *model, t_point_2d *point, int color)
 	}
 }
 
-static void	img_line_put(t_model *model, t_point_2d *pnt_a, t_point_2d *pnt_b)
+static void	img_line_put(t_model *model, t_point_2d_colored *pnt_a,
+		t_point_2d_colored *pnt_b)
 {
 	t_point_2d	*curr_point;
 	t_point_2d	*delta;
@@ -75,7 +76,7 @@ static void	img_line_put(t_model *model, t_point_2d *pnt_a, t_point_2d *pnt_b)
 	err = delta->x + delta->y;
 	while (1)
 	{
-		img_pix_put(model, curr_point, model->color);
+		img_pix_put(model, curr_point, color2int(pnt_a->color));
 		if (curr_point->x == pnt_b->x && curr_point->y == pnt_b->y)
 			break ;
 		e2 = 2 * err;
@@ -93,32 +94,34 @@ static void	img_line_put(t_model *model, t_point_2d *pnt_a, t_point_2d *pnt_b)
 	free_whatever(model, "ppp", curr_point, delta, sign);
 }
 
+static void	nodes2line(t_model *model, t_node *node_1, t_node *node_2)
+{
+	t_point_2d_colored	*p1;
+	t_point_2d_colored	*p2;
+
+	p1 = malloc(sizeof(t_point_2d_colored));
+	p2 = malloc(sizeof(t_point_2d_colored));
+	node2point(model, node_1, p1);
+	node2point(model, node_2, p2);
+	img_line_put(model, p1, p2);
+	free_whatever(model, "pp", p1, p2);
+}
+
 void	create_next_img(t_model *model)
 {
-	t_node		*cur_node;
-	t_point_2d	*cur_point;
-	t_point_2d	*cur_conn_point;
+	t_node	*cur_node;
 
 	ft_bzero(model->img.addr, model->win_height * model->win_width
 			* sizeof(model->img.bpp));
 	cur_node = model->net;
-	cur_point = malloc(sizeof(t_point_2d));
-	cur_conn_point = malloc(sizeof(t_point_2d));
 	while (cur_node)
 	{
-		node2point(model, cur_node, cur_point);
 		if (cur_node->west)
-		{
-			node2point(model, cur_node->west, cur_conn_point);
-			img_line_put(model, cur_point, cur_conn_point);
-		}
+			nodes2line(model, cur_node, cur_node->west);
 		if (cur_node->north)
-		{
-			node2point(model, cur_node->north, cur_conn_point);
-			img_line_put(model, cur_point, cur_conn_point);
-		}
+			nodes2line(model, cur_node, cur_node->north);
 		(cur_node) = (cur_node)->next;
 	}
-	free_whatever(model, "ppp", cur_node, cur_point, cur_conn_point);
+	free_whatever(model, "p", cur_node);
 	update_image(model);
 }
