@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 17:08:26 by astein            #+#    #+#             */
-/*   Updated: 2023/05/24 11:31:04 by astein           ###   ########.fr       */
+/*   Updated: 2023/05/24 13:50:43 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,19 +64,19 @@ verschieben um die differenz geteilt durch den zoom
 */
 void	center_model(t_model *model)
 {
-	int	possbile_zoom_x;
-	int	possbile_zoom_y;
+	// int	possbile_zoom_x;
+	// int	possbile_zoom_y;
 
-	model->dof.x_trans = ((model->win_width / 2) - (model->center_point.x
-				* model->dof.zoom) / model->dof.zoom);
-	model->dof.y_trans = ((model->win_height / 2) - (model->center_point.y
-				* model->dof.zoom) / model->dof.zoom);
-	possbile_zoom_x = (model->win_width - 100) / model->net_dim.x;
-	possbile_zoom_y = (model->win_height - 100) / model->net_dim.y;
-	if (possbile_zoom_x > possbile_zoom_y)
-		model->dof.zoom = possbile_zoom_y;
-	else
-		model->dof.zoom = possbile_zoom_x;
+	// model->dof.x_trans = ((model->win_width / 2) - (model->center_point.x
+	// 			* model->dof.zoom) / model->dof.zoom);
+	// model->dof.y_trans = ((model->win_height / 2) - (model->center_point.y
+	// 			* model->dof.zoom) / model->dof.zoom);
+	// possbile_zoom_x = (model->win_width - 100) / model->net_dim.x;
+	// possbile_zoom_y = (model->win_height - 100) / model->net_dim.y;
+	// if (possbile_zoom_x > possbile_zoom_y)
+	// 	model->dof.zoom = possbile_zoom_y;
+	// else
+	// 	model->dof.zoom = possbile_zoom_x;
 }
 
 void	update_image(t_model *model)

@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 17:13:13 by astein            #+#    #+#             */
-/*   Updated: 2023/05/24 12:53:02 by astein           ###   ########.fr       */
+/*   Updated: 2023/05/24 13:38:08 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ t_model	*new_model(int argc, char **argv)
 	ini_img(model);
 	model->color = COLOR_RED;
 	center_model(model);
-	print_net(model);
 	zoom_to_start(model);
 	mlx_loop_hook(model->mlx, auto_rotate, model);
 	dbg_printf(model, end_block, "new_model");
