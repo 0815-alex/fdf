@@ -6,13 +6,13 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 19:33:36 by astein            #+#    #+#             */
-/*   Updated: 2023/05/23 22:34:16 by astein           ###   ########.fr       */
+/*   Updated: 2023/05/24 12:22:12 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/fdf.h"
 
-t_node	*node_last(t_node *lst)
+static t_node	*node_last(t_node *lst)
 {
 	if (!lst)
 		return (NULL);

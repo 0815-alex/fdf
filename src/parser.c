@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 15:30:35 by astein            #+#    #+#             */
-/*   Updated: 2023/05/23 22:28:32 by astein           ###   ########.fr       */
+/*   Updated: 2023/05/24 12:15:35 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,51 +16,33 @@
 	first split it to array
 	then create 
 */
-static void	str_line(char *line, int y, t_node **last_row, t_model *model)
+static void	str_line(char **arr, int y, t_node **last_row, t_model *model)
 {
-	char	**arr;
 	int		i;
-	int		x;
-	t_node	*last_node;
-	t_node	*last_row_local;
-	t_node	*node;
-	t_node	*first_node;
+	t_node	*node_prev;
+	t_node	*node_new;
+	t_node	*node_first_in_row;
 
-	first_node = NULL;
-	last_row_local = *last_row;
-	dbg_printf(model, start_block, "str_line");
-	dbg_printf(model, no_block, "parsing the line no.: %i", y);
-	last_node = NULL;
-	arr = ft_split(line, ' ');
+	node_prev = NULL;
 	i = 0;
-	x = 1;
 	while (arr[i])
 	{
-		node = new_node(new_point(pnt_dim_3, x, y, ft_atoi(arr[i])),
-			COLOR_WHITE);
-		update_max_values(model, x, y, node->pnt->z);
-		node->west = last_node;
-		if (last_row_local)
-		{
-			node->north = last_row_local;
-			last_row_local = last_row_local->next;
-		}
-		print_node(model, node);
-		node_add_back(&model->net, node);
+		node_new = new_node(new_point(pnt_dim_3, i + 1, y, ft_atoi(arr[i])),
+				COLOR_WHITE);
+		update_max_values(model, i + 1, y, node_new->pnt->z);
+		node_new->west = node_prev;
+		node_new->north = *last_row;
+		if (*last_row)
+			*last_row = (*last_row)->next;
+		print_node(model, node_new);
+		node_add_back(&model->net, node_new);
 		if (i == 0)
-			first_node = node;
-		last_node = node;
-		x++;
+			node_first_in_row = node_new;
+		node_prev = node_new;
 		i++;
 	}
-	i = 0;
-	while (arr[i])
-	{
-		free(arr[i]);
-		i++;
-	}
-	free_ptr(arr);
-	*last_row = first_node;
+	free_whatever(model, "a", arr);
+	*last_row = node_first_in_row;
 }
 
 /*  check if there are args
@@ -76,7 +58,7 @@ void	load_file(int argc, char **argv, t_model *model)
 	t_node	*last_row;
 
 	if (argc != 2)
-		dbg_printf(model, error_block, "Missing a filename as a parameter!");
+		dbg_printf(model, err_block, "Missing a filename as a parameter!");
 	model->net = NULL;
 	dbg_printf(model, no_block, "open file: %s", argv[1]);
 	fd = open(argv[1], O_RDONLY);
@@ -86,7 +68,7 @@ void	load_file(int argc, char **argv, t_model *model)
 	while (line)
 	{
 		dbg_printf(model, no_block, "read Line: %s", line);
-		str_line(line, cur_row, &last_row, model);
+		str_line(ft_split(line, ' '), cur_row, &last_row, model);
 		free(line);
 		line = get_next_line(fd);
 		cur_row++;

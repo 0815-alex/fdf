@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 18:42:22 by astein            #+#    #+#             */
-/*   Updated: 2023/05/24 00:15:42 by astein           ###   ########.fr       */
+/*   Updated: 2023/05/24 12:16:27 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	translate_model(t_model *model, t_bool overwrite, t_point_2d *trans)
 		model->dof.x_trans += trans->x;
 		model->dof.y_trans += trans->y;
 	}
-	free_ptr(trans);
+	free_whatever(model, "p", trans);
 	create_next_img(model);
 }
 
@@ -42,7 +42,7 @@ void	rotate_model(t_model *model, t_bool overwrite, t_point_3d *rot_degrees)
 		model->dof.y_rot_rad += degree2radian(rot_degrees->y);
 		model->dof.z_rot_rad += degree2radian(rot_degrees->z);
 	}
-	free_ptr(rot_degrees);
+	free_whatever(model, "p", rot_degrees);
 	create_next_img(model);
 }
 
@@ -70,7 +70,7 @@ int	auto_rotate(t_model *model)
 
 	if (model->dof.auto_rotate)
 	{
-		if (random_axis == 0 || step >= 45)
+		if (random_axis == 0 || step >= 20)
 		{
 			random_value = drand48();
 			random_axis = 1 + round(random_value * 2);
@@ -82,7 +82,7 @@ int	auto_rotate(t_model *model)
 		else if (random_axis == 2)
 			rotate_model(model, ft_false, new_point(pnt_dim_3, 0, 1, 0));
 		else if (random_axis == 3)
-			rotate_model(model, ft_false, new_point(pnt_dim_3, 0, 1, 0));
+			rotate_model(model, ft_false, new_point(pnt_dim_3, 0, 0, 1));
 	}
 	else
 		sleep(1);

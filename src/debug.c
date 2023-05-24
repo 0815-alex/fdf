@@ -6,13 +6,13 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 23:11:27 by astein            #+#    #+#             */
-/*   Updated: 2023/05/20 22:30:06 by astein           ###   ########.fr       */
+/*   Updated: 2023/05/24 12:20:22 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/fdf.h"
 
-void	init_debug(t_model *model, int curr_stack_depth)
+void	ini_debug(t_model *model, int curr_stack_depth)
 {
 	model->dbg = malloc(sizeof(t_dbg));
 	model->dbg->count_stack_depth = curr_stack_depth;
@@ -38,7 +38,7 @@ static void	print_tab_level(t_model *model, t_dbg_flag dbg_flg)
 		ft_putstr_fd(WRITE_COLOR_ORANGE "  [START] >", 1);
 	else if (dbg_flg == end_block)
 		ft_putstr_fd(WRITE_COLOR_GREEN "  [DONE] >>", 1);
-	else if (dbg_flg == error_block)
+	else if (dbg_flg == err_block)
 		ft_putstr_fd(WRITE_COLOR_RED "[ERROR] ", 1);
 	ft_putstr_fd(WRITE_COLOR_DEFAULT, 1);
 }
@@ -48,7 +48,7 @@ void	dbg_printf(t_model *model, t_dbg_flag dbg_flg, char *str, ...)
 	va_list	args;
 	int		len;
 
-	if (DEBUG == 1 || dbg_flg == error_block)
+	if (DEBUG == 1 || dbg_flg == err_block)
 	{
 		print_tab_level(model, dbg_flg);
 		va_start(args, str);
@@ -66,7 +66,7 @@ void	dbg_printf(t_model *model, t_dbg_flag dbg_flg, char *str, ...)
 		}
 		va_end(args);
 		ft_putstr_fd("\n", 1);
-		if (dbg_flg == error_block)
+		if (dbg_flg == err_block)
 			exit(0);
 	}
 }

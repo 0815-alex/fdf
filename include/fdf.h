@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 16:51:18 by astein            #+#    #+#             */
-/*   Updated: 2023/05/24 00:00:58 by astein           ###   ########.fr       */
+/*   Updated: 2023/05/24 12:25:07 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,7 @@ typedef struct s_model
 
 typedef enum e_dbg_flag
 {
-	error_block = -1,
+	err_block = -1,
 	no_block = 0,
 	start_block = 1,
 	end_block = 2
@@ -154,7 +154,7 @@ int						deal_key(int key, t_model *model);
 int						deal_mouse(int button, t_model *model);
 
 //______DEBUG.C_________________________________________________________________
-void					init_debug(t_model *model, int curr_stack_depth);
+void					ini_debug(t_model *model, int curr_stack_depth);
 void					dbg_printf(t_model *model, t_dbg_flag dbg_flg,
 							char *str, ...);
 
@@ -162,9 +162,7 @@ void					dbg_printf(t_model *model, t_dbg_flag dbg_flg,
 
 double					degree2radian(int degree);
 int						radian2degree2(double radian);
-void					*free_ptr(void *ptr);
-void					*free_2_ptr(void *ptr1, void *ptr2);
-void					*free_3_ptr(void *ptr1, void *ptr2, void *ptr3);
+void	*free_whatever(t_model *model, char *str, ...);
 
 //______IMG.C___________________________________________________________________
 void					ini_img(t_model *model);
@@ -176,7 +174,7 @@ int						main(int argc, char **argv);
 
 //______MODEL.C_________________________________________________________________
 
-void					init_net_details(t_model *model);
+void					ini_net_details(t_model *model);
 t_model					*new_model(int argc, char **argv);
 void					determine_net_center(t_model *model);
 void					node2point(t_model *model, t_node *node,
@@ -184,7 +182,7 @@ void					node2point(t_model *model, t_node *node,
 void					free_model(t_model *model);
 void					update_max_values(t_model *model, int x, int y, int z);
 void					center_model(t_model *model);
-void					init_max_values(t_model *model);
+void					ini_max_values(t_model *model);
 
 //______NODE.C__________________________________________________________________
 
@@ -192,7 +190,6 @@ t_node					*new_node(t_point_3d *point, int color);
 void					print_node(t_model *model, t_node *node);
 char					*node2str(t_model *model, t_node *node);
 void					print_net(t_model *model);
-t_node					*node_last(t_node *lst);
 void					node_add_front(t_node **lst, t_node *new);
 void					node_add_back(t_node **lst, t_node *new);
 void					free_list(t_node *head);

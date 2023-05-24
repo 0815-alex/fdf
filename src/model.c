@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 17:13:13 by astein            #+#    #+#             */
-/*   Updated: 2023/05/24 00:07:24 by astein           ###   ########.fr       */
+/*   Updated: 2023/05/24 12:20:22 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ t_model	*new_model(int argc, char **argv)
 	t_model	*model;
 
 	model = malloc(sizeof(t_model));
-	init_debug(model, 1);
-	init_net_details(model);
-	init_max_values(model);
+	ini_debug(model, 1);
+	ini_net_details(model);
+	ini_max_values(model);
 	load_file(argc, argv, model);
 	determine_net_center(model);
 	ini_win(model);

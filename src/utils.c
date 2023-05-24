@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 17:06:51 by astein            #+#    #+#             */
-/*   Updated: 2023/05/23 23:38:10 by astein           ###   ########.fr       */
+/*   Updated: 2023/05/24 11:38:25 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,29 +28,45 @@ int	radian2degree2(double radian)
 	return (degree);
 }
 
-void	*free_ptr(void *ptr)
+static void	free_arr(void **arr)
 {
-	if (ptr)
-		free(ptr);
-	return (NULL);
+	int	arr_i;
+
+	arr_i = 0;
+	while (arr[arr_i])
+	{
+		free(arr[arr_i]);
+		arr_i++;
+	}
+	free(arr);
 }
 
-void	*free_2_ptr(void *ptr1, void *ptr2)
+/**
+ * p = pointer
+ * a = array
+*/
+void	*free_whatever(t_model *model, char *str, ...)
 {
-	if (ptr1)
-		free(ptr1);
-	if (ptr2)
-		free(ptr2);
-	return (NULL);
-}
+	va_list	args;
+	void	*ptr;
 
-void	*free_3_ptr(void *ptr1, void *ptr2, void *ptr3)
-{
-	if (ptr1)
-		free(ptr1);
-	if (ptr2)
-		free(ptr2);
-	if (ptr3)
-		free(ptr3);
+	ptr = NULL;
+	va_start(args, str);
+	while (*str)
+	{
+		if (*str == 'p')
+		{
+			ptr = va_arg(args, void *);
+			if (ptr)
+				free(ptr);
+			ptr = NULL;
+		}
+		else if (*str == 'a')
+			free_arr(va_arg(args, void **));
+		else
+			dbg_printf(model, err_block, "bad param free_whatever: %c", str[0]);
+		str++;
+	}
+	va_end(args);
 	return (NULL);
 }

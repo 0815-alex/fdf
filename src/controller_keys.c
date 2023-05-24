@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 17:10:48 by astein            #+#    #+#             */
-/*   Updated: 2023/05/23 22:47:45 by astein           ###   ########.fr       */
+/*   Updated: 2023/05/24 10:55:34 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,13 +104,9 @@ int	deal_key(int key, t_model *model)
 {
 	if (key == K_ESC)
 		free_model(model);
-	if (check_translate(key, model))
-		;
-	else if (check_rotate(key, model))
-		;
-	else if (check_zoom(key, model))
-		;
-	else if (check_presets(key, model))
-		;
+	check_translate(key, model);
+	check_rotate(key, model);
+	check_zoom(key, model);
+	check_presets(key, model);
 	return (0);
 }

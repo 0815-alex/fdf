@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 18:50:54 by astein            #+#    #+#             */
-/*   Updated: 2023/05/23 23:47:42 by astein           ###   ########.fr       */
+/*   Updated: 2023/05/24 12:16:04 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	print_node(t_model *model, t_node *node)
 		dbg_printf(model, no_block, "(no node)");
 	else
 		dbg_printf(model, no_block, "(%i|%i|%i)", node->pnt->x, node->pnt->y,
-				node->pnt->z);
+			node->pnt->z);
 }
 
 //I should change it to call 3dpoint to string instead!
@@ -65,10 +65,8 @@ void	node2point(t_model *model, t_node *node, t_point_2d *point)
 	double	y;
 	double	z;
 
-	if (!node)
-		dbg_printf(model, error_block, "no node exists");
-	if (!point)
-		dbg_printf(model, error_block, "no memmory for point exists");
+	if (!node || !point)
+		dbg_printf(model, err_block, "no node or point exists");
 	x = (node->pnt->x - model->center_point.x) * model->dof.zoom;
 	y = (node->pnt->y - model->center_point.y) * model->dof.zoom;
 	z = (node->pnt->z - model->center_point.z) * model->dof.z_factor;

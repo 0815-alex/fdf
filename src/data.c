@@ -6,20 +6,20 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 18:42:14 by astein            #+#    #+#             */
-/*   Updated: 2023/05/24 00:02:45 by astein           ###   ########.fr       */
+/*   Updated: 2023/05/24 12:20:06 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/fdf.h"
 
-void	init_net_details(t_model *model)
+void	ini_net_details(t_model *model)
 {
 	model->center_point.x = INT_MIN;
 	model->center_point.y = INT_MIN;
 	model->center_point.z = INT_MIN;
 }
 
-void	init_max_values(t_model *model)
+void	ini_max_values(t_model *model)
 {
 	model->net_dim.x = INT_MIN;
 	model->net_dim.y = INT_MIN;

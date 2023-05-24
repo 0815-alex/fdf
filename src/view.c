@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 17:08:26 by astein            #+#    #+#             */
-/*   Updated: 2023/05/24 00:02:53 by astein           ###   ########.fr       */
+/*   Updated: 2023/05/24 11:31:04 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,13 +82,12 @@ void	center_model(t_model *model)
 void	update_image(t_model *model)
 {
 	char	*zoom;
-	char 	*rot_x;
+	char	*rot_x;
 
 	mlx_put_image_to_window(model->mlx, model->win, model->img.mlx_img, 0, 0);
 	zoom = ft_itoa(model->dof.zoom);
 	rot_x = ft_itoa(model->dof.x_rot_rad);
 	mlx_string_put(model->mlx, model->win, 100, 100, COLOR_GREEN, zoom);
 	mlx_string_put(model->mlx, model->win, 300, 100, COLOR_GREEN, rot_x);
-	free_ptr(zoom);
-	free_ptr(rot_x);
+	free_whatever(model, "pp", zoom, rot_x);
 }

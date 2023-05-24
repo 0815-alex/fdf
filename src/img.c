@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 14:11:35 by astein            #+#    #+#             */
-/*   Updated: 2023/05/23 22:17:22 by astein           ###   ########.fr       */
+/*   Updated: 2023/05/24 12:18:23 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,8 @@ void	ini_img(t_model *model)
 
 	model->img.mlx_img = mlx_new_image(model->mlx, model->win_width,
 			model->win_height);
-	model->img.addr = mlx_get_data_addr(model->img.mlx_img,
-			(&(model->img.bpp)), (&(model->img.line_len)),
-			(&(model->img.endian)));
+	model->img.addr = mlx_get_data_addr(model->img.mlx_img, &(model->img.bpp),
+			&(model->img.line_len), &(model->img.endian));
 	img_size = model->win_height * model->win_width * sizeof(model->img.bpp);
 	ft_bzero(model->img.addr, img_size);
 }
@@ -91,7 +90,7 @@ static void	draw_line(t_model *model, t_point_2d *pnt_a, t_point_2d *pnt_b)
 			curr_point->y += sign->y;
 		}
 	}
-	free_3_ptr(curr_point, delta, sign);
+	free_whatever(model, "ppp", curr_point, delta, sign);
 }
 
 void	create_next_img(t_model *model)
@@ -101,7 +100,7 @@ void	create_next_img(t_model *model)
 	t_point_2d	*cur_conn_point;
 
 	ft_bzero(model->img.addr, model->win_height * model->win_width
-		* sizeof(model->img.bpp));
+			* sizeof(model->img.bpp));
 	cur_node = model->net;
 	cur_point = malloc(sizeof(t_point_2d));
 	cur_conn_point = malloc(sizeof(t_point_2d));
@@ -120,6 +119,6 @@ void	create_next_img(t_model *model)
 		}
 		(cur_node) = (cur_node)->next;
 	}
-	free_3_ptr(cur_node, cur_point, cur_conn_point);
+	free_whatever(model, "ppp", cur_node, cur_point, cur_conn_point);
 	update_image(model);
 }
