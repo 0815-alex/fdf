@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 18:50:54 by astein            #+#    #+#             */
-/*   Updated: 2023/05/25 01:52:10 by astein           ###   ########.fr       */
+/*   Updated: 2023/05/25 19:55:19 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ t_node	*new_node(t_point_3d *point)
 	new_node = malloc(sizeof(t_node));
 	new_node->pnt = point;
 	new_node->color.red = 255;
-    new_node->color.green = 255;
-    new_node->color.blue = 255;
+	new_node->color.green = 255;
+	new_node->color.blue = 255;
 	new_node->next = NULL;
 	new_node->west = NULL;
 	new_node->north = NULL;
@@ -71,7 +71,8 @@ void	node2point(t_model *model, t_node *node, t_point_3d_colored *point)
 		dbg_printf(model, err_block, "no node or point exists");
 	x = (node->pnt->x - model->center_point.x) * model->dof.zoom;
 	y = (node->pnt->y - model->center_point.y) * model->dof.zoom;
-	z = (node->pnt->z - model->center_point.z) * model->dof.z_factor;
+	z = (node->pnt->z - model->center_point.z) * model->dof.z_factor
+		* model->dof.zoom;
 	point->x = x * cos(model->dof.rot_rad.y) * cos(model->dof.rot_rad.z) + y
 		* (cos(model->dof.rot_rad.z) * sin(model->dof.rot_rad.x)
 			* sin(model->dof.rot_rad.y) - cos(model->dof.rot_rad.x)

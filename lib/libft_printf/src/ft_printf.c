@@ -12,6 +12,26 @@
 
 #include "../libft_printf.h"
 
+int	print_whatever_digits(va_list args, char *str)
+{
+	int		len;
+	char	*digits;
+
+	len = 0;
+	if (*str == 'd')
+	{
+		if (*str == 'd')
+		{
+			str++;
+			digits = malloc(sizeof(char) * 2);
+			ft_strlcpy(digits, str, 2 * sizeof(char));
+			print_double(va_arg(args, double), &len, ft_atoi(digits));
+			free(digits);
+		}
+	}
+	return (len);
+}
+
 /**
  * @brief	Takes next arg from 'args' and a type identifier 'str' to call the
  * 			matching print_function.
@@ -33,8 +53,6 @@ int	print_whatever(va_list args, char *str)
 		print_str(va_arg(args, char *), &len);
 	else if (*str == 'p')
 		print_ptr(va_arg(args, unsigned long), &len);
-	else if (*str == 'd')
-		print_nbr(va_arg(args, int), &len);
 	else if (*str == 'i')
 		print_nbr(va_arg(args, int), &len);
 	else if (*str == 'u')
@@ -57,6 +75,7 @@ int	print_whatever(va_list args, char *str)
 int	ft_printf(const char *str, ...)
 {
 	int		len;
+	int		len_add;
 	va_list	args;
 
 	len = 0;
@@ -65,8 +84,15 @@ int	ft_printf(const char *str, ...)
 	{
 		if (*str == '%')
 		{
-			str++;
-			len += print_whatever(args, (char *)str);
+            str++;
+			len_add = 0;
+			len_add = print_whatever(args, (char *)str);
+			if (len_add == 0)
+            {
+				len_add = print_whatever_digits(args, (char *)str);
+                str++;
+            }
+			len += len_add;
 		}
 		else
 			print_char(*str, &len);

@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 13:11:36 by astein            #+#    #+#             */
-/*   Updated: 2023/05/21 01:34:51 by astein           ###   ########.fr       */
+/*   Updated: 2023/05/25 16:56:11 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define LIBFT_PRINTF_H
 
 # include <fcntl.h>
+# include <math.h>
 # include <stdarg.h>
 # include <stdio.h>
 # include <stdlib.h>
@@ -54,6 +55,7 @@ typedef enum e_bool
 //******************************************************************************
 int					ft_printf(const char *str, ...);
 int					print_whatever(va_list args, char *str);
+int					print_whatever_digits(va_list args, char *str);
 
 //******************************************************************************
 //			Other print functions
@@ -64,6 +66,7 @@ void				print_dez_to_hexa(unsigned long dez_nbr, int *len,
 						t_bool caps);
 void				print_ptr(unsigned long ptr, int *len);
 void				print_nbr(long nbr, int *len);
+void				print_double(double d, int *len, int digits);
 
 //******************************************************************************
 //			Output Functions

@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 23:11:27 by astein            #+#    #+#             */
-/*   Updated: 2023/05/24 15:06:54 by astein           ###   ########.fr       */
+/*   Updated: 2023/05/25 17:44:37 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ void	dbg_printf(t_model *model, t_dbg_flag dbg_flg, char *str, ...)
 {
 	va_list	args;
 	int		len;
+	int		len_add;
 
 	if (DEBUG == 1 || dbg_flg == err_block)
 	{
@@ -57,7 +58,14 @@ void	dbg_printf(t_model *model, t_dbg_flag dbg_flg, char *str, ...)
 			if (*str == '%')
 			{
 				str++;
-				len += print_whatever(args, (char *)str);
+				len_add = 0;
+				len_add = print_whatever(args, (char *)str);
+				if (len_add == 0)
+				{
+					len_add = print_whatever_digits(args, (char *)str);
+					str++;
+				}
+				len += len_add;
 			}
 			else
 				print_char(*str, &len);

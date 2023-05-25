@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 16:51:18 by astein            #+#    #+#             */
-/*   Updated: 2023/05/25 12:58:37 by astein           ###   ########.fr       */
+/*   Updated: 2023/05/25 19:47:56 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@
 # include "../lib/libft_printf/libft_printf.h"
 # include "../lib/minilibx/mlx.h"
 # include <limits.h>
-# include <math.h>
 # include <stdint.h>
 # include <unistd.h>
 
-//______AUTO ZOOM START LEVEL___________________________________________________
-# define AUTO_ZOOM_INI_LEVEL 0.1
+//______AUTO ZOOM_______________________________________________________________
+# define AUTO_ZOOM_INI_LEVEL 1
+# define AUTO_ZOOM_FRAMES 25
 
 //______DEFINE KEYS_____________________________________________________________
 
@@ -126,6 +126,7 @@ typedef struct s_dof_plus
 	double			zoom;
 	double			z_factor;
 	enum e_bool		auto_rotate;
+	int				auto_zoom;
 }					t_dof_plus;
 
 typedef struct s_img
@@ -208,6 +209,9 @@ void				determine_net_center(t_model *model);
 void				ini_debug(t_model *model, int curr_stack_depth);
 void				dbg_printf(t_model *model, t_dbg_flag dbg_flg, char *str,
 						...);
+//______DOF_PLUS.C______________________________________________________________
+void				ini_dof_plus(t_model *model);
+void                cpy_dof(t_dof_plus *src, t_dof_plus *dest);
 
 //______IMG.C___________________________________________________________________
 void				ini_img(t_model *model);
@@ -228,6 +232,7 @@ void				scale_mod(t_model *model, t_bool ovr, double zoom,
 						double z_factor);
 int					auto_rotate(t_model *model);
 void				auto_zoom(t_model *model, t_bool zoomIn);
+t_bool				static_auto_zoom(t_model *model, t_bool zoom_in);
 
 //______MODEL.C_________________________________________________________________
 t_model				*new_model(int argc, char **argv);
@@ -255,7 +260,6 @@ void				*free_whatever(t_model *model, char *str, ...);
 
 //______VIEW.C__________________________________________________________________
 void				ini_win(t_model *model);
-void				ini_dof_plus(t_model *model);
 void				center_model(t_model *model);
 void				update_image(t_model *model);
 

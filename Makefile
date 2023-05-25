@@ -4,7 +4,7 @@
 NAME = fdf
 
 # Prints DEBUG Messages
-DEBUG = 1
+DEBUG = 0
 # Compiler options
 CC = cc
 CFLAGS = -D DEBUG=$(DEBUG) -g -Wall -Werror -Wextra -fsanitize=address -fsanitize-address-use-after-scope
@@ -30,6 +30,7 @@ SRCS = $(SRC_FOLDER)main.c \
 	$(SRC_FOLDER)node.c \
 	$(SRC_FOLDER)point.c \
 	$(SRC_FOLDER)debug.c \
+	$(SRC_FOLDER)dof_plus.c \
 	$(SRC_FOLDER)utils.c \
 	$(SRC_FOLDER)img.c \
 	$(SRC_FOLDER)data.c \

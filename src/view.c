@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 17:08:26 by astein            #+#    #+#             */
-/*   Updated: 2023/05/25 13:00:54 by astein           ###   ########.fr       */
+/*   Updated: 2023/05/25 19:56:31 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,25 +24,11 @@ void	ini_win(t_model *model)
 	mlx_get_screen_size(model->mlx, &screen_width, &screen_height);
 	// model->win_width = screen_width - 10;
 	// model->win_height = screen_height - 80;
-    model->win_width = screen_width - 650;
+	model->win_width = screen_width - 650;
 	model->win_height = screen_height - 300;
 	model->win = mlx_new_window(model->mlx, model->win_width, model->win_height,
 			"astein | fdf");
 	dbg_printf(model, end_block, "ini_win");
-}
-
-void	ini_dof_plus(t_model *model)
-{
-	dbg_printf(model, start_block, "ini_dof_plus");
-	model->dof.trans.x = 100;
-	model->dof.trans.y = 100;
-	model->dof.rot_rad.x = degree2radian(0);
-	model->dof.rot_rad.y = degree2radian(0);
-	model->dof.rot_rad.z = degree2radian(0);
-	model->dof.zoom = AUTO_ZOOM_INI_LEVEL;
-	model->dof.z_factor = 1;
-	model->dof.auto_rotate = ft_true;
-	dbg_printf(model, end_block, "ini_dof_plus");
 }
 
 /*
@@ -66,6 +52,7 @@ verschieben um die differenz geteilt durch den zoom
 */
 void	center_model(t_model *model)
 {
+	int	smaller_win_size;
 	int	possbile_zoom_x;
 	int	possbile_zoom_y;
 
@@ -73,15 +60,18 @@ void	center_model(t_model *model)
 				* model->dof.zoom) / model->dof.zoom);
 	model->dof.trans.y = ((model->win_height / 2) - (model->center_point.y
 				* model->dof.zoom) / model->dof.zoom);
-	possbile_zoom_x = (model->win_width - 100) / model->net_dim.x;
-	possbile_zoom_y = (model->win_height - 100) / model->net_dim.y;
+	smaller_win_size = model->win_width;
+	if ((model->win_height) < smaller_win_size)
+		smaller_win_size = model->win_height;
+	possbile_zoom_x = (smaller_win_size - 100) / model->net_dim.x;
+	possbile_zoom_y = (smaller_win_size - 100) / model->net_dim.y;
 	if (possbile_zoom_x > possbile_zoom_y)
 		model->dof.zoom = possbile_zoom_y;
 	else
 		model->dof.zoom = possbile_zoom_x;
 	if (model->z_max - model->z_min == 0)
 		dbg_printf(model, err_block, "model is only 2d!");
-	model->dof.z_factor = (double)50 / (model->z_max - model->z_min);
+	model->dof.z_factor = (double)2 / (model->z_max - model->z_min);
 }
 
 void	update_image(t_model *model)
