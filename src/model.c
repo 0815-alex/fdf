@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 17:13:13 by astein            #+#    #+#             */
-/*   Updated: 2023/05/25 19:10:30 by astein           ###   ########.fr       */
+/*   Updated: 2023/05/25 22:26:39 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,24 +27,29 @@ t_model	*new_model(int argc, char **argv)
 	ini_win(model);
 	ini_dof_plus(model);
 	center_model(model);
+	model->dof.zoom = AUTO_ZOOM_INI_LEVEL;
 	ini_img(model);
-	// center_model(model);
-    // auto_zoom(model,ft_false);
 	mlx_key_hook(model->win, deal_key, model);
+	// mlx_hook(model->win, 02, (1L << 0), deal_key, model);
 	mlx_hook(model->win, B_CLS_WIN, 0, close_model, model);
 	mlx_mouse_hook(model->win, deal_mouse, model);
-	mlx_loop_hook(model->mlx, auto_rotate, model);
+	mlx_loop_hook(model->mlx, auto_movements, model);
 	dbg_printf(model, end_block, "new_model");
 	return (model);
+}
+
+void	shedule_close(t_model *model)
+{
+	model->dof.auto_zoom = -1;
+	model->close_pending = ft_true;
 }
 
 int	close_model(t_model *model)
 {
 	dbg_printf(model, start_block, "close_model");
-    // auto_zoom(model,ft_false);
 	mlx_destroy_window(model->mlx, model->win);
 	free_list(model->net);
-    free(model->color_map);
+	free(model->color_map);
 	mlx_destroy_image(model->mlx, model->img.mlx_img);
 	free(model);
 	exit(0);

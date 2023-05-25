@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 15:31:40 by astein            #+#    #+#             */
-/*   Updated: 2023/05/25 17:42:13 by astein           ###   ########.fr       */
+/*   Updated: 2023/05/25 22:24:02 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ int	main(int argc, char **argv)
 	ft_putstr_fd("\n\nLets go!\n===========================\n\n", 1);
 	model = new_model(argc, argv);
 	dbg_printf(model, no_block, "start deamon...\n");
+    sleep(1);
 	mlx_loop(model->mlx);
 	return (0);
 }

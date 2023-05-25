@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 16:51:18 by astein            #+#    #+#             */
-/*   Updated: 2023/05/25 19:47:56 by astein           ###   ########.fr       */
+/*   Updated: 2023/05/25 22:07:50 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 
 //______AUTO ZOOM_______________________________________________________________
 # define AUTO_ZOOM_INI_LEVEL 1
-# define AUTO_ZOOM_FRAMES 25
+# define AUTO_ZOOM_FRAMES 15
 
 //______DEFINE KEYS_____________________________________________________________
 
@@ -154,6 +154,7 @@ typedef struct s_model
 	void			*win;
 	int				win_width;
 	int				win_height;
+	t_bool			close_pending;
 	t_node			*net;
 	t_color_map		*color_map;
 	t_dbg			dbg;
@@ -211,7 +212,7 @@ void				dbg_printf(t_model *model, t_dbg_flag dbg_flg, char *str,
 						...);
 //______DOF_PLUS.C______________________________________________________________
 void				ini_dof_plus(t_model *model);
-void                cpy_dof(t_dof_plus *src, t_dof_plus *dest);
+void				cpy_dof(t_dof_plus *src, t_dof_plus *dest);
 
 //______IMG.C___________________________________________________________________
 void				ini_img(t_model *model);
@@ -230,12 +231,13 @@ void				trans_mod(t_model *model, t_bool ovr, t_point_2d *trans);
 void				rot_mod(t_model *model, t_bool ovr, t_point_3d *deg);
 void				scale_mod(t_model *model, t_bool ovr, double zoom,
 						double z_factor);
-int					auto_rotate(t_model *model);
+int					auto_movements(t_model *model);
 void				auto_zoom(t_model *model, t_bool zoomIn);
 t_bool				static_auto_zoom(t_model *model, t_bool zoom_in);
 
 //______MODEL.C_________________________________________________________________
 t_model				*new_model(int argc, char **argv);
+void				shedule_close(t_model *model);
 int					close_model(t_model *model);
 
 //______NODE.C__________________________________________________________________

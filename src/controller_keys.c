@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 17:10:48 by astein            #+#    #+#             */
-/*   Updated: 2023/05/25 19:11:04 by astein           ###   ########.fr       */
+/*   Updated: 2023/05/25 22:06:42 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,9 @@ static t_bool	check_zoom(int key, t_model *model)
 	else if (key == '2')
 		scale_mod(model, ft_false, 5, 0);
 	else if (key == '3')
-		scale_mod(model, ft_false, 0, -1);
+		scale_mod(model, ft_false, 0, -0.1);
 	else if (key == '4')
-		scale_mod(model, ft_false, 0, 1);
+		scale_mod(model, ft_false, 0, 0.1);
 	else
 		check = ft_false;
 	return (check);
@@ -108,7 +108,7 @@ static t_bool	check_presets(int key, t_model *model)
 int	deal_key(int key, t_model *model)
 {
 	if (key == K_ESC)
-		close_model(model);
+		shedule_close(model);
 	check_translate(key, model);
 	check_rotate(key, model);
 	check_zoom(key, model);
