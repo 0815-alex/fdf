@@ -76,6 +76,9 @@ t: all
 a: re
 	./$(NAME) ./maps/astein2.0.fdf
 
+m: re
+	./$(NAME) ./maps/mars.fdf
+
 p: all
 	./$(NAME) ./maps/pylone.fdf
 

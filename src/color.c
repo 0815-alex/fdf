@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 15:21:14 by astein            #+#    #+#             */
-/*   Updated: 2023/05/24 17:40:03 by astein           ###   ########.fr       */
+/*   Updated: 2023/05/25 02:02:10 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	ini_colors(t_model *model)
 				cur_node->color.blue += step_pos->blue;
 				i++;
 			}
-            i = 0;
+			i = 0;
 			while (cur_node->pnt->z < i)
 			{
 				cur_node->color.red += step_neg->red;
@@ -60,6 +60,10 @@ void	ini_colors(t_model *model)
 			cur_node = cur_node->next;
 		}
 	}
+	if (abs(model->z_min) != 0)
+		free_whatever(model, "p", step_neg);
+	if (abs(model->z_max) != 0)
+		free_whatever(model, "p", step_pos);
 }
 
 t_color_map	*new_color_map(void)

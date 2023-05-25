@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 18:50:54 by astein            #+#    #+#             */
-/*   Updated: 2023/05/24 17:19:25 by astein           ###   ########.fr       */
+/*   Updated: 2023/05/25 01:52:10 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ char	*node2str(t_model *model, t_node *node)
 	}
 }
 
-void	node2point(t_model *model, t_node *node, t_point_2d_colored *point)
+void	node2point(t_model *model, t_node *node, t_point_3d_colored *point)
 {
 	double	x;
 	double	y;

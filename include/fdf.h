@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 16:51:18 by astein            #+#    #+#             */
-/*   Updated: 2023/05/24 17:24:16 by astein           ###   ########.fr       */
+/*   Updated: 2023/05/25 02:21:36 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <limits.h>
 # include <math.h>
 # include <stdint.h>
+# include <unistd.h>
 
 //______DEFINE KEYS_____________________________________________________________
 
@@ -80,12 +81,13 @@ typedef struct s_point_2d
 	int				y;
 }					t_point_2d;
 
-typedef struct s_point_2d_colored
+typedef struct s_point_3d_colored
 {
 	int				x;
 	int				y;
+	int				z;
 	t_color			color;
-}					t_point_2d_colored;
+}					t_point_3d_colored;
 
 typedef struct s_point_3d
 {
@@ -222,7 +224,7 @@ void				rot_mod(t_model *model, t_bool ovr, t_point_3d *deg);
 void				scale_mod(t_model *model, t_bool ovr, double zoom,
 						double z_factor);
 int					auto_rotate(t_model *model);
-void				zoom_to_start(t_model *model);
+void				zoom_to_start(t_model *model, t_bool zoomIn);
 
 //______MODEL.C_________________________________________________________________
 t_model				*new_model(int argc, char **argv);
@@ -233,7 +235,7 @@ t_node				*new_node(t_point_3d *point);
 void				print_node(t_model *model, t_node *node);
 char				*node2str(t_model *model, t_node *node);
 void				node2point(t_model *model, t_node *node,
-						t_point_2d_colored *point);
+						t_point_3d_colored *point);
 
 //______PARSER.C________________________________________________________________
 void				load_file(int argc, char **argv, t_model *model);

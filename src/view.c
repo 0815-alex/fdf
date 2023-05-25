@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 17:08:26 by astein            #+#    #+#             */
-/*   Updated: 2023/05/24 17:17:54 by astein           ###   ########.fr       */
+/*   Updated: 2023/05/25 02:36:07 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ void	ini_win(t_model *model)
 	dbg_printf(model, start_block, "ini_win");
 	model->mlx = mlx_init();
 	mlx_get_screen_size(model->mlx, &screen_width, &screen_height);
-	model->win_width = screen_width - 700;
-	model->win_height = screen_height - 300;
+	model->win_width = screen_width - 10;
+	model->win_height = screen_height - 80;
 	model->win = mlx_new_window(model->mlx, model->win_width, model->win_height,
 			"astein | fdf");
 	dbg_printf(model, end_block, "ini_win");

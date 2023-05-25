@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 14:11:35 by astein            #+#    #+#             */
-/*   Updated: 2023/05/24 17:23:56 by astein           ###   ########.fr       */
+/*   Updated: 2023/05/25 02:02:15 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,14 +49,17 @@ static void	img_pix_put(t_model *model, t_point_2d *point, int color)
 	}
 }
 
-static void	img_line_put(t_model *model, t_point_2d_colored *pnt_a,
-		t_point_2d_colored *pnt_b)
+static void	img_line_put(t_model *model, t_point_3d_colored *pnt_a,
+		t_point_3d_colored *pnt_b)
 {
 	t_point_2d	*curr_point;
 	t_point_2d	*delta;
 	t_point_2d	*sign;
+	t_color		*cur_color;
+	t_color		*color_step;
 	int			err;
 	int			e2;
+	int			delta_sum;
 
 	curr_point = malloc(sizeof(t_point_2d));
 	delta = malloc(sizeof(t_point_2d));
@@ -74,9 +77,20 @@ static void	img_line_put(t_model *model, t_point_2d_colored *pnt_a,
 	else
 		sign->y = -1;
 	err = delta->x + delta->y;
+	cur_color = malloc(sizeof(t_color));
+	cur_color->red = pnt_b->color.red;
+	cur_color->green = pnt_b->color.green;
+	cur_color->blue = pnt_b->color.blue;
+	delta_sum = pnt_b->z - pnt_a->z;
+	if (delta_sum == 0)
+		delta_sum = 1;
+	color_step = calculate_step_color(pnt_a->color, pnt_b->color, delta_sum);
 	while (1)
 	{
-		img_pix_put(model, curr_point, color2int(pnt_a->color));
+		img_pix_put(model, curr_point, color2int(*cur_color));
+		cur_color->red += color_step->red;
+		cur_color->green += color_step->green;
+		cur_color->blue += color_step->blue;
 		if (curr_point->x == pnt_b->x && curr_point->y == pnt_b->y)
 			break ;
 		e2 = 2 * err;
@@ -91,16 +105,17 @@ static void	img_line_put(t_model *model, t_point_2d_colored *pnt_a,
 			curr_point->y += sign->y;
 		}
 	}
-	free_whatever(model, "ppp", curr_point, delta, sign);
+	free_whatever(model, "ppppp", curr_point, delta, sign, cur_color,
+			color_step);
 }
 
 static void	nodes2line(t_model *model, t_node *node_1, t_node *node_2)
 {
-	t_point_2d_colored	*p1;
-	t_point_2d_colored	*p2;
+	t_point_3d_colored	*p1;
+	t_point_3d_colored	*p2;
 
-	p1 = malloc(sizeof(t_point_2d_colored));
-	p2 = malloc(sizeof(t_point_2d_colored));
+	p1 = malloc(sizeof(t_point_3d_colored));
+	p2 = malloc(sizeof(t_point_3d_colored));
 	node2point(model, node_1, p1);
 	node2point(model, node_2, p2);
 	img_line_put(model, p1, p2);

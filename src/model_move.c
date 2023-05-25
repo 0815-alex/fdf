@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 18:42:22 by astein            #+#    #+#             */
-/*   Updated: 2023/05/24 14:53:19 by astein           ###   ########.fr       */
+/*   Updated: 2023/05/25 02:27:07 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,14 +88,17 @@ int	auto_rotate(t_model *model)
 	return (0);
 }
 
-void	zoom_to_start(t_model *model)
+void	zoom_to_start(t_model *model, t_bool zoom_in)
 {
 	double		zoom_end;
 	double		increment;
 	t_point_3d	*rot;
 	int			frames;
 	int			i;
-
+    if(zoom_in)
+    printf("in\n");
+    else
+    printf("out\n");
 	rot = new_point(pnt_dim_3, 0, 0, 0);
 	zoom_end = model->dof.zoom;
 	frames = 50;
