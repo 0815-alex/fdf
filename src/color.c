@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 15:21:14 by astein            #+#    #+#             */
-/*   Updated: 2023/05/25 02:02:10 by astein           ###   ########.fr       */
+/*   Updated: 2023/05/25 12:47:52 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,9 +89,18 @@ t_color	*calculate_step_color(t_color start_color, t_color end_color,
 	t_color	*step;
 
 	step = malloc(sizeof(t_color));
-	step->red = (end_color.red - start_color.red) / n_steps;
-	step->green = (end_color.green - start_color.green) / n_steps;
-	step->blue = (end_color.blue - start_color.blue) / n_steps;
+	if (n_steps < 1)
+	{
+		step->red = end_color.red;
+		step->green = end_color.green;
+		step->blue = end_color.blue;
+	}
+	else
+	{
+		step->red = (end_color.red - start_color.red) / n_steps;
+		step->green = (end_color.green - start_color.green) / n_steps;
+		step->blue = (end_color.blue - start_color.blue) / n_steps;
+	}
 	return (step);
 }
 

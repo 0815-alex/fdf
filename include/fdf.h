@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 16:51:18 by astein            #+#    #+#             */
-/*   Updated: 2023/05/25 02:21:36 by astein           ###   ########.fr       */
+/*   Updated: 2023/05/25 12:58:37 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,9 @@
 # include <math.h>
 # include <stdint.h>
 # include <unistd.h>
+
+//______AUTO ZOOM START LEVEL___________________________________________________
+# define AUTO_ZOOM_INI_LEVEL 0.1
 
 //______DEFINE KEYS_____________________________________________________________
 
@@ -224,7 +227,7 @@ void				rot_mod(t_model *model, t_bool ovr, t_point_3d *deg);
 void				scale_mod(t_model *model, t_bool ovr, double zoom,
 						double z_factor);
 int					auto_rotate(t_model *model);
-void				zoom_to_start(t_model *model, t_bool zoomIn);
+void				auto_zoom(t_model *model, t_bool zoomIn);
 
 //______MODEL.C_________________________________________________________________
 t_model				*new_model(int argc, char **argv);

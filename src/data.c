@@ -6,13 +6,13 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 18:42:14 by astein            #+#    #+#             */
-/*   Updated: 2023/05/24 13:47:33 by astein           ###   ########.fr       */
+/*   Updated: 2023/05/25 12:58:59 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/fdf.h"
 
-void	ini_net_details(t_model *model)
+void	    ini_net_details(t_model *model)
 {
 	model->center_point.x = INT_MIN;
 	model->center_point.y = INT_MIN;

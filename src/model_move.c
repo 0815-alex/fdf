@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 18:42:22 by astein            #+#    #+#             */
-/*   Updated: 2023/05/25 02:27:07 by astein           ###   ########.fr       */
+/*   Updated: 2023/05/25 13:24:01 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ void	rot_mod(t_model *model, t_bool ovr, t_point_3d *deg)
 
 void	scale_mod(t_model *model, t_bool ovr, double zoom, double z_factor)
 {
+    dbg_printf(model,start_block,"scale_mod");
 	if (ovr)
 	{
 		model->dof.zoom = zoom;
@@ -59,6 +60,7 @@ void	scale_mod(t_model *model, t_bool ovr, double zoom, double z_factor)
 		model->dof.z_factor += z_factor;
 	}
 	create_next_img(model);
+    dbg_printf(model,end_block,"scale_mod");
 }
 
 int	auto_rotate(t_model *model)
@@ -88,43 +90,53 @@ int	auto_rotate(t_model *model)
 	return (0);
 }
 
-void	zoom_to_start(t_model *model, t_bool zoom_in)
+void	auto_zoom(t_model *model, t_bool zoom_in)
 {
-	double		zoom_end;
-	double		increment;
-	t_point_3d	*rot;
-	int			frames;
-	int			i;
-    if(zoom_in)
-    printf("in\n");
-    else
-    printf("out\n");
-	rot = new_point(pnt_dim_3, 0, 0, 0);
-	zoom_end = model->dof.zoom;
+	double	zoom_end;
+	double	increment;
+	int		frames;
+	int		i;
+	int		sign;
+
 	frames = 50;
-	i = 0;
-	increment = model->dof.zoom / frames;
-	scale_mod(model, ft_true, 0.1, model->dof.z_factor);
-	sleep(1);
-	while (model->dof.zoom < zoom_end)
+	if (zoom_in)
 	{
+		printf("in\n");
+		sign = 1;
+		zoom_end = model->dof.zoom;
+		increment = zoom_end / frames;
+		scale_mod(model, ft_true, AUTO_ZOOM_INI_LEVEL, model->dof.z_factor);
+	}
+	else
+	{
+		printf("out\n");
+		sign = -1;
+		zoom_end = AUTO_ZOOM_INI_LEVEL;
+		increment = model->dof.zoom / frames;
+	}
+    printf("increment: %lf\n",increment);
+	i = 0;
+	sleep(1);
+	while ((sign == 1 && (model->dof.zoom < zoom_end)) || (sign == -1
+		&& (model->dof.zoom > zoom_end)))
+	{
+		printf("zoooooom direction: %d\n",sign);
 		if (i < 10)
-			scale_mod(model, ft_false, (0.5 * increment), 0);
+			scale_mod(model, ft_false, (sign * 0.5 * increment), 0);
 		else if (i < 20)
-			scale_mod(model, ft_false, increment, 0);
+			scale_mod(model, ft_false, (sign * increment), 0);
 		else if (i < 30)
-			scale_mod(model, ft_false, (2 * increment), 0);
+			scale_mod(model, ft_false, (sign * 2 * increment), 0);
 		else if (i < 40)
-			scale_mod(model, ft_false, increment, 0);
+			scale_mod(model, ft_false, (sign * increment), 0);
 		else
 		{
-			if (model->dof.zoom + (increment * 0.5) <= zoom_end)
-				scale_mod(model, ft_false, (increment * 0.5), 0);
+			if (model->dof.zoom + (sign * increment * 0.5) <= zoom_end)
+				scale_mod(model, ft_false, (sign * increment * 0.5), 0);
 			else
 				scale_mod(model, ft_true, zoom_end, model->dof.z_factor);
 		}
 		i++;
 	}
-	free(rot);
 	sleep(1);
 }

@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 17:08:26 by astein            #+#    #+#             */
-/*   Updated: 2023/05/25 02:36:07 by astein           ###   ########.fr       */
+/*   Updated: 2023/05/25 13:00:54 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,10 @@ void	ini_win(t_model *model)
 	dbg_printf(model, start_block, "ini_win");
 	model->mlx = mlx_init();
 	mlx_get_screen_size(model->mlx, &screen_width, &screen_height);
-	model->win_width = screen_width - 10;
-	model->win_height = screen_height - 80;
+	// model->win_width = screen_width - 10;
+	// model->win_height = screen_height - 80;
+    model->win_width = screen_width - 650;
+	model->win_height = screen_height - 300;
 	model->win = mlx_new_window(model->mlx, model->win_width, model->win_height,
 			"astein | fdf");
 	dbg_printf(model, end_block, "ini_win");
@@ -37,7 +39,7 @@ void	ini_dof_plus(t_model *model)
 	model->dof.rot_rad.x = degree2radian(0);
 	model->dof.rot_rad.y = degree2radian(0);
 	model->dof.rot_rad.z = degree2radian(0);
-	model->dof.zoom = 10;
+	model->dof.zoom = AUTO_ZOOM_INI_LEVEL;
 	model->dof.z_factor = 1;
 	model->dof.auto_rotate = ft_true;
 	dbg_printf(model, end_block, "ini_dof_plus");
@@ -80,7 +82,6 @@ void	center_model(t_model *model)
 	if (model->z_max - model->z_min == 0)
 		dbg_printf(model, err_block, "model is only 2d!");
 	model->dof.z_factor = (double)50 / (model->z_max - model->z_min);
-	create_next_img(model);
 }
 
 void	update_image(t_model *model)

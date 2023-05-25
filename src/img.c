@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 14:11:35 by astein            #+#    #+#             */
-/*   Updated: 2023/05/25 02:02:15 by astein           ###   ########.fr       */
+/*   Updated: 2023/05/25 12:45:30 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ static void	img_line_put(t_model *model, t_point_3d_colored *pnt_a,
 	curr_point->y = pnt_a->y;
 	delta->x = abs(pnt_b->x - curr_point->x);
 	delta->y = -abs(pnt_b->y - curr_point->y);
+	delta_sum = sqrt(pow((pnt_b->x - curr_point->x),2) + pow((pnt_b->y - curr_point->y),2));
 	if (curr_point->x < pnt_b->x)
 		sign->x = 1;
 	else
@@ -78,12 +79,9 @@ static void	img_line_put(t_model *model, t_point_3d_colored *pnt_a,
 		sign->y = -1;
 	err = delta->x + delta->y;
 	cur_color = malloc(sizeof(t_color));
-	cur_color->red = pnt_b->color.red;
-	cur_color->green = pnt_b->color.green;
-	cur_color->blue = pnt_b->color.blue;
-	delta_sum = pnt_b->z - pnt_a->z;
-	if (delta_sum == 0)
-		delta_sum = 1;
+	cur_color->red = pnt_a->color.red;
+	cur_color->green = pnt_a->color.green;
+	cur_color->blue = pnt_a->color.blue;
 	color_step = calculate_step_color(pnt_a->color, pnt_b->color, delta_sum);
 	while (1)
 	{

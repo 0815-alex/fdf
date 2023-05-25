@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 17:10:48 by astein            #+#    #+#             */
-/*   Updated: 2023/05/24 12:45:16 by astein           ###   ########.fr       */
+/*   Updated: 2023/05/25 12:59:33 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ static t_bool	check_presets(int key, t_model *model)
 	else if (key == 'c')
 	{
 		center_model(model);
+        create_next_img(model);
 	}
 	else
 		check = ft_false;
