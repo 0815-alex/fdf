@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 01:07:33 by astein            #+#    #+#             */
-/*   Updated: 2023/05/26 06:13:30 by astein           ###   ########.fr       */
+/*   Updated: 2023/05/26 06:26:53 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,21 +131,21 @@ char	*create_map(char *str)
 	while (cur_fd && eof == ft_false)
 	{
 		printf("read from fd: %d\n", ((t_fd *)cur_fd)->fd);
-		cur_line = get_next_line(((t_fd *)cur_fd)->fd);
+		cur_line = ft_strtrim(get_next_line(((t_fd *)cur_fd)->fd), "\n");
 		printf("read = %s\n", cur_line);
 		if (cur_line == NULL)
 			eof = ft_true;
 		else
-			write(new_file_fd, cur_line, ft_strlen(cur_line) - 1);
+			write(new_file_fd, cur_line, ft_strlen(cur_line));
 		free(cur_line);
 		cur_fd = ((t_list *)cur_fd)->next;
+			write(new_file_fd, " ", 1);
 		if (!cur_fd)
 		{
 			write(new_file_fd, "\n", 1);
 			cur_fd = *fds;
 		}
-		else
-			write(new_file_fd, " ", 1);
+		
 	}
 	//  liest immer eine zeile
 	//  dann linebreak
