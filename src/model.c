@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 17:13:13 by astein            #+#    #+#             */
-/*   Updated: 2023/05/25 22:26:39 by astein           ###   ########.fr       */
+/*   Updated: 2023/05/26 00:59:07 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_model	*new_model(int argc, char **argv)
 	ini_max_values(model);
 	load_file(argc, argv, model);
 	determine_net_center(model);
-	ini_color_map(model);
+	ini_color_maps(model);
 	ini_colors(model);
 	ini_win(model);
 	ini_dof_plus(model);
@@ -49,6 +49,7 @@ int	close_model(t_model *model)
 	dbg_printf(model, start_block, "close_model");
 	mlx_destroy_window(model->mlx, model->win);
 	free_list(model->net);
+    free_color_maps(model);
 	free(model->color_map);
 	mlx_destroy_image(model->mlx, model->img.mlx_img);
 	free(model);

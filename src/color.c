@@ -6,16 +6,11 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 15:21:14 by astein            #+#    #+#             */
-/*   Updated: 2023/05/25 12:47:52 by astein           ###   ########.fr       */
+/*   Updated: 2023/05/26 00:54:02 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/fdf.h"
-
-void	ini_color_map(t_model *model)
-{
-	model->color_map = new_color_map();
-}
 
 void	ini_colors(t_model *model)
 {
@@ -64,23 +59,6 @@ void	ini_colors(t_model *model)
 		free_whatever(model, "p", step_neg);
 	if (abs(model->z_max) != 0)
 		free_whatever(model, "p", step_pos);
-}
-
-t_color_map	*new_color_map(void)
-{
-	t_color_map	*new_map;
-
-	new_map = malloc(sizeof(t_color_map));
-	new_map->min.red = 0;
-	new_map->min.green = 0;
-	new_map->min.blue = 255;
-	new_map->zero.red = 255;
-	new_map->zero.green = 255;
-	new_map->zero.blue = 255;
-	new_map->max.red = 255;
-	new_map->max.green = 0;
-	new_map->max.blue = 0;
-	return (new_map);
 }
 
 t_color	*calculate_step_color(t_color start_color, t_color end_color,

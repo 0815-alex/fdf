@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 17:10:48 by astein            #+#    #+#             */
-/*   Updated: 2023/05/25 22:06:42 by astein           ###   ########.fr       */
+/*   Updated: 2023/05/26 00:27:37 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,12 @@ static t_bool	check_presets(int key, t_model *model)
 		model->dof.auto_zoom = -1;
 	else if (key == '8')
 		model->dof.auto_zoom = 1;
+	else if (key == 'm')
+	{
+		model->color_map = model->color_map->next;
+		ini_colors(model);
+		create_next_img(model);
+	}
 	else
 		check = ft_false;
 	return (check);

@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 15:30:35 by astein            #+#    #+#             */
-/*   Updated: 2023/05/24 17:18:14 by astein           ###   ########.fr       */
+/*   Updated: 2023/05/26 04:00:55 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ void	load_file(int argc, char **argv, t_model *model)
 {
 	int		fd;
 	char	*line;
+    char	*new_map_fn;
 	int		cur_row;
 	t_node	*prev_row;
 
@@ -61,13 +62,18 @@ void	load_file(int argc, char **argv, t_model *model)
 	model->net = NULL;
 	fd = open(argv[1], O_RDONLY);
 	if (fd == -1)
-		dbg_printf(model, err_block, "fdf file not found!");
+    {
+		dbg_printf(model, no_block, "fdf file not found! => lets create it...");
+        new_map_fn =create_map(argv[1]); 
+        fd = open(new_map_fn, O_RDONLY);
+        free(new_map_fn);
+    }
 	line = get_next_line(fd);
 	cur_row = 1;
 	prev_row = NULL;
 	while (line)
 	{
-		dbg_printf(model, no_block, "read Line: %s", line);
+		dbg_printf(model, no_block, "read Line: %s\n", line);
 		str_line(ft_split(line, ' '), cur_row, &prev_row, model);
 		free(line);
 		line = get_next_line(fd);

@@ -59,6 +59,7 @@ DONE		- ...
 	- maybe hook it to the key F1 or mouse click
 DONE	- Animate a zoom in on start and start auto rotate after zoom in
 - Animate zoom before closing
+- Animate move between presets
 
 3 COMMENTING
 -------------------

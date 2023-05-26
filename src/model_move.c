@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 18:42:22 by astein            #+#    #+#             */
-/*   Updated: 2023/05/25 22:21:56 by astein           ###   ########.fr       */
+/*   Updated: 2023/05/26 00:11:01 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,22 +152,22 @@ t_bool	static_auto_zoom(t_model *model, t_bool zoom_in)
 			zoom_end = model->dof.zoom;
 			cpy_dof(cur_dof, &model->dof);
 			free(cur_dof);
-			printf("STARTED a new zoom in from %lf to %lf\n",model->dof.zoom,zoom_end);
+			printf("STARTED a new zoom in from %lf to %lf\n", model->dof.zoom,
+					zoom_end);
 		}
 		else
 		{
 			sign = -1;
 			zoom_start = model->dof.zoom;
 			zoom_end = AUTO_ZOOM_INI_LEVEL;
-            printf("STARTED a new zoom out from %lf to %lf\n",model->dof.zoom,zoom_end);
+			printf("STARTED a new zoom out from %lf to %lf\n", model->dof.zoom,
+					zoom_end);
 		}
 		increment = (zoom_end - zoom_start) / AUTO_ZOOM_FRAMES;
 	}
-	// einen step incrementen
-	printf("increment: %lf\n", increment);
+	
 	if (model->dof.zoom != zoom_end)
 	{
-		printf("zoom direction: %i\n", sign);
 		if (cur_step < AUTO_ZOOM_FRAMES / 5)
 			scale_mod(model, ft_false, (0.5 * increment), 0);
 		else if (cur_step < 2 * (AUTO_ZOOM_FRAMES / 5))
@@ -183,53 +183,27 @@ t_bool	static_auto_zoom(t_model *model, t_bool zoom_in)
 				if (model->dof.zoom + (increment * 0.5) <= zoom_end)
 					scale_mod(model, ft_false, (increment * 0.5), 0);
 				else
-				{
 					scale_mod(model, ft_true, zoom_end, model->dof.z_factor);
-					// // wenn es letzter step ist
-					// //  start, end, increment, cur_step, sign nullen
-					// zoom_start = 0;
-					// zoom_end = 0;
-					// increment = 0;
-					// cur_step = 0;
-					// sign = 0;
-					// //zoom ist abgeschlossen
-					// return (ft_true);
-				}
 			}
 			else
 			{
 				if (model->dof.zoom + (increment * 0.5) >= zoom_end)
 					scale_mod(model, ft_false, (increment * 0.5), 0);
 				else
-				{
 					scale_mod(model, ft_true, zoom_end, model->dof.z_factor);
-					// // wenn es letzter step ist
-					// //  start, end, increment, cur_step, sign nullen
-					// zoom_start = 0;
-					// zoom_end = 0;
-					// increment = 0;
-					// cur_step = 0;
-					// sign = 0;
-					// //zoom ist abgeschlossen
-					// return (ft_true);
-				}
 			}
 		}
 		cur_step++;
 	}
 	else
 	{
-		// wenn es letzter step ist
-		//  start, end, increment, cur_step, sign nullen
 		zoom_start = 0;
 		zoom_end = 0;
 		increment = 0;
 		cur_step = 0;
 		sign = 0;
-		//zoom ist abgeschlossen
 		return (ft_true);
 	}
-	//zoom ist noch nicht abgeschlossen
 	return (ft_false);
 }
 

@@ -21,22 +21,25 @@ MAPS_FOLDER = ./maps/
 
 # ->Files
 LIBFT_PRINTF = $(LIB_FOLDER)/libft_printf/libft_printf.a
-SRCS = $(SRC_FOLDER)main.c \
-	$(SRC_FOLDER)view.c \
+SRCS = \
+	$(SRC_FOLDER)color.c \
+	$(SRC_FOLDER)color_map.c \
 	$(SRC_FOLDER)controller_keys.c \
 	$(SRC_FOLDER)controller_mouse.c \
-	$(SRC_FOLDER)model.c \
-	$(SRC_FOLDER)parser.c \
-	$(SRC_FOLDER)node.c \
-	$(SRC_FOLDER)point.c \
+	$(SRC_FOLDER)data.c \
 	$(SRC_FOLDER)debug.c \
 	$(SRC_FOLDER)dof_plus.c \
-	$(SRC_FOLDER)utils.c \
 	$(SRC_FOLDER)img.c \
-	$(SRC_FOLDER)data.c \
+	$(SRC_FOLDER)list.c \
+	$(SRC_FOLDER)main.c \
+	$(SRC_FOLDER)map_creator.c \
+	$(SRC_FOLDER)model.c \
 	$(SRC_FOLDER)model_move.c \
-	$(SRC_FOLDER)color.c \
-	$(SRC_FOLDER)list.c
+	$(SRC_FOLDER)node.c \
+	$(SRC_FOLDER)parser.c \
+	$(SRC_FOLDER)point.c \
+	$(SRC_FOLDER)utils.c \
+	$(SRC_FOLDER)view.c
 
 # Object files
 OBJS = $(SRCS:.c=.o)
@@ -59,7 +62,7 @@ clean:
 	#make -C $(LIB_FOLDER)libft_printf clean
 
 fclean: clean
-	$(RM) $(NAME)
+	@$(RM) $(NAME)
 	#make -C $(LIB_FOLDER)libft_printf fclean
 
 re: fclean all
@@ -79,6 +82,9 @@ a: re
 
 m: re
 	./$(NAME) ./maps/mars.fdf
+
+tm: re
+	./$(NAME) abABc
 
 p: all
 	./$(NAME) ./maps/pylone.fdf
