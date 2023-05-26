@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 01:07:33 by astein            #+#    #+#             */
-/*   Updated: 2023/05/26 06:26:53 by astein           ###   ########.fr       */
+/*   Updated: 2023/05/26 06:37:44 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,15 +40,15 @@ char	*create_map(char *str)
 	cur_letter = malloc(sizeof(char) * 2);
 	fds = malloc(sizeof(t_list *));
 	*fds = NULL;
-	cur_fd = malloc(sizeof(t_fd));
-	((t_fd *)cur_fd)->next = NULL;
-	ft_strlcat(cur_filename, PATH_2_CHARS, ft_strlen(PATH_2_CHARS) + 1);
-	ft_strlcat(cur_filename, "space", ft_strlen(cur_filename) + 6);
-	ft_strlcat(cur_filename, ".fdf", ft_strlen(cur_filename) + 5);
-	((t_fd *)cur_fd)->fd = open(&cur_filename[0], O_RDONLY);
-	printf("open file: %s | fd=%d\n", cur_filename, ((t_fd *)cur_fd)->fd);
-	ft_bzero(cur_filename, 100);
-	ft_lstadd_back(fds, cur_fd);
+	// cur_fd = malloc(sizeof(t_fd));
+	// ((t_fd *)cur_fd)->next = NULL;
+	// ft_strlcat(cur_filename, PATH_2_CHARS, ft_strlen(PATH_2_CHARS) + 1);
+	// ft_strlcat(cur_filename, "space", ft_strlen(cur_filename) + 6);
+	// ft_strlcat(cur_filename, ".fdf", ft_strlen(cur_filename) + 5);
+	// ((t_fd *)cur_fd)->fd = open(&cur_filename[0], O_RDONLY);
+	// printf("open file: %s | fd=%d\n", cur_filename, ((t_fd *)cur_fd)->fd);
+	// ft_bzero(cur_filename, 100);
+	// ft_lstadd_back(fds, cur_fd);
 	while (*str)
 	{
 		// *str = ft_toupper(*str);
@@ -79,6 +79,7 @@ char	*create_map(char *str)
 					((t_fd *)cur_fd)->fd);
 			ft_lstadd_back(fds, cur_fd);
 			ft_bzero(cur_filename, 100);
+            ft_bzero(cur_letter,2);
 		}
 		else
 		{
@@ -96,24 +97,24 @@ char	*create_map(char *str)
 		}
 		str++;
 	}
-	cur_fd = malloc(sizeof(t_fd));
-	((t_fd *)cur_fd)->next = NULL;
-	ft_bzero(cur_filename, 100);
-	ft_strlcat(cur_filename, PATH_2_CHARS, ft_strlen(PATH_2_CHARS) + 1);
-	ft_strlcat(cur_filename, "space", ft_strlen(cur_filename) + 6);
-	ft_strlcat(cur_filename, ".fdf", ft_strlen(cur_filename) + 5);
-	((t_fd *)cur_fd)->fd = open(&cur_filename[0], O_RDONLY);
-	printf("open file: %s | fd=%d\n", cur_filename, ((t_fd *)cur_fd)->fd);
-	ft_lstadd_back(fds, cur_fd);
-	cur_fd = malloc(sizeof(t_fd));
-	((t_fd *)cur_fd)->next = NULL;
-	ft_bzero(cur_filename, 100);
-	ft_strlcat(cur_filename, PATH_2_CHARS, ft_strlen(PATH_2_CHARS) + 1);
-	ft_strlcat(cur_filename, "space", ft_strlen(cur_filename) + 6);
-	ft_strlcat(cur_filename, ".fdf", ft_strlen(cur_filename) + 5);
-	((t_fd *)cur_fd)->fd = open(&cur_filename[0], O_RDONLY);
-	printf("open file: %s | fd=%d\n", cur_filename, ((t_fd *)cur_fd)->fd);
-	ft_lstadd_back(fds, cur_fd);
+    // cur_fd = malloc(sizeof(t_fd));
+    // ((t_fd *)cur_fd)->next = NULL;
+    // ft_bzero(cur_filename, 100);
+    // ft_strlcat(cur_filename, PATH_2_CHARS, ft_strlen(PATH_2_CHARS) + 1);
+    // ft_strlcat(cur_filename, "space", ft_strlen(cur_filename) + 6);
+    // ft_strlcat(cur_filename, ".fdf", ft_strlen(cur_filename) + 5);
+    // ((t_fd *)cur_fd)->fd = open(&cur_filename[0], O_RDONLY);
+    // printf("open file: %s | fd=%d\n", cur_filename, ((t_fd *)cur_fd)->fd);
+    // ft_lstadd_back(fds, cur_fd);
+    // cur_fd = malloc(sizeof(t_fd));
+    // ((t_fd *)cur_fd)->next = NULL;
+    // ft_bzero(cur_filename, 100);
+    // ft_strlcat(cur_filename, PATH_2_CHARS, ft_strlen(PATH_2_CHARS) + 1);
+    // ft_strlcat(cur_filename, "space", ft_strlen(cur_filename) + 6);
+    // ft_strlcat(cur_filename, ".fdf", ft_strlen(cur_filename) + 5);
+    // ((t_fd *)cur_fd)->fd = open(&cur_filename[0], O_RDONLY);
+    // printf("open file: %s | fd=%d\n", cur_filename, ((t_fd *)cur_fd)->fd);
+    // ft_lstadd_back(fds, cur_fd);
 	printf("all opened!\n");
 	//looped duch die fd
 	new_file_name = malloc(sizeof(char) * (ft_strlen(str)
@@ -131,7 +132,7 @@ char	*create_map(char *str)
 	while (cur_fd && eof == ft_false)
 	{
 		printf("read from fd: %d\n", ((t_fd *)cur_fd)->fd);
-		cur_line = ft_strtrim(get_next_line(((t_fd *)cur_fd)->fd), "\n");
+		cur_line = get_next_line(((t_fd *)cur_fd)->fd);
 		printf("read = %s\n", cur_line);
 		if (cur_line == NULL)
 			eof = ft_true;
