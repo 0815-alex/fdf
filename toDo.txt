@@ -62,6 +62,7 @@ DONE	- Animate a zoom in on start and start auto rotate after zoom in
 - Animate move between presets
 - check if map was already createt before
 - dash einfuegen
+- makefile call minilib make
 
 3 COMMENTING
 -------------------

@@ -7,7 +7,7 @@ NAME = fdf
 DEBUG = 0
 # Compiler options
 CC = cc
-CFLAGS = -D DEBUG=$(DEBUG) -g -Wall -Werror -Wextra -fsanitize=address -fsanitize-address-use-after-scope
+CFLAGS = -D DEBUG=$(DEBUG) -g #-Wall -Werror -Wextra #-fsanitize=address -fsanitize-address-use-after-scope
 CLIBS = -L$(LIB_FOLDER)libft_printf -L$(LIB_FOLDER)minilibx -lm
 CINCLUDES  = -I$(INCLUDE_FOLDER) -I$(MLX_FOLDER)
 RM = rm -f

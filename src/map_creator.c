@@ -19,9 +19,20 @@ typedef struct s_fd
 
 }				t_fd;
 
-static void	insert_empty_char(void)
+static void	insert_empty_char(t_list **fds)
 {
-	printf("TO DOOO HERE SHOULD OPEN A EMPTY FILE\n");
+	// t_list	*cur_fd;
+	// char	cur_filename[100];
+
+	// cur_filename[0] = '\0';
+	// cur_fd = malloc(sizeof(t_fd));
+	// ft_strlcat(cur_filename, PATH_2_CHARS, ft_strlen(PATH_2_CHARS) + 1);
+	// ft_strlcat(cur_filename, "sp", ft_strlen(cur_filename) + 3);
+	// ft_strlcat(cur_filename, ".fdf", ft_strlen(cur_filename) + 5);
+	// ((t_fd *)cur_fd)->fd = open(&cur_filename[0], O_RDONLY);
+	// printf("open file: %s | fd=%d\n", cur_filename, ((t_fd *)cur_fd)->fd);
+	// ft_lstadd_back(fds, cur_fd);
+	// ft_bzero(cur_filename, 100);
 }
 
 static char	*create_new_file(char *str, int *new_fd)
@@ -42,23 +53,31 @@ static char	*create_new_file(char *str, int *new_fd)
 
 static void	create_fd_list(t_list **fds, char *str)
 {
-	char	*cur_letter;
+	char	*buffer;
 	t_list	*cur_fd;
 	char	cur_filename[100];
 
 	cur_filename[0] = '\0';
-	cur_letter = malloc(sizeof(char) * 2);
-	insert_empty_char();
+	buffer = malloc(sizeof(char) * 2);
+	insert_empty_char(fds);
 	while (*str)
 	{
 		cur_fd = malloc(sizeof(t_fd));
 		((t_fd *)cur_fd)->next = NULL;
 		ft_strlcat(cur_filename, PATH_2_CHARS, ft_strlen(PATH_2_CHARS) + 1);
-		if (ft_isalnum(*str))
-		{
-			ft_strlcpy(cur_letter, &str[0], 2);
-			ft_strlcat(cur_filename, cur_letter, ft_strlen(cur_filename) + 2);
-		}
+		ft_strlcpy(buffer, &str[0], 2);
+		if (ft_isalnum(*buffer))
+			ft_strlcat(cur_filename, buffer, ft_strlen(cur_filename) + 2);
+		else if (*buffer == '!')
+			ft_strlcat(cur_filename, "em", ft_strlen(cur_filename) + 3);
+		else if (*buffer == '-')
+			ft_strlcat(cur_filename, "dh", ft_strlen(cur_filename) + 3);
+		else if (*buffer == '.')
+			ft_strlcat(cur_filename, "dt", ft_strlen(cur_filename) + 3);
+		else if (*buffer == '_')
+			ft_strlcat(cur_filename, "us", ft_strlen(cur_filename) + 3);
+		else if (*buffer == ' ')
+			ft_strlcat(cur_filename, "sp", ft_strlen(cur_filename) + 3);
 		else
 			ft_strlcat(cur_filename, "qm", ft_strlen(cur_filename) + 3);
 		ft_strlcat(cur_filename, ".fdf", ft_strlen(cur_filename) + 5);
@@ -68,8 +87,8 @@ static void	create_fd_list(t_list **fds, char *str)
 		ft_bzero(cur_filename, 100);
 		str++;
 	}
-	insert_empty_char();
-	free(cur_letter);
+	insert_empty_char(fds);
+	free(buffer);
 }
 
 static void	free_fd_list(t_list **fds)
@@ -123,7 +142,7 @@ char	*create_map(char *str)
 			cur_fd = *fds;
 		}
 		else
-			write(new_fd, " ", 1);
+			write(new_fd, "Q", 1);
 	}
 	//closed alle fd
 	close(new_fd);
