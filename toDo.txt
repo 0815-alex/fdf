@@ -60,6 +60,8 @@ DONE		- ...
 DONE	- Animate a zoom in on start and start auto rotate after zoom in
 - Animate zoom before closing
 - Animate move between presets
+- check if map was already createt before
+- dash einfuegen
 
 3 COMMENTING
 -------------------
