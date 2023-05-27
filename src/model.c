@@ -17,6 +17,7 @@ t_model	*new_model(int argc, char **argv)
 	t_model	*mod;
 
 	mod = malloc(sizeof(t_model));
+    check_malloc(
 	ini_debug(mod, 1);
 	ini_net_details(mod);
 	ini_max_values(mod);

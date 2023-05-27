@@ -14,10 +14,10 @@
 
 void	ini_colors(t_model *mod)
 {
-	t_node	*cur_node;
-	t_clr	*step_neg;
-	t_clr	*step_pos;
-	int		i;
+	t_node		*cur_node;
+	t_point_3d	*step_neg;
+	t_point_3d	*step_pos;
+	int			i;
 
 	if (abs(mod->z_min) != 0)
 		step_neg = calculate_step_color(mod->color_map->zero,
@@ -36,17 +36,17 @@ void	ini_colors(t_model *mod)
 			cur_node->color.blue = mod->color_map->zero.blue;
 			while (cur_node->pnt->z > i)
 			{
-				cur_node->color.red += step_pos->red;
-				cur_node->color.green += step_pos->green;
-				cur_node->color.blue += step_pos->blue;
+				cur_node->color.red += step_pos->x;
+				cur_node->color.green += step_pos->y;
+				cur_node->color.blue += step_pos->z;
 				i++;
 			}
 			i = 0;
 			while (cur_node->pnt->z < i)
 			{
-				cur_node->color.red += step_neg->red;
-				cur_node->color.green += step_neg->green;
-				cur_node->color.blue += step_neg->blue;
+				cur_node->color.red += step_neg->x;
+				cur_node->color.green += step_neg->y;
+				cur_node->color.blue += step_neg->z;
 				i--;
 			}
 			cur_node = cur_node->next;
@@ -58,22 +58,26 @@ void	ini_colors(t_model *mod)
 		free_whatever(mod, "p", step_pos);
 }
 
-t_clr	*calculate_step_color(t_clr start_color, t_clr end_color, int n_steps)
+/*
+    HIer muss ich ein 3d punkt nehmen, da t_clr keine negativen
+    farb steps speichern kann da unsigned
+*/
+t_point_3d	*calculate_step_color(t_clr start_color, t_clr end_color, int n_steps)
 {
-	t_clr	*step;
+	t_point_3d	*step;
 
-	step = malloc(sizeof(t_clr));
+	step = malloc(sizeof(t_point_3d));
 	if (n_steps < 1)
 	{
-		step->red = end_color.red;
-		step->green = end_color.green;
-		step->blue = end_color.blue;
+		step->x = end_color.red;
+		step->y = end_color.green;
+		step->z = end_color.blue;
 	}
 	else
 	{
-		step->red = (end_color.red - start_color.red) / n_steps;
-		step->green = (end_color.green - start_color.green) / n_steps;
-		step->blue = (end_color.blue - start_color.blue) / n_steps;
+		step->x = (int)(end_color.red - start_color.red) / n_steps;
+		step->y = (int)(end_color.green - start_color.green) / n_steps;
+		step->z = (int)(end_color.blue - start_color.blue) / n_steps;
 	}
 	return (step);
 }

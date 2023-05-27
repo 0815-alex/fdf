@@ -24,8 +24,8 @@ void	ini_win(t_model *mod)
 	dbg_printf(mod, start_block, "ini_win");
 	mod->mlx = mlx_init();
 	mlx_get_screen_size(mod->mlx, &screen_width, &screen_height);
-	mod->win_width = screen_width - 10;
-	mod->win_height = screen_height - 80;
+	mod->win_width = screen_width;
+	mod->win_height = screen_height - 60;
 	mod->win = mlx_new_window(mod->mlx, mod->win_width, mod->win_height,
 			"astein | fdf");
 	mod->close_pending = ft_false;

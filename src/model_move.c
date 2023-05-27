@@ -105,7 +105,7 @@ int	auto_movements(t_model *mod)
 	else if (mod->close_pending)
 		close_model(mod);
 	else if (!mod->dof.auto_rotate && !mod->dof.auto_color_change)
-		sleep(1);
+		usleep(500);
 	if (mod->dof.auto_rotate)
 	{
 		if (random_axis == 0 || step_move >= AUTO_MOVE_FRAMES)

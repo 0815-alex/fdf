@@ -41,6 +41,20 @@ static void	free_arr(void **arr)
 	free(arr);
 }
 
+//die idee ist, dass die mit in libftprintf kommt
+//genau wie dbg_printf
+//dbg printf muesste dann aber in der lage sein
+//eine projektspezifische END function aufzurufen, die alles rueckwaerts
+//freed, kein plan wie das gehen soll
+void	*check_malloc(size_t s)
+{
+	void	*ptr;
+	ptr = malloc (s);
+	if (!ptr)
+        dbg_printf(mod, err_block, "malloc failed");
+	return(ptr);
+}
+
 /**
  * p = pointer
  * a = array

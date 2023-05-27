@@ -56,7 +56,7 @@ static void	img_line_put(t_model *mod, t_point_3d_colored *pnt_a,
 	t_point_2d	*delta;
 	t_point_2d	*sign;
 	t_clr		*cur_color;
-	t_clr		*color_step;
+	t_point_3d	*color_step;
 	int			err;
 	int			e2;
 	int			delta_sum;
@@ -68,8 +68,7 @@ static void	img_line_put(t_model *mod, t_point_3d_colored *pnt_a,
 	curr_point->y = pnt_a->y;
 	delta->x = abs(pnt_b->x - curr_point->x);
 	delta->y = -abs(pnt_b->y - curr_point->y);
-	delta_sum = sqrt(pow((pnt_b->x - curr_point->x), 2)
-			+ pow((pnt_b->y - curr_point->y), 2));
+	delta_sum = sqrt(pow((delta->x), 2) + pow((delta->y), 2));
 	if (curr_point->x < pnt_b->x)
 		sign->x = 1;
 	else
@@ -87,9 +86,9 @@ static void	img_line_put(t_model *mod, t_point_3d_colored *pnt_a,
 	while (1)
 	{
 		img_pix_put(mod, curr_point, color2int(*cur_color));
-		cur_color->red += color_step->red;
-		cur_color->green += color_step->green;
-		cur_color->blue += color_step->blue;
+		cur_color->red += color_step->x;
+		cur_color->green += color_step->y;
+		cur_color->blue += color_step->z;
 		if (curr_point->x == pnt_b->x && curr_point->y == pnt_b->y)
 			break ;
 		e2 = 2 * err;

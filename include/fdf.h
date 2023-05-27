@@ -225,9 +225,8 @@ void					free_color_maps(t_model *model);
 //______COLOR.C_________________________________________________________________
 
 void					ini_colors(t_model *model);
-t_clr	*calculate_step_color(t_clr start_color,
-							t_clr end_color,
-							int n_steps);
+t_point_3d				*calculate_step_color(t_clr start_color,
+							t_clr end_color, int n_steps);
 void					cpy_color(t_clr *src, t_clr *dest);
 int						color2int(t_clr clr);
 
