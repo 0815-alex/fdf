@@ -27,6 +27,11 @@ static t_bool	check_translate(int key, t_model *mod)
 		trans_mod(mod, ft_false, new_point(pnt_dim_2, -offset, 0, 0));
 	else if (key == K_ARROW_RIGHT)
 		trans_mod(mod, ft_false, new_point(pnt_dim_2, offset, 0, 0));
+	else if (key == '0')
+	{
+		center_model(mod);
+		create_next_img(mod);
+	}
 	else
 		check = ft_false;
 	return (check);
@@ -68,13 +73,13 @@ static t_bool	check_zoom(int key, t_model *mod)
 	else if (key == '2')
 		scale_mod(mod, ft_false, 5, 0);
 	else if (key == '3')
-		scale_mod(mod, ft_false, 0, -0.1);
-	else if (key == '4')
-		scale_mod(mod, ft_false, 0, 0.1);
-	else if (key == '7')
 		mod->dof.auto_zoom = -1;
-	else if (key == '8')
+	else if (key == '4')
 		mod->dof.auto_zoom = 1;
+	else if (key == '5')
+		scale_mod(mod, ft_false, 0, -0.1);
+	else if (key == '6')
+		scale_mod(mod, ft_false, 0, 0.1);
 	else
 		check = ft_false;
 	return (check);
@@ -89,21 +94,21 @@ static t_bool	check_presets(int key, t_model *mod)
 		rot_mod(mod, ft_true, new_point(pnt_dim_3, 0, 0, 0));
 	else if (key == 'f')
 		rot_mod(mod, ft_true, new_point(pnt_dim_3, 90, 0, 0));
-	else if (key == 'b')
-		rot_mod(mod, ft_true, new_point(pnt_dim_3, 180, 00, 0));
-	else if (key == 's')
+	else if (key == 'l')
 		rot_mod(mod, ft_true, new_point(pnt_dim_3, 90, 90, 0));
+	else if (key == K_SEMICOLON)
+		rot_mod(mod, ft_true, new_point(pnt_dim_3, 90, 180, 0));
 	else if (key == 'p')
 		rot_mod(mod, ft_true, new_point(pnt_dim_3, 45, 45, 0));
-	else if (key == 'c')
-	{
-		center_model(mod);
-		create_next_img(mod);
-	}
-	else if (key == 'm')
+	else if (key == K_TAB)
 		next_color_map(mod);
-	else if (key == '6')
+	else if (key == 'c')
 		mod->dof.auto_color_change = !mod->dof.auto_color_change;
+	else if (key == K_F1)
+	{
+		mod->show_help = !mod->show_help;
+		update_image(mod);
+	}
 	else
 		check = ft_false;
 	return (check);

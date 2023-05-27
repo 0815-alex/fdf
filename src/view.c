@@ -12,6 +12,8 @@
 
 #include "../include/fdf.h"
 
+static void	ini_help(t_model *mod);
+
 void	ini_win(t_model *mod)
 {
 	int	screen_width;
@@ -27,7 +29,65 @@ void	ini_win(t_model *mod)
 	mod->win = mlx_new_window(mod->mlx, mod->win_width, mod->win_height,
 			"astein | fdf");
 	mod->close_pending = ft_false;
+	ini_help(mod);
 	dbg_printf(mod, end_block, "ini_win");
+}
+
+static void	ini_help(t_model *mod)
+{
+	int		fd;
+	char	*cur_line;
+	char	*cur_line_trimmed;
+	t_list	*cur_node;
+
+	fd = open(PATH_2_HELP, O_RDONLY);
+
+	if (fd < 0 || fd > FOPEN_MAX)
+		dbg_printf(mod, err_block, "error opening help file: %s", PATH_2_HELP);
+	mod->help = malloc(sizeof(t_list *));
+	(*mod->help) = NULL;
+	cur_line = get_next_line(fd);
+	while (cur_line)
+	{
+		dbg_printf(mod, no_block, "read help: %s", cur_line);
+		cur_line_trimmed = ft_strtrim(cur_line, "\n");
+		free(cur_line);
+		cur_node = malloc(sizeof(t_list));
+		cur_node->content = (char *)cur_line_trimmed;
+		cur_node->next = NULL;
+		ft_lstadd_back(mod->help, cur_node);
+		cur_line = get_next_line(fd);
+	}
+	close(fd);
+}
+
+void	free_help(t_model *mod)
+{
+	t_list	*cur_node;
+
+	while (*mod->help)
+	{
+		cur_node = *mod->help;
+		*mod->help = (*mod->help)->next;
+		free(cur_node->content);
+		free(cur_node);
+	}
+}
+
+static void	put_help_to_view(t_model *mod)
+{
+	t_list	*cur_line;
+	int		y;
+
+	cur_line = *(mod->help);
+	y = 2 * STR_PXL_HEIGHT;
+	while (cur_line)
+	{
+		mlx_string_put(mod->mlx, mod->win, STR_PXL_HEIGHT, y, COLOR_GREEN,
+			(char *)cur_line->content);
+		cur_line = cur_line->next;
+		y += STR_PXL_HEIGHT;
+	}
 }
 
 /*
@@ -75,13 +135,13 @@ void	center_model(t_model *mod)
 
 void	update_image(t_model *mod)
 {
-	char	*zoom;
 	char	*rot_x;
+	char	*zoom;
 
-	mlx_put_image_to_window(mod->mlx, mod->win, mod->img.mlx_img, 0, 0);
 	zoom = ft_itoa(mod->dof.zoom);
 	rot_x = ft_itoa(mod->dof.rot_rad.x);
-	// mlx_string_put(mod->mlx, mod->win, 100, 100, COLOR_GREEN, zoom);
-	// mlx_string_put(mod->mlx, mod->win, 300, 100, COLOR_GREEN, rot_x);
+	mlx_put_image_to_window(mod->mlx, mod->win, mod->img.mlx_img, 0, 0);
+	if (mod->show_help && mod->dof.auto_zoom == 0)
+		put_help_to_view(mod);
 	free_whatever(mod, "pp", zoom, rot_x);
 }

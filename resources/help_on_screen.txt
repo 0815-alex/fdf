@@ -1,0 +1,47 @@
+general
+------------------------------------
+F1      show / hide this message
+ESC     end program
+
+
+zoom
+------------------------------------
+1  2    zoom out / in
+3  4    smooth zoom out / in
+5  6    increase / decrease z factor
+
+
+translate
+------------------------------------
+use the arrow keys
+
+
+rotate
+------------------------------------
+a  d    rotate around the x-axis
+w  s    rotate around the y-axis
+q  e    rotate around the z-axis
+
+
+presets
+------------------------------------
+0       center model
+t       top view
+f       front view
+l       left side view
+;       right side view
+c       center view
+p       45-degree perspective
+
+
+colormaps
+------------------------------------
+TAB     switch to next colormap
+
+
+let's get funky
+------------------------------------
+r       toggle auto rotate
+c       toggle auto color switch (only if auto rotate is on)
+F2      toggle stats to screen
+

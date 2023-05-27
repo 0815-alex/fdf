@@ -26,6 +26,8 @@
 //______MAP CREATOR))___________________________________________________________
 # define PATH_2_CHARS "./maps/letters/"
 # define PATH_2_NAMES "./maps/names/"
+# define PATH_2_RESOURCES "./resources/"
+# define PATH_2_HELP "./resources/help_on_screen.txt"
 
 //______AUTO ZOOM_______________________________________________________________
 # define AUTO_ZOOM_INI_LEVEL 1
@@ -34,13 +36,30 @@
 //______AUTO ROATET & COLOR_SHIFT_______________________________________________
 # define AUTO_MOVE_FRAMES 45
 
+//______SCREEN RESOLUTION_______________________________________________________
+# define STR_PXL_HEIGHT 15
+
 //______DEFINE KEYS_____________________________________________________________
 
 # define K_ARROW_LEFT 65361
 # define K_ARROW_UP 65362
 # define K_ARROW_RIGHT 65363
 # define K_ARROW_DOWN 65364
+# define K_F1 65470
+# define K_F2 65471
+# define K_F3 65472
+# define K_F4 65473
+# define K_F5 65474
+# define K_F6 65475
+# define K_F7 65476
+# define K_F8 65477
+# define K_F9 65478
+# define K_F10 65479
+# define K_F11 65480
+# define K_F12 65481
+# define K_TAB 65289
 # define K_ESC 65307
+# define K_SEMICOLON 246
 
 //______DEFINE MOUSE CODES______________________________________________________
 
@@ -62,7 +81,7 @@
 // #define COLOR_BLUE ((uint8_t)255)
 // # define COLOR_BLACK 0x000000u
 // # define COLOR_RED 0xFF0000u
-// # define COLOR_GREEN 0x00FF00u
+# define COLOR_GREEN 0xFF00FF00
 // # define COLOR_BLUE 0x0000FFu
 
 //______DEFINE TEMINAL COLOR____________________________________________________
@@ -166,6 +185,7 @@ typedef struct s_model
 	int					win_width;
 	int					win_height;
 	t_bool				close_pending;
+    t_bool				show_help;
 	t_node				*net;
 	t_color_map			*color_map;
 	t_dbg				dbg;
@@ -175,6 +195,7 @@ typedef struct s_model
 	int					z_min;
 	t_point_3d			center_point;
 	t_img				img;
+    t_list              **help;
 }						t_model;
 
 typedef enum e_dbg_flag
@@ -284,5 +305,6 @@ void					*free_whatever(t_model *model, char *str, ...);
 void					ini_win(t_model *model);
 void					center_model(t_model *model);
 void					update_image(t_model *model);
+void					free_help(t_model *mod);
 
 #endif

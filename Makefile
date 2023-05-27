@@ -24,11 +24,13 @@ SRC_FOLDER = ./src/
 OBJS_FOLDER = ./obj/
 LIB_FOLDER = ./lib/
 INCLUDE_FOLDER = ./include/
-MLX_FOLDER = $(LIB_FOLDER)minilibx
+LIBFT_PRINTF_FOLDER = $(LIB_FOLDER)libft_printf/
+MLX_FOLDER = $(LIB_FOLDER)minilibx/
 MAPS_FOLDER = ./maps/
 
 # ->Files
-LIBFT_PRINTF = $(LIB_FOLDER)/libft_printf/libft_printf.a
+LIBFT_PRINTF = $(LIBFT_PRINTF_FOLDER)libft_printf.a
+MINILIBX = $(MLX_FOLDER)libmlx.a
 SRCS = $(addprefix $(SRC_FOLDER), \
 	color.c \
 	color_map.c \
@@ -53,11 +55,11 @@ SRCS = $(addprefix $(SRC_FOLDER), \
 OBJS = $(SRCS:$(SRC_FOLDER)%.c=$(OBJS_FOLDER)%.o)
 
 # TARGETS
-.PHONY: all clean fclean re 42 a m p god
+.PHONY: all clean fclean re 42 a m p god clean_libs re_incl_libs
 
 all: $(NAME)
 
-$(NAME): $(OBJS) $(LIBFT_PRINTF)
+$(NAME): $(OBJS) $(LIBFT_PRINTF) $(MINILIBX)
 	@$(CC) $(OBJS) $(CFLAGS) -D DEBUG=$(DEBUG) $(CLIBS) $(CINCLUDES) -lft_printf -lmlx -lX11 -lXext -lm -o $(NAME)
 	@echo "$(GREEN)\n$(NAME): created\n$(RESET)"
 
@@ -67,32 +69,41 @@ $(OBJS_FOLDER)%.o: $(SRC_FOLDER)%.c
 	@$(CC) $(CFLAGS) -c $< -o $@
 
 $(LIBFT_PRINTF):
-	@echo "$(ORANGE)\ncompiling $(LIBFT_PRINTF)\n$(RESET)"
-	@make --no-print-directory -C $(LIB_FOLDER)libft_printf
+	@echo "$(ORANGE)\ncompiling: $(LIBFT_PRINTF)\n$(RESET)"
+	@make --no-print-directory -C $(LIBFT_PRINTF_FOLDER)
+
+$(MINILIBX):
+	@echo "$(ORANGE)\ncompiling: $(MINILIBX)\n$(RESET)"
+	@make --no-print-directory -C $(MLX_FOLDER)
+
 
 clean:
-	#@make --no-print-directory -C $(LIB_FOLDER)libft_printf clean
 	@$(RM) $(OBJS)
 	@echo "$(RED)$(NAME): cleaned object files$(RESET)"
 
 
 fclean: clean
-	#@make --no-print-directory -C $(LIB_FOLDER)libft_printf fclean
 	@$(RM) $(NAME)
 	@echo "$(RED)$(NAME): cleaned program$(RESET)"
 
 re: fclean all
 
-42: re
+clean_libs:
+	@make --no-print-directory -C $(LIBFT_PRINTF_FOLDER) fclean
+	@make --no-print-directory -C $(MLX_FOLDER) clean
+
+re_incl_libs: clean_libs fclean all
+
+42: all
 	./$(NAME) ./maps/42.fdf
 
-a: re
+a: all
 	./$(NAME) ./maps/astein2.0.fdf
 
-m: re
+m: all
 	./$(NAME) ./maps/mars.fdf
 
-p: re
+p: all
 	./$(NAME) ./maps/pylone.fdf
 
 god:
