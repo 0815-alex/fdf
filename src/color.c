@@ -12,31 +12,30 @@
 
 #include "../include/fdf.h"
 
-void	ini_colors(t_model *model)
+void	ini_colors(t_model *mod)
 {
 	t_node	*cur_node;
-	t_color	*step_neg;
-	t_color	*step_pos;
+	t_clr	*step_neg;
+	t_clr	*step_pos;
 	int		i;
 
-	if (abs(model->z_min) != 0)
-		step_neg = calculate_step_color(model->color_map->zero,
-										model->color_map->min,
-										abs(model->z_min));
-	if (abs(model->z_max) != 0)
-		step_pos = calculate_step_color(model->color_map->zero,
-										model->color_map->max,
-										abs(model->z_max));
-	cur_node = model->net;
+	if (abs(mod->z_min) != 0)
+		step_neg = calculate_step_color(mod->color_map->zero,
+										mod->color_map->min,
+										abs(mod->z_min));
+	if (abs(mod->z_max) != 0)
+		step_pos = calculate_step_color(mod->color_map->zero,
+										mod->color_map->max,
+										abs(mod->z_max));
+	cur_node = mod->net;
 	if (cur_node)
 	{
 		while (cur_node)
 		{
-			// printf("set color to node:\n");
 			i = 0;
-			cur_node->color.red = model->color_map->zero.red;
-			cur_node->color.green = model->color_map->zero.green;
-			cur_node->color.blue = model->color_map->zero.blue;
+			cur_node->color.red = mod->color_map->zero.red;
+			cur_node->color.green = mod->color_map->zero.green;
+			cur_node->color.blue = mod->color_map->zero.blue;
 			while (cur_node->pnt->z > i)
 			{
 				cur_node->color.red += step_pos->red;
@@ -55,18 +54,18 @@ void	ini_colors(t_model *model)
 			cur_node = cur_node->next;
 		}
 	}
-	if (abs(model->z_min) != 0)
-		free_whatever(model, "p", step_neg);
-	if (abs(model->z_max) != 0)
-		free_whatever(model, "p", step_pos);
+	if (abs(mod->z_min) != 0)
+		free_whatever(mod, "p", step_neg);
+	if (abs(mod->z_max) != 0)
+		free_whatever(mod, "p", step_pos);
 }
 
-t_color	*calculate_step_color(t_color start_color, t_color end_color,
+t_clr	*calculate_step_color(t_clr start_color, t_clr end_color,
 		int n_steps)
 {
-	t_color	*step;
+	t_clr	*step;
 
-	step = malloc(sizeof(t_color));
+	step = malloc(sizeof(t_clr));
 	if (n_steps < 1)
 	{
 		step->red = end_color.red;
@@ -82,10 +81,10 @@ t_color	*calculate_step_color(t_color start_color, t_color end_color,
 	return (step);
 }
 
-int	color2int(t_color color)
+int	color2int(t_clr clr)
 {
-	int	int_color;
+	int	i_clr;
 
-	int_color = (255 << 24) | (color.red << 16) | (color.green << 8) | color.blue;
-	return (int_color);
+	i_clr = (255 << 24) | (clr.red << 16) | (clr.green << 8) | clr.blue;
+	return (i_clr);
 }

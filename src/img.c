@@ -12,51 +12,51 @@
 
 #include "../include/fdf.h"
 
-void	ini_img(t_model *model)
+void	ini_img(t_model *mod)
 {
 	size_t	img_size;
 
-	model->img.mlx_img = mlx_new_image(model->mlx, model->win_width,
-			model->win_height);
-	model->img.addr = mlx_get_data_addr(model->img.mlx_img, &(model->img.bpp),
-			&(model->img.line_len), &(model->img.endian));
-	img_size = model->win_height * model->win_width * sizeof(model->img.bpp);
-	ft_bzero(model->img.addr, img_size);
+	mod->img.mlx_img = mlx_new_image(mod->mlx, mod->win_width,
+			mod->win_height);
+	mod->img.addr = mlx_get_data_addr(mod->img.mlx_img, &(mod->img.bpp),
+			&(mod->img.line_len), &(mod->img.endian));
+	img_size = mod->win_height * mod->win_width * sizeof(mod->img.bpp);
+	ft_bzero(mod->img.addr, img_size);
 }
 
-static void	img_pix_put(t_model *model, t_point_2d *point, int color)
+static void	img_pix_put(t_model *mod, t_point_2d *point, int color)
 {
 	char	*pixel;
 	int		i;
 
-	if (point->x < 1 || point->x >= model->win_width)
-		dbg_printf(model, no_block, "pixel x coordinate out of window");
-	else if (point->y < 1 || point->y > model->win_height)
-		dbg_printf(model, no_block, "pixel y coordinate out of window");
+	if (point->x < 1 || point->x >= mod->win_width)
+		dbg_printf(mod, no_block, "pixel x coordinate out of window");
+	else if (point->y < 1 || point->y > mod->win_height)
+		dbg_printf(mod, no_block, "pixel y coordinate out of window");
 	else
 	{
-		i = model->img.bpp - 8;
-		pixel = model->img.addr + (point->y * model->img.line_len + point->x
-				* (model->img.bpp / 8));
+		i = mod->img.bpp - 8;
+		pixel = mod->img.addr + (point->y * mod->img.line_len + point->x
+				* (mod->img.bpp / 8));
 		while (i >= 0)
 		{
-			if (model->img.endian != 0)
+			if (mod->img.endian != 0)
 				*pixel++ = (color >> i) & 0xFF;
 			else
-				*pixel++ = (color >> (model->img.bpp - 8 - i)) & 0xFF;
+				*pixel++ = (color >> (mod->img.bpp - 8 - i)) & 0xFF;
 			i -= 8;
 		}
 	}
 }
 
-static void	img_line_put(t_model *model, t_point_3d_colored *pnt_a,
+static void	img_line_put(t_model *mod, t_point_3d_colored *pnt_a,
 		t_point_3d_colored *pnt_b)
 {
 	t_point_2d	*curr_point;
 	t_point_2d	*delta;
 	t_point_2d	*sign;
-	t_color		*cur_color;
-	t_color		*color_step;
+	t_clr		*cur_color;
+	t_clr		*color_step;
 	int			err;
 	int			e2;
 	int			delta_sum;
@@ -78,14 +78,14 @@ static void	img_line_put(t_model *model, t_point_3d_colored *pnt_a,
 	else
 		sign->y = -1;
 	err = delta->x + delta->y;
-	cur_color = malloc(sizeof(t_color));
+	cur_color = malloc(sizeof(t_clr));
 	cur_color->red = pnt_a->color.red;
 	cur_color->green = pnt_a->color.green;
 	cur_color->blue = pnt_a->color.blue;
 	color_step = calculate_step_color(pnt_a->color, pnt_b->color, delta_sum);
 	while (1)
 	{
-		img_pix_put(model, curr_point, color2int(*cur_color));
+		img_pix_put(mod, curr_point, color2int(*cur_color));
 		cur_color->red += color_step->red;
 		cur_color->green += color_step->green;
 		cur_color->blue += color_step->blue;
@@ -103,38 +103,38 @@ static void	img_line_put(t_model *model, t_point_3d_colored *pnt_a,
 			curr_point->y += sign->y;
 		}
 	}
-	free_whatever(model, "ppppp", curr_point, delta, sign, cur_color,
+	free_whatever(mod, "ppppp", curr_point, delta, sign, cur_color,
 			color_step);
 }
 
-static void	nodes2line(t_model *model, t_node *node_1, t_node *node_2)
+static void	nodes2line(t_model *mod, t_node *node_1, t_node *node_2)
 {
 	t_point_3d_colored	*p1;
 	t_point_3d_colored	*p2;
 
 	p1 = malloc(sizeof(t_point_3d_colored));
 	p2 = malloc(sizeof(t_point_3d_colored));
-	node2point(model, node_1, p1);
-	node2point(model, node_2, p2);
-	img_line_put(model, p1, p2);
-	free_whatever(model, "pp", p1, p2);
+	node2point(mod, node_1, p1);
+	node2point(mod, node_2, p2);
+	img_line_put(mod, p1, p2);
+	free_whatever(mod, "pp", p1, p2);
 }
 
-void	create_next_img(t_model *model)
+void	create_next_img(t_model *mod)
 {
 	t_node	*cur_node;
 
-	ft_bzero(model->img.addr, model->win_height * model->win_width
-			* sizeof(model->img.bpp));
-	cur_node = model->net;
+	ft_bzero(mod->img.addr, mod->win_height * mod->win_width
+			* sizeof(mod->img.bpp));
+	cur_node = mod->net;
 	while (cur_node)
 	{
 		if (cur_node->west)
-			nodes2line(model, cur_node, cur_node->west);
+			nodes2line(mod, cur_node, cur_node->west);
 		if (cur_node->north)
-			nodes2line(model, cur_node, cur_node->north);
+			nodes2line(mod, cur_node, cur_node->north);
 		(cur_node) = (cur_node)->next;
 	}
-	free_whatever(model, "p", cur_node);
-	update_image(model);
+	free_whatever(mod, "p", cur_node);
+	update_image(mod);
 }

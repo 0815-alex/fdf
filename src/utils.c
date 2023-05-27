@@ -45,7 +45,7 @@ static void	free_arr(void **arr)
  * p = pointer
  * a = array
 */
-void	*free_whatever(t_model *model, char *str, ...)
+void	*free_whatever(t_model *mod, char *str, ...)
 {
 	va_list	args;
 	void	*ptr;
@@ -64,7 +64,7 @@ void	*free_whatever(t_model *model, char *str, ...)
 		else if (*str == 'a')
 			free_arr(va_arg(args, void **));
 		else
-			dbg_printf(model, err_block, "bad param free_whatever: %c", str[0]);
+			dbg_printf(mod, err_block, "bad param free_whatever: %c", str[0]);
 		str++;
 	}
 	va_end(args);

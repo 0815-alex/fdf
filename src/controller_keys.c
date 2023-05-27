@@ -12,7 +12,7 @@
 
 #include "../include/fdf.h"
 
-static t_bool	check_translate(int key, t_model *model)
+static t_bool	check_translate(int key, t_model *mod)
 {
 	t_bool	check;
 	int		offset;
@@ -20,19 +20,19 @@ static t_bool	check_translate(int key, t_model *model)
 	offset = 5;
 	check = ft_true;
 	if (key == K_ARROW_UP)
-		trans_mod(model, ft_false, new_point(pnt_dim_2, 0, -offset, 0));
+		trans_mod(mod, ft_false, new_point(pnt_dim_2, 0, -offset, 0));
 	else if (key == K_ARROW_DOWN)
-		trans_mod(model, ft_false, new_point(pnt_dim_2, 0, offset, 0));
+		trans_mod(mod, ft_false, new_point(pnt_dim_2, 0, offset, 0));
 	else if (key == K_ARROW_LEFT)
-		trans_mod(model, ft_false, new_point(pnt_dim_2, -offset, 0, 0));
+		trans_mod(mod, ft_false, new_point(pnt_dim_2, -offset, 0, 0));
 	else if (key == K_ARROW_RIGHT)
-		trans_mod(model, ft_false, new_point(pnt_dim_2, offset, 0, 0));
+		trans_mod(mod, ft_false, new_point(pnt_dim_2, offset, 0, 0));
 	else
 		check = ft_false;
 	return (check);
 }
 
-static t_bool	check_rotate(int key, t_model *model)
+static t_bool	check_rotate(int key, t_model *mod)
 {
 	t_bool	check;
 	int		degree;
@@ -40,84 +40,86 @@ static t_bool	check_rotate(int key, t_model *model)
 	check = ft_true;
 	degree = 10;
 	if (key == 'd')
-		rot_mod(model, ft_false, new_point(pnt_dim_3, 0, degree, 0));
+		rot_mod(mod, ft_false, new_point(pnt_dim_3, 0, degree, 0));
 	else if (key == 'a')
-		rot_mod(model, ft_false, new_point(pnt_dim_3, 0, -degree, 0));
+		rot_mod(mod, ft_false, new_point(pnt_dim_3, 0, -degree, 0));
 	else if (key == 'w')
-		rot_mod(model, ft_false, new_point(pnt_dim_3, degree, 0, 0));
+		rot_mod(mod, ft_false, new_point(pnt_dim_3, degree, 0, 0));
 	else if (key == 's')
-		rot_mod(model, ft_false, new_point(pnt_dim_3, -degree, 0, 0));
+		rot_mod(mod, ft_false, new_point(pnt_dim_3, -degree, 0, 0));
 	else if (key == 'q')
-		rot_mod(model, ft_false, new_point(pnt_dim_3, 0, 0, degree));
+		rot_mod(mod, ft_false, new_point(pnt_dim_3, 0, 0, degree));
 	else if (key == 'e')
-		rot_mod(model, ft_false, new_point(pnt_dim_3, 0, 0, -degree));
+		rot_mod(mod, ft_false, new_point(pnt_dim_3, 0, 0, -degree));
 	else if (key == 'r')
-		model->dof.auto_rotate = !model->dof.auto_rotate;
+		mod->dof.auto_rotate = !mod->dof.auto_rotate;
 	else
 		check = ft_false;
 	return (check);
 }
 
-static t_bool	check_zoom(int key, t_model *model)
+static t_bool	check_zoom(int key, t_model *mod)
 {
 	t_bool	check;
 
 	check = ft_true;
 	if (key == '1')
-		scale_mod(model, ft_false, -5, 0);
+		scale_mod(mod, ft_false, -5, 0);
 	else if (key == '2')
-		scale_mod(model, ft_false, 5, 0);
+		scale_mod(mod, ft_false, 5, 0);
 	else if (key == '3')
-		scale_mod(model, ft_false, 0, -0.1);
+		scale_mod(mod, ft_false, 0, -0.1);
 	else if (key == '4')
-		scale_mod(model, ft_false, 0, 0.1);
+		scale_mod(mod, ft_false, 0, 0.1);
 	else
 		check = ft_false;
 	return (check);
 }
 
-static t_bool	check_presets(int key, t_model *model)
+static t_bool	check_presets(int key, t_model *mod)
 {
 	t_bool	check;
 
 	check = ft_true;
 	if (key == 't')
-		rot_mod(model, ft_true, new_point(pnt_dim_3, 0, 0, 0));
+		rot_mod(mod, ft_true, new_point(pnt_dim_3, 0, 0, 0));
 	else if (key == 'f')
-		rot_mod(model, ft_true, new_point(pnt_dim_3, 90, 0, 0));
+		rot_mod(mod, ft_true, new_point(pnt_dim_3, 90, 0, 0));
 	else if (key == 'b')
-		rot_mod(model, ft_true, new_point(pnt_dim_3, 180, 00, 0));
+		rot_mod(mod, ft_true, new_point(pnt_dim_3, 180, 00, 0));
 	else if (key == 's')
-		rot_mod(model, ft_true, new_point(pnt_dim_3, 90, 90, 0));
+		rot_mod(mod, ft_true, new_point(pnt_dim_3, 90, 90, 0));
 	else if (key == 'p')
-		rot_mod(model, ft_true, new_point(pnt_dim_3, 45, 45, 0));
+		rot_mod(mod, ft_true, new_point(pnt_dim_3, 45, 45, 0));
 	else if (key == 'c')
 	{
-		center_model(model);
-		create_next_img(model);
+		center_model(mod);
+		create_next_img(mod);
 	}
 	else if (key == '7')
-		model->dof.auto_zoom = -1;
+		mod->dof.auto_zoom = -1;
 	else if (key == '8')
-		model->dof.auto_zoom = 1;
+		mod->dof.auto_zoom = 1;
 	else if (key == 'm')
 	{
-		model->color_map = model->color_map->next;
-		ini_colors(model);
-		create_next_img(model);
+		mod->color_map = mod->color_map->next;
+		ini_colors(mod);
+		create_next_img(mod);
 	}
+    else if (key == '6')
+        mod->dof.auto_color_change = !mod->dof.auto_color_change;
 	else
 		check = ft_false;
 	return (check);
 }
 
-int	deal_key(int key, t_model *model)
+int	deal_key(int key, t_model *mod)
 {
 	if (key == K_ESC)
-		shedule_close(model);
-	check_translate(key, model);
-	check_rotate(key, model);
-	check_zoom(key, model);
-	check_presets(key, model);
+		shedule_close(mod);
+	check_translate(key, mod);
+	check_rotate(key, mod);
+	check_zoom(key, mod);
+	check_presets(key, mod);
 	return (0);
 }

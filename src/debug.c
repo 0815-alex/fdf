@@ -12,12 +12,12 @@
 
 #include "../include/fdf.h"
 
-void	ini_debug(t_model *model, int curr_stack_depth)
+void	ini_debug(t_model *mod, int curr_stack_depth)
 {
-	model->dbg.count_stack_depth = curr_stack_depth;
+	mod->dbg.count_stack_depth = curr_stack_depth;
 }
 
-static void	print_tab_level(t_model *model, t_dbg_flag dbg_flg)
+static void	print_tab_level(t_model *mod, t_dbg_flag dbg_flg)
 {
 	int	tabs;
 	int	tab_width;
@@ -25,14 +25,14 @@ static void	print_tab_level(t_model *model, t_dbg_flag dbg_flg)
 	tabs = 0;
 	tab_width = 5;
 	if (dbg_flg == end_block)
-		model->dbg.count_stack_depth--;
-	while (tabs < (model->dbg.count_stack_depth) * tab_width)
+		mod->dbg.count_stack_depth--;
+	while (tabs < (mod->dbg.count_stack_depth) * tab_width)
 	{
 		write(1, " ", 1);
 		tabs++;
 	}
 	if (dbg_flg == start_block)
-		model->dbg.count_stack_depth++;
+		mod->dbg.count_stack_depth++;
 	if (dbg_flg == start_block)
 		ft_putstr_fd(WRITE_COLOR_ORANGE "  [START] >", 1);
 	else if (dbg_flg == end_block)
@@ -42,7 +42,7 @@ static void	print_tab_level(t_model *model, t_dbg_flag dbg_flg)
 	ft_putstr_fd(WRITE_COLOR_DEFAULT, 1);
 }
 
-void	dbg_printf(t_model *model, t_dbg_flag dbg_flg, char *str, ...)
+void	dbg_printf(t_model *mod, t_dbg_flag dbg_flg, char *str, ...)
 {
 	va_list	args;
 	int		len;
@@ -50,7 +50,7 @@ void	dbg_printf(t_model *model, t_dbg_flag dbg_flg, char *str, ...)
 
 	if (DEBUG == 1 || dbg_flg == err_block)
 	{
-		print_tab_level(model, dbg_flg);
+		print_tab_level(mod, dbg_flg);
 		va_start(args, str);
 		len = 0;
 		while (*str)

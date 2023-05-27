@@ -14,12 +14,12 @@
 
 int	main(int argc, char **argv)
 {
-	t_model	*model;
+	t_model	*mod;
 
 	ft_putstr_fd("\n\nLets go!\n===========================\n\n", 1);
-	model = new_model(argc, argv);
-	dbg_printf(model, no_block, "start deamon...\n");
+	mod = new_model(argc, argv);
+	dbg_printf(mod, no_block, "start deamon...\n");
     sleep(1);
-	mlx_loop(model->mlx);
+	mlx_loop(mod->mlx);
 	return (0);
 }

@@ -28,24 +28,24 @@ t_node	*new_node(t_point_3d *point)
 }
 
 //I should change it to call 3dpoint to string instead!
-void	print_node(t_model *model, t_node *node)
+void	print_node(t_model *mod, t_node *node)
 {
 	if (node == NULL)
-		dbg_printf(model, no_block, "(no node)");
+		dbg_printf(mod, no_block, "(no node)");
 	else
-		dbg_printf(model, no_block, "(%i|%i|%i)", node->pnt->x, node->pnt->y,
+		dbg_printf(mod, no_block, "(%i|%i|%i)", node->pnt->x, node->pnt->y,
 				node->pnt->z);
 }
 
 //I should change it to call 3dpoint to string instead!
-char	*node2str(t_model *model, t_node *node)
+char	*node2str(t_model *mod, t_node *node)
 {
 	char	*str;
 
-	dbg_printf(model, start_block, "node2str");
+	dbg_printf(mod, start_block, "node2str");
 	if (node == NULL)
 	{
-		dbg_printf(model, end_block, "node2str");
+		dbg_printf(mod, end_block, "node2str");
 		return ("(no node)");
 	}
 	else
@@ -56,36 +56,36 @@ char	*node2str(t_model *model, t_node *node)
 		str = ft_strjoin(str, "|");
 		str = ft_strjoin(str, ft_itoa(node->pnt->z));
 		str = ft_strjoin(str, ")");
-		dbg_printf(model, end_block, "node2str");
+		dbg_printf(mod, end_block, "node2str");
 		return (str);
 	}
 }
 
-void	node2point(t_model *model, t_node *node, t_point_3d_colored *point)
+void	node2point(t_model *mod, t_node *node, t_point_3d_colored *point)
 {
 	double	x;
 	double	y;
 	double	z;
 
 	if (!node || !point)
-		dbg_printf(model, err_block, "no node or point exists");
-	x = (node->pnt->x - model->center_point.x) * model->dof.zoom;
-	y = (node->pnt->y - model->center_point.y) * model->dof.zoom;
-	z = (node->pnt->z - model->center_point.z) * model->dof.z_factor
-		* model->dof.zoom;
-	point->x = x * cos(model->dof.rot_rad.y) * cos(model->dof.rot_rad.z) + y
-		* (cos(model->dof.rot_rad.z) * sin(model->dof.rot_rad.x)
-			* sin(model->dof.rot_rad.y) - cos(model->dof.rot_rad.x)
-			* sin(model->dof.rot_rad.z)) + z * (cos(model->dof.rot_rad.x)
-			* cos(model->dof.rot_rad.z) * sin(model->dof.rot_rad.y)
-			+ sin(model->dof.rot_rad.x) * sin(model->dof.rot_rad.z));
-	point->y = x * (cos(model->dof.rot_rad.y) * sin(model->dof.rot_rad.z)) + y
-		* (cos(model->dof.rot_rad.x) * cos(model->dof.rot_rad.z)
-			+ sin(model->dof.rot_rad.x) * sin(model->dof.rot_rad.y)
-			* sin(model->dof.rot_rad.z)) + z * (-cos(model->dof.rot_rad.z)
-			* sin(model->dof.rot_rad.x) + cos(model->dof.rot_rad.x)
-			* sin(model->dof.rot_rad.y) * sin(model->dof.rot_rad.z));
-	point->x += model->center_point.x + model->dof.trans.x;
-	point->y += model->center_point.y + model->dof.trans.y;
+		dbg_printf(mod, err_block, "no node or point exists");
+	x = (node->pnt->x - mod->center_point.x) * mod->dof.zoom;
+	y = (node->pnt->y - mod->center_point.y) * mod->dof.zoom;
+	z = (node->pnt->z - mod->center_point.z) * mod->dof.z_factor
+		* mod->dof.zoom;
+	point->x = x * cos(mod->dof.rot_rad.y) * cos(mod->dof.rot_rad.z) + y
+		* (cos(mod->dof.rot_rad.z) * sin(mod->dof.rot_rad.x)
+			* sin(mod->dof.rot_rad.y) - cos(mod->dof.rot_rad.x)
+			* sin(mod->dof.rot_rad.z)) + z * (cos(mod->dof.rot_rad.x)
+			* cos(mod->dof.rot_rad.z) * sin(mod->dof.rot_rad.y)
+			+ sin(mod->dof.rot_rad.x) * sin(mod->dof.rot_rad.z));
+	point->y = x * (cos(mod->dof.rot_rad.y) * sin(mod->dof.rot_rad.z)) + y
+		* (cos(mod->dof.rot_rad.x) * cos(mod->dof.rot_rad.z)
+			+ sin(mod->dof.rot_rad.x) * sin(mod->dof.rot_rad.y)
+			* sin(mod->dof.rot_rad.z)) + z * (-cos(mod->dof.rot_rad.z)
+			* sin(mod->dof.rot_rad.x) + cos(mod->dof.rot_rad.x)
+			* sin(mod->dof.rot_rad.y) * sin(mod->dof.rot_rad.z));
+	point->x += mod->center_point.x + mod->dof.trans.x;
+	point->y += mod->center_point.y + mod->dof.trans.y;
 	point->color = node->color;
 }

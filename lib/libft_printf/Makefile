@@ -5,6 +5,11 @@ CC = cc
 CFLAGS = -Wall -Werror -Wextra -g -fsanitize=address -fsanitize-address-use-after-scope
 RM = rm -f
 
+# Color codes
+GREEN = \033[0;32m
+RED = \033[0;31m
+RESET = \033[0m
+
 # Library name and source files
 NAME = libft_printf.a
 SRC_FOLDER = ./src/
@@ -68,19 +73,26 @@ OBJS = $(SRCS:$(SRC_FOLDER)%.c=$(OBJS_FOLDER)%.o)
 # Targets
 .PHONY:	all clean fclean re
 
-$(OBJS_FOLDER)%.o: $(SRC_FOLDER)%.c
-	mkdir -p $(@D)
-	$(CC) $(CFLAGS) -c $< -o $@
-
 all: $(NAME) 
 
 $(NAME): $(OBJS)
 	@ar -crs $@ $^
+	@echo "\n$(GREEN)$(NAME): library created$(RESET)"
+
+$(OBJS_FOLDER)%.o: $(SRC_FOLDER)%.c
+	@mkdir -p $(@D)
+	@echo -n "."
+	@$(CC) $(CFLAGS) -c $< -o $@
+
 
 clean:
-	$(RM) $(OBJS) $(OBJS_BONUS)
+	@$(RM) $(OBJS) $(OBJS_BONUS)
+	@echo "$(RED)$(NAME): cleaned object files$(RESET)"
+
 
 fclean: clean
-	$(RM) $(NAME)
+	@$(RM) $(NAME)
+	@echo "$(RED)$(NAME): cleaned library$(RESET)"
+
 
 re: fclean all

@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   model.c                                            :+:      :+:    :+:   */
+/*   mod.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -14,45 +14,45 @@
 
 t_model	*new_model(int argc, char **argv)
 {
-	t_model	*model;
+	t_model	*mod;
 
-	model = malloc(sizeof(t_model));
-	ini_debug(model, 1);
-	ini_net_details(model);
-	ini_max_values(model);
-	load_file(argc, argv, model);
-	determine_net_center(model);
-	ini_color_maps(model);
-	ini_colors(model);
-	ini_win(model);
-	ini_dof_plus(model);
-	center_model(model);
-	model->dof.zoom = AUTO_ZOOM_INI_LEVEL;
-	ini_img(model);
-	mlx_key_hook(model->win, deal_key, model);
-	// mlx_hook(model->win, 02, (1L << 0), deal_key, model);
-	mlx_hook(model->win, B_CLS_WIN, 0, close_model, model);
-	mlx_mouse_hook(model->win, deal_mouse, model);
-	mlx_loop_hook(model->mlx, auto_movements, model);
-	dbg_printf(model, end_block, "new_model");
-	return (model);
+	mod = malloc(sizeof(t_model));
+	ini_debug(mod, 1);
+	ini_net_details(mod);
+	ini_max_values(mod);
+	load_file(argc, argv, mod);
+	determine_net_center(mod);
+	ini_color_maps(mod);
+	ini_colors(mod);
+	ini_win(mod);
+	ini_dof_plus(mod);
+	center_model(mod);
+	mod->dof.zoom = AUTO_ZOOM_INI_LEVEL;
+	ini_img(mod);
+	mlx_key_hook(mod->win, deal_key, mod);
+	// mlx_hook(mod->win, 02, (1L << 0), deal_key, mod);
+	mlx_hook(mod->win, B_CLS_WIN, 0, close_model, mod);
+	mlx_mouse_hook(mod->win, deal_mouse, mod);
+	mlx_loop_hook(mod->mlx, auto_movements, mod);
+	dbg_printf(mod, end_block, "new_model");
+	return (mod);
 }
 
-void	shedule_close(t_model *model)
+void	shedule_close(t_model *mod)
 {
-	model->dof.auto_zoom = -1;
-	model->close_pending = ft_true;
+	mod->dof.auto_zoom = -1;
+	mod->close_pending = ft_true;
 }
 
-int	close_model(t_model *model)
+int	close_model(t_model *mod)
 {
-	dbg_printf(model, start_block, "close_model");
-	mlx_destroy_window(model->mlx, model->win);
-	free_list(model->net);
-    free_color_maps(model);
-	free(model->color_map);
-	mlx_destroy_image(model->mlx, model->img.mlx_img);
-	free(model);
+	dbg_printf(mod, start_block, "close_model");
+	mlx_destroy_window(mod->mlx, mod->win);
+	free_list(mod->net);
+    free_color_maps(mod);
+	free(mod->color_map);
+	mlx_destroy_image(mod->mlx, mod->img.mlx_img);
+	free(mod);
 	exit(0);
 	return (0);
 }

@@ -12,8 +12,8 @@
 
 #include "../include/fdf.h"
 
-int	deal_mouse(int code, t_model *model)
+int	deal_mouse(int code, t_model *mod)
 {
-	dbg_printf(model, no_block, "mouse action. code: (%d)", code);
+	dbg_printf(mod, no_block, "mouse action. code: (%d)", code);
 	return (0);
 }

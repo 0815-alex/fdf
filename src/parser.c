@@ -16,7 +16,7 @@
 	first split it to array
 	then create 
 */
-static void	str_line(char **arr, int y, t_node **prev_row, t_model *model)
+static void	str_line(char **arr, int y, t_node **prev_row, t_model *mod)
 {
 	int		i;
 	t_node	*node_prev;
@@ -28,19 +28,19 @@ static void	str_line(char **arr, int y, t_node **prev_row, t_model *model)
 	while (arr[i])
 	{
 		node_new = new_node(new_point(pnt_dim_3, i + 1, y, ft_atoi(arr[i])));
-		update_max_values(model, i + 1, y, node_new->pnt->z);
+		update_max_values(mod, i + 1, y, node_new->pnt->z);
 		node_new->west = node_prev;
 		node_new->north = *prev_row;
 		if (*prev_row)
 			*prev_row = (*prev_row)->next;
-		print_node(model, node_new);
-		node_add_back(&model->net, node_new);
+		print_node(mod, node_new);
+		node_add_back(&mod->net, node_new);
 		if (i == 0)
 			node_first_in_row = node_new;
 		node_prev = node_new;
 		i++;
 	}
-	free_whatever(model, "a", arr);
+	free_whatever(mod, "a", arr);
 	*prev_row = node_first_in_row;
 }
 
@@ -49,7 +49,7 @@ static void	str_line(char **arr, int y, t_node **prev_row, t_model *model)
     read line by line and create rows and columns linked list
     return that
 */
-void	load_file(int argc, char **argv, t_model *model)
+void	load_file(int argc, char **argv, t_model *mod)
 {
 	int		fd;
 	char	*line;
@@ -58,19 +58,19 @@ void	load_file(int argc, char **argv, t_model *model)
 	t_node	*prev_row;
 
 	if (argc != 2)
-		dbg_printf(model, err_block, "Missing a filename as a parameter!");
-	model->net = NULL;
+		dbg_printf(mod, err_block, "Missing a filename as a parameter!");
+	mod->net = NULL;
 	fd = open(argv[1], O_RDONLY);
 	if (fd == -1)
 	{
 		if (ft_strlen(argv[1]) + 5 >= FOPEN_MAX)
-			dbg_printf(model, no_block, "Input to long :/   | max: %i",
+			dbg_printf(mod, no_block, "Input to long :/   | max: %i",
 					FOPEN_MAX - 4);
 		else
 		{
-			dbg_printf(model, no_block,
+			dbg_printf(mod, no_block,
 					"fdf file not found! => lets create it...");
-			new_map_fn = create_map(model, argv[1]);
+			new_map_fn = create_map(mod, argv[1]);
 			fd = open(new_map_fn, O_RDONLY);
 			free(new_map_fn);
 		}
@@ -80,13 +80,13 @@ void	load_file(int argc, char **argv, t_model *model)
 	prev_row = NULL;
 	while (line)
 	{
-		dbg_printf(model, no_block, "read Line: %s\n", line);
-		str_line(ft_split(line, ' '), cur_row, &prev_row, model);
+		dbg_printf(mod, no_block, "read Line: %s\n", line);
+		str_line(ft_split(line, ' '), cur_row, &prev_row, mod);
 		free(line);
 		line = get_next_line(fd);
 		cur_row++;
 	}
-	dbg_printf(model, no_block, "read Line: %s", line);
+	dbg_printf(mod, no_block, "read Line: %s", line);
 	free(line);
 	line = NULL;
 	close(fd);

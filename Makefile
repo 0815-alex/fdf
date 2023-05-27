@@ -5,12 +5,19 @@ NAME = fdf
 
 # Prints DEBUG Messages
 DEBUG = 0
+
 # Compiler options
 CC = cc
 CFLAGS = -D DEBUG=$(DEBUG) -g -Wall -Werror -Wextra -fsanitize=address -fsanitize-address-use-after-scope
 CLIBS = -L$(LIB_FOLDER)libft_printf -L$(LIB_FOLDER)minilibx -lm
 CINCLUDES  = -I$(INCLUDE_FOLDER) -I$(MLX_FOLDER)
 RM = rm -f
+
+# Color codes
+GREEN = \033[0;32m
+RED = \033[0;31m
+ORANGE = \033[0;33m
+RESET = \033[0m
 
 # ->Folders
 SRC_FOLDER = ./src/
@@ -46,41 +53,38 @@ SRCS = $(addprefix $(SRC_FOLDER), \
 OBJS = $(SRCS:$(SRC_FOLDER)%.c=$(OBJS_FOLDER)%.o)
 
 # TARGETS
-.PHONY: all clean fclean re r rr god
-
-$(OBJS_FOLDER)%.o: $(SRC_FOLDER)%.c
-	mkdir -p $(@D)
-	$(CC) $(CFLAGS) -c $< -o $@
+.PHONY: all clean fclean re 42 a m p god
 
 all: $(NAME)
 
 $(NAME): $(OBJS) $(LIBFT_PRINTF)
-	$(CC) $(OBJS) $(CFLAGS) -D DEBUG=$(DEBUG) $(CLIBS) $(CINCLUDES) -lft_printf -lmlx -lX11 -lXext -lm -o $(NAME)
+	@$(CC) $(OBJS) $(CFLAGS) -D DEBUG=$(DEBUG) $(CLIBS) $(CINCLUDES) -lft_printf -lmlx -lX11 -lXext -lm -o $(NAME)
+	@echo "$(GREEN)\n$(NAME): created\n$(RESET)"
+
+$(OBJS_FOLDER)%.o: $(SRC_FOLDER)%.c
+	@mkdir -p $(@D)
+	@echo -n "."
+	@$(CC) $(CFLAGS) -c $< -o $@
 
 $(LIBFT_PRINTF):
-	@echo "\ncompiling libft_printf.a...\n"
-	@make -C $(LIB_FOLDER)libft_printf
-	@echo "\nlibft_printf.a compiled!\n"
+	@echo "$(ORANGE)\ncompiling $(LIBFT_PRINTF)\n$(RESET)"
+	@make --no-print-directory -C $(LIB_FOLDER)libft_printf
 
 clean:
-	$(RM) $(OBJS)
-	#make -C $(LIB_FOLDER)libft_printf clean
+	#@make --no-print-directory -C $(LIB_FOLDER)libft_printf clean
+	@$(RM) $(OBJS)
+	@echo "$(RED)$(NAME): cleaned object files$(RESET)"
+
 
 fclean: clean
+	#@make --no-print-directory -C $(LIB_FOLDER)libft_printf fclean
 	@$(RM) $(NAME)
-	#make -C $(LIB_FOLDER)libft_printf fclean
+	@echo "$(RED)$(NAME): cleaned program$(RESET)"
 
 re: fclean all
 
-r: all
-	./$(NAME) ./maps/easy.fdf
-rr: re
-	./$(NAME) ./maps/easy.fdf
-
-42: all
+42: re
 	./$(NAME) ./maps/42.fdf
-t: all
-	./$(NAME) ./maps/til.fdf
 
 a: re
 	./$(NAME) ./maps/astein2.0.fdf
@@ -88,10 +92,7 @@ a: re
 m: re
 	./$(NAME) ./maps/mars.fdf
 
-tm: re
-	./$(NAME) abABc
-
-p: all
+p: re
 	./$(NAME) ./maps/pylone.fdf
 
 god:

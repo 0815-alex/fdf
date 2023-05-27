@@ -31,6 +31,9 @@
 # define AUTO_ZOOM_INI_LEVEL 1
 # define AUTO_ZOOM_FRAMES 15
 
+//______AUTO ROATET & COLOR_SHIFT_______________________________________________
+# define AUTO_MOVE_FRAMES 45
+
 //______DEFINE KEYS_____________________________________________________________
 
 # define K_ARROW_LEFT 65361
@@ -76,12 +79,12 @@ typedef struct s_dbg
 	int					count_stack_depth;
 }						t_dbg;
 
-typedef struct s_color
+typedef struct s_clr
 {
 	uint8_t				red;
 	uint8_t				green;
 	uint8_t				blue;
-}						t_color;
+}						t_clr;
 
 typedef struct s_point_2d
 {
@@ -94,7 +97,7 @@ typedef struct s_point_3d_colored
 	int					x;
 	int					y;
 	int					z;
-	t_color				color;
+	t_clr				color;
 }						t_point_3d_colored;
 
 typedef struct s_point_3d
@@ -114,7 +117,7 @@ typedef struct s_point_dbl_3d
 typedef struct s_node
 {
 	t_point_3d			*pnt;
-	t_color				color;
+	t_clr				color;
 	struct s_node		*next;
 	struct s_node		*west;
 	struct s_node		*north;
@@ -130,7 +133,8 @@ typedef struct s_dof_plus
 	t_point_dbl_3d		rot_rad;
 	double				zoom;
 	double				z_factor;
-	enum e_bool			auto_rotate;
+	t_bool				auto_rotate;
+	t_bool				auto_color_change;
 	int					auto_zoom;
 }						t_dof_plus;
 
@@ -148,9 +152,9 @@ True Color bla bla
 */
 typedef struct s_color_map
 {
-	t_color				min;
-	t_color				zero;
-	t_color				max;
+	t_clr				min;
+	t_clr				zero;
+	t_clr				max;
 	struct s_color_map	*previous;
 	struct s_color_map	*next;
 }						t_color_map;
@@ -193,17 +197,17 @@ typedef enum e_pnt_dim
 
 //______COLOR_MAP.C_____________________________________________________________
 void					ini_color_maps(t_model *model);
-t_color_map				*add_color_map(t_model *model, t_color min,
-							t_color zero, t_color max);
+t_color_map				*add_m(t_model *model, t_clr min,
+							t_clr zero, t_clr max);
 void					free_color_maps(t_model *model);
 
 //______COLOR.C_________________________________________________________________
 
 void					ini_colors(t_model *model);
-t_color	*calculate_step_color(t_color start_color,
-								t_color end_color,
+t_clr	*calculate_step_color(t_clr start_color,
+								t_clr end_color,
 								int n_steps);
-int						color2int(t_color color);
+int						color2int(t_clr clr);
 
 //______CONTROLLER_KEYS.C_______________________________________________________
 int						deal_key(int key, t_model *model);
