@@ -71,6 +71,10 @@ static t_bool	check_zoom(int key, t_model *mod)
 		scale_mod(mod, ft_false, 0, -0.1);
 	else if (key == '4')
 		scale_mod(mod, ft_false, 0, 0.1);
+	else if (key == '7')
+		mod->dof.auto_zoom = -1;
+	else if (key == '8')
+		mod->dof.auto_zoom = 1;
 	else
 		check = ft_false;
 	return (check);
@@ -96,18 +100,10 @@ static t_bool	check_presets(int key, t_model *mod)
 		center_model(mod);
 		create_next_img(mod);
 	}
-	else if (key == '7')
-		mod->dof.auto_zoom = -1;
-	else if (key == '8')
-		mod->dof.auto_zoom = 1;
 	else if (key == 'm')
-	{
-		mod->color_map = mod->color_map->next;
-		ini_colors(mod);
-		create_next_img(mod);
-	}
-    else if (key == '6')
-        mod->dof.auto_color_change = !mod->dof.auto_color_change;
+		next_color_map(mod);
+	else if (key == '6')
+		mod->dof.auto_color_change = !mod->dof.auto_color_change;
 	else
 		check = ft_false;
 	return (check);

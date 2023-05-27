@@ -45,9 +45,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 		sub[0] = 0;
 	else
 		ft_strlcpy(sub, &s[start], cpy_len + 1);
-	//added because of chat gpt not sure why
 	if (s_len > start && !sub)
 		free(sub);
-	//added because of chat gpt not sure why END
 	return (sub);
 }

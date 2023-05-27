@@ -34,7 +34,7 @@ void	print_node(t_model *mod, t_node *node)
 		dbg_printf(mod, no_block, "(no node)");
 	else
 		dbg_printf(mod, no_block, "(%i|%i|%i)", node->pnt->x, node->pnt->y,
-				node->pnt->z);
+			node->pnt->z);
 }
 
 //I should change it to call 3dpoint to string instead!

@@ -57,8 +57,7 @@ void	scale_mod(t_model *mod, t_bool ovr, double zoom, double z_factor)
 		if (z_factor < 0)
 		{
 			mod->dof.z_factor = 0;
-			dbg_printf(mod, no_block, "z factor must be >= 0! | is: %i",
-					zoom);
+			dbg_printf(mod, no_block, "z factor must be >= 0! | is: %i", zoom);
 		}
 		else
 			mod->dof.z_factor = z_factor;
@@ -70,18 +69,17 @@ void	scale_mod(t_model *mod, t_bool ovr, double zoom, double z_factor)
 		if (mod->dof.zoom < 0)
 		{
 			dbg_printf(mod, no_block, "Zoom must be >= 0! | is: %i",
-					mod->dof.zoom);
+				mod->dof.zoom);
 			mod->dof.zoom -= zoom;
 		}
 		if (mod->dof.z_factor < 0)
 		{
-			dbg_printf(mod, no_block, "z factor must be >= 0! | is: %i",
-					zoom);
+			dbg_printf(mod, no_block, "z factor must be >= 0! | is: %i", zoom);
 			mod->dof.z_factor = 0;
 		}
 	}
 	dbg_printf(mod, no_block, "new values: zoom: %d4 | z_factor %d4",
-			mod->dof.zoom, mod->dof.z_factor);
+		mod->dof.zoom, mod->dof.z_factor);
 	create_next_img(mod);
 	dbg_printf(mod, end_block, "scale_mod");
 }
@@ -117,11 +115,7 @@ int	auto_movements(t_model *mod)
 			step_move = 0;
 		}
 		if (mod->dof.auto_color_change && step_move == 0)
-		{
-			mod->color_map = mod->color_map->next;
-			ini_colors(mod);
-			create_next_img(mod);
-		}
+			next_color_map(mod);
 		if (random_axis == 1)
 			rot_mod(mod, ft_false, new_point(pnt_dim_3, 1, 0, 0));
 		else if (random_axis == 2)
@@ -142,16 +136,12 @@ t_bool	static_auto_zoom(t_model *mod, t_bool zoom_in)
 	static int		sign;
 	t_dof_plus		*cur_dof;
 
-	// checken ob fertig mit altem zoom
 	if (zoom_start == 0)
-	{
-		// neuen zoom initialisieren
-		//      start end und increment festlegen
+	{	
 		if (zoom_in == ft_true)
 		{
 			sign = 1;
 			zoom_start = mod->dof.zoom;
-			//aktuelle orientierung speichern
 			cur_dof = malloc(sizeof(t_dof_plus));
 			cpy_dof(&mod->dof, cur_dof);
 			center_model(mod);
@@ -159,7 +149,7 @@ t_bool	static_auto_zoom(t_model *mod, t_bool zoom_in)
 			cpy_dof(cur_dof, &mod->dof);
 			free(cur_dof);
 			dbg_printf(mod, no_block, "zoom in (%lf -> %lf)\n", mod->dof.zoom,
-					zoom_end);
+				zoom_end);
 		}
 		else
 		{
@@ -167,7 +157,7 @@ t_bool	static_auto_zoom(t_model *mod, t_bool zoom_in)
 			zoom_start = mod->dof.zoom;
 			zoom_end = AUTO_ZOOM_INI_LEVEL;
 			dbg_printf(mod, no_block, "zoom in (%lf -> %lf)\n", mod->dof.zoom,
-					zoom_end);
+				zoom_end);
 		}
 		increment = (zoom_end - zoom_start) / AUTO_ZOOM_FRAMES;
 	}
@@ -211,64 +201,3 @@ t_bool	static_auto_zoom(t_model *mod, t_bool zoom_in)
 	}
 	return (ft_false);
 }
-
-// void	auto_zoom(t_model *mod, t_bool zoom_in)
-// {
-// 	double	zoom_end;
-// 	double	increment;
-// 	int		frames;
-// 	int		i;
-// 	int		sign;
-
-// 	frames = 5;
-// 	if (zoom_in)
-// 	{
-// 		printf("in\n");
-// 		sign = 1;
-// 		center_model(mod);
-// 		zoom_end = mod->dof.zoom;
-// 		increment = zoom_end / frames;
-// 		scale_mod(mod, ft_true, AUTO_ZOOM_INI_LEVEL, 0);
-// 	}
-// 	else
-// 	{
-// 		printf("out\n");
-// 		sign = -1;
-// 		zoom_end = AUTO_ZOOM_INI_LEVEL;
-// 		increment = mod->dof.zoom / frames;
-// 	}
-// 	printf("increment: %lf\n", increment);
-// 	i = 0;
-// 	while ((sign == 1 && (mod->dof.zoom < zoom_end)) || (sign == -1
-// 			&& (mod->dof.zoom > zoom_end)))
-// 	{
-// 		sleep(1);
-// 		printf("zoom direction: %i\n", sign);
-// 		if (i < frames / 5)
-// 			scale_mod(mod, ft_false, (sign * 0.5 * increment), 0);
-// 		else if (i < 2 * (frames / 5))
-// 			scale_mod(mod, ft_false, (sign * increment), 0);
-// 		else if (i < 3 * (frames / 5))
-// 			scale_mod(mod, ft_false, (sign * 2 * increment), 0);
-// 		else if (i < 4 * (frames / 5))
-// 			scale_mod(mod, ft_false, (sign * increment), 0);
-// 		else
-// 		{
-// 			if (sign == 1)
-// 			{
-// 				if (mod->dof.zoom + (sign * increment * 0.5) <= zoom_end)
-// 					scale_mod(mod, ft_false, (sign * increment * 0.5), 0);
-// 				else
-// 					scale_mod(mod, ft_true, zoom_end, mod->dof.z_factor);
-// 			}
-// 			else
-// 			{
-// 				if (mod->dof.zoom + (sign * increment * 0.5) >= zoom_end)
-// 					scale_mod(mod, ft_false, (sign * increment * 0.5), 0);
-// 				else
-// 					scale_mod(mod, ft_true, zoom_end, mod->dof.z_factor);
-// 			}
-// 		}
-// 		i++;
-// 	}
-// }

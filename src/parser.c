@@ -65,11 +65,11 @@ void	load_file(int argc, char **argv, t_model *mod)
 	{
 		if (ft_strlen(argv[1]) + 5 >= FOPEN_MAX)
 			dbg_printf(mod, no_block, "Input to long :/   | max: %i",
-					FOPEN_MAX - 4);
+				FOPEN_MAX - 4);
 		else
 		{
 			dbg_printf(mod, no_block,
-					"fdf file not found! => lets create it...");
+				"fdf file not found! => lets create it...");
 			new_map_fn = create_map(mod, argv[1]);
 			fd = open(new_map_fn, O_RDONLY);
 			free(new_map_fn);

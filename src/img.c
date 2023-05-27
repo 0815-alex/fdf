@@ -68,7 +68,8 @@ static void	img_line_put(t_model *mod, t_point_3d_colored *pnt_a,
 	curr_point->y = pnt_a->y;
 	delta->x = abs(pnt_b->x - curr_point->x);
 	delta->y = -abs(pnt_b->y - curr_point->y);
-	delta_sum = sqrt(pow((pnt_b->x - curr_point->x),2) + pow((pnt_b->y - curr_point->y),2));
+	delta_sum = sqrt(pow((pnt_b->x - curr_point->x), 2)
+			+ pow((pnt_b->y - curr_point->y), 2));
 	if (curr_point->x < pnt_b->x)
 		sign->x = 1;
 	else
@@ -104,7 +105,7 @@ static void	img_line_put(t_model *mod, t_point_3d_colored *pnt_a,
 		}
 	}
 	free_whatever(mod, "ppppp", curr_point, delta, sign, cur_color,
-			color_step);
+		color_step);
 }
 
 static void	nodes2line(t_model *mod, t_node *node_1, t_node *node_2)
@@ -125,7 +126,7 @@ void	create_next_img(t_model *mod)
 	t_node	*cur_node;
 
 	ft_bzero(mod->img.addr, mod->win_height * mod->win_width
-			* sizeof(mod->img.bpp));
+		* sizeof(mod->img.bpp));
 	cur_node = mod->net;
 	while (cur_node)
 	{

@@ -32,6 +32,6 @@ void	print_double(double d, int *len, int digits)
 	print_char('.', len);
 	part_dec = rounded - part_int;
 	part_dec *= pow(10, digits + 1);
-	part_dec_int = (int)(round(part_dec)/10);
+	part_dec_int = (int)(round(part_dec) / 10);
 	print_nbr(part_dec_int, len);
 }

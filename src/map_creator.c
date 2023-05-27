@@ -130,7 +130,7 @@ char	*create_map(t_model *mod, char *str)
 	cur_fd = *fds;
 	while (cur_fd)
 	{
-		dbg_printf(mod,no_block,"CUR FD %d\n", ((t_fd *)cur_fd)->fd);
+		dbg_printf(mod, no_block, "CUR FD %d\n", ((t_fd *)cur_fd)->fd);
 		cur_line = get_next_line(((t_fd *)cur_fd)->fd);
 		cur_line_trimmed = ft_strtrim(cur_line, "\n");
 		free(cur_line);

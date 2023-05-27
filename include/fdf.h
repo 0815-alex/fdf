@@ -197,16 +197,16 @@ typedef enum e_pnt_dim
 
 //______COLOR_MAP.C_____________________________________________________________
 void					ini_color_maps(t_model *model);
-t_color_map				*add_m(t_model *model, t_clr min,
-							t_clr zero, t_clr max);
+void					next_color_map(t_model *mod);
 void					free_color_maps(t_model *model);
 
 //______COLOR.C_________________________________________________________________
 
 void					ini_colors(t_model *model);
 t_clr	*calculate_step_color(t_clr start_color,
-								t_clr end_color,
-								int n_steps);
+							t_clr end_color,
+							int n_steps);
+void					cpy_color(t_clr *src, t_clr *dest);
 int						color2int(t_clr clr);
 
 //______CONTROLLER_KEYS.C_______________________________________________________

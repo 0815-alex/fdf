@@ -21,12 +21,10 @@ void	ini_colors(t_model *mod)
 
 	if (abs(mod->z_min) != 0)
 		step_neg = calculate_step_color(mod->color_map->zero,
-										mod->color_map->min,
-										abs(mod->z_min));
+				mod->color_map->min, abs(mod->z_min));
 	if (abs(mod->z_max) != 0)
 		step_pos = calculate_step_color(mod->color_map->zero,
-										mod->color_map->max,
-										abs(mod->z_max));
+				mod->color_map->max, abs(mod->z_max));
 	cur_node = mod->net;
 	if (cur_node)
 	{
@@ -60,8 +58,7 @@ void	ini_colors(t_model *mod)
 		free_whatever(mod, "p", step_pos);
 }
 
-t_clr	*calculate_step_color(t_clr start_color, t_clr end_color,
-		int n_steps)
+t_clr	*calculate_step_color(t_clr start_color, t_clr end_color, int n_steps)
 {
 	t_clr	*step;
 
@@ -79,6 +76,13 @@ t_clr	*calculate_step_color(t_clr start_color, t_clr end_color,
 		step->blue = (end_color.blue - start_color.blue) / n_steps;
 	}
 	return (step);
+}
+
+void	cpy_color(t_clr *src, t_clr *dest)
+{
+	dest->red = src->red;
+	dest->green = src->green;
+	dest->blue = src->blue;
 }
 
 int	color2int(t_clr clr)

@@ -30,7 +30,6 @@ t_model	*new_model(int argc, char **argv)
 	mod->dof.zoom = AUTO_ZOOM_INI_LEVEL;
 	ini_img(mod);
 	mlx_key_hook(mod->win, deal_key, mod);
-	// mlx_hook(mod->win, 02, (1L << 0), deal_key, mod);
 	mlx_hook(mod->win, B_CLS_WIN, 0, close_model, mod);
 	mlx_mouse_hook(mod->win, deal_mouse, mod);
 	mlx_loop_hook(mod->mlx, auto_movements, mod);
@@ -49,7 +48,7 @@ int	close_model(t_model *mod)
 	dbg_printf(mod, start_block, "close_model");
 	mlx_destroy_window(mod->mlx, mod->win);
 	free_list(mod->net);
-    free_color_maps(mod);
+	free_color_maps(mod);
 	free(mod->color_map);
 	mlx_destroy_image(mod->mlx, mod->img.mlx_img);
 	free(mod);

@@ -63,6 +63,7 @@ DONE	- Animate a zoom in on start and start auto rotate after zoom in
 - check if map was already createt before
 - dash einfuegen
 - makefile call minilib make
+- color shit an einer linie funktioniert noch nicht wenn r g b unterschiedlich
 
 3 COMMENTING
 -------------------

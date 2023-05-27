@@ -24,7 +24,7 @@ void	ini_dof_plus(t_model *mod)
 	mod->dof.z_factor = 1;
 	mod->dof.auto_rotate = ft_true;
 	mod->dof.auto_zoom = ft_true;
-    mod->dof.auto_color_change = ft_true;
+	mod->dof.auto_color_change = ft_true;
 	dbg_printf(mod, end_block, "ini_dof_plus");
 }
 

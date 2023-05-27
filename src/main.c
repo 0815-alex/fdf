@@ -19,7 +19,7 @@ int	main(int argc, char **argv)
 	ft_putstr_fd("\n\nLets go!\n===========================\n\n", 1);
 	mod = new_model(argc, argv);
 	dbg_printf(mod, no_block, "start deamon...\n");
-    sleep(1);
+	sleep(1);
 	mlx_loop(mod->mlx);
 	return (0);
 }

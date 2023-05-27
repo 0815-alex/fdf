@@ -12,7 +12,7 @@
 
 #include "../include/fdf.h"
 
-void	    ini_net_details(t_model *mod)
+void	ini_net_details(t_model *mod)
 {
 	mod->center_point.x = INT_MIN;
 	mod->center_point.y = INT_MIN;
@@ -66,10 +66,10 @@ void	update_max_values(t_model *mod, int x, int y, int z)
 void	determine_net_center(t_model *mod)
 {
 	dbg_printf(mod, no_block, "net dimension (%i|%i)", mod->net_dim.x,
-			mod->net_dim.y);
+		mod->net_dim.y);
 	mod->center_point.x = ((mod->net_dim.x + 1) / 2);
 	mod->center_point.y = ((mod->net_dim.y + 1) / 2);
 	mod->center_point.z = ((mod->z_max - mod->z_min) / 2);
 	dbg_printf(mod, no_block, "net center (%i|%i|%i)", mod->center_point.x,
-			mod->center_point.y, mod->center_point.z);
+		mod->center_point.y, mod->center_point.z);
 }
