@@ -20,9 +20,8 @@
 # include "../lib/minilibx/mlx.h"
 # include <limits.h>
 # include <stdint.h>
+# include <sys/stat.h>
 # include <unistd.h>
-#include <sys/stat.h>
-
 
 //______MAP CREATOR))___________________________________________________________
 # define PATH_2_CHARS "./maps/letters/"
@@ -240,7 +239,7 @@ void					free_list(t_node *head);
 int						main(int argc, char **argv);
 
 //______MAP_CREATOR.C__________________________________________________________________
-char					*create_map(char *str);
+char					*create_map(t_model *model, char *str);
 
 //______MODEL_MOVE.C____________________________________________________________
 void					trans_mod(t_model *model, t_bool ovr,

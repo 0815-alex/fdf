@@ -21,18 +21,18 @@ typedef struct s_fd
 
 static void	insert_empty_char(t_list **fds)
 {
-	// t_list	*cur_fd;
-	// char	cur_filename[100];
+	t_list	*cur_fd;
+	char	cur_filename[100];
 
-	// cur_filename[0] = '\0';
-	// cur_fd = malloc(sizeof(t_fd));
-	// ft_strlcat(cur_filename, PATH_2_CHARS, ft_strlen(PATH_2_CHARS) + 1);
-	// ft_strlcat(cur_filename, "sp", ft_strlen(cur_filename) + 3);
-	// ft_strlcat(cur_filename, ".fdf", ft_strlen(cur_filename) + 5);
-	// ((t_fd *)cur_fd)->fd = open(&cur_filename[0], O_RDONLY);
-	// printf("open file: %s | fd=%d\n", cur_filename, ((t_fd *)cur_fd)->fd);
-	// ft_lstadd_back(fds, cur_fd);
-	// ft_bzero(cur_filename, 100);
+	cur_filename[0] = '\0';
+	ft_strlcat(cur_filename, PATH_2_CHARS, ft_strlen(PATH_2_CHARS) + 1);
+	ft_strlcat(cur_filename, "sp.fdf", ft_strlen(cur_filename) + 7);
+	cur_fd = malloc(sizeof(t_fd));
+	((t_fd *)cur_fd)->next = NULL;
+	((t_fd *)cur_fd)->fd = open(cur_filename, O_RDONLY);
+	printf("open file: %s | fd=%d\n", cur_filename, ((t_fd *)cur_fd)->fd);
+	ft_lstadd_back(fds, cur_fd);
+	ft_bzero(cur_filename, 100);
 }
 
 static char	*create_new_file(char *str, int *new_fd)
@@ -62,8 +62,7 @@ static void	create_fd_list(t_list **fds, char *str)
 	insert_empty_char(fds);
 	while (*str)
 	{
-		cur_fd = malloc(sizeof(t_fd));
-		((t_fd *)cur_fd)->next = NULL;
+		ft_bzero(cur_filename, 100);
 		ft_strlcat(cur_filename, PATH_2_CHARS, ft_strlen(PATH_2_CHARS) + 1);
 		ft_strlcpy(buffer, &str[0], 2);
 		if (ft_isalnum(*buffer))
@@ -81,10 +80,11 @@ static void	create_fd_list(t_list **fds, char *str)
 		else
 			ft_strlcat(cur_filename, "qm", ft_strlen(cur_filename) + 3);
 		ft_strlcat(cur_filename, ".fdf", ft_strlen(cur_filename) + 5);
-		((t_fd *)cur_fd)->fd = open(&cur_filename[0], O_RDONLY);
+		cur_fd = malloc(sizeof(t_fd));
+		((t_fd *)cur_fd)->next = NULL;
+		((t_fd *)cur_fd)->fd = open(cur_filename, O_RDONLY);
 		printf("open file: %s | fd=%d\n", cur_filename, ((t_fd *)cur_fd)->fd);
 		ft_lstadd_back(fds, cur_fd);
-		ft_bzero(cur_filename, 100);
 		str++;
 	}
 	insert_empty_char(fds);
@@ -111,7 +111,7 @@ static void	free_fd_list(t_list **fds)
 	}
 }
 
-char	*create_map(char *str)
+char	*create_map(t_model *model, char *str)
 {
 	t_list	**fds;
 	int		new_fd;
@@ -124,10 +124,13 @@ char	*create_map(char *str)
 	*fds = NULL;
 	create_fd_list(fds, str);
 	new_file = create_new_file(str, &new_fd);
+	// ft_striteri(new_file)
+	// hier den dateinamen noch von sonderyeichen befreien
 	//loop through fd list and write a lines
 	cur_fd = *fds;
 	while (cur_fd)
 	{
+		printf("CUR FD %d\n", ((t_fd *)cur_fd)->fd);
 		cur_line = get_next_line(((t_fd *)cur_fd)->fd);
 		cur_line_trimmed = ft_strtrim(cur_line, "\n");
 		free(cur_line);
@@ -142,7 +145,7 @@ char	*create_map(char *str)
 			cur_fd = *fds;
 		}
 		else
-			write(new_fd, "Q", 1);
+			write(new_fd, " ", 1);
 	}
 	//closed alle fd
 	close(new_fd);

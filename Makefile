@@ -7,13 +7,14 @@ NAME = fdf
 DEBUG = 0
 # Compiler options
 CC = cc
-CFLAGS = -D DEBUG=$(DEBUG) -g #-Wall -Werror -Wextra #-fsanitize=address -fsanitize-address-use-after-scope
+CFLAGS = -D DEBUG=$(DEBUG) -g -Wall -Werror -Wextra -fsanitize=address -fsanitize-address-use-after-scope
 CLIBS = -L$(LIB_FOLDER)libft_printf -L$(LIB_FOLDER)minilibx -lm
 CINCLUDES  = -I$(INCLUDE_FOLDER) -I$(MLX_FOLDER)
 RM = rm -f
 
 # ->Folders
 SRC_FOLDER = ./src/
+OBJS_FOLDER = ./obj/
 LIB_FOLDER = ./lib/
 INCLUDE_FOLDER = ./include/
 MLX_FOLDER = $(LIB_FOLDER)minilibx
@@ -21,31 +22,35 @@ MAPS_FOLDER = ./maps/
 
 # ->Files
 LIBFT_PRINTF = $(LIB_FOLDER)/libft_printf/libft_printf.a
-SRCS = \
-	$(SRC_FOLDER)color.c \
-	$(SRC_FOLDER)color_map.c \
-	$(SRC_FOLDER)controller_keys.c \
-	$(SRC_FOLDER)controller_mouse.c \
-	$(SRC_FOLDER)data.c \
-	$(SRC_FOLDER)debug.c \
-	$(SRC_FOLDER)dof_plus.c \
-	$(SRC_FOLDER)img.c \
-	$(SRC_FOLDER)list.c \
-	$(SRC_FOLDER)main.c \
-	$(SRC_FOLDER)map_creator.c \
-	$(SRC_FOLDER)model.c \
-	$(SRC_FOLDER)model_move.c \
-	$(SRC_FOLDER)node.c \
-	$(SRC_FOLDER)parser.c \
-	$(SRC_FOLDER)point.c \
-	$(SRC_FOLDER)utils.c \
-	$(SRC_FOLDER)view.c
+SRCS = $(addprefix $(SRC_FOLDER), \
+	color.c \
+	color_map.c \
+	controller_keys.c \
+	controller_mouse.c \
+	data.c \
+	debug.c \
+	dof_plus.c \
+	img.c \
+	list.c \
+	main.c \
+	map_creator.c \
+	model.c \
+	model_move.c \
+	node.c \
+	parser.c \
+	point.c \
+	utils.c \
+	view.c)
 
 # Object files
-OBJS = $(SRCS:.c=.o)
+OBJS = $(SRCS:$(SRC_FOLDER)%.c=$(OBJS_FOLDER)%.o)
 
 # TARGETS
 .PHONY: all clean fclean re r rr god
+
+$(OBJS_FOLDER)%.o: $(SRC_FOLDER)%.c
+	mkdir -p $(@D)
+	$(CC) $(CFLAGS) -c $< -o $@
 
 all: $(NAME)
 

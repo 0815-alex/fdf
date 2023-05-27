@@ -2,69 +2,75 @@
 
 # Compiler options
 CC = cc
-CFLAGS = -Wall -Werror -Wextra
+CFLAGS = -Wall -Werror -Wextra -g -fsanitize=address -fsanitize-address-use-after-scope
 RM = rm -f
 
 # Library name and source files
 NAME = libft_printf.a
 SRC_FOLDER = ./src/
-SRCS = $(SRC_FOLDER)ft_isalpha.c \
-	$(SRC_FOLDER)ft_isdigit.c \
-	$(SRC_FOLDER)ft_isalnum.c \
-	$(SRC_FOLDER)ft_isascii.c \
-	$(SRC_FOLDER)ft_isprint.c \
-	$(SRC_FOLDER)ft_strlen.c \
-	$(SRC_FOLDER)ft_memset.c \
-	$(SRC_FOLDER)ft_bzero.c \
-	$(SRC_FOLDER)ft_memcpy.c \
-	$(SRC_FOLDER)ft_memmove.c \
-	$(SRC_FOLDER)ft_strlcpy.c \
-	$(SRC_FOLDER)ft_strlcat.c \
-	$(SRC_FOLDER)ft_toupper.c \
-	$(SRC_FOLDER)ft_tolower.c \
-	$(SRC_FOLDER)ft_strchr.c \
-	$(SRC_FOLDER)ft_strrchr.c \
-	$(SRC_FOLDER)ft_strncmp.c \
-	$(SRC_FOLDER)ft_memchr.c \
-	$(SRC_FOLDER)ft_memcmp.c \
-	$(SRC_FOLDER)ft_strnstr.c \
-	$(SRC_FOLDER)ft_atoi.c \
-	$(SRC_FOLDER)ft_calloc.c \
-	$(SRC_FOLDER)ft_strdup.c \
-	$(SRC_FOLDER)ft_substr.c \
-	$(SRC_FOLDER)ft_strjoin.c \
-	$(SRC_FOLDER)ft_strtrim.c \
-	$(SRC_FOLDER)ft_split.c \
-	$(SRC_FOLDER)ft_itoa.c \
-	$(SRC_FOLDER)ft_strmapi.c \
-	$(SRC_FOLDER)ft_striteri.c \
-	$(SRC_FOLDER)ft_putchar_fd.c \
-	$(SRC_FOLDER)ft_putstr_fd.c \
-	$(SRC_FOLDER)ft_putendl_fd.c \
-	$(SRC_FOLDER)ft_putnbr_fd.c \
-	$(SRC_FOLDER)ft_lstnew.c \
-	$(SRC_FOLDER)ft_lstadd_front.c \
-	$(SRC_FOLDER)ft_lstsize.c \
-	$(SRC_FOLDER)ft_lstlast.c \
-	$(SRC_FOLDER)ft_lstadd_back.c \
-	$(SRC_FOLDER)ft_lstdelone.c \
-	$(SRC_FOLDER)ft_lstclear.c \
-	$(SRC_FOLDER)ft_lstiter.c \
-	$(SRC_FOLDER)ft_lstmap.c \
-	$(SRC_FOLDER)ft_printf.c \
-	$(SRC_FOLDER)print_char.c \
-	$(SRC_FOLDER)print_str.c \
-	$(SRC_FOLDER)print_dez_to_hexa.c \
-	$(SRC_FOLDER)print_ptr.c \
-	$(SRC_FOLDER)print_nbr.c \
-	$(SRC_FOLDER)print_double.c \
-	$(SRC_FOLDER)get_next_line.c 
+OBJS_FOLDER = ./obj/
+SRCS = $(addprefix $(SRC_FOLDER), \
+	ft_isalpha.c \
+	ft_isdigit.c \
+	ft_isalnum.c \
+	ft_isascii.c \
+	ft_isprint.c \
+	ft_strlen.c \
+	ft_memset.c \
+	ft_bzero.c \
+	ft_memcpy.c \
+	ft_memmove.c \
+	ft_strlcpy.c \
+	ft_strlcat.c \
+	ft_toupper.c \
+	ft_tolower.c \
+	ft_strchr.c \
+	ft_strrchr.c \
+	ft_strncmp.c \
+	ft_memchr.c \
+	ft_memcmp.c \
+	ft_strnstr.c \
+	ft_atoi.c \
+	ft_calloc.c \
+	ft_strdup.c \
+	ft_substr.c \
+	ft_strjoin.c \
+	ft_strtrim.c \
+	ft_split.c \
+	ft_itoa.c \
+	ft_strmapi.c \
+	ft_striteri.c \
+	ft_putchar_fd.c \
+	ft_putstr_fd.c \
+	ft_putendl_fd.c \
+	ft_putnbr_fd.c \
+	ft_lstnew.c \
+	ft_lstadd_front.c \
+	ft_lstsize.c \
+	ft_lstlast.c \
+	ft_lstadd_back.c \
+	ft_lstdelone.c \
+	ft_lstclear.c \
+	ft_lstiter.c \
+	ft_lstmap.c \
+	ft_printf.c \
+	print_char.c \
+	print_str.c \
+	print_dez_to_hexa.c \
+	print_ptr.c \
+	print_nbr.c \
+	print_double.c \
+	get_next_line.c)
 
 # Object files
-OBJS = $(SRCS:.c=.o)
+OBJS = $(SRCS:$(SRC_FOLDER)%.c=$(OBJS_FOLDER)%.o)
 
 # Targets
 .PHONY:	all clean fclean re
+
+$(OBJS_FOLDER)%.o: $(SRC_FOLDER)%.c
+	mkdir -p $(@D)
+	$(CC) $(CFLAGS) -c $< -o $@
 
 all: $(NAME) 
 

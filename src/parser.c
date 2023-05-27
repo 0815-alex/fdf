@@ -53,7 +53,7 @@ void	load_file(int argc, char **argv, t_model *model)
 {
 	int		fd;
 	char	*line;
-    char	*new_map_fn;
+	char	*new_map_fn;
 	int		cur_row;
 	t_node	*prev_row;
 
@@ -62,12 +62,19 @@ void	load_file(int argc, char **argv, t_model *model)
 	model->net = NULL;
 	fd = open(argv[1], O_RDONLY);
 	if (fd == -1)
-    {
-		dbg_printf(model, no_block, "fdf file not found! => lets create it...");
-        new_map_fn =create_map(argv[1]); 
-        fd = open(new_map_fn, O_RDONLY);
-        free(new_map_fn);
-    }
+	{
+		if (ft_strlen(argv[1]) + 5 >= FOPEN_MAX)
+			dbg_printf(model, no_block, "Input to long :/   | max: %i",
+					FOPEN_MAX - 4);
+		else
+		{
+			dbg_printf(model, no_block,
+					"fdf file not found! => lets create it...");
+			new_map_fn = create_map(model, argv[1]);
+			fd = open(new_map_fn, O_RDONLY);
+			free(new_map_fn);
+		}
+	}
 	line = get_next_line(fd);
 	cur_row = 1;
 	prev_row = NULL;
