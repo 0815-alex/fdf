@@ -50,8 +50,8 @@ DONE		- change color presets by pressing key c or so
 DONE	- key hold down move change hook
 - Print stats to screen
 	- maybe hook it to the key i
-- Print help to screen
-	- maybe hook it to the key F1 or mouse click
+DONE	- Print help to screen
+DONE		- maybe hook it to the key F1 or mouse click
 DONE	- Animate a zoom in on start and start auto rotate after zoom in
 DONE	- Animate zoom before closing
 - Animate move between presets
