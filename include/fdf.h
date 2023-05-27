@@ -186,6 +186,7 @@ typedef struct s_model
 	int					win_height;
 	t_bool				close_pending;
     t_bool				show_help;
+	t_bool				show_stats;
 	t_node				*net;
 	t_color_map			*color_map;
 	t_dbg				dbg;

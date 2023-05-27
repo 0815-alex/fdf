@@ -109,6 +109,11 @@ static t_bool	check_presets(int key, t_model *mod)
 		mod->show_help = !mod->show_help;
 		update_image(mod);
 	}
+	else if (key == K_F2)
+	{
+		mod->show_stats = !mod->show_stats;
+		update_image(mod);
+	}
 	else
 		check = ft_false;
 	return (check);

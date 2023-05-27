@@ -43,5 +43,5 @@ let's get funky
 ------------------------------------
 r       toggle auto rotate
 c       toggle auto color switch (only if auto rotate is on)
-F2      toggle stats to screen
+F2      toggle stats
 

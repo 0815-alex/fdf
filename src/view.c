@@ -90,6 +90,35 @@ static void	put_help_to_view(t_model *mod)
 	}
 }
 
+static void	put_stats_to_view(t_model *mod)
+{
+	char	*rot_x;
+	char	*zoom;
+	int 	x;
+
+	zoom = ft_itoa(mod->dof.zoom);
+	rot_x = ft_itoa(mod->dof.rot_rad.x);
+	x = 300 * mod->show_help + STR_PXL_HEIGHT;
+
+	mlx_string_put(mod->mlx, mod->win, x, 2*STR_PXL_HEIGHT, COLOR_GREEN,
+		"STATS | TRANS ROT ZOOM     | AUTO");
+	mlx_string_put(mod->mlx, mod->win, x, 3*STR_PXL_HEIGHT, COLOR_GREEN,
+		"------|------------------------------------------------");
+	mlx_string_put(mod->mlx, mod->win, x, 4*STR_PXL_HEIGHT, COLOR_GREEN,
+		"    x | ");
+	mlx_string_put(mod->mlx, mod->win, x, 5*STR_PXL_HEIGHT, COLOR_GREEN,
+		"    y | ");
+	mlx_string_put(mod->mlx, mod->win, x, 6*STR_PXL_HEIGHT, COLOR_GREEN,
+		"    z | ");
+	mlx_string_put(mod->mlx, mod->win, x+161, 4*STR_PXL_HEIGHT, COLOR_GREEN,
+		"|");
+	mlx_string_put(mod->mlx, mod->win, x+161, 5*STR_PXL_HEIGHT, COLOR_GREEN,
+		"|");
+	mlx_string_put(mod->mlx, mod->win, x+161, 6*STR_PXL_HEIGHT, COLOR_GREEN,
+		"|");
+	free_whatever(mod, "pp", zoom, rot_x);
+}
+
 /*
 trans soll gesetzt werden
 so dass die mitte des netz auf die mitte der fensterbreite faellt
@@ -135,13 +164,9 @@ void	center_model(t_model *mod)
 
 void	update_image(t_model *mod)
 {
-	char	*rot_x;
-	char	*zoom;
-
-	zoom = ft_itoa(mod->dof.zoom);
-	rot_x = ft_itoa(mod->dof.rot_rad.x);
 	mlx_put_image_to_window(mod->mlx, mod->win, mod->img.mlx_img, 0, 0);
 	if (mod->show_help && mod->dof.auto_zoom == 0)
 		put_help_to_view(mod);
-	free_whatever(mod, "pp", zoom, rot_x);
+	if (mod->show_stats && mod->dof.auto_zoom == 0)
+		put_stats_to_view(mod);
 }

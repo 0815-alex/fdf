@@ -29,6 +29,7 @@ t_model	*new_model(int argc, char **argv)
 	center_model(mod);
 	mod->dof.zoom = AUTO_ZOOM_INI_LEVEL;
 	mod->show_help = ft_true;
+	mod->show_stats = ft_true;
 	ini_img(mod);
 	mlx_key_hook(mod->win, deal_key, mod);
 	mlx_hook(mod->win, B_CLS_WIN, 0, close_model, mod);
@@ -41,6 +42,8 @@ t_model	*new_model(int argc, char **argv)
 void	shedule_close(t_model *mod)
 {
 	mod->dof.auto_zoom = -1;
+	mod->show_help = ft_false;
+	mod->show_stats = ft_false;
 	mod->close_pending = ft_true;
 }
 
