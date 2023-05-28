@@ -45,3 +45,7 @@ r       toggle auto rotate
 c       toggle auto color switch (only if auto rotate is on)
 F2      toggle stats
 
+
+GIT HUB
+------------------------------------
+check it-> 0815-alex

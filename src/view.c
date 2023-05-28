@@ -92,12 +92,9 @@ static void	put_help_to_view(t_model *mod)
 
 static void	put_stats_to_view(t_model *mod)
 {
-	char	*rot_x;
-	char	*zoom;
+	char	*buf;
 	int 	x;
 
-	zoom = ft_itoa(mod->dof.zoom);
-	rot_x = ft_itoa(mod->dof.rot_rad.x);
 	x = 300 * mod->show_help + STR_PXL_HEIGHT;
 
 	mlx_string_put(mod->mlx, mod->win, x, 2*STR_PXL_HEIGHT, COLOR_GREEN,
@@ -110,13 +107,41 @@ static void	put_stats_to_view(t_model *mod)
 		"    y | ");
 	mlx_string_put(mod->mlx, mod->win, x, 6*STR_PXL_HEIGHT, COLOR_GREEN,
 		"    z | ");
-	mlx_string_put(mod->mlx, mod->win, x+161, 4*STR_PXL_HEIGHT, COLOR_GREEN,
+	x += 50;
+	buf = ft_itoa(mod->dof.trans.x);
+	mlx_string_put(mod->mlx, mod->win, x, 4*STR_PXL_HEIGHT, COLOR_GREEN, buf);
+	free(buf);
+	buf = ft_itoa(mod->dof.trans.y);
+	mlx_string_put(mod->mlx, mod->win, x, 5*STR_PXL_HEIGHT, COLOR_GREEN, buf);
+	mlx_string_put(mod->mlx, mod->win, x, 6*STR_PXL_HEIGHT, COLOR_GREEN, "-");
+	x += 30;
+	free(buf);
+	buf = ft_itoa(radian2degree(mod->dof.rot_rad.x));
+	mlx_string_put(mod->mlx, mod->win, x, 4*STR_PXL_HEIGHT, COLOR_GREEN, buf);
+	free(buf);
+	buf = ft_itoa(radian2degree(mod->dof.rot_rad.y));
+	mlx_string_put(mod->mlx, mod->win, x, 5*STR_PXL_HEIGHT, COLOR_GREEN, buf);
+	free(buf);
+	buf = ft_itoa(radian2degree(mod->dof.rot_rad.z));
+	mlx_string_put(mod->mlx, mod->win, x, 6*STR_PXL_HEIGHT, COLOR_GREEN, buf);
+	x += 30;
+	free(buf);
+	buf = ft_dtoa(mod->dof.zoom, 2);
+	mlx_string_put(mod->mlx, mod->win, x, 4*STR_PXL_HEIGHT, COLOR_GREEN, buf);
+	mlx_string_put(mod->mlx, mod->win, x, 5*STR_PXL_HEIGHT, COLOR_GREEN, buf);
+	free(buf);
+	buf = ft_itoa(radian2degree(mod->dof.rot_rad.z));
+	mlx_string_put(mod->mlx, mod->win, x, 6*STR_PXL_HEIGHT, COLOR_GREEN, buf);
+	x += 30;
+	mlx_string_put(mod->mlx, mod->win, x, 4*STR_PXL_HEIGHT, COLOR_GREEN,
 		"|");
-	mlx_string_put(mod->mlx, mod->win, x+161, 5*STR_PXL_HEIGHT, COLOR_GREEN,
+	mlx_string_put(mod->mlx, mod->win, x, 5*STR_PXL_HEIGHT, COLOR_GREEN,
 		"|");
-	mlx_string_put(mod->mlx, mod->win, x+161, 6*STR_PXL_HEIGHT, COLOR_GREEN,
+	mlx_string_put(mod->mlx, mod->win, x, 6*STR_PXL_HEIGHT, COLOR_GREEN,
 		"|");
-	free_whatever(mod, "pp", zoom, rot_x);
+
+	free(buf);
+	// free_whatever(mod, "pp", zoom, rot_x);
 }
 
 /*

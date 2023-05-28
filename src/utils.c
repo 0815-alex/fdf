@@ -20,7 +20,7 @@ double	degree2radian(int degree)
 	return (radian);
 }
 
-int	radian2degree2(double radian)
+int	radian2degree(double radian)
 {
 	int	degree;
 
@@ -46,14 +46,14 @@ static void	free_arr(void **arr)
 //dbg printf muesste dann aber in der lage sein
 //eine projektspezifische END function aufzurufen, die alles rueckwaerts
 //freed, kein plan wie das gehen soll
-void	*check_malloc(size_t s)
-{
-	void	*ptr;
-	ptr = malloc (s);
-	if (!ptr)
-        dbg_printf(mod, err_block, "malloc failed");
-	return(ptr);
-}
+// void	*check_malloc(size_t s)
+// {
+// 	void	*ptr;
+// 	ptr = malloc (s);
+// 	if (!ptr)
+//         dbg_printf(mod, err_block, "malloc failed");
+// 	return(ptr);
+// }
 
 /**
  * p = pointer

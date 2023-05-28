@@ -121,6 +121,7 @@ void				*ft_memchr(const void *s, int c, size_t n);
 //******************************************************************************
 int					ft_atoi(const char *nptr);
 char				*ft_itoa(int n);
+char				*ft_dtoa(double d, size_t digits);
 char				**ft_split(char const *s, char c);
 
 //******************************************************************************
