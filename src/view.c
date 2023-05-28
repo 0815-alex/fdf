@@ -126,7 +126,7 @@ static void	put_stats_to_view(t_model *mod)
 	mlx_string_put(mod->mlx, mod->win, x, 6*STR_PXL_HEIGHT, COLOR_GREEN, buf);
 	x += 30;
 	free(buf);
-	buf = ft_dtoa(mod->dof.zoom, 2);
+	buf = ft_dtoa(1.888, 2);
 	mlx_string_put(mod->mlx, mod->win, x, 4*STR_PXL_HEIGHT, COLOR_GREEN, buf);
 	mlx_string_put(mod->mlx, mod->win, x, 5*STR_PXL_HEIGHT, COLOR_GREEN, buf);
 	free(buf);
@@ -141,7 +141,7 @@ static void	put_stats_to_view(t_model *mod)
 		"|");
 
 	free(buf);
-	// free_whatever(mod, "pp", zoom, rot_x);
+	// free_whatever("pp", zoom, rot_x);
 }
 
 /*

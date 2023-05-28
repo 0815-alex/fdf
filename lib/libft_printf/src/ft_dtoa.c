@@ -44,7 +44,7 @@ char	*ft_dtoa(double d, size_t digits)
 	long	part_int;
 	double	part_dec;
 	char	*result;
-	char	*buffer;
+	char	*buffer[2];
 	size_t	i;
 
 	part_int = (int)d;
@@ -59,11 +59,12 @@ char	*ft_dtoa(double d, size_t digits)
 	part_dec = (int)(part_dec);
 	result = ft_calloc(count_digits(part_int) + count_digits((int)part_dec) + 1,
 			sizeof(char));
-	buffer = ft_itoa(part_int);
-	ft_strlcat (result, buffer, ft_strlen(buffer)+1);
-	free (buffer);
-	ft_strlcat (result, ".", 2mak);
-	buffer = ft_itoa((int)part_dec);
-	free (buffer);
+	buffer[0] = ft_itoa(part_int);
+	ft_strlcat (result, buffer[0], ft_strlen (buffer[0]) + 1);
+	// free (buffer);
+	ft_strlcat (result, ".", 2);
+	buffer[1] = ft_itoa((int)part_dec);
+	ft_strlcat (result, buffer[1], ft_strlen (buffer[1]) + 1);
+	free_whatever ("pp", buffer[0], buffer[1]);
 	return (result);
 }

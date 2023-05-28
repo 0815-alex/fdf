@@ -299,7 +299,6 @@ char					*point2str(t_model *model, t_point_2d *point);
 //______UTILS.C_________________________________________________________________
 double					degree2radian(int degree);
 int						radian2degree(double radian);
-void					*free_whatever(t_model *model, char *str, ...);
 
 //______VIEW.C__________________________________________________________________
 void					ini_win(t_model *model);

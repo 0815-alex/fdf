@@ -40,7 +40,7 @@ static void	str_line(char **arr, int y, t_node **prev_row, t_model *mod)
 		node_prev = node_new;
 		i++;
 	}
-	free_whatever(mod, "a", arr);
+	free_whatever("a", arr);
 	*prev_row = node_first_in_row;
 }
 

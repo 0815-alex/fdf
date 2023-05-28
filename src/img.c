@@ -103,7 +103,7 @@ static void	img_line_put(t_model *mod, t_point_3d_colored *pnt_a,
 			curr_point->y += sign->y;
 		}
 	}
-	free_whatever(mod, "ppppp", curr_point, delta, sign, cur_color,
+	free_whatever("ppppp", curr_point, delta, sign, cur_color,
 		color_step);
 }
 
@@ -117,7 +117,7 @@ static void	nodes2line(t_model *mod, t_node *node_1, t_node *node_2)
 	node2point(mod, node_1, p1);
 	node2point(mod, node_2, p2);
 	img_line_put(mod, p1, p2);
-	free_whatever(mod, "pp", p1, p2);
+	free_whatever("pp", p1, p2);
 }
 
 void	create_next_img(t_model *mod)
@@ -135,6 +135,6 @@ void	create_next_img(t_model *mod)
 			nodes2line(mod, cur_node, cur_node->north);
 		(cur_node) = (cur_node)->next;
 	}
-	free_whatever(mod, "p", cur_node);
+	free_whatever("p", cur_node);
 	update_image(mod);
 }

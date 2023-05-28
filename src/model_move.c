@@ -24,7 +24,7 @@ void	trans_mod(t_model *mod, t_bool ovr, t_point_2d *trans)
 		mod->dof.trans.x += trans->x;
 		mod->dof.trans.y += trans->y;
 	}
-	free_whatever(mod, "p", trans);
+	free_whatever("p", trans);
 	create_next_img(mod);
 }
 
@@ -42,7 +42,7 @@ void	rot_mod(t_model *mod, t_bool ovr, t_point_3d *deg)
 		mod->dof.rot_rad.y += degree2radian(deg->y);
 		mod->dof.rot_rad.z += degree2radian(deg->z);
 	}
-	free_whatever(mod, "p", deg);
+	free_whatever("p", deg);
 	create_next_img(mod);
 }
 

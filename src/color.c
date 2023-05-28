@@ -53,9 +53,9 @@ void	ini_colors(t_model *mod)
 		}
 	}
 	if (abs(mod->z_min) != 0)
-		free_whatever(mod, "p", step_neg);
+		free_whatever("p", step_neg);
 	if (abs(mod->z_max) != 0)
-		free_whatever(mod, "p", step_pos);
+		free_whatever("p", step_pos);
 }
 
 /*

@@ -21,7 +21,7 @@ void	ini_dof_plus(t_model *mod)
 	mod->dof.rot_rad.y = degree2radian(0);
 	mod->dof.rot_rad.z = degree2radian(0);
 	mod->dof.zoom = AUTO_ZOOM_INI_LEVEL;
-	mod->dof.z_factor = 1;
+	mod->dof.z_factor = 1.1;
 	mod->dof.auto_rotate = ft_true;
 	mod->dof.auto_zoom = ft_true;
 	mod->dof.auto_color_change = ft_true;
