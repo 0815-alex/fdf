@@ -84,19 +84,7 @@
 # define COLOR_GREEN 0xFF00FF00
 // # define COLOR_BLUE 0x0000FFu
 
-//______DEFINE TEMINAL COLOR____________________________________________________
-
-# define WRITE_COLOR_DEFAULT "\033[0m"
-# define WRITE_COLOR_RED "\033[31m"
-# define WRITE_COLOR_GREEN "\033[32m"
-# define WRITE_COLOR_ORANGE "\033[33m"
-
 //______STRUCTS ________________________________________________________________
-
-typedef struct s_dbg
-{
-	int					count_stack_depth;
-}						t_dbg;
 
 typedef struct s_clr
 {
@@ -189,7 +177,6 @@ typedef struct s_model
 	t_bool				show_stats;
 	t_node				*net;
 	t_color_map			*color_map;
-	t_dbg				dbg;
 	t_dof_plus			dof;
 	t_point_2d			net_dim;
 	int					z_max;
@@ -198,14 +185,6 @@ typedef struct s_model
 	t_img				img;
     t_list              **help;
 }						t_model;
-
-typedef enum e_dbg_flag
-{
-	err_block = -1,
-	no_block = 0,
-	start_block = 1,
-	end_block = 2
-}						t_dbg_flag;
 
 typedef enum e_pnt_dim
 {
@@ -243,10 +222,6 @@ void					ini_max_values(t_model *model);
 void					update_max_values(t_model *model, int x, int y, int z);
 void					determine_net_center(t_model *model);
 
-//______DEBUG.C_________________________________________________________________
-void					ini_debug(t_model *model, int curr_stack_depth);
-void					dbg_printf(t_model *model, t_dbg_flag dbg_flg,
-							char *str, ...);
 //______DOF_PLUS.C______________________________________________________________
 void					ini_dof_plus(t_model *model);
 void					cpy_dof(t_dof_plus *src, t_dof_plus *dest);
@@ -263,8 +238,8 @@ void					free_list(t_node *head);
 //______MAIN.C__________________________________________________________________
 int						main(int argc, char **argv);
 
-//______MAP_CREATOR.C__________________________________________________________________
-char					*create_map(t_model *model, char *str);
+//______MAP_CREATOR.C___________________________________________________________
+char					*create_map(char *str);
 
 //______MODEL_MOVE.C____________________________________________________________
 void					trans_mod(t_model *model, t_bool ovr,
@@ -272,19 +247,19 @@ void					trans_mod(t_model *model, t_bool ovr,
 void					rot_mod(t_model *model, t_bool ovr, t_point_3d *deg);
 void					scale_mod(t_model *model, t_bool ovr, double zoom,
 							double z_factor);
-int						auto_movements(t_model *model);
-void					auto_zoom(t_model *model, t_bool zoomIn);
 t_bool					static_auto_zoom(t_model *model, t_bool zoom_in);
+void					static_auto_rotate(t_model *mod);
 
 //______MODEL.C_________________________________________________________________
 t_model					*new_model(int argc, char **argv);
+int						auto_changes(t_model *mod);
 void					shedule_close(t_model *model);
 int						close_model(t_model *model);
 
 //______NODE.C__________________________________________________________________
 t_node					*new_node(t_point_3d *point);
-void					print_node(t_model *model, t_node *node);
-char					*node2str(t_model *model, t_node *node);
+void					print_node(t_node *node);
+char					*node2str(t_node *node);
 void					node2point(t_model *model, t_node *node,
 							t_point_3d_colored *point);
 
@@ -293,8 +268,8 @@ void					load_file(int argc, char **argv, t_model *model);
 
 //______POINT.C_________________________________________________________________
 void					*new_point(t_pnt_dim dim, int x, int y, int z);
-void					print_point(t_model *model, t_point_2d *point);
-char					*point2str(t_model *model, t_point_2d *point);
+void					print_point(t_point_2d *point);
+char					*point2str(t_point_2d *point);
 
 //______UTILS.C_________________________________________________________________
 double					degree2radian(int degree);
@@ -304,6 +279,11 @@ int						radian2degree(double radian);
 void					ini_win(t_model *model);
 void					center_model(t_model *model);
 void					update_image(t_model *model);
+
+//______VIEW_TXT.C______________________________________________________________
+void					ini_help(t_model *mod);
 void					free_help(t_model *mod);
+void					put_help_to_view(t_model *mod);
+void					put_stats_to_view(t_model *mod);
 
 #endif

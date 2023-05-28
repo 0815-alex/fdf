@@ -14,6 +14,11 @@
 
 int	deal_mouse(int code, t_model *mod)
 {
-	dbg_printf(mod, no_block, "mouse action. code: (%d)", code);
+	int	degree;
+
+	dbg_printf(no_block, "mouse action. code: (%d)", code);
+	degree = 10;
+	if (code == M_SCROLL_DOWN)
+		rot_mod(mod, ft_false, new_point(pnt_dim_3, -degree, 0, 0));
 	return (0);
 }

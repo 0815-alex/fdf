@@ -12,6 +12,9 @@
 
 #ifndef LIBFT_PRINTF_H
 # define LIBFT_PRINTF_H
+# ifndef DEBUG
+#  define DEBUG 0
+# endif
 
 # include <fcntl.h>
 # include <math.h>
@@ -35,6 +38,15 @@
 # define HEXA_UPPER "0123456789ABCDEF"
 
 //******************************************************************************
+//			DEFINE TEMINAL COLOR
+//******************************************************************************
+# define WRITE_COLOR_DEFAULT "\033[0m"
+# define WRITE_COLOR_RED "\033[31m"
+# define WRITE_COLOR_GREEN "\033[32m"
+# define WRITE_COLOR_ORANGE "\033[33m"
+
+
+//******************************************************************************
 //			Typedefs
 //******************************************************************************
 
@@ -50,10 +62,19 @@ typedef enum e_bool
 	ft_true = 1
 }					t_bool;
 
+typedef enum e_dbg_flag
+{
+	err_block = -1,
+	no_block = 0,
+	start_block = 1,
+	end_block = 2
+}					t_dbg_flag;
+
 //******************************************************************************
 //			ft_printf
 //******************************************************************************
 int					ft_printf(const char *str, ...);
+void				dbg_printf(t_dbg_flag dbg_flg, char *str, ...);
 int					print_whatever(va_list args, char *str);
 int					print_whatever_digits(va_list args, char *str);
 
@@ -123,7 +144,7 @@ void				*ft_memchr(const void *s, int c, size_t n);
 int					ft_atoi(const char *nptr);
 char				*ft_itoa(int n);
 char				*ft_dtoa(double d, size_t digits);
-char                *ft_btoa(t_bool b, int flg);
+char				*ft_btoa(t_bool b, int flg);
 char				**ft_split(char const *s, char c);
 
 //******************************************************************************

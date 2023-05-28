@@ -102,16 +102,6 @@ static t_bool	check_presets(int key, t_model *mod)
 		next_color_map(mod);
 	else if (key == 'c')
 		mod->dof.auto_color_change = !mod->dof.auto_color_change;
-	else if (key == K_F1)
-	{
-		mod->show_help = !mod->show_help;
-		update_image(mod);
-	}
-	else if (key == K_F2)
-	{
-		mod->show_stats = !mod->show_stats;
-		update_image(mod);
-	}
 	else
 		check = ft_false;
 	return (check);
@@ -125,5 +115,15 @@ int	deal_key(int key, t_model *mod)
 	check_rotate(key, mod);
 	check_zoom(key, mod);
 	check_presets(key, mod);
+	if (key == K_F1)
+	{
+		mod->show_help = !mod->show_help;
+		update_image(mod);
+	}
+	else if (key == K_F2)
+	{
+		mod->show_stats = !mod->show_stats;
+		update_image(mod);
+	}
 	return (0);
 }

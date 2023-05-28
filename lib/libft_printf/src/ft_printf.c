@@ -88,10 +88,7 @@ int	ft_printf(const char *str, ...)
 			len_add = 0;
 			len_add = print_whatever(args, (char *)str);
 			if (len_add == 0)
-			{
-				len_add = print_whatever_digits(args, (char *)str);
-				str++;
-			}
+				len_add = print_whatever_digits(args, (char *)(str++));
 			len += len_add;
 		}
 		else

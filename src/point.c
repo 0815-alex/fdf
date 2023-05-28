@@ -57,24 +57,24 @@ void	*new_point(t_pnt_dim dim, int x, int y, int z)
 		return (NULL);
 }
 
-void	print_point(t_model *mod, t_point_2d*point)
+void	print_point(t_point_2d*point)
 {
 	if (point == NULL)
-		dbg_printf(mod, no_block, "(no point)");
+		dbg_printf(no_block, "(no point)");
 	else
 	{
-		dbg_printf(mod, no_block, "(%i|%i)", point->x, point->y);
+		dbg_printf(no_block, "(%i|%i)", point->x, point->y);
 	}
 }
 
-char	*point2str(t_model *mod, t_point_2d*point)
+char	*point2str(t_point_2d*point)
 {
 	char	*str;
 
-	dbg_printf(mod, start_block, "point2str");
+	dbg_printf(start_block, "point2str");
 	if (point == NULL)
 	{
-		dbg_printf(mod, end_block, "point2str");
+		dbg_printf(end_block, "point2str");
 		return ("(no point)");
 	}
 	else
@@ -83,7 +83,7 @@ char	*point2str(t_model *mod, t_point_2d*point)
 		str = ft_strjoin(str, "|");
 		str = ft_strjoin(str, ft_itoa(point->y));
 		str = ft_strjoin(str, ")");
-		dbg_printf(mod, end_block, "point2str");
+		dbg_printf(end_block, "point2str");
 		return (str);
 	}
 }

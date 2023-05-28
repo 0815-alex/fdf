@@ -77,8 +77,8 @@ char	**ft_split(char const *s, char c)
 	res = malloc(sizeof(char *) * (w + 1));
 	if (!res)
 		return (NULL);
-	i = 0;
-	while (i < w)
+	i = -1;
+	while (++i < w)
 	{
 		while (*s == c && *s != '\0')
 			s++;
@@ -92,7 +92,6 @@ char	**ft_split(char const *s, char c)
 			return (NULL);
 		}
 		s += len;
-		i++;
 	}
 	res[w] = NULL;
 	return (res);

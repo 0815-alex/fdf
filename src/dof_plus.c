@@ -14,7 +14,7 @@
 
 void	ini_dof_plus(t_model *mod)
 {
-	dbg_printf(mod, start_block, "ini_dof_plus");
+	dbg_printf(start_block, "ini_dof_plus");
 	mod->dof.trans.x = 100;
 	mod->dof.trans.y = 100;
 	mod->dof.rot_rad.x = degree2radian(0);
@@ -25,7 +25,7 @@ void	ini_dof_plus(t_model *mod)
 	mod->dof.auto_rotate = ft_false;
 	mod->dof.auto_zoom = ft_true;
 	mod->dof.auto_color_change = ft_false;
-	dbg_printf(mod, end_block, "ini_dof_plus");
+	dbg_printf(end_block, "ini_dof_plus");
 }
 
 void	cpy_dof(t_dof_plus *src, t_dof_plus *dest)

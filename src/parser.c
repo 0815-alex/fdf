@@ -33,7 +33,7 @@ static void	str_line(char **arr, int y, t_node **prev_row, t_model *mod)
 		node_new->north = *prev_row;
 		if (*prev_row)
 			*prev_row = (*prev_row)->next;
-		print_node(mod, node_new);
+		print_node(node_new);
 		node_add_back(&mod->net, node_new);
 		if (i == 0)
 			node_first_in_row = node_new;
@@ -42,6 +42,29 @@ static void	str_line(char **arr, int y, t_node **prev_row, t_model *mod)
 	}
 	free_whatever("a", arr);
 	*prev_row = node_first_in_row;
+}
+
+static int	open_or_create(char **argv)
+{
+	int		fd;
+	char	*new_map_fn;
+
+	fd = open(argv[1], O_RDONLY);
+	if (fd == -1)
+	{
+		if (ft_strlen(argv[1]) + 5 >= FOPEN_MAX)
+			dbg_printf(no_block, "Input to long :/   | max: %i",
+				FOPEN_MAX - 4);
+		else
+		{
+			dbg_printf(no_block,
+				"fdf file not found! => lets create it...");
+			new_map_fn = create_map(argv[1]);
+			fd = open(new_map_fn, O_RDONLY);
+			free(new_map_fn);
+		}
+	}
+	return (fd);
 }
 
 /*  check if there are args
@@ -53,40 +76,25 @@ void	load_file(int argc, char **argv, t_model *mod)
 {
 	int		fd;
 	char	*line;
-	char	*new_map_fn;
 	int		cur_row;
 	t_node	*prev_row;
 
 	if (argc != 2)
-		dbg_printf(mod, err_block, "Missing a filename as a parameter!");
+		dbg_printf(err_block, "Missing a filename as a parameter!");
 	mod->net = NULL;
-	fd = open(argv[1], O_RDONLY);
-	if (fd == -1)
-	{
-		if (ft_strlen(argv[1]) + 5 >= FOPEN_MAX)
-			dbg_printf(mod, no_block, "Input to long :/   | max: %i",
-				FOPEN_MAX - 4);
-		else
-		{
-			dbg_printf(mod, no_block,
-				"fdf file not found! => lets create it...");
-			new_map_fn = create_map(mod, argv[1]);
-			fd = open(new_map_fn, O_RDONLY);
-			free(new_map_fn);
-		}
-	}
+	fd = open_or_create(argv);
 	line = get_next_line(fd);
 	cur_row = 1;
 	prev_row = NULL;
 	while (line)
 	{
-		dbg_printf(mod, no_block, "read Line: %s\n", line);
+		dbg_printf(no_block, "read Line: %s\n", line);
 		str_line(ft_split(line, ' '), cur_row, &prev_row, mod);
 		free(line);
 		line = get_next_line(fd);
 		cur_row++;
 	}
-	dbg_printf(mod, no_block, "read Line: %s", line);
+	dbg_printf(no_block, "read Line: %s", line);
 	free(line);
 	line = NULL;
 	close(fd);

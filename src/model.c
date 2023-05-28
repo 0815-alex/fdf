@@ -16,8 +16,8 @@ t_model	*new_model(int argc, char **argv)
 {
 	t_model	*mod;
 
+	dbg_printf(start_block, "new_model");
 	mod = malloc(sizeof(t_model));
-	ini_debug(mod, 1);
 	ini_net_details(mod);
 	ini_max_values(mod);
 	load_file(argc, argv, mod);
@@ -34,9 +34,30 @@ t_model	*new_model(int argc, char **argv)
 	mlx_key_hook(mod->win, deal_key, mod);
 	mlx_hook(mod->win, B_CLS_WIN, 0, close_model, mod);
 	mlx_mouse_hook(mod->win, deal_mouse, mod);
-	mlx_loop_hook(mod->mlx, auto_movements, mod);
-	dbg_printf(mod, end_block, "new_model");
+	mlx_loop_hook(mod->mlx, auto_changes, mod);
+	dbg_printf(end_block, "new_model");
 	return (mod);
+}
+
+int	auto_changes(t_model *mod)
+{
+	if (mod->dof.auto_zoom == 1)
+	{
+		if (static_auto_zoom(mod, ft_true) == ft_true)
+			mod->dof.auto_zoom = 0;
+	}
+	else if (mod->dof.auto_zoom == -1)
+	{
+		if (static_auto_zoom(mod, ft_false) == ft_true)
+			mod->dof.auto_zoom = 0;
+	}
+	else if (mod->close_pending)
+		close_model(mod);
+	else if (!mod->dof.auto_rotate)
+		create_next_img(mod);
+	if (mod->dof.auto_rotate)
+		static_auto_rotate(mod);
+	return (0);
 }
 
 void	shedule_close(t_model *mod)
@@ -49,7 +70,7 @@ void	shedule_close(t_model *mod)
 
 int	close_model(t_model *mod)
 {
-	dbg_printf(mod, start_block, "close_model");
+	dbg_printf(start_block, "close_model");
 	mlx_destroy_window(mod->mlx, mod->win);
 	free_list(mod->net);
 	free_color_maps(mod);

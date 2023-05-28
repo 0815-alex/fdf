@@ -62,7 +62,8 @@ void	ini_colors(t_model *mod)
     HIer muss ich ein 3d punkt nehmen, da t_clr keine negativen
     farb steps speichern kann da unsigned
 */
-t_point_3d	*calculate_step_color(t_clr start_color, t_clr end_color, int n_steps)
+t_point_3d	*calculate_step_color(t_clr start_color, t_clr end_color,
+				int n_steps)
 {
 	t_point_3d	*step;
 

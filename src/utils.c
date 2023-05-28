@@ -43,7 +43,7 @@ int	radian2degree(double radian)
 // 	void	*ptr;
 // 	ptr = malloc (s);
 // 	if (!ptr)
-//         dbg_printf(mod, err_block, "malloc failed");
+//         dbg_printf(err_block, "malloc failed");
 // 	return(ptr);
 // }
 

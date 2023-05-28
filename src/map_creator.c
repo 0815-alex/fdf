@@ -30,7 +30,7 @@ static void	insert_empty_char(t_list **fds)
 	cur_fd = malloc(sizeof(t_fd));
 	((t_fd *)cur_fd)->next = NULL;
 	((t_fd *)cur_fd)->fd = open(cur_filename, O_RDONLY);
-	printf("open file: %s | fd=%d\n", cur_filename, ((t_fd *)cur_fd)->fd);
+	dbg_printf(no_block, "open file: %s | fd=%d\n", cur_filename, ((t_fd *)cur_fd)->fd);
 	ft_lstadd_back(fds, cur_fd);
 	ft_bzero(cur_filename, 100);
 }
@@ -45,7 +45,7 @@ static char	*create_new_file(char *str, int *new_fd)
 	ft_strlcat(new_file, PATH_2_NAMES, ft_strlen(PATH_2_NAMES) + 1);
 	ft_strlcat(new_file, str, ft_strlen(new_file) + ft_strlen(str) + 1);
 	ft_strlcat(new_file, ".fdf", ft_strlen(new_file) + 5);
-	printf("new file path: %s\n", new_file);
+	dbg_printf(no_block, "new file path: %s\n", new_file);
 	*new_fd = open(new_file, O_WRONLY | O_CREAT | O_TRUNC,
 			S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 	return (new_file);
@@ -83,7 +83,6 @@ static void	create_fd_list(t_list **fds, char *str)
 		cur_fd = malloc(sizeof(t_fd));
 		((t_fd *)cur_fd)->next = NULL;
 		((t_fd *)cur_fd)->fd = open(cur_filename, O_RDONLY);
-		printf("open file: %s | fd=%d\n", cur_filename, ((t_fd *)cur_fd)->fd);
 		ft_lstadd_back(fds, cur_fd);
 		str++;
 	}
@@ -111,7 +110,7 @@ static void	free_fd_list(t_list **fds)
 	}
 }
 
-char	*create_map(t_model *mod, char *str)
+char	*create_map(char *str)
 {
 	t_list	**fds;
 	int		new_fd;
@@ -120,17 +119,14 @@ char	*create_map(t_model *mod, char *str)
 	char	*cur_line_trimmed;
 	t_list	*cur_fd;
 
+	dbg_printf(start_block, "create_map");
 	fds = malloc(sizeof(t_list *));
 	*fds = NULL;
 	create_fd_list(fds, str);
 	new_file = create_new_file(str, &new_fd);
-	// ft_striteri(new_file)
-	// hier den dateinamen noch von sonderyeichen befreien
-	//loop through fd list and write a lines
 	cur_fd = *fds;
 	while (cur_fd)
 	{
-		dbg_printf(mod, no_block, "CUR FD %d\n", ((t_fd *)cur_fd)->fd);
 		cur_line = get_next_line(((t_fd *)cur_fd)->fd);
 		cur_line_trimmed = ft_strtrim(cur_line, "\n");
 		free(cur_line);
@@ -147,10 +143,10 @@ char	*create_map(t_model *mod, char *str)
 		else
 			write(new_fd, " ", 1);
 	}
-	//closed alle fd
 	close(new_fd);
 	free_fd_list(fds);
 	free(fds);
 	sleep(1);
+	dbg_printf(end_block, "create_map");
 	return (new_file);
 }

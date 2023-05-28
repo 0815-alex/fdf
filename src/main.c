@@ -16,10 +16,11 @@ int	main(int argc, char **argv)
 {
 	t_model	*mod;
 
-	ft_putstr_fd("\n\nLets go!\n===========================\n\n", 1);
+	dbg_printf(start_block, "main");
 	mod = new_model(argc, argv);
-	dbg_printf(mod, no_block, "start deamon...\n");
+	dbg_printf(no_block, "start deamon...\n");
 	sleep(1);
 	mlx_loop(mod->mlx);
+	dbg_printf(end_block, "main");
 	return (0);
 }

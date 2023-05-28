@@ -10,29 +10,25 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/fdf.h"
+#include "../libft_printf.h"
 
-void	ini_debug(t_model *mod, int curr_stack_depth)
+static void	print_tab_level(t_dbg_flag dbg_flg)
 {
-	mod->dbg.count_stack_depth = curr_stack_depth;
-}
-
-static void	print_tab_level(t_model *mod, t_dbg_flag dbg_flg)
-{
-	int	tabs;
-	int	tab_width;
+	static int	count_stack_depth;
+	int			tabs;
+	int			tab_width;
 
 	tabs = 0;
 	tab_width = 5;
-	if (dbg_flg == end_block)
-		mod->dbg.count_stack_depth--;
-	while (tabs < (mod->dbg.count_stack_depth) * tab_width)
+	if (dbg_flg == end_block && count_stack_depth > 0)
+		count_stack_depth--;
+	while (tabs < (count_stack_depth) * tab_width)
 	{
 		write(1, " ", 1);
 		tabs++;
 	}
 	if (dbg_flg == start_block)
-		mod->dbg.count_stack_depth++;
+		count_stack_depth++;
 	if (dbg_flg == start_block)
 		ft_putstr_fd(WRITE_COLOR_ORANGE "  [START] >", 1);
 	else if (dbg_flg == end_block)
@@ -42,7 +38,7 @@ static void	print_tab_level(t_model *mod, t_dbg_flag dbg_flg)
 	ft_putstr_fd(WRITE_COLOR_DEFAULT, 1);
 }
 
-void	dbg_printf(t_model *mod, t_dbg_flag dbg_flg, char *str, ...)
+void	dbg_printf(t_dbg_flag dbg_flg, char *str, ...)
 {
 	va_list	args;
 	int		len;
@@ -50,7 +46,7 @@ void	dbg_printf(t_model *mod, t_dbg_flag dbg_flg, char *str, ...)
 
 	if (DEBUG == 1 || dbg_flg == err_block)
 	{
-		print_tab_level(mod, dbg_flg);
+		print_tab_level(dbg_flg);
 		va_start(args, str);
 		len = 0;
 		while (*str)
@@ -61,10 +57,7 @@ void	dbg_printf(t_model *mod, t_dbg_flag dbg_flg, char *str, ...)
 				len_add = 0;
 				len_add = print_whatever(args, (char *)str);
 				if (len_add == 0)
-				{
-					len_add = print_whatever_digits(args, (char *)str);
-					str++;
-				}
+					len_add = print_whatever_digits(args, (char *)(str++));
 				len += len_add;
 			}
 			else
@@ -76,7 +69,7 @@ void	dbg_printf(t_model *mod, t_dbg_flag dbg_flg, char *str, ...)
 		if (dbg_flg == err_block)
 		{
 			perror("\nSystem error msg");
-			exit(0);
+			exit(1);
 		}
 	}
 }

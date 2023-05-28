@@ -4,7 +4,7 @@
 NAME = fdf
 
 # Prints DEBUG Messages
-DEBUG = 0
+DEBUG = 1
 
 # Compiler options
 CC = cc
@@ -37,7 +37,6 @@ SRCS = $(addprefix $(SRC_FOLDER), \
 	controller_keys.c \
 	controller_mouse.c \
 	data.c \
-	debug.c \
 	dof_plus.c \
 	img.c \
 	list.c \
@@ -49,7 +48,8 @@ SRCS = $(addprefix $(SRC_FOLDER), \
 	parser.c \
 	point.c \
 	utils.c \
-	view.c)
+	view.c \
+	view_txt.c)
 
 # Object files
 OBJS = $(SRCS:$(SRC_FOLDER)%.c=$(OBJS_FOLDER)%.o)
@@ -70,7 +70,7 @@ $(OBJS_FOLDER)%.o: $(SRC_FOLDER)%.c
 
 $(LIBFT_PRINTF):
 	@echo "$(ORANGE)\ncompiling: $(LIBFT_PRINTF)\n$(RESET)"
-	@make --no-print-directory -C $(LIBFT_PRINTF_FOLDER)
+	@$(MAKE) --no-print-directory -C $(LIBFT_PRINTF_FOLDER) DEBUG=$(DEBUG)
 
 $(MINILIBX):
 	@echo "$(ORANGE)\ncompiling: $(MINILIBX)\n$(RESET)"

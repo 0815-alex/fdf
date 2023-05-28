@@ -28,24 +28,24 @@ t_node	*new_node(t_point_3d *point)
 }
 
 //I should change it to call 3dpoint to string instead!
-void	print_node(t_model *mod, t_node *node)
+void	print_node(t_node *node)
 {
 	if (node == NULL)
-		dbg_printf(mod, no_block, "(no node)");
+		dbg_printf(no_block, "(no node)");
 	else
-		dbg_printf(mod, no_block, "(%i|%i|%i)", node->pnt->x, node->pnt->y,
+		dbg_printf(no_block, "(%i|%i|%i)", node->pnt->x, node->pnt->y,
 			node->pnt->z);
 }
 
 //I should change it to call 3dpoint to string instead!
-char	*node2str(t_model *mod, t_node *node)
+char	*node2str(t_node *node)
 {
 	char	*str;
 
-	dbg_printf(mod, start_block, "node2str");
+	dbg_printf(start_block, "node2str");
 	if (node == NULL)
 	{
-		dbg_printf(mod, end_block, "node2str");
+		dbg_printf(end_block, "node2str");
 		return ("(no node)");
 	}
 	else
@@ -56,7 +56,7 @@ char	*node2str(t_model *mod, t_node *node)
 		str = ft_strjoin(str, "|");
 		str = ft_strjoin(str, ft_itoa(node->pnt->z));
 		str = ft_strjoin(str, ")");
-		dbg_printf(mod, end_block, "node2str");
+		dbg_printf(end_block, "node2str");
 		return (str);
 	}
 }
@@ -68,7 +68,7 @@ void	node2point(t_model *mod, t_node *node, t_point_3d_colored *point)
 	double	z;
 
 	if (!node || !point)
-		dbg_printf(mod, err_block, "no node or point exists");
+		dbg_printf(err_block, "no node or point exists");
 	x = (node->pnt->x - mod->center_point.x) * mod->dof.zoom;
 	y = (node->pnt->y - mod->center_point.y) * mod->dof.zoom;
 	z = (node->pnt->z - mod->center_point.z) * mod->dof.z_factor

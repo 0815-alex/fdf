@@ -30,9 +30,9 @@ static void	img_pix_put(t_model *mod, t_point_2d *point, int color)
 	int		i;
 
 	if (point->x < 1 || point->x >= mod->win_width)
-		dbg_printf(mod, no_block, "pixel x coordinate out of window");
+		dbg_printf(no_block, "pixel x coordinate out of window");
 	else if (point->y < 1 || point->y > mod->win_height)
-		dbg_printf(mod, no_block, "pixel y coordinate out of window");
+		dbg_printf(no_block, "pixel y coordinate out of window");
 	else
 	{
 		i = mod->img.bpp - 8;

@@ -45,17 +45,10 @@ char	*ft_dtoa(double d, size_t digits)
 	double	part_dec;
 	char	*result;
 	char	*buffer[2];
-	size_t	i;
 
 	part_int = (int)d;
 	part_dec = fabs(d - part_int);
-
-	i = 0;
-	while (i < digits)
-	{
-		part_dec *= 10;
-		i++;
-	}
+	part_dec *= pow(10, digits);
 	part_dec = (int)(part_dec);
 	buffer[0] = ft_itoa(part_int);
 	buffer[1] = ft_itoa((int)part_dec);
