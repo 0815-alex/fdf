@@ -1,6 +1,7 @@
 general
 ------------------------------------
 F1      show / hide this message
+F2      toggle stats
 ESC     end program
 
 
@@ -29,8 +30,6 @@ presets
 t       top view
 f       front view
 l       left side view
-;       right side view
-c       center view
 p       45-degree perspective
 
 
@@ -43,7 +42,6 @@ let's get funky
 ------------------------------------
 r       toggle auto rotate
 c       toggle auto color switch (only if auto rotate is on)
-F2      toggle stats
 
 
 GIT HUB

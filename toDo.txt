@@ -48,8 +48,8 @@ DONE		- change line to print color of node on line
 DONE		- function get color for z
 DONE		- change color presets by pressing key c or so
 DONE	- key hold down move change hook
-- Print stats to screen
-	- maybe hook it to the key i
+DONE	- Print stats to screen
+DONE		- maybe hook it to the key F2
 DONE	- Print help to screen
 DONE		- maybe hook it to the key F1 or mouse click
 DONE	- Animate a zoom in on start and start auto rotate after zoom in

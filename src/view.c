@@ -98,7 +98,7 @@ static void	put_stats_to_view(t_model *mod)
 	x = 300 * mod->show_help + STR_PXL_HEIGHT;
 
 	mlx_string_put(mod->mlx, mod->win, x, 2*STR_PXL_HEIGHT, COLOR_GREEN,
-		"STATS | TRANS ROT ZOOM     | AUTO");
+		"STATS | TRANS ROT ZOOM  | AUTO");
 	mlx_string_put(mod->mlx, mod->win, x, 3*STR_PXL_HEIGHT, COLOR_GREEN,
 		"------|------------------------------------------------");
 	mlx_string_put(mod->mlx, mod->win, x, 4*STR_PXL_HEIGHT, COLOR_GREEN,
@@ -126,11 +126,11 @@ static void	put_stats_to_view(t_model *mod)
 	mlx_string_put(mod->mlx, mod->win, x, 6*STR_PXL_HEIGHT, COLOR_GREEN, buf);
 	x += 30;
 	free(buf);
-	buf = ft_dtoa(1.888, 2);
+	buf = ft_dtoa(mod->dof.zoom, 0);
 	mlx_string_put(mod->mlx, mod->win, x, 4*STR_PXL_HEIGHT, COLOR_GREEN, buf);
 	mlx_string_put(mod->mlx, mod->win, x, 5*STR_PXL_HEIGHT, COLOR_GREEN, buf);
 	free(buf);
-	buf = ft_itoa(radian2degree(mod->dof.rot_rad.z));
+    buf = ft_dtoa(mod->dof.z_factor, 2);
 	mlx_string_put(mod->mlx, mod->win, x, 6*STR_PXL_HEIGHT, COLOR_GREEN, buf);
 	x += 30;
 	mlx_string_put(mod->mlx, mod->win, x, 4*STR_PXL_HEIGHT, COLOR_GREEN,
@@ -139,7 +139,9 @@ static void	put_stats_to_view(t_model *mod)
 		"|");
 	mlx_string_put(mod->mlx, mod->win, x, 6*STR_PXL_HEIGHT, COLOR_GREEN,
 		"|");
-
+    x += STR_PXL_HEIGHT;
+    mlx_string_put(mod->mlx, mod->win, x, 4*STR_PXL_HEIGHT, COLOR_GREEN, ft_btoa(mod->dof.auto_rotate, 1));
+	mlx_string_put(mod->mlx, mod->win, x, 5*STR_PXL_HEIGHT, COLOR_GREEN, ft_btoa(mod->dof.auto_color_change, 1));
 	free(buf);
 	// free_whatever("pp", zoom, rot_x);
 }

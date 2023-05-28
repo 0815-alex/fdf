@@ -23,6 +23,7 @@ SRCS = $(addprefix $(SRC_FOLDER), \
 	ft_strlen.c \
 	ft_memset.c \
 	ft_free.c \
+	ft_btoa.c \
 	ft_bzero.c \
 	ft_memcpy.c \
 	ft_memmove.c \

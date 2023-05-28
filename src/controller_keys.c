@@ -73,13 +73,13 @@ static t_bool	check_zoom(int key, t_model *mod)
 	else if (key == '2')
 		scale_mod(mod, ft_false, 5, 0);
 	else if (key == '3')
-		mod->dof.auto_zoom = -1;
-	else if (key == '4')
-		mod->dof.auto_zoom = 1;
-	else if (key == '5')
 		scale_mod(mod, ft_false, 0, -0.1);
-	else if (key == '6')
+	else if (key == '4')
 		scale_mod(mod, ft_false, 0, 0.1);
+	else if (key == '5')
+		mod->dof.auto_zoom = -1;
+	else if (key == '6')
+		mod->dof.auto_zoom = 1;
 	else
 		check = ft_false;
 	return (check);
@@ -96,8 +96,6 @@ static t_bool	check_presets(int key, t_model *mod)
 		rot_mod(mod, ft_true, new_point(pnt_dim_3, 90, 0, 0));
 	else if (key == 'l')
 		rot_mod(mod, ft_true, new_point(pnt_dim_3, 90, 90, 0));
-	else if (key == K_SEMICOLON)
-		rot_mod(mod, ft_true, new_point(pnt_dim_3, 90, 180, 0));
 	else if (key == 'p')
 		rot_mod(mod, ft_true, new_point(pnt_dim_3, 45, 45, 0));
 	else if (key == K_TAB)

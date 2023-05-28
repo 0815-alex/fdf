@@ -48,7 +48,7 @@ char	*ft_dtoa(double d, size_t digits)
 	size_t	i;
 
 	part_int = (int)d;
-	part_dec = d - part_int;
+	part_dec = fabs(d - part_int);
 
 	i = 0;
 	while (i < digits)
@@ -57,14 +57,20 @@ char	*ft_dtoa(double d, size_t digits)
 		i++;
 	}
 	part_dec = (int)(part_dec);
-	result = ft_calloc(count_digits(part_int) + count_digits((int)part_dec) + 1,
-			sizeof(char));
 	buffer[0] = ft_itoa(part_int);
-	ft_strlcat (result, buffer[0], ft_strlen (buffer[0]) + 1);
-	// free (buffer);
-	ft_strlcat (result, ".", 2);
 	buffer[1] = ft_itoa((int)part_dec);
-	ft_strlcat (result, buffer[1], ft_strlen (buffer[1]) + 1);
+	if (digits != 0)
+		result = ft_calloc(count_digits(part_int)
+				+ count_digits((int)part_dec) + 2, sizeof(char));
+	else
+		result = ft_calloc(count_digits(part_int) + 1, sizeof(char));
+	ft_strlcat (result, buffer[0], ft_strlen (buffer[0]) + 1);
+	if (digits != 0)
+	{
+		ft_strlcat (result, ".", ft_strlen (buffer[0]) + 2);
+		ft_strlcat (result, buffer[1], ft_strlen(result)
+			+ ft_strlen (buffer[1]) + 1);
+	}
 	free_whatever ("pp", buffer[0], buffer[1]);
 	return (result);
 }

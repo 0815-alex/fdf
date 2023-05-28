@@ -16,6 +16,9 @@ double	degree2radian(int degree)
 {
 	double	radian;
 
+	degree = degree % 360;
+	if (degree < 0)
+		degree += 360;
 	radian = degree * (M_PI / 180.0);
 	return (radian);
 }

@@ -41,6 +41,9 @@ void	rot_mod(t_model *mod, t_bool ovr, t_point_3d *deg)
 		mod->dof.rot_rad.x += degree2radian(deg->x);
 		mod->dof.rot_rad.y += degree2radian(deg->y);
 		mod->dof.rot_rad.z += degree2radian(deg->z);
+		mod->dof.rot_rad.x = fmod(mod->dof.rot_rad.x, 2 * M_PI);
+		mod->dof.rot_rad.y = fmod(mod->dof.rot_rad.y, 2 * M_PI);
+		mod->dof.rot_rad.z = fmod(mod->dof.rot_rad.z, 2 * M_PI);
 	}
 	free_whatever("p", deg);
 	create_next_img(mod);
@@ -70,7 +73,7 @@ void	scale_mod(t_model *mod, t_bool ovr, double zoom, double z_factor)
 		{
 			dbg_printf(mod, no_block, "Zoom must be >= 0! | is: %i",
 				mod->dof.zoom);
-			mod->dof.zoom -= zoom;
+			mod->dof.zoom = 1;
 		}
 		if (mod->dof.z_factor < 0)
 		{
@@ -87,6 +90,7 @@ void	scale_mod(t_model *mod, t_bool ovr, double zoom, double z_factor)
 int	auto_movements(t_model *mod)
 {
 	static double	random_value;
+    static double	random_sign;
 	static int		random_axis;
 	static int		step_move;
 
@@ -104,24 +108,28 @@ int	auto_movements(t_model *mod)
 	}
 	else if (mod->close_pending)
 		close_model(mod);
-	else if (!mod->dof.auto_rotate && !mod->dof.auto_color_change)
-		usleep(500);
+	else if (!mod->dof.auto_rotate)
+		create_next_img(mod);
 	if (mod->dof.auto_rotate)
 	{
 		if (random_axis == 0 || step_move >= AUTO_MOVE_FRAMES)
 		{
 			random_value = drand48();
 			random_axis = 1 + round(random_value * 2);
+			if (random_value < 0.5)
+				random_sign = -1;
+			else
+				random_sign = 1;
 			step_move = 0;
 		}
 		if (mod->dof.auto_color_change && step_move == 0)
 			next_color_map(mod);
 		if (random_axis == 1)
-			rot_mod(mod, ft_false, new_point(pnt_dim_3, 1, 0, 0));
+			rot_mod(mod, ft_false, new_point(pnt_dim_3, random_sign * 1, 0, 0));
 		else if (random_axis == 2)
-			rot_mod(mod, ft_false, new_point(pnt_dim_3, 0, 1, 0));
+			rot_mod(mod, ft_false, new_point(pnt_dim_3, 0, random_sign * 1, 0));
 		else if (random_axis == 3)
-			rot_mod(mod, ft_false, new_point(pnt_dim_3, 0, 0, 1));
+			rot_mod(mod, ft_false, new_point(pnt_dim_3, 0, 0, random_sign * 1));
 		step_move++;
 	}
 	return (0);
