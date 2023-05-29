@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 14:11:35 by astein            #+#    #+#             */
-/*   Updated: 2023/05/25 12:45:30 by astein           ###   ########.fr       */
+/*   Updated: 2023/05/29 13:58:33 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,13 +50,13 @@ static void	img_pix_put(t_model *mod, t_point_2d *point, int color)
 }
 
 static void	img_line_put(t_model *mod, t_point_3d_colored *pnt_a,
-		t_point_3d_colored *pnt_b)
+						t_point_3d_colored *pnt_b)
 {
 	t_point_2d	*curr_point;
 	t_point_2d	*delta;
 	t_point_2d	*sign;
-	t_clr		*cur_color;
-	t_point_3d	*color_step;
+	t_clr		*cur_clr;
+	t_clr		*clr_step;
 	int			err;
 	int			e2;
 	int			delta_sum;
@@ -78,17 +78,13 @@ static void	img_line_put(t_model *mod, t_point_3d_colored *pnt_a,
 	else
 		sign->y = -1;
 	err = delta->x + delta->y;
-	cur_color = malloc(sizeof(t_clr));
-	cur_color->red = pnt_a->color.red;
-	cur_color->green = pnt_a->color.green;
-	cur_color->blue = pnt_a->color.blue;
-	color_step = step_clr(pnt_a->color, pnt_b->color, delta_sum);
+	cur_clr = malloc(sizeof(t_clr));
+	cpy_color(&pnt_a->color, cur_clr);
+	clr_step = step_clr(pnt_a->color, pnt_b->color, delta_sum);
 	while (1)
 	{
-		img_pix_put(mod, curr_point, color2int(*cur_color));
-		cur_color->red += color_step->x;
-		cur_color->green += color_step->y;
-		cur_color->blue += color_step->z;
+		img_pix_put(mod, curr_point, color2int(*cur_clr));
+		cpy_color(clr_step, cur_clr);
 		if (curr_point->x == pnt_b->x && curr_point->y == pnt_b->y)
 			break ;
 		e2 = 2 * err;
@@ -103,8 +99,8 @@ static void	img_line_put(t_model *mod, t_point_3d_colored *pnt_a,
 			curr_point->y += sign->y;
 		}
 	}
-	free_whatever("ppppp", curr_point, delta, sign, cur_color,
-		color_step);
+	free_whatever("ppppp", curr_point, delta, sign, cur_clr,
+		clr_step);
 }
 
 static void	nodes2line(t_model *mod, t_node *node_1, t_node *node_2)

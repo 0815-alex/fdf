@@ -72,9 +72,11 @@ LOONG	static_auto_zoom
 DONE	load_file
 	create_fd_list
 	create_map
-	ini_colors
+DONE	ini_colors
 	img_line_put
-	put_stats_to_view
-	dbg_printf
+DONE 	put_stats_to_view
+DONE	dbg_printf
 DONE	check_presets
+
+check mouse controll
 

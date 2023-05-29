@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 17:08:26 by astein            #+#    #+#             */
-/*   Updated: 2023/05/25 21:34:16 by astein           ###   ########.fr       */
+/*   Updated: 2023/05/29 14:06:28 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ void	ini_help(t_model *mod)
 	t_list	*cur_node;
 
 	fd = open(PATH_2_HELP, O_RDONLY);
-
 	if (fd < 0 || fd > FOPEN_MAX)
 		dbg_printf(err_block, "error opening help file: %s", PATH_2_HELP);
 	mod->help = malloc(sizeof(t_list *));
@@ -59,69 +58,62 @@ void	put_help_to_view(t_model *mod)
 	int		y;
 
 	cur_line = *(mod->help);
-	y = 2 * STR_PXL_HEIGHT;
+	y = 2 * SZ;
 	while (cur_line)
 	{
-		mlx_string_put(mod->mlx, mod->win, STR_PXL_HEIGHT, y, COLOR_GREEN,
+		mlx_string_put(mod->mlx, mod->win, SZ, y, CLR_G,
 			(char *)cur_line->content);
 		cur_line = cur_line->next;
-		y += STR_PXL_HEIGHT;
+		y += SZ;
 	}
+}
+
+static void	put_stats_frame_to_view(t_model *mod)
+{
+	int	x;
+
+	x = 300 * mod->show_help + SZ;
+	mlx_string_put(mod->mlx, mod->win, x, 2 * SZ, CLR_G,
+		"STATS | TRAN ROT ZOOM | AUTO");
+	mlx_string_put(mod->mlx, mod->win, x, 3 * SZ, CLR_G,
+		"------|---------------|-----");
+	mlx_string_put(mod->mlx, mod->win, x, 4 * SZ, CLR_G, "    x |");
+	mlx_string_put(mod->mlx, mod->win, x, 5 * SZ, CLR_G, "    y |");
+	mlx_string_put(mod->mlx, mod->win, x, 6 * SZ, CLR_G, "    z |");
+	x += 132;
+	mlx_string_put(mod->mlx, mod->win, x, 4 * SZ, CLR_G, "|");
+	mlx_string_put(mod->mlx, mod->win, x, 5 * SZ, CLR_G, "|");
+	mlx_string_put(mod->mlx, mod->win, x, 6 * SZ, CLR_G, "|");
+	mlx_string_put(mod->mlx, mod->win, x + SZ, 4 * SZ, CLR_G,
+		ft_btoa(mod->dof.auto_rotate, 1));
+	mlx_string_put(mod->mlx, mod->win, x + SZ, 5 * SZ, CLR_G,
+		ft_btoa(mod->dof.auto_color_change, 1));
 }
 
 void	put_stats_to_view(t_model *mod)
 {
-	char	*buf;
-	int 	x;
+	char	**v;
+	int		x;
 
-	x = 300 * mod->show_help + STR_PXL_HEIGHT;
-
-	mlx_string_put(mod->mlx, mod->win, x, 2 * STR_PXL_HEIGHT, COLOR_GREEN,
-		"STATS | TRANS ROT ZOOM  | AUTO");
-	mlx_string_put(mod->mlx, mod->win, x, 3 * STR_PXL_HEIGHT, COLOR_GREEN,
-		"------|------------------------------------------------");
-	mlx_string_put(mod->mlx, mod->win, x, 4 * STR_PXL_HEIGHT, COLOR_GREEN,
-		"    x | ");
-	mlx_string_put(mod->mlx, mod->win, x, 5 * STR_PXL_HEIGHT, COLOR_GREEN,
-		"    y | ");
-	mlx_string_put(mod->mlx, mod->win, x, 6 * STR_PXL_HEIGHT, COLOR_GREEN,
-		"    z | ");
-	x += 50;
-	buf = ft_itoa(mod->dof.trans.x);
-	mlx_string_put(mod->mlx, mod->win, x, 4 * STR_PXL_HEIGHT, COLOR_GREEN, buf);
-	free(buf);
-	buf = ft_itoa(mod->dof.trans.y);
-	mlx_string_put(mod->mlx, mod->win, x, 5 * STR_PXL_HEIGHT, COLOR_GREEN, buf);
-	mlx_string_put(mod->mlx, mod->win, x, 6 * STR_PXL_HEIGHT, COLOR_GREEN, "-");
-	x += 30;
-	free(buf);
-	buf = ft_itoa(radian2degree(mod->dof.rot_rad.x));
-	mlx_string_put(mod->mlx, mod->win, x, 4 * STR_PXL_HEIGHT, COLOR_GREEN, buf);
-	free(buf);
-	buf = ft_itoa(radian2degree(mod->dof.rot_rad.y));
-	mlx_string_put(mod->mlx, mod->win, x, 5 * STR_PXL_HEIGHT, COLOR_GREEN, buf);
-	free(buf);
-	buf = ft_itoa(radian2degree(mod->dof.rot_rad.z));
-	mlx_string_put(mod->mlx, mod->win, x, 6 * STR_PXL_HEIGHT, COLOR_GREEN, buf);
-	x += 30;
-	free(buf);
-	buf = ft_dtoa(mod->dof.zoom, 0);
-	mlx_string_put(mod->mlx, mod->win, x, 4 * STR_PXL_HEIGHT, COLOR_GREEN, buf);
-	mlx_string_put(mod->mlx, mod->win, x, 5 * STR_PXL_HEIGHT, COLOR_GREEN, buf);
-	free(buf);
-	buf = ft_dtoa(mod->dof.z_factor, 1);
-	mlx_string_put(mod->mlx, mod->win, x, 6 * STR_PXL_HEIGHT, COLOR_GREEN, buf);
-	x += 30;
-	mlx_string_put(mod->mlx, mod->win, x, 4 * STR_PXL_HEIGHT, COLOR_GREEN,
-		"|");
-	mlx_string_put(mod->mlx, mod->win, x, 5 * STR_PXL_HEIGHT, COLOR_GREEN,
-		"|");
-	mlx_string_put(mod->mlx, mod->win, x, 6 * STR_PXL_HEIGHT, COLOR_GREEN,
-		"|");
-	x += STR_PXL_HEIGHT;
-	mlx_string_put(mod->mlx, mod->win, x, 4 * STR_PXL_HEIGHT, COLOR_GREEN,
-		ft_btoa(mod->dof.auto_rotate, 1));
-	mlx_string_put(mod->mlx, mod->win, x, 5 * STR_PXL_HEIGHT, COLOR_GREEN,
-		ft_btoa(mod->dof.auto_color_change, 1));
-	free(buf);
+	put_stats_frame_to_view(mod);
+	v = malloc(sizeof(char *) * 8);
+	v[0] = ft_itoa(mod->dof.trans.x);
+	v[1] = ft_itoa(mod->dof.trans.y);
+	v[2] = ft_itoa(radian2degree(mod->dof.rot_rad.x));
+	v[3] = ft_itoa(radian2degree(mod->dof.rot_rad.y));
+	v[4] = ft_itoa(radian2degree(mod->dof.rot_rad.z));
+	v[5] = ft_dtoa(mod->dof.zoom, 0);
+	v[6] = ft_dtoa(mod->dof.z_factor, 1);
+	v[7] = NULL;
+	x = 300 * mod->show_help + SZ;
+	mlx_string_put(mod->mlx, mod->win, x + 3 * SZ, 4 * SZ, CLR_G, v[0]);
+	mlx_string_put(mod->mlx, mod->win, x + 3 * SZ, 5 * SZ, CLR_G, v[1]);
+	mlx_string_put(mod->mlx, mod->win, x + 3 * SZ, 6 * SZ, CLR_G, "-");
+	mlx_string_put(mod->mlx, mod->win, x + 5 * SZ, 4 * SZ, CLR_G, v[2]);
+	mlx_string_put(mod->mlx, mod->win, x + 5 * SZ, 5 * SZ, CLR_G, v[3]);
+	mlx_string_put(mod->mlx, mod->win, x + 5 * SZ, 6 * SZ, CLR_G, v[4]);
+	mlx_string_put(mod->mlx, mod->win, x + 7 * SZ, 4 * SZ, CLR_G, v[5]);
+	mlx_string_put(mod->mlx, mod->win, x + 7 * SZ, 5 * SZ, CLR_G, v[5]);
+	mlx_string_put(mod->mlx, mod->win, x + 7 * SZ, 6 * SZ, CLR_G, v[6]);
+	free_whatever ("a", v);
 }

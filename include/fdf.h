@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 16:51:18 by astein            #+#    #+#             */
-/*   Updated: 2023/05/26 02:41:22 by astein           ###   ########.fr       */
+/*   Updated: 2023/05/29 14:04:45 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@
 # define AUTO_MOVE_FRAMES 45
 
 //______SCREEN RESOLUTION_______________________________________________________
-# define STR_PXL_HEIGHT 15
+# define SZ 15
 
 //______DEFINE KEYS_____________________________________________________________
 
@@ -70,24 +70,19 @@
 # define B_CLS_WIN 17
 
 //______DEFINE COLOR____________________________________________________________
-
-// #define COLOR_WHITE ((uint8_t)255)
-// #define COLOR_RED ((uint8_t)255)
-// #define COLOR_GREEN ((uint8_t)0)
-// #define COLOR_BLACK ((uint8_t)0)
-// #define COLOR_BLUE ((uint8_t)255)
-// # define COLOR_BLACK 0x000000u
-// # define COLOR_RED 0xFF0000u
-# define COLOR_GREEN 0xFF00FF00
-// # define COLOR_BLUE 0x0000FFu
+# define CLR_WHITE 0xFFFFFFFF
+# define CLR_BLACK 0xFF000000
+# define CLR_R 0xFFFF0000
+# define CLR_G 0xFF00FF00
+# define CLR_B 0xFF0000FF
 
 //______STRUCTS ________________________________________________________________
 
 typedef struct s_clr
 {
-	uint8_t				red;
-	uint8_t				green;
-	uint8_t				blue;
+	int				red;
+	int				green;
+	int				blue;
 }						t_clr;
 
 typedef struct s_point_2d
@@ -170,7 +165,7 @@ typedef struct s_model
 	int					win_width;
 	int					win_height;
 	t_bool				close_pending;
-    t_bool				show_help;
+	t_bool				show_help;
 	t_bool				show_stats;
 	t_node				*net;
 	t_color_map			*clr_map;
@@ -180,7 +175,7 @@ typedef struct s_model
 	int					z_min;
 	t_point_3d			center_point;
 	t_img				img;
-    t_list              **help;
+	t_list				**help;
 }						t_model;
 
 typedef enum e_pnt_dim
@@ -201,8 +196,7 @@ void					free_color_maps(t_model *model);
 //______COLOR.C_________________________________________________________________
 
 void					ini_colors(t_model *model);
-t_point_3d				*step_clr(t_clr start_color,
-							t_clr end_color, int n_steps);
+t_clr					*step_clr(t_clr start_clr, t_clr end_clr, int n_steps);
 void					cpy_color(t_clr *src, t_clr *dest);
 int						color2int(t_clr clr);
 

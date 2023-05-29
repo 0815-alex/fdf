@@ -30,7 +30,8 @@ static void	insert_empty_char(t_list **fds)
 	cur_fd = malloc(sizeof(t_fd));
 	((t_fd *)cur_fd)->next = NULL;
 	((t_fd *)cur_fd)->fd = open(cur_filename, O_RDONLY);
-	dbg_printf(no_block, "open file: %s | fd=%d\n", cur_filename, ((t_fd *)cur_fd)->fd);
+	dbg_printf(no_block, "open file: %s | fd=%d\n", cur_filename,
+		((t_fd *)cur_fd)->fd);
 	ft_lstadd_back(fds, cur_fd);
 	ft_bzero(cur_filename, 100);
 }
@@ -51,43 +52,52 @@ static char	*create_new_file(char *str, int *new_fd)
 	return (new_file);
 }
 
-static void	create_fd_list(t_list **fds, char *str)
+static char	*create_filename(char *str)
 {
 	char	*buffer;
-	t_list	*cur_fd;
-	char	cur_filename[100];
+	char	*cur_filename;
 
-	cur_filename[0] = '\0';
+	cur_filename = ft_calloc(ft_strlen(PATH_2_CHARS) + 8, sizeof(char));
 	buffer = malloc(sizeof(char) * 2);
+	ft_bzero(cur_filename, 8);
+	ft_strlcat(cur_filename, PATH_2_CHARS, ft_strlen(PATH_2_CHARS) + 1);
+	ft_strlcpy(buffer, &str[0], 2);
+	if (ft_isalnum(*buffer))
+		ft_strlcat(cur_filename, buffer, ft_strlen(cur_filename) + 2);
+	else if (*buffer == '!')
+		ft_strlcat(cur_filename, "em", ft_strlen(cur_filename) + 3);
+	else if (*buffer == '-')
+		ft_strlcat(cur_filename, "dh", ft_strlen(cur_filename) + 3);
+	else if (*buffer == '.')
+		ft_strlcat(cur_filename, "dt", ft_strlen(cur_filename) + 3);
+	else if (*buffer == '_')
+		ft_strlcat(cur_filename, "us", ft_strlen(cur_filename) + 3);
+	else if (*buffer == ' ')
+		ft_strlcat(cur_filename, "sp", ft_strlen(cur_filename) + 3);
+	else
+		ft_strlcat(cur_filename, "qm", ft_strlen(cur_filename) + 3);
+	ft_strlcat(cur_filename, ".fdf", ft_strlen(cur_filename) + 5);
+	free(buffer);
+	return (cur_filename);
+}
+
+static void	create_fd_list(t_list **fds, char *str)
+{
+	t_list	*cur_fd;
+	char	*cur_filename;
+
 	insert_empty_char(fds);
 	while (*str)
 	{
-		ft_bzero(cur_filename, 100);
-		ft_strlcat(cur_filename, PATH_2_CHARS, ft_strlen(PATH_2_CHARS) + 1);
-		ft_strlcpy(buffer, &str[0], 2);
-		if (ft_isalnum(*buffer))
-			ft_strlcat(cur_filename, buffer, ft_strlen(cur_filename) + 2);
-		else if (*buffer == '!')
-			ft_strlcat(cur_filename, "em", ft_strlen(cur_filename) + 3);
-		else if (*buffer == '-')
-			ft_strlcat(cur_filename, "dh", ft_strlen(cur_filename) + 3);
-		else if (*buffer == '.')
-			ft_strlcat(cur_filename, "dt", ft_strlen(cur_filename) + 3);
-		else if (*buffer == '_')
-			ft_strlcat(cur_filename, "us", ft_strlen(cur_filename) + 3);
-		else if (*buffer == ' ')
-			ft_strlcat(cur_filename, "sp", ft_strlen(cur_filename) + 3);
-		else
-			ft_strlcat(cur_filename, "qm", ft_strlen(cur_filename) + 3);
-		ft_strlcat(cur_filename, ".fdf", ft_strlen(cur_filename) + 5);
+		cur_filename = create_filename(str);
 		cur_fd = malloc(sizeof(t_fd));
 		((t_fd *)cur_fd)->next = NULL;
 		((t_fd *)cur_fd)->fd = open(cur_filename, O_RDONLY);
+		free(cur_filename);
 		ft_lstadd_back(fds, cur_fd);
 		str++;
 	}
 	insert_empty_char(fds);
-	free(buffer);
 }
 
 static void	free_fd_list(t_list **fds)

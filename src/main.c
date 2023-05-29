@@ -16,7 +16,6 @@ int	main(int argc, char **argv)
 {
 	t_model	*mod;
 
-    printf("DEBUG: %d", DEBUG);
 	dbg_printf(start_block, "main");
 	mod = new_model(argc, argv);
 	dbg_printf(no_block, "start deamon...\n");

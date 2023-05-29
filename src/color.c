@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 15:21:14 by astein            #+#    #+#             */
-/*   Updated: 2023/05/26 00:54:02 by astein           ###   ########.fr       */
+/*   Updated: 2023/05/29 14:00:18 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	ini_colors(t_model *mod)
 {
 	t_node		*cur_node;
-	t_point_3d	*step[2];
+	t_clr		*step[2];
 	int			i;
 
 	step[0] = step_clr(mod->clr_map->zero, mod->clr_map->min, abs(mod->z_min));
@@ -25,49 +25,31 @@ void	ini_colors(t_model *mod)
 	{
 		while (cur_node)
 		{
-			i = 0;
+			i = -1;
 			cpy_color(&mod->clr_map->zero, &cur_node->color);
-			while (cur_node->pnt->z > i)
-			{
-				cur_node->color.red += step[1]->x;
-				cur_node->color.green += step[1]->y;
-				cur_node->color.blue += step[1]->z;
-				i++;
-			}
-			i = 0;
-			while (cur_node->pnt->z < i)
-			{
-				cur_node->color.red += step[0]->x;
-				cur_node->color.green += step[0]->y;
-				cur_node->color.blue += step[0]->z;
-				i--;
-			}
+			while (cur_node->pnt->z > ++i)
+				cpy_color(step[1], &cur_node->color);
+			i = -1;
+			while (cur_node->pnt->z < --i)
+				cpy_color(step[0], &cur_node->color);
 			cur_node = cur_node->next;
 		}
 	}
 	free_whatever("pp", step[0], step[1]);
 }
 
-/*
-    HIer muss ich ein 3d punkt nehmen, da t_clr keine negativen
-    farb steps speichern kann da unsigned
-*/
-t_point_3d	*step_clr(t_clr start_color, t_clr end_color, int n_steps)
+t_clr	*step_clr(t_clr start_clr, t_clr end_clr, int n_steps)
 {
-	t_point_3d	*step;
+	t_clr	*step;
 
 	step = malloc(sizeof(t_point_3d));
 	if (abs(n_steps) < 1)
-	{
-		step->x = end_color.red;
-		step->y = end_color.green;
-		step->z = end_color.blue;
-	}
+		cpy_color(&end_clr, step);
 	else
 	{
-		step->x = (int)(end_color.red - start_color.red) / n_steps;
-		step->y = (int)(end_color.green - start_color.green) / n_steps;
-		step->z = (int)(end_color.blue - start_color.blue) / n_steps;
+		step->red = (int)(end_clr.red - start_clr.red) / n_steps;
+		step->green = (int)(end_clr.green - start_clr.green) / n_steps;
+		step->blue = (int)(end_clr.blue - start_clr.blue) / n_steps;
 	}
 	return (step);
 }

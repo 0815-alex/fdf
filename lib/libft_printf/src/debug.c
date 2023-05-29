@@ -40,35 +40,28 @@ static void	print_tab_level(t_dbg_flag dbg_flg)
 
 void	dbg_printf(t_dbg_flag dbg_flg, char *str, ...)
 {
-	va_list	args;
-	int		len;
-	int		len_add;
+	va_list			args;
+
 	if (DEBUG == 1 || dbg_flg == err_block)
 	{
 		print_tab_level(dbg_flg);
 		va_start(args, str);
-		len = 0;
 		while (*str)
 		{
 			if (*str == '%')
 			{
-				str++;
-				len_add = 0;
-				len_add = print_whatever(args, (char *)str);
-				if (len_add == 0)
-					len_add = print_whatever_digits(args, (char *)(str++));
-				len += len_add;
+				if (print_whatever(args, (char *)(++str)) == 0)
+					print_whatever_digits(args, (char *)(str++));
 			}
 			else
-				print_char(*str, &len);
+				ft_putchar_fd(*str, 1);
 			str++;
 		}
 		va_end(args);
 		ft_putstr_fd("\n", 1);
-		if (dbg_flg == err_block)
-		{
-			perror("\nSystem error msg");
-			exit(1);
-		}
+		if (dbg_flg != err_block)
+			return ;
+		perror("\nSystem error msg");
+		exit (1);
 	}
 }

@@ -5,7 +5,7 @@ CC = cc
 CFLAGS = -Wall -Werror -Wextra -g -fsanitize=address -fsanitize-address-use-after-scope
 RM = rm -f
 
-# Prints DEBUG Messages
+# DEBUG Messages on/off
 ifndef DEBUG
 	DEBUG = 0
 endif
@@ -83,7 +83,6 @@ OBJS = $(SRCS:$(SRC_FOLDER)%.c=$(OBJS_FOLDER)%.o)
 .PHONY:	all clean fclean re
 
 all: $(NAME)
-	@echo "DEBUG: " $(DEBUG)
 
 $(NAME): $(OBJS)
 	@ar -crs $@ $^
