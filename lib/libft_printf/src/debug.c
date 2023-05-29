@@ -43,7 +43,6 @@ void	dbg_printf(t_dbg_flag dbg_flg, char *str, ...)
 	va_list	args;
 	int		len;
 	int		len_add;
-
 	if (DEBUG == 1 || dbg_flg == err_block)
 	{
 		print_tab_level(dbg_flg);

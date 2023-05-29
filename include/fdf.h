@@ -12,9 +12,6 @@
 
 #ifndef FDF_H
 # define FDF_H
-# ifndef DEBUG
-#  define DEBUG 0
-# endif
 
 # include "../lib/libft_printf/libft_printf.h"
 # include "../lib/minilibx/mlx.h"
@@ -176,7 +173,7 @@ typedef struct s_model
     t_bool				show_help;
 	t_bool				show_stats;
 	t_node				*net;
-	t_color_map			*color_map;
+	t_color_map			*clr_map;
 	t_dof_plus			dof;
 	t_point_2d			net_dim;
 	int					z_max;
@@ -204,7 +201,7 @@ void					free_color_maps(t_model *model);
 //______COLOR.C_________________________________________________________________
 
 void					ini_colors(t_model *model);
-t_point_3d				*calculate_step_color(t_clr start_color,
+t_point_3d				*step_clr(t_clr start_color,
 							t_clr end_color, int n_steps);
 void					cpy_color(t_clr *src, t_clr *dest);
 int						color2int(t_clr clr);

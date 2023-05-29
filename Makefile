@@ -4,7 +4,7 @@
 NAME = fdf
 
 # Prints DEBUG Messages
-DEBUG = 1
+DEBUG = 0
 
 # Compiler options
 CC = cc
@@ -58,6 +58,7 @@ OBJS = $(SRCS:$(SRC_FOLDER)%.c=$(OBJS_FOLDER)%.o)
 .PHONY: all clean fclean re 42 a m p god clean_libs re_incl_libs
 
 all: $(NAME)
+	@echo "DEBUG: " $(DEBUG)
 
 $(NAME): $(OBJS) $(LIBFT_PRINTF) $(MINILIBX)
 	@$(CC) $(OBJS) $(CFLAGS) -D DEBUG=$(DEBUG) $(CLIBS) $(CINCLUDES) -lft_printf -lmlx -lX11 -lXext -lm -o $(NAME)
@@ -83,6 +84,7 @@ clean:
 
 
 fclean: clean
+	@make --no-print-directory -C $(LIBFT_PRINTF_FOLDER) fclean
 	@$(RM) $(NAME)
 	@echo "$(RED)$(NAME): cleaned program$(RESET)"
 

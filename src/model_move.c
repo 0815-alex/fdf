@@ -95,7 +95,7 @@ t_bool	static_auto_zoom(t_model *mod, t_bool zoom_in)
 			zoom_end = mod->dof.zoom;
 			cpy_dof(cur_dof, &mod->dof);
 			free(cur_dof);
-			dbg_printf(no_block, "zoom in (%lf -> %lf)\n", mod->dof.zoom,
+			dbg_printf(no_block, "zoom in (%d2 -> %d2)\n", mod->dof.zoom,
 				zoom_end);
 		}
 		else
@@ -103,7 +103,7 @@ t_bool	static_auto_zoom(t_model *mod, t_bool zoom_in)
 			sign = -1;
 			zoom_start = mod->dof.zoom;
 			zoom_end = AUTO_ZOOM_INI_LEVEL;
-			dbg_printf(no_block, "zoom in (%lf -> %lf)\n", mod->dof.zoom,
+			dbg_printf(no_block, "zoom out (%d2 -> %d2)\n", mod->dof.zoom,
 				zoom_end);
 		}
 		increment = (zoom_end - zoom_start) / AUTO_ZOOM_FRAMES;

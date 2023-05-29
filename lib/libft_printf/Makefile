@@ -6,9 +6,8 @@ CFLAGS = -Wall -Werror -Wextra -g -fsanitize=address -fsanitize-address-use-afte
 RM = rm -f
 
 # Prints DEBUG Messages
-DEBUG = 0
-ifeq ($(DEBUG),1)
-    DEBUG = 1
+ifndef DEBUG
+	DEBUG = 0
 endif
 
 # Color codes
@@ -83,7 +82,8 @@ OBJS = $(SRCS:$(SRC_FOLDER)%.c=$(OBJS_FOLDER)%.o)
 # Targets
 .PHONY:	all clean fclean re
 
-all: $(NAME) 
+all: $(NAME)
+	@echo "DEBUG: " $(DEBUG)
 
 $(NAME): $(OBJS)
 	@ar -crs $@ $^
@@ -92,7 +92,7 @@ $(NAME): $(OBJS)
 $(OBJS_FOLDER)%.o: $(SRC_FOLDER)%.c
 	@mkdir -p $(@D)
 	@echo -n "."
-	@$(CC) $(CFLAGS) -c $< -o $@
+	@$(CC) $(CFLAGS) -DDEBUG=$(DEBUG) -c $< -o $@
 
 
 clean:

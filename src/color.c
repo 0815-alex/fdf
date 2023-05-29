@@ -15,60 +15,49 @@
 void	ini_colors(t_model *mod)
 {
 	t_node		*cur_node;
-	t_point_3d	*step_neg;
-	t_point_3d	*step_pos;
+	t_point_3d	*step[2];
 	int			i;
 
-	if (abs(mod->z_min) != 0)
-		step_neg = calculate_step_color(mod->color_map->zero,
-				mod->color_map->min, abs(mod->z_min));
-	if (abs(mod->z_max) != 0)
-		step_pos = calculate_step_color(mod->color_map->zero,
-				mod->color_map->max, abs(mod->z_max));
+	step[0] = step_clr(mod->clr_map->zero, mod->clr_map->min, abs(mod->z_min));
+	step[1] = step_clr(mod->clr_map->zero, mod->clr_map->max, abs(mod->z_max));
 	cur_node = mod->net;
 	if (cur_node)
 	{
 		while (cur_node)
 		{
 			i = 0;
-			cur_node->color.red = mod->color_map->zero.red;
-			cur_node->color.green = mod->color_map->zero.green;
-			cur_node->color.blue = mod->color_map->zero.blue;
+			cpy_color(&mod->clr_map->zero, &cur_node->color);
 			while (cur_node->pnt->z > i)
 			{
-				cur_node->color.red += step_pos->x;
-				cur_node->color.green += step_pos->y;
-				cur_node->color.blue += step_pos->z;
+				cur_node->color.red += step[1]->x;
+				cur_node->color.green += step[1]->y;
+				cur_node->color.blue += step[1]->z;
 				i++;
 			}
 			i = 0;
 			while (cur_node->pnt->z < i)
 			{
-				cur_node->color.red += step_neg->x;
-				cur_node->color.green += step_neg->y;
-				cur_node->color.blue += step_neg->z;
+				cur_node->color.red += step[0]->x;
+				cur_node->color.green += step[0]->y;
+				cur_node->color.blue += step[0]->z;
 				i--;
 			}
 			cur_node = cur_node->next;
 		}
 	}
-	if (abs(mod->z_min) != 0)
-		free_whatever("p", step_neg);
-	if (abs(mod->z_max) != 0)
-		free_whatever("p", step_pos);
+	free_whatever("pp", step[0], step[1]);
 }
 
 /*
     HIer muss ich ein 3d punkt nehmen, da t_clr keine negativen
     farb steps speichern kann da unsigned
 */
-t_point_3d	*calculate_step_color(t_clr start_color, t_clr end_color,
-				int n_steps)
+t_point_3d	*step_clr(t_clr start_color, t_clr end_color, int n_steps)
 {
 	t_point_3d	*step;
 
 	step = malloc(sizeof(t_point_3d));
-	if (n_steps < 1)
+	if (abs(n_steps) < 1)
 	{
 		step->x = end_color.red;
 		step->y = end_color.green;
@@ -83,6 +72,12 @@ t_point_3d	*calculate_step_color(t_clr start_color, t_clr end_color,
 	return (step);
 }
 
+/**
+ * @brief   copies the RGB values frome src to the ones of dest
+ * 
+ * @param   src     the t_clr objet to GET the colors FROM
+ * @param   dest    the t_clr objet to SET the colors TO
+ */
 void	cpy_color(t_clr *src, t_clr *dest)
 {
 	dest->red = src->red;

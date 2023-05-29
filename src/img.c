@@ -82,7 +82,7 @@ static void	img_line_put(t_model *mod, t_point_3d_colored *pnt_a,
 	cur_color->red = pnt_a->color.red;
 	cur_color->green = pnt_a->color.green;
 	cur_color->blue = pnt_a->color.blue;
-	color_step = calculate_step_color(pnt_a->color, pnt_b->color, delta_sum);
+	color_step = step_clr(pnt_a->color, pnt_b->color, delta_sum);
 	while (1)
 	{
 		img_pix_put(mod, curr_point, color2int(*cur_color));

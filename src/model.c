@@ -76,7 +76,7 @@ int	close_model(t_model *mod)
 	free_color_maps(mod);
 	free_help(mod);
 	mlx_destroy_image(mod->mlx, mod->img.mlx_img);
-	free_whatever("pp", mod->help, mod->color_map);
+	free_whatever("pp", mod->help, mod->clr_map);
 	free(mod);
 	exit(0);
 	return (0);

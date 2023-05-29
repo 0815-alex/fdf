@@ -18,7 +18,7 @@ static void			ini_color_maps_part2(t_model *mod);
 
 void	ini_color_maps(t_model *mod)
 {
-	mod->color_map = NULL;
+	mod->clr_map = NULL;
 	add_color_map(mod, (t_clr){0, 0, 255}, (t_clr){255, 255, 255},
 		(t_clr){255, 0, 0});
 	add_color_map(mod, (t_clr){0, 0, 255}, (t_clr){0, 255, 0},
@@ -60,7 +60,7 @@ static void	ini_color_maps_part2(t_model *mod)
 
 void	next_color_map(t_model *mod)
 {
-	mod->color_map = mod->color_map->next;
+	mod->clr_map = mod->clr_map->next;
 	ini_colors(mod);
 	create_next_img(mod);
 }
@@ -74,28 +74,28 @@ static t_color_map	*add_color_map(t_model *mod, t_clr min, t_clr zero,
 	cpy_color(&min, &new_map->min);
 	cpy_color(&zero, &new_map->zero);
 	cpy_color(&max, &new_map->max);
-	if (!mod->color_map)
+	if (!mod->clr_map)
 	{
-		mod->color_map = new_map;
+		mod->clr_map = new_map;
 		new_map->next = new_map;
 		new_map->previous = new_map;
 	}
 	else
 	{
-		mod->color_map->previous->next = new_map;
-		new_map->next = mod->color_map;
-		new_map->previous = mod->color_map->previous;
-		mod->color_map->previous = new_map;
+		mod->clr_map->previous->next = new_map;
+		new_map->next = mod->clr_map;
+		new_map->previous = mod->clr_map->previous;
+		mod->clr_map->previous = new_map;
 	}
 	return (new_map);
 }
 
 void	free_color_maps(t_model *mod)
 {
-	mod->color_map->previous->next = NULL;
-	while (mod->color_map->next)
+	mod->clr_map->previous->next = NULL;
+	while (mod->clr_map->next)
 	{
-		mod->color_map = mod->color_map->next;
-		free(mod->color_map->previous);
+		mod->clr_map = mod->clr_map->next;
+		free(mod->clr_map->previous);
 	}
 }
