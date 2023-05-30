@@ -67,16 +67,16 @@ DONE	- makefile call minilib make
 
 3 TO LONG FUNCTIONS!
 -----------------------
-HARD	ft_split
-LOONG	static_auto_zoom
+DONE	ft_split
 DONE	load_file
 DONE	create_fd_list
 DONE	create_map
 DONE	ini_colors
-	img_line_put
 DONE 	put_stats_to_view
 DONE	dbg_printf
 DONE	check_presets
+	img_line_put
+LOONG	static_auto_zoom
 
 check mouse controll
 
