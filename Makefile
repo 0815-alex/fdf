@@ -41,6 +41,7 @@ SRCS = $(addprefix $(SRC_FOLDER), \
 	img.c \
 	list.c \
 	main.c \
+	map_creator_utils.c \
 	map_creator.c \
 	model.c \
 	model_move.c \

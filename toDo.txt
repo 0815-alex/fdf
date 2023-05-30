@@ -70,8 +70,8 @@ DONE	- makefile call minilib make
 HARD	ft_split
 LOONG	static_auto_zoom
 DONE	load_file
-	create_fd_list
-	create_map
+DONE	create_fd_list
+DONE	create_map
 DONE	ini_colors
 	img_line_put
 DONE 	put_stats_to_view
