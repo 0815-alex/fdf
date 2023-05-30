@@ -91,13 +91,12 @@ typedef struct s_point_2d
 	int					y;
 }						t_point_2d;
 
-typedef struct s_point_3d_colored
+typedef struct s_col_point_2d
 {
 	int					x;
 	int					y;
-	int					z;
 	t_clr				color;
-}						t_point_3d_colored;
+}						t_col_point_2d;
 
 typedef struct s_point_3d
 {
@@ -198,7 +197,9 @@ void					free_color_maps(t_model *model);
 void					ini_colors(t_model *model);
 t_clr					*step_clr(t_clr start_clr, t_clr end_clr, int n_steps);
 void					cpy_color(t_clr *src, t_clr *dest);
-int						color2int(t_clr clr);
+int						color2int(t_model *mod, t_clr clr);
+void                       print_clr(t_clr cur_clr);
+
 
 //______CONTROLLER_KEYS.C_______________________________________________________
 int						deal_key(int key, t_model *model);
@@ -258,7 +259,7 @@ t_node					*new_node(t_point_3d *point);
 void					print_node(t_node *node);
 char					*node2str(t_node *node);
 void					node2point(t_model *model, t_node *node,
-							t_point_3d_colored *point);
+							t_col_point_2d *point);
 
 //______PARSER.C________________________________________________________________
 void					load_file(int argc, char **argv, t_model *model);

@@ -61,7 +61,7 @@ char	*node2str(t_node *node)
 	}
 }
 
-void	node2point(t_model *mod, t_node *node, t_point_3d_colored *point)
+void	node2point(t_model *mod, t_node *node, t_col_point_2d *point)
 {
 	double	x;
 	double	y;

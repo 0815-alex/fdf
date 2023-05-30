@@ -4,7 +4,7 @@
 NAME = fdf
 
 # Prints DEBUG Messages
-DEBUG = 1
+DEBUG = 0
 
 # Compiler options
 CC = cc

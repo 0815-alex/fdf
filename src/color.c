@@ -12,6 +12,11 @@
 
 #include "../include/fdf.h"
 
+void print_clr(t_clr cur_clr)
+{
+    printf("color: (%d|%d|%d)\n", cur_clr.red, cur_clr.green, cur_clr.blue);
+}
+
 void	ini_colors(t_model *mod)
 {
 	t_node		*cur_node;
@@ -67,10 +72,13 @@ void	cpy_color(t_clr *src, t_clr *dest)
 	dest->blue = src->blue;
 }
 
-int	color2int(t_clr clr)
+int	color2int(t_model *mod, t_clr clr)
 {
 	int	i_clr;
-
-	i_clr = (255 << 24) | (clr.red << 16) | (clr.green << 8) | clr.blue;
+    int f = mod->dof.trans.x;
+    f++;
+	// i_clr = (0 << 24) | ((uint8_t) clr.red << 16) | ( clr.green << 8) |  clr.blue;
+    i_clr = mlx_get_color_value(mod->mlx, (clr.red << 16) | (clr.green << 8) | clr.blue);
+    printf ("clr: %d\n", i_clr);
 	return (i_clr);
 }
