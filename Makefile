@@ -50,7 +50,8 @@ SRCS = $(addprefix $(SRC_FOLDER), \
 	point.c \
 	utils.c \
 	view.c \
-	view_txt.c)
+	view_txt.c \
+	zoom.c)
 
 # Object files
 OBJS = $(SRCS:$(SRC_FOLDER)%.c=$(OBJS_FOLDER)%.o)
@@ -84,7 +85,7 @@ clean:
 
 
 fclean: clean
-	@make --no-print-directory -C $(LIBFT_PRINTF_FOLDER) fclean
+	#@make --no-print-directory -C $(LIBFT_PRINTF_FOLDER) fclean
 	@$(RM) $(NAME)
 	@echo "$(RED)$(NAME): cleaned program$(RESET)"
 

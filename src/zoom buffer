@@ -1,0 +1,101 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   zoom.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/23 18:42:22 by astein            #+#    #+#             */
+/*   Updated: 2023/05/26 00:11:01 by astein           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../include/fdf.h"
+
+void	ini_zoom(double *zoom_values, t_bool zoom_in, int *sign, t_dof_plus *cur_dof, t_model *mod)
+{
+	zoom_values[0] = mod->dof.zoom;
+	if (zoom_in == ft_true)
+	{
+		*sign = 1;
+		cur_dof = malloc(sizeof(t_dof_plus));
+		cpy_dof(&mod->dof, cur_dof);
+		center_model(mod);
+		zoom_values[1] = mod->dof.zoom;
+		cpy_dof(cur_dof, &mod->dof);
+		free(cur_dof);
+		dbg_printf(no_block, "zoom in (%d2 -> %d2)\n", mod->dof.zoom,
+			zoom_values[1]);
+	}
+	else
+	{
+		*sign = -1;
+		zoom_values[1] = AUTO_ZOOM_INI_LEVEL;
+		dbg_printf(no_block, "zoom out (%d2 -> %d2)\n", mod->dof.zoom,
+			zoom_values[1]);
+	}
+	zoom_values[2] = (zoom_values[1] - zoom_values[0]) / AUTO_ZOOM_FRAMES;
+}
+
+/**
+ * @brief 
+ * 
+ * 				In zoom_values i store:
+ * 					0 =	zoom start
+ * 					1 = zoom end
+ * 					2 = zoom increment
+ * 
+ * @param mod 
+ * @param zoom_in 
+ * @return t_bool 
+ */
+t_bool	static_auto_zoom(t_model *mod, t_bool zoom_in)
+{
+	static double	zoom_values[3];
+	static int		cur_step;
+	static int		sign;
+	t_dof_plus		*cur_dof;
+
+	if (zoom_values[0] == 0)
+	{
+	cur_dof = NULL;
+		ini_zoom(zoom_values, zoom_in, &sign, cur_dof, mod);
+	}
+	if (zoom_values[1] < (mod->dof.zoom  + (sign * zoom_values[2] * 0.5)))
+	{
+		if (cur_step < AUTO_ZOOM_FRAMES / 5)
+			scale_mod(mod, ft_false, (0.5 * zoom_values[2]), 0);
+		else if (cur_step < 2 * (AUTO_ZOOM_FRAMES / 5))
+			scale_mod(mod, ft_false, (zoom_values[2]), 0);
+		else if (cur_step < 3 * (AUTO_ZOOM_FRAMES / 5))
+			scale_mod(mod, ft_false, (2 * zoom_values[2]), 0);
+		else if (cur_step < 4 * (AUTO_ZOOM_FRAMES / 5))
+			scale_mod(mod, ft_false, (zoom_values[2]), 0);
+		else
+		{
+			if (sign == 1)
+			{
+				if (mod->dof.zoom + (zoom_values[2] * 0.5) <= zoom_values[1])
+					scale_mod(mod, ft_false, (zoom_values[2] * 0.5), 0);
+				else
+					scale_mod(mod, ft_true, zoom_values[1], mod->dof.z_factor);
+			}
+			else
+			{
+				if (mod->dof.zoom + (zoom_values[2] * 0.5) >= zoom_values[1])
+					scale_mod(mod, ft_false, (zoom_values[2] * 0.5), 0);
+				else
+					scale_mod(mod, ft_true, zoom_values[1], mod->dof.z_factor);
+			}
+		}
+		cur_step++;
+	}
+	else
+	{
+		zoom_values[0] = 0;
+		cur_step = 0;
+		sign = 0;
+		return (ft_true);
+	}
+	return (ft_false);
+}

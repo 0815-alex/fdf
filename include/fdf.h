@@ -245,7 +245,6 @@ void					trans_mod(t_model *model, t_bool ovr,
 void					rot_mod(t_model *model, t_bool ovr, t_point_3d *deg);
 void					scale_mod(t_model *model, t_bool ovr, double zoom,
 							double z_factor);
-t_bool					static_auto_zoom(t_model *model, t_bool zoom_in);
 void					static_auto_rotate(t_model *mod);
 
 //______MODEL.C_________________________________________________________________
@@ -283,5 +282,9 @@ void					ini_help(t_model *mod);
 void					free_help(t_model *mod);
 void					put_help_to_view(t_model *mod);
 void					put_stats_to_view(t_model *mod);
+
+//______ZOOM.C__________________________________________________________________
+void	ini_zoom(double *zoom_values, t_bool zoom_in, int *sign, t_dof_plus *cur_dof, t_model *mod);
+t_bool					static_auto_zoom(t_model *model, t_bool zoom_in);
 
 #endif
