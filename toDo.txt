@@ -75,8 +75,10 @@ DONE	ini_colors
 DONE 	put_stats_to_view
 DONE	dbg_printf
 DONE	check_presets
-	img_line_put
-LOONG	static_auto_zoom
+DONE	img_line_put
+DONE	static_auto_zoom
 
 check mouse controll
+
+file of mapcreator has a problem if u call it twice
 

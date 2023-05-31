@@ -60,6 +60,31 @@ int	auto_changes(t_model *mod)
 	return (0);
 }
 
+void	ini_colors(t_model *mod)
+{
+	t_node	*cur_node;
+	t_clr	*stp[3];
+
+	stp[0] = step_clr(mod->clr_map->zero, mod->clr_map->min, mod->z_min);
+	stp[1] = step_clr(mod->clr_map->zero, mod->clr_map->max, mod->z_max);
+	cur_node = mod->net;
+	if (cur_node)
+	{
+		while (cur_node)
+		{
+			if (cur_node->pnt->z <= 0)
+				stp[2] = sum_clr(&mod->clr_map->zero, stp[0], cur_node->pnt->z);
+			else if (cur_node->pnt->z > 0)
+				stp[2] = sum_clr(&mod->clr_map->zero, stp[1], cur_node->pnt->z);
+			cpy_color(stp[2], &cur_node->clr);
+			free(stp[2]);
+			cur_node = cur_node->next;
+		}
+	}
+	free(stp[0]);
+	free(stp[1]);
+}
+
 void	shedule_close(t_model *mod)
 {
 	mod->dof.auto_zoom = -1;

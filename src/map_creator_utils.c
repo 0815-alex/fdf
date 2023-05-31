@@ -98,6 +98,7 @@ t_list	**create_fd_list(char *str)
 		cur_fd = malloc(sizeof(t_fd));
 		((t_fd *)cur_fd)->next = NULL;
 		((t_fd *)cur_fd)->fd = open(cur_filename, O_RDONLY);
+		dbg_printf(no_block, "closed fd: %d\n", ((t_fd *)cur_fd)->fd);
 		free(cur_filename);
 		ft_lstadd_back(fds, cur_fd);
 		str++;
@@ -114,7 +115,7 @@ void	free_fd_list(t_list **fds, int new_fd)
 	while (cur_fd)
 	{
 		close(((t_fd *)cur_fd)->fd);
-		printf("closed fd: %d\n", ((t_fd *)cur_fd)->fd);
+		dbg_printf(no_block, "closed fd: %d\n", ((t_fd *)cur_fd)->fd);
 		cur_fd = ((t_list *)cur_fd)->next;
 	}
 	cur_fd = *fds;

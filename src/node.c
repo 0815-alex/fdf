@@ -18,9 +18,9 @@ t_node	*new_node(t_point_3d *point)
 
 	new_node = malloc(sizeof(t_node));
 	new_node->pnt = point;
-	new_node->color.red = 255;
-	new_node->color.green = 255;
-	new_node->color.blue = 255;
+	new_node->clr.red = 255;
+	new_node->clr.green = 255;
+	new_node->clr.blue = 255;
 	new_node->next = NULL;
 	new_node->west = NULL;
 	new_node->north = NULL;
@@ -87,5 +87,18 @@ void	node2point(t_model *mod, t_node *node, t_col_point_2d *point)
 			* sin(mod->dof.rot_rad.y) * sin(mod->dof.rot_rad.z));
 	point->x += mod->center_point.x + mod->dof.trans.x;
 	point->y += mod->center_point.y + mod->dof.trans.y;
-	point->color = node->color;
+	point->clr = node->clr;
+}
+
+void	nodes2line(t_model *mod, t_node *n_a, t_node *n_b)
+{
+	t_col_point_2d	*p1;
+	t_col_point_2d	*p2;
+
+	p1 = malloc(sizeof(t_col_point_2d));
+	p2 = malloc(sizeof(t_col_point_2d));
+	node2point(mod, n_a, p1);
+	node2point(mod, n_b, p2);
+	draw_line(mod, p1, p2);
+	free_whatever("pp", p1, p2);
 }

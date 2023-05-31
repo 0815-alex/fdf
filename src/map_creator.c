@@ -54,5 +54,6 @@ char	*create_map(char *str)
 			write(new_fd, " ", 1);
 	}
 	free_fd_list(fds, new_fd);
+    sleep(1);
 	return (strs[2]);
 }

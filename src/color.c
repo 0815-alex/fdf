@@ -12,49 +12,18 @@
 
 #include "../include/fdf.h"
 
-void print_clr(t_clr cur_clr)
-{
-    printf("color: (%d|%d|%d)\n", cur_clr.red, cur_clr.green, cur_clr.blue);
-}
-
-void	ini_colors(t_model *mod)
-{
-	t_node		*cur_node;
-	t_clr		*step[2];
-	int			i;
-
-	step[0] = step_clr(mod->clr_map->zero, mod->clr_map->min, abs(mod->z_min));
-	step[1] = step_clr(mod->clr_map->zero, mod->clr_map->max, abs(mod->z_max));
-	cur_node = mod->net;
-	if (cur_node)
-	{
-		while (cur_node)
-		{
-			i = -1;
-			cpy_color(&mod->clr_map->zero, &cur_node->color);
-			while (cur_node->pnt->z > ++i)
-				cpy_color(step[1], &cur_node->color);
-			i = -1;
-			while (cur_node->pnt->z < --i)
-				cpy_color(step[0], &cur_node->color);
-			cur_node = cur_node->next;
-		}
-	}
-	free_whatever("pp", step[0], step[1]);
-}
-
-t_clr	*step_clr(t_clr start_clr, t_clr end_clr, int n_steps)
+t_clr	*step_clr(t_clr start_clr, t_clr end_clr, double n_steps)
 {
 	t_clr	*step;
 
-	step = malloc(sizeof(t_point_3d));
-	if (abs(n_steps) < 1)
+	step = malloc(sizeof(t_clr));
+	if (fabs(n_steps) < 1)
 		cpy_color(&end_clr, step);
 	else
 	{
-		step->red = (int)(end_clr.red - start_clr.red) / n_steps;
-		step->green = (int)(end_clr.green - start_clr.green) / n_steps;
-		step->blue = (int)(end_clr.blue - start_clr.blue) / n_steps;
+		step->red = (end_clr.red - start_clr.red) / n_steps;
+		step->green = (end_clr.green - start_clr.green) / n_steps;
+		step->blue = (end_clr.blue - start_clr.blue) / n_steps;
 	}
 	return (step);
 }
@@ -72,13 +41,39 @@ void	cpy_color(t_clr *src, t_clr *dest)
 	dest->blue = src->blue;
 }
 
-int	color2int(t_model *mod, t_clr clr)
+t_clr	*sum_clr(t_clr *a, t_clr *b, int b_factor)
+{
+	t_clr	*clr;
+
+	clr = malloc(sizeof(t_clr));
+	clr->red = a->red + (b_factor * b->red);
+	clr->green = a->green + (b_factor * b->green);
+	clr->blue = a->blue + (b_factor * b->blue);
+	return (clr);
+}
+
+int	color2int(t_model *mod, t_clr *clr)
 {
 	int	i_clr;
-    int f = mod->dof.trans.x;
-    f++;
-	// i_clr = (0 << 24) | ((uint8_t) clr.red << 16) | ( clr.green << 8) |  clr.blue;
-    i_clr = mlx_get_color_value(mod->mlx, (clr.red << 16) | (clr.green << 8) | clr.blue);
-    printf ("clr: %d\n", i_clr);
+
+	clr->red = (int)round(clr->red);
+	clr->green = (int)round(clr->green);
+	clr->blue = (int)round(clr->blue);
+	if (clr->red < 0)
+		clr->red = 0;
+	if (clr->green < 0)
+		clr->green = 0;
+	if (clr->blue < 0)
+		clr->blue = 0;
+	if (clr->red > 255)
+		clr->red = 255;
+	if (clr->green > 255)
+		clr->green = 255;
+	if (clr->blue > 255)
+		clr->blue = 255;
+	i_clr = mlx_get_color_value(mod->mlx,
+			(((uint8_t)clr->red) << 16)
+			| ((uint8_t)(clr->green) << 8)
+			| (uint8_t)(clr->blue));
 	return (i_clr);
 }

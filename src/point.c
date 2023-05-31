@@ -66,24 +66,3 @@ void	print_point(t_point_2d*point)
 		dbg_printf(no_block, "(%i|%i)", point->x, point->y);
 	}
 }
-
-char	*point2str(t_point_2d*point)
-{
-	char	*str;
-
-	dbg_printf(start_block, "point2str");
-	if (point == NULL)
-	{
-		dbg_printf(end_block, "point2str");
-		return ("(no point)");
-	}
-	else
-	{
-		str = ft_strjoin("(", ft_itoa(point->x));
-		str = ft_strjoin(str, "|");
-		str = ft_strjoin(str, ft_itoa(point->y));
-		str = ft_strjoin(str, ")");
-		dbg_printf(end_block, "point2str");
-		return (str);
-	}
-}

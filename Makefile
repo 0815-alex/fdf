@@ -39,6 +39,7 @@ SRCS = $(addprefix $(SRC_FOLDER), \
 	data.c \
 	dof_plus.c \
 	img.c \
+	line.c \
 	list.c \
 	main.c \
 	map_creator_utils.c \
@@ -57,7 +58,7 @@ SRCS = $(addprefix $(SRC_FOLDER), \
 OBJS = $(SRCS:$(SRC_FOLDER)%.c=$(OBJS_FOLDER)%.o)
 
 # TARGETS
-.PHONY: all clean fclean re 42 a m p god clean_libs re_incl_libs
+.PHONY: all $(NAME) $(LIBFT_PRINTF) $(MINILIBX) clean fclean re 42 a m p god
 
 all: $(NAME)
 
@@ -85,17 +86,11 @@ clean:
 
 
 fclean: clean
-	#@make --no-print-directory -C $(LIBFT_PRINTF_FOLDER) fclean
+	@make --no-print-directory -C $(LIBFT_PRINTF_FOLDER) fclean
 	@$(RM) $(NAME)
 	@echo "$(RED)$(NAME): cleaned program$(RESET)"
 
 re: fclean all
-
-clean_libs:
-	@make --no-print-directory -C $(LIBFT_PRINTF_FOLDER) fclean
-	@make --no-print-directory -C $(MLX_FOLDER) clean
-
-re_incl_libs: clean_libs fclean all
 
 42: all
 	./$(NAME) ./maps/42.fdf

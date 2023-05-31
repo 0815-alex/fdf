@@ -19,6 +19,8 @@ static void			ini_color_maps_part2(t_model *mod);
 void	ini_color_maps(t_model *mod)
 {
 	mod->clr_map = NULL;
+	add_color_map(mod, (t_clr){255, 255, 255}, (t_clr){255, 255, 255},
+		(t_clr){255, 255, 255});
 	add_color_map(mod, (t_clr){0, 0, 255}, (t_clr){255, 255, 255},
 		(t_clr){255, 0, 0});
 	add_color_map(mod, (t_clr){0, 0, 255}, (t_clr){0, 255, 0},

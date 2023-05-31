@@ -19,7 +19,7 @@
  */
 void	null_ptr(void *nothing)
 {
-	nothing = NULL;
+	(void)nothing;
 }
 
 /**
