@@ -12,6 +12,20 @@
 
 #include "../include/fdf.h"
 
+/**
+ * @brief	Here everything starts ;)
+ * 			
+ * 			the whole project is based on a instance of 't_model' here named mod
+ * 			it will be created using 'new_model'
+ * 
+ * 			the programm allows to different parameters
+ * 			either	a path to a map 			e.g. './maps/t1.fdf'
+ * 			or		a string to create a map	e.g. 'Hello World!'
+ *
+ * @param	argc 	see above
+ * @param	argv 	see above
+ * @return	int		always 0
+ */
 int	main(int argc, char **argv)
 {
 	t_model	*mod;

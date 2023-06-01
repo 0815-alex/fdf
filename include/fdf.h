@@ -217,11 +217,6 @@ void					render_next_img(t_model *model);
 void					draw_line(t_model *mod,
 							t_pnt_2d_clr *pnt_a, t_pnt_2d_clr *pnt_b);
 
-//______LIST.C__________________________________________________________________
-void					node_add_front(t_node **lst, t_node *new);
-void					node_add_back(t_node **lst, t_node *new);
-void					free_list(t_node *head);
-
 //______MAIN.C__________________________________________________________________
 int						main(int argc, char **argv);
 
@@ -256,6 +251,11 @@ void					print_node(t_node *node);
 void					node2point(t_model *model, t_node *node,
 							t_pnt_2d_clr *point);
 void					nodes2line(t_model *mod, t_node *n_a, t_node *n_b);
+
+//______NODE_LST.C______________________________________________________________
+void					node_add_front(t_node **lst, t_node *new);
+void					node_add_back(t_node **lst, t_node *new);
+void					free_node_lst(t_node *head);
 
 //______PARSER.C________________________________________________________________
 void					load_file(int argc, char **argv, t_model *model);

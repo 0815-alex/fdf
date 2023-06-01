@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   list.c                                             :+:      :+:    :+:   */
+/*   node_lst.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,23 +12,44 @@
 
 #include "../include/fdf.h"
 
-static t_node	*node_last(t_node *lst)
+/**
+ * @brief	basic linked list function specified for struct 't_node'
+ * 			-> see: 'ft_lstlast'
+ * 
+ * @param	node	pointer to the first node of the list
+ * @return t_node*	pointer to the last node of the list 'lst'
+ */
+static t_node	*node_last(t_node *node)
 {
-	if (!lst)
+	if (!node)
 		return (NULL);
-	while (lst->next)
+	while (node->next)
 	{
-		lst = lst->next;
+		node = node->next;
 	}
-	return (lst);
+	return (node);
 }
 
+/**
+ * @brief	basic linked list function specified for struct 't_node'
+ * 			-> see: 'ft_lstadd_front'
+ * 
+ * @param	lst	double pointer to the first node of the list
+ * @param	new	node to be added to the list 'lst'
+ */
 void	node_add_front(t_node **lst, t_node *new)
 {
 	new->next = *lst;
 	*lst = new;
 }
 
+/**
+ * @brief	basic linked list function specified for struct 't_node'
+ * 			-> see: 'ft_lstadd_back'
+ * 
+ * @param	lst	double pointer to the first node of the list
+ * @param	new	node to be added to the list 'lst'
+ */
 void	node_add_back(t_node **lst, t_node *new)
 {
 	if (!*lst)
@@ -37,12 +58,17 @@ void	node_add_back(t_node **lst, t_node *new)
 		node_last(*lst)->next = new;
 }
 
-void	free_list(t_node *head)
+/**
+ * @brief	frees all the nodes linked to the given node 'node'
+ * 
+ * @param	node	pointer to the first node of the list
+ */
+void	free_node_lst(t_node *node)
 {
 	t_node	*current;
 	t_node	*next;
 
-	current = head;
+	current = node;
 	while (current != NULL)
 	{
 		next = current->next;

@@ -4,7 +4,7 @@
 NAME = fdf
 
 # Prints DEBUG Messages
-DEBUG = 1
+DEBUG = 0
 
 # Compiler options
 CC = cc
@@ -40,13 +40,13 @@ SRCS = $(addprefix $(SRC_FOLDER), \
 	dof_plus.c \
 	img.c \
 	line.c \
-	list.c \
 	main.c \
 	map_creator_utils.c \
 	map_creator.c \
 	model.c \
 	model_move.c \
 	node.c \
+	node_lst.c \
 	parser.c \
 	point.c \
 	utils.c \
@@ -77,7 +77,7 @@ $(LIBFT_PRINTF):
 
 $(MINILIBX):
 	@echo "$(ORANGE)\ncompiling: $(MINILIBX)\n$(RESET)"
-	@make --no-print-directory -C $(MLX_FOLDER)
+	@make --no-print-directory -C > /dev/null 2>&1 $(MLX_FOLDER)
 
 
 clean:

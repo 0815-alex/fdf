@@ -38,6 +38,12 @@ t_model	*new_model(int argc, char **argv)
 	return (mod);
 }
 
+/**
+ * @brief	only called by 'mlx_loop_hook' to perform auto changes on the view
+ * 
+ * @param	mod	pointer to the struct that contains all info about the model
+ * @return	int	
+ */
 int	auto_changes(t_model *mod)
 {
 	if (mod->dof.auto_zoom == 1)
@@ -84,6 +90,14 @@ void	ini_colors(t_model *mod)
 	free(stp[1]);
 }
 
+/**
+ * @brief	to get a zoom zoom out before closing this function can be called.
+ * 			it will set the 'mod->close_pending' boolean and intialize a zoom
+ * 			via 'mod->dof.auto_zoom' the loop function 'auto_changes' will
+ * 			notice and end the program in a proper way
+ * 
+ * @param	mod	pointer to the struct that contains all info about the model
+ */
 void	shedule_close(t_model *mod)
 {
 	mod->dof.auto_zoom = -1;
@@ -92,11 +106,17 @@ void	shedule_close(t_model *mod)
 	mod->close_pending = ft_true;
 }
 
+/**
+ * @brief	
+ * 
+ * @param	mod	pointer to the struct that contains all info about the model
+ * @return	int 
+ */
 int	close_model(t_model *mod)
 {
 	dbg_printf(start_block, "close_model");
 	mlx_destroy_window(mod->mlx, mod->win);
-	free_list(mod->net);
+	free_node_lst(mod->net);
 	free_clr_maps(mod);
 	free_help(mod);
 	mlx_destroy_image(mod->mlx, mod->img.mlx_img);

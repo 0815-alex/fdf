@@ -70,8 +70,8 @@ DONE	data.c
 DONE	dof_plus.c
 DONE	img.c
 DONE	line.c
-	list.c
-	main.c
+DONE	node_lst.c
+DONE	main.c
 	map_creator_utils.c
 	map_creator.c
 	model.c
@@ -82,7 +82,7 @@ DONE	node.c
 	utils.c
 	view.c
 	view_txt.c
-	zoom.c
+DONE	zoom.c
 	free_whatever
 	dbg_printf
 
@@ -112,5 +112,5 @@ DONE	file of mapcreator has a problem if u call it twice
 	
 5 PREPARE EVAULATION
 	img_pix_put - endian and shit
-	
+	delete this file and other random files also name maps
 	puplishing github
