@@ -12,6 +12,15 @@
 
 #include "../include/fdf.h"
 
+/**
+ * @brief	only called from 'new_model' inizializing all helpscreen message
+ * 
+ * 			it opens the file 'P_HELP' (defined in fdf.h) and reads it line by
+ * 			line with 'get_next_line'. each line will be stored in a malloced
+ * 			't_list' instance and added to a linked list stored in 'mod->help'
+ * 	
+ * @param	mod	pointer to the struct that contains all info about the model
+ */
 void	ini_help(t_model *mod)
 {
 	int		fd;
@@ -40,8 +49,9 @@ void	ini_help(t_model *mod)
 }
 
 /**
- * @brief	frees all nodes of the linked list 'help' stored in 'mod'
- * @param 	mod		pointer to the struct that contains all info about the model
+ * @brief	frees all nodes of the linked list 'mod->help'
+ * 
+ * @param 	mod	pointer to the struct that contains all info about the model
  */
 void	free_help(t_model *mod)
 {
@@ -56,6 +66,12 @@ void	free_help(t_model *mod)
 	}
 }
 
+/**
+ * @brief	loops through the linked list 'mod->help' and prints each line to
+ * 			the window using 'mlx_string_put'
+ * 
+ * @param	mod	pointer to the struct that contains all info about the model
+ */
 void	put_help_to_view(t_model *mod)
 {
 	t_list	*cur_line;
@@ -72,6 +88,11 @@ void	put_help_to_view(t_model *mod)
 	}
 }
 
+/**
+ * @brief	see 'put_stats_to_view'
+ * 
+ * @param	mod	pointer to the struct that contains all info about the model
+ */
 static void	put_stats_frame_to_view(t_model *mod)
 {
 	int	x;
@@ -94,6 +115,17 @@ static void	put_stats_frame_to_view(t_model *mod)
 		ft_btoa(mod->dof.auto_color_change, 1));
 }
 
+/**
+ * @brief	to print all stats to the screen i use those two functions
+ * 				'put_stats_to_view'			-> for the values
+ * 				'put_stats_frame_to_view'	-> for the layout symbols
+ * 
+ * 			the values are converted into char* via 'ft_itoa' or 'ft_dtoa',
+ * 			stored in the array 'v', printed to screen with 'mlx_string_put'
+ * 			and then freed with 'free_whatever'
+ * 
+ * @param	mod	pointer to the struct that contains all info about the model
+ */
 void	put_stats_to_view(t_model *mod)
 {
 	char	**v;

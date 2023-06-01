@@ -131,6 +131,23 @@ void	scale_mod(t_model *mod, t_bool ovr, double zoom, double z_factor)
 	render_next_img(mod);
 }
 
+/**
+ * @brief	is only called by 'auto_changes'
+ * 			it will generate a new frame incrementing / decreasing the rotation
+ * 			of the model on a random axis by 1 degree via 'rot_mod'.
+ * 
+ * 			to make the roation smoother it will always rotate in the same way
+ * 			for 'AUTO_MOVE_FRAMES' times. (set in the fdf.h file)
+ * 
+ * 			therfore it first chooses a random axis via 'drand48' and performing
+ * 			'AUTO_MOVE_FRAMES' steps in this direction. the variable 'step_move'
+ * 			keeps track of the amount of already performed rotation steps.
+ * 
+ * 			if 'mod->dof.auto_color_change' is turned on it will also change the
+ * 			color map each time the direction changes
+ * 
+ * @param mod	ptr to the struct that contains all info about the model
+ */
 void	static_auto_rotate(t_model *mod)
 {
 	static double	random_value;

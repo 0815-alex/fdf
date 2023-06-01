@@ -12,6 +12,16 @@
 
 #include "../include/fdf.h"
 
+/**
+ * @brief	only called from 'new_model' inizializing all window related values
+ * 			'mod->mlx'				(via 'mlx_init')
+ * 			'mod->win'				(via 'mlx_new_window')
+ * 			'mod->win_width'		(via 'mlx_get_screen_size')	
+ * 			'mod->win_height'		(via 'mlx_get_screen_size')
+ * 			'mod->close_pending'	-> false
+ * 
+ * @param	mod	pointer to the struct that contains all info about the model 
+ */
 void	ini_win(t_model *mod)
 {
 	int	screen_width;
@@ -31,6 +41,17 @@ void	ini_win(t_model *mod)
 	dbg_printf(end_block, "ini_win");
 }
 
+/**
+ * @brief	calculates and sets the maximal possible 'mod->dof.zoom' and a
+ * 			matching 'mod->dof.z_factor'. then the model is translated to the
+ * 			middle of the screen via 'mod->dof.trans'
+ * 
+ * 			NOTE: the changes won't be visible before calling 'render_next_img'
+ * 					(This is due to the 'static_auto_zoom' function, which has
+ * 					to calculate the middle position without displaying it)
+ * 
+ * @param mod pointer to the struct that contains all info about the model 
+ */
 void	center_model(t_model *mod)
 {
 	int	smaller_win_size;
@@ -56,10 +77,13 @@ void	center_model(t_model *mod)
 }
 
 /**
- * @brief	displays the current img. in addition (if activated) the help and
- * 			stats are generated and displayed.
+ * @brief	displays the current img via 'mlx_put_image_to_window'
+ * 			in addition (if activated) the
+ * 				help		(via 'put_help_to_view')
+ * 				and stats	(via 'put_stats_to_view')
+ * 			are generated and displayed.
  * 
- * 			Note: this function should only be called when 'mod->show_help' or
+ * 			NOTE: this function should only be called when 'mod->show_help' or
  * 					'mod->show_stats' changes. If changes are made to 'mod->dof'
  * 					'render_next_img' must be executed!
  * 

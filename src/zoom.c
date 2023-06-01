@@ -60,7 +60,7 @@ static t_bool	do_zoom_step(t_model *mod, double *zoom_rng)
 
 /**
  * @brief	only called by 'auto_changes'
- * 			Note:	if you want to initialize a zoom u need to set the
+ * 			NOTE:	if you want to initialize a zoom u need to set the
  *		 			'mod->dof.auto_zoom' value to 1 / -1 for a zoom out /in
  * 
  * 			'auto_changes' will call this function until it returns ft_true to

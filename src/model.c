@@ -12,6 +12,17 @@
 
 #include "../include/fdf.h"
 
+/**
+ * @brief	this is malloc a new model an initializing all relevant structs
+ * 			it will only be called once from the 'main' function.
+ * 
+ * 			Initialize order:
+ * 				1. center point, net dimens
+ * 
+ * @param	argc	see 'main'
+ * @param	argv 	see 'main'
+ * @return t_model*	instance of 't_model' holding all parameters 
+ */
 t_model	*new_model(int argc, char **argv)
 {
 	t_model	*mod;

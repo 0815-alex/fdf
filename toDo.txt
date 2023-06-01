@@ -74,17 +74,20 @@ DONE	node_lst.c
 DONE	main.c
 	map_creator_utils.c
 	map_creator.c
-	model.c
-	model_move.c
+DONE	model.c
+DONE	model_move.c
 DONE	node.c
 	parser.c
-	point.c
-	utils.c
-	view.c
-	view_txt.c
+DONE	point.c
+DONE	utils.c
+DONE	view.c
+DONE	view_txt.c
 DONE	zoom.c
-	free_whatever
-	dbg_printf
+	ft_free.c
+	debug.c
+	ft_btoa.c
+	ft_dtoa.c
+	print_double.c
 
 3 TO LONG FUNCTIONS!
 -----------------------

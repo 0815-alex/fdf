@@ -12,21 +12,33 @@
 
 #include "../include/fdf.h"
 
-double	degree2radian(int degree)
+/**
+ * @brief	conversion of an angle from degrees to radians
+ * 
+ * @param	degrees	angle in degrees which should be converted
+ * @return	double	converted angle in radians
+ */
+double	degree2radian(int degrees)
 {
-	double	radian;
+	double	radians;
 
-	degree = degree % 360;
-	if (degree < 0)
-		degree += 360;
-	radian = degree * (M_PI / 180.0);
-	return (radian);
+	degrees = degrees % 360;
+	if (degrees < 0)
+		degrees += 360;
+	radians = degrees * (M_PI / 180.0);
+	return (radians);
 }
 
-int	radian2degree(double radian)
+/**
+ * @brief	conversion of an angle from radians to degrees
+ * 
+ * @param radians	angle in radians which should be converted
+ * @return int		converted angle in degrees (rounded to int)
+ */
+int	radian2degree(double radians)
 {
-	int	degree;
+	int	degrees;
 
-	degree = (int)(radian * (180.0 / M_PI));
-	return (degree);
+	degrees = (int)(radians * (180.0 / M_PI));
+	return (degrees);
 }
