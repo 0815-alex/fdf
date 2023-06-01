@@ -12,6 +12,7 @@
 
 #include "../include/fdf.h"
 
+
 static int	calc_cur_clr(t_model *mod, t_clr *clr_start, t_clr *clr_step)
 {
 	static int	cur_step;

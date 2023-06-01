@@ -68,7 +68,7 @@ DONE	controller_keys.c
 DONE	controller_mouse.c
 DONE	data.c
 DONE	dof_plus.c
-	img.c
+DONE	img.c
 	line.c
 	list.c
 	main.c
@@ -83,6 +83,8 @@ DONE	dof_plus.c
 	view.c
 	view_txt.c
 	zoom.c
+	free_whatever
+	dbg_printf
 
 3 TO LONG FUNCTIONS!
 -----------------------

@@ -61,6 +61,13 @@ char	*node2str(t_node *node)
 	}
 }
 
+/**
+ * @brief	only called by 'nodes2line' in the line drawing process. 
+ * 
+ * @param	mod	pointer to the struct that contains all info about the model
+ * @param node 
+ * @param point 
+ */
 void	node2point(t_model *mod, t_node *node, t_pnt_2d_clr *point)
 {
 	double	x;
@@ -90,6 +97,16 @@ void	node2point(t_model *mod, t_node *node, t_pnt_2d_clr *point)
 	point->clr = node->clr;
 }
 
+/**
+ * @brief	only called by 'render_next_img' it prepares a line drawing between
+ * 			the nodes 'n_a' and n_b'. 
+ *				1. converts the nodes into 't_pnt_2d_clr' using 'node2point'
+ *				2. draws the line using 'draw_line'
+ *
+ * @param	mod	pointer to the struct that contains all info about the model
+ * @param	n_a	node representing the line START
+ * @param	n_b node representing the line END
+ */
 void	nodes2line(t_model *mod, t_node *n_a, t_node *n_b)
 {
 	t_pnt_2d_clr	*p1;
