@@ -167,7 +167,7 @@ typedef struct s_model
 	t_bool				close_pending;
 	t_node				*net;
 	t_pnt_2d			net_dim;
-	t_pnt_3d			center_point;
+	t_pnt_3d			center_pnt;
 	int					z_min;
 	int					z_max;
 	t_dof_plus			dof;
@@ -201,8 +201,6 @@ int						deal_mouse(int btn, int x, int y, t_model *mod);
 
 //______DATA.C__________________________________________________________________
 void					ini_net_details(t_model *model);
-void					print_net(t_model *model);
-void					ini_max_values(t_model *model);
 void					update_max_values(t_model *model, int x, int y, int z);
 void					determine_net_center(t_model *model);
 
@@ -213,7 +211,7 @@ void					cpy_dof(t_dof_plus *src, t_dof_plus *dest);
 //______IMG.C___________________________________________________________________
 void					ini_img(t_model *model);
 void					img_pix_put(t_model *mod, t_pnt_2d *point, int clr);
-void					create_next_img(t_model *model);
+void					render_next_img(t_model *model);
 
 //______LINE.C__________________________________________________________________
 void					draw_line(t_model *mod,
@@ -274,7 +272,7 @@ int						radian2degree(double radian);
 //______VIEW.C__________________________________________________________________
 void					ini_win(t_model *model);
 void					center_model(t_model *model);
-void					update_image(t_model *model);
+void					update_view(t_model *model);
 
 //______VIEW_TXT.C______________________________________________________________
 void					ini_help(t_model *mod);

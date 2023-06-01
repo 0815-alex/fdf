@@ -12,35 +12,35 @@
 
 #include "../include/fdf.h"
 
+/**
+ * @brief   only called from 'new_model' inizializing all net related values
+ * 			'mod->center_pnt' 'mod->net_dim' 'mod->z_min' 'mod->z_max' 
+ * 
+ * @param   mod pointer to the struct that contains all info about the model
+ */
 void	ini_net_details(t_model *mod)
 {
-	mod->center_point.x = INT_MIN;
-	mod->center_point.y = INT_MIN;
-	mod->center_point.z = INT_MIN;
-}
-
-void	print_net(t_model *mod)
-{
-	t_node	*cur_node;
-
-	dbg_printf(start_block, "print_net");
-	cur_node = mod->net;
-	while (cur_node)
-	{
-		print_node(cur_node);
-		(cur_node) = (cur_node)->next;
-	}
-	dbg_printf(end_block, "print_net");
-}
-
-void	ini_max_values(t_model *mod)
-{
+	mod->center_pnt.x = INT_MIN;
+	mod->center_pnt.y = INT_MIN;
+	mod->center_pnt.z = INT_MIN;
 	mod->net_dim.x = INT_MIN;
 	mod->net_dim.y = INT_MIN;
 	mod->z_min = INT_MAX;
 	mod->z_max = INT_MIN;
 }
 
+/**
+ * @brief	only called from parser.c each time a new node is loaded to update
+ * 			the current net dimensions:
+ *				'mod->net_dim'
+ *				'mod->z_min'
+ *				'mod->z_max'
+ *
+ * @param	mod	pointer to the struct that contains all info about the model
+ * @param	x	new x value to be checked
+ * @param	y	new y value to be checked
+ * @param	z	new z value to be checked
+ */
 void	update_max_values(t_model *mod, int x, int y, int z)
 {
 	if (mod->net_dim.x == INT_MIN)
@@ -63,13 +63,19 @@ void	update_max_values(t_model *mod, int x, int y, int z)
 		mod->z_max = z;
 }
 
+/**
+ * @brief	set the 'mod->center_pnt' coordinates to the center of the net
+ * 			using the 'mod->net_dim', 'mod->z_min' and 'mod->z_max' values
+ * 
+ * @param	mod	pointer to the struct that contains all info about the model
+ */
 void	determine_net_center(t_model *mod)
 {
 	dbg_printf(no_block, "net dimension (%i|%i)", mod->net_dim.x,
 		mod->net_dim.y);
-	mod->center_point.x = ((mod->net_dim.x + 1) / 2);
-	mod->center_point.y = ((mod->net_dim.y + 1) / 2);
-	mod->center_point.z = ((mod->z_max - mod->z_min) / 2);
-	dbg_printf(no_block, "net center (%i|%i|%i)", mod->center_point.x,
-		mod->center_point.y, mod->center_point.z);
+	mod->center_pnt.x = ((mod->net_dim.x + 1) / 2);
+	mod->center_pnt.y = ((mod->net_dim.y + 1) / 2);
+	mod->center_pnt.z = ((mod->z_max - mod->z_min) / 2);
+	dbg_printf(no_block, "net center (%i|%i|%i)", mod->center_pnt.x,
+		mod->center_pnt.y, mod->center_pnt.z);
 }

@@ -106,7 +106,7 @@ void	ini_clr_maps(t_model *mod)
  * @brief	rotates the linked list 'clr_map' of the model FORWARDS
  * 			to apply the change this follows:
  * 				- recaluclate the colors of all nodes with 'ini_colors()'
- * 				- update the view creating a new img with 'create_next_img()'
+ * 				- update the view creating a new img with 'render_next_img()'
  * 
  * @param	mod		pointer to the struct that contains all info about the model
  */
@@ -114,7 +114,7 @@ void	next_clr_map(t_model *mod)
 {
 	mod->clr_map = mod->clr_map->next;
 	ini_colors(mod);
-	create_next_img(mod);
+	render_next_img(mod);
 }
 
 /**

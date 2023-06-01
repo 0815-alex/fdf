@@ -12,6 +12,20 @@
 
 #include "../include/fdf.h"
 
+/**
+ * @brief	calculates the difference between the start and end RGB values and
+ * 			divides them into 'n_steps'
+ * 			so if u take the 'start_clr' and sum up 'n_step' times the return
+ * 			't_clr' you will end up at the 'edn_clr'
+ * 				(this adding will be done by the 'sum_clr' function)
+ * 
+ * @param   start_clr	start	color of the color gradiant
+ * @param   end_clr		end		color of the color gradiant
+ * @param   n_steps		the number of steps into which the gradient is divided 
+ * @return  t_clr*
+ * 				one step of the gradiant as RGB
+ * 				'end_clr' if 'n_steps' is < 0
+ */
 t_clr	*step_clr(t_clr start_clr, t_clr end_clr, double n_steps)
 {
 	t_clr	*step;
@@ -29,7 +43,7 @@ t_clr	*step_clr(t_clr start_clr, t_clr end_clr, double n_steps)
 }
 
 /**
- * @brief   copies the RGB values frome src to the ones of dest
+ * @brief   copies the RGB values frome src to dest
  * 
  * @param   src     the t_clr objet to GET the colors FROM
  * @param   dest    the t_clr objet to SET the colors TO
@@ -41,6 +55,15 @@ void	cpy_color(t_clr *src, t_clr *dest)
 	dest->blue = src->blue;
 }
 
+/**
+ * @brief	sums up RGB values WITHOUT validation.
+ * 			Formula: 'a' + 'b' * 'b_factor'
+ * 
+ * @param	a			start color
+ * @param 	b			incremnt color
+ * @param	b_factor	factor of the increment color
+ * @return	t_clr*		new malloced color corresponding to the result
+ */
 t_clr	*sum_clr(t_clr *a, t_clr *b, int b_factor)
 {
 	t_clr	*clr;
@@ -60,7 +83,7 @@ t_clr	*sum_clr(t_clr *a, t_clr *b, int b_factor)
  *          'uint8_t' and combined via bit shifting
  * 
  * @param   mod		pointer to the struct that contains all info about the model
- * @param   clr 
+ * @param   clr		the t_clr to be converted
  * @return  int     a true tone color for minilibx
  */
 int	color2int(t_model *mod, t_clr *clr)

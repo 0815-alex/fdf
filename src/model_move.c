@@ -25,7 +25,7 @@ void	trans_mod(t_model *mod, t_bool ovr, t_pnt_2d *trans)
 		mod->dof.trans.y += trans->y;
 	}
 	free_whatever("p", trans);
-	create_next_img(mod);
+	render_next_img(mod);
 }
 
 void	rot_mod(t_model *mod, t_bool ovr, t_pnt_3d *deg)
@@ -46,7 +46,7 @@ void	rot_mod(t_model *mod, t_bool ovr, t_pnt_3d *deg)
 		mod->dof.rot_rad.z = fmod(mod->dof.rot_rad.z, 2 * M_PI);
 	}
 	free_whatever("p", deg);
-	create_next_img(mod);
+	render_next_img(mod);
 }
 
 void	scale_mod(t_model *mod, t_bool ovr, double zoom, double z_factor)
@@ -71,7 +71,7 @@ void	scale_mod(t_model *mod, t_bool ovr, double zoom, double z_factor)
 		if (mod->dof.z_factor < 0)
 			mod->dof.z_factor = 0;
 	}
-	create_next_img(mod);
+	render_next_img(mod);
 }
 
 void	static_auto_rotate(t_model *mod)

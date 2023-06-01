@@ -19,7 +19,6 @@ t_model	*new_model(int argc, char **argv)
 	dbg_printf(start_block, "new_model");
 	mod = malloc(sizeof(t_model));
 	ini_net_details(mod);
-	ini_max_values(mod);
 	load_file(argc, argv, mod);
 	determine_net_center(mod);
 	ini_clr_maps(mod);
@@ -54,7 +53,7 @@ int	auto_changes(t_model *mod)
 	else if (mod->close_pending)
 		close_model(mod);
 	else if (!mod->dof.auto_rot)
-		create_next_img(mod);
+		render_next_img(mod);
 	if (mod->dof.auto_rot)
 		static_auto_rotate(mod);
 	return (0);

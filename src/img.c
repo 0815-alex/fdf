@@ -12,6 +12,12 @@
 
 #include "../include/fdf.h"
 
+/**
+ * @brief	only called from 'new_model' inizializing all 'mod->img' values
+ * 			by creating a new image
+ * 
+ * @param	mod	pointer to the struct that contains all info about the model
+ */
 void	ini_img(t_model *mod)
 {
 	size_t	img_size;
@@ -23,6 +29,16 @@ void	ini_img(t_model *mod)
 	ft_bzero(mod->img.addr, img_size);
 }
 
+/**
+ * @brief	drawing a point to the image in 'mod->img'. the cordinates and color
+ * 			are set via the paramters.
+ * 			first there is a check if the coordinates are within the range of 
+ * 			the window using 'mod->win_width' and 'mod->win_height'
+ * 
+ * @param	mod		pointer to the struct that contains all info about the model
+ * @param	point	a 't_pnt_2d' sruct containing the coordinates of the point
+ * @param	clr		the color of the point
+ */
 void	img_pix_put(t_model *mod, t_pnt_2d *point, int clr)
 {
 	char	*pixel;
@@ -48,7 +64,20 @@ void	img_pix_put(t_model *mod, t_pnt_2d *point, int clr)
 	}
 }
 
-void	create_next_img(t_model *mod)
+/**
+ * @brief	whenever the 'mod->dof' is changed this function must be called to
+ * 			display the changes!
+ * 
+ * 			erases all pixels of the current img 'mod->img' using 'ft_bzero'
+ * 			then looping through all nodes of the net ('mod->net') to create all
+ * 			lines. therefore if a WEST and / or a NORTH connection exists the
+ * 			corresponding lines(s) will be created using 'nodes2line'
+ * 
+ * 			after the img was generated it will be displayed via 'update_view'
+ * 
+ * @param	mod	pointer to the struct that contains all info about the model
+ */
+void	render_next_img(t_model *mod)
 {
 	t_node	*cur_node;
 
@@ -64,5 +93,5 @@ void	create_next_img(t_model *mod)
 		(cur_node) = (cur_node)->next;
 	}
 	free_whatever("p", cur_node);
-	update_image(mod);
+	update_view(mod);
 }

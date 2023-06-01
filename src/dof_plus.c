@@ -12,6 +12,12 @@
 
 #include "../include/fdf.h"
 
+/**
+ * @brief	only called from 'new_model' inizializing all 'mod->dof' values
+ * 			dof = degrees of freedom
+ * 
+ * @param	mod	pointer to the struct that contains all info about the model 
+ */
 void	ini_dof_plus(t_model *mod)
 {
 	dbg_printf(start_block, "ini_dof_plus");
@@ -22,12 +28,19 @@ void	ini_dof_plus(t_model *mod)
 	mod->dof.rot_rad.z = degree2radian(0);
 	mod->dof.zoom = AUTO_ZOOM_INI_LEVEL;
 	mod->dof.z_factor = 1.1;
-	mod->dof.auto_rot = ft_false;
+	mod->dof.auto_rot = ft_true;
 	mod->dof.auto_zoom = ft_true;
 	mod->dof.auto_color_change = ft_false;
 	dbg_printf(end_block, "ini_dof_plus");
 }
 
+/**
+ * @brief	only called from 'static_auto_zoom' to get a copy of the current
+ * 			dof plus settings
+ * 
+ * @param	src		t_dof_plus to copy FROM
+ * @param	dest	 t_dof_plus to copy TO
+ */
 void	cpy_dof(t_dof_plus *src, t_dof_plus *dest)
 {
 	dest->trans.x = src->trans.x;

@@ -12,13 +12,17 @@
 
 #include "../include/fdf.h"
 
-static t_bool	check_translate(int key, t_model *mod)
+/**
+ * @brief	checks if the pressed key is assigned to TRANSLATE the model
+ * 
+ * @param	key	the code of the pressed key
+ * @param 	mod	pointer to the struct that contains all info about the model
+ */
+static void	check_translate(int key, t_model *mod)
 {
-	t_bool	check;
 	int		offset;
 
 	offset = 5;
-	check = ft_true;
 	if (key == K_ARROW_UP)
 		trans_mod(mod, ft_false, new_point(pnt_dim_2, 0, -offset, 0));
 	else if (key == K_ARROW_DOWN)
@@ -30,19 +34,21 @@ static t_bool	check_translate(int key, t_model *mod)
 	else if (key == '0')
 	{
 		center_model(mod);
-		create_next_img(mod);
+		render_next_img(mod);
 	}
-	else
-		check = ft_false;
-	return (check);
 }
 
-static t_bool	check_rotate(int key, t_model *mod)
+/**
+ * @brief	checks if the pressed key is assigned to ROTATE the model
+ * 
+ * @param key	the code of the pressed key
+ * @param mod	pointer to the struct that contains all info about the model
+ * @return	t_bool 
+ */
+static void	check_rotate(int key, t_model *mod)
 {
-	t_bool	check;
 	int		degree;
 
-	check = ft_true;
 	degree = 10;
 	if (key == 'd')
 		rot_mod(mod, ft_false, new_point(pnt_dim_3, 0, degree, 0));
@@ -58,38 +64,45 @@ static t_bool	check_rotate(int key, t_model *mod)
 		rot_mod(mod, ft_false, new_point(pnt_dim_3, 0, 0, -degree));
 	else if (key == 'r')
 		mod->dof.auto_rot = !mod->dof.auto_rot;
-	else
-		check = ft_false;
-	return (check);
 }
 
-static t_bool	check_zoom(int key, t_model *mod)
+/**
+ * @brief	checks if the pressed key is assigned to ZOOM the model
+ * 
+ * @param	key	the code of the pressed key
+ * @param	mod	pointer to the struct that contains all info about the model
+ * @return	t_bool 
+ */
+static void	check_zoom(int key, t_model *mod)
 {
-	t_bool	check;
+	int		zoom;
+	float	z_factor;
 
-	check = ft_true;
+	zoom = 5;
+	z_factor = 0.1;
 	if (key == '1')
-		scale_mod(mod, ft_false, -5, 0);
+		scale_mod(mod, ft_false, -zoom, 0);
 	else if (key == '2')
-		scale_mod(mod, ft_false, 5, 0);
+		scale_mod(mod, ft_false, zoom, 0);
 	else if (key == '3')
-		scale_mod(mod, ft_false, 0, -0.1);
+		scale_mod(mod, ft_false, 0, -z_factor);
 	else if (key == '4')
-		scale_mod(mod, ft_false, 0, 0.1);
+		scale_mod(mod, ft_false, 0, z_factor);
 	else if (key == '5')
 		mod->dof.auto_zoom = -1;
 	else if (key == '6')
 		mod->dof.auto_zoom = 1;
-	else
-		check = ft_false;
-	return (check);
 }
 
-static t_bool	check_presets(int key, t_model *mod)
+/**
+ * @brief	checks if the pressed key is assigned to DISPLAY A PRESET
+ * 
+ * @param	key	the code of the pressed key
+ * @param	mod	pointer to the struct that contains all info about the model
+ * @return t_bool	true if the 
+ */
+static void	check_presets(int key, t_model *mod)
 {
-	t_bool	check;
-
-	check = ft_true;
 	if (key == 't')
 		rot_mod(mod, ft_true, new_point(pnt_dim_3, 0, 0, 0));
 	else if (key == 'f')
@@ -102,11 +115,20 @@ static t_bool	check_presets(int key, t_model *mod)
 		next_clr_map(mod);
 	else if (key == 'c')
 		mod->dof.auto_color_change = !mod->dof.auto_color_change;
-	else
-		check = ft_false;
-	return (check);
 }
 
+/**
+ * @brief	only called from 'mlx_key_hook' processing all keyevents using the
+ * 			4 static functions:
+ * 				- 'check_translate'
+ * 				- 'check_rotate'
+ * 				- 'check_zoom'
+ * 				- 'check_presets'
+ * 
+ * @param	key	the code of the pressed key
+ * @param	mod	pointer to the struct that contains all info about the model
+ * @return	int	always 0
+ */
 int	deal_key(int key, t_model *mod)
 {
 	if (key == K_ESC)
@@ -118,12 +140,12 @@ int	deal_key(int key, t_model *mod)
 	if (key == K_F1)
 	{
 		mod->show_help = !mod->show_help;
-		update_image(mod);
+		update_view(mod);
 	}
 	else if (key == K_F2)
 	{
 		mod->show_stats = !mod->show_stats;
-		update_image(mod);
+		update_view(mod);
 	}
 	return (0);
 }

@@ -12,6 +12,15 @@
 
 #include "../include/fdf.h"
 
+/**
+ * @brief   only called from 'mlx_mouse_hook' processing all mouseevents
+ * 
+ * @param   btn the code of the pressed mouse button
+ * @param   x   x-coordinate of the location where the click was performed
+ * @param   y   y-coordinate of the location where the click was performed
+ * @param   mod pointer to the struct that contains all info about the model
+ * @return  int 
+ */
 int	deal_mouse(int btn, int x, int y, t_model *mod)
 {
 	(void)x;
@@ -19,12 +28,12 @@ int	deal_mouse(int btn, int x, int y, t_model *mod)
 	if (btn == M_LEFT)
 	{
 		mod->show_help = !mod->show_help;
-		update_image(mod);
+		update_view(mod);
 	}
 	else if (btn == M_RIGHT)
 	{
 		mod->show_stats = !mod->show_stats;
-		update_image(mod);
+		update_view(mod);
 	}
 	else if (btn == M_MIDDLE)
 		mod->dof.auto_zoom = 1;

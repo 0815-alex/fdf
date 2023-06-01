@@ -31,34 +31,15 @@ void	ini_win(t_model *mod)
 	dbg_printf(end_block, "ini_win");
 }
 
-/*
-trans soll gesetzt werden
-so dass die mitte des netz auf die mitte der fensterbreite faellt
-
-aktuelle koordinate der mitte des netz
-mod->center_point.x * mod->dof.zoom;
-mod->center_point.y * mod->dof.zoom;
-aktuelle fenster mitte
-mod->width / 2
-mod->height / 2
-differenz zur fenstermitte
-(mod->width / 2) - (mod->center_point.x * mod->dof.zoom)
-(mod->height / 2) - (mod->center_point.y * mod->dof.zoom)
-verschieben um die differenz geteilt durch den zoom
-((mod->width / 2) - (mod->center_point.x * mod->dof.zoom))
-/ mod->dof.zoom
-((mod->height / 2) - (mod->center_point.y * mod->dof.zoom))
-/mod->dof.zoom
-*/
 void	center_model(t_model *mod)
 {
 	int	smaller_win_size;
 	int	possbile_zoom_x;
 	int	possbile_zoom_y;
 
-	mod->dof.trans.x = ((mod->win_width / 2) - (mod->center_point.x
+	mod->dof.trans.x = ((mod->win_width / 2) - (mod->center_pnt.x
 				* mod->dof.zoom) / mod->dof.zoom);
-	mod->dof.trans.y = ((mod->win_height / 2) - (mod->center_point.y
+	mod->dof.trans.y = ((mod->win_height / 2) - (mod->center_pnt.y
 				* mod->dof.zoom) / mod->dof.zoom);
 	smaller_win_size = mod->win_width;
 	if ((mod->win_height) < smaller_win_size)
@@ -74,7 +55,17 @@ void	center_model(t_model *mod)
 	mod->dof.z_factor = (double)2 / (mod->z_max - mod->z_min);
 }
 
-void	update_image(t_model *mod)
+/**
+ * @brief	displays the current img. in addition (if activated) the help and
+ * 			stats are generated and displayed.
+ * 
+ * 			Note: this function should only be called when 'mod->show_help' or
+ * 					'mod->show_stats' changes. If changes are made to 'mod->dof'
+ * 					'render_next_img' must be executed!
+ * 
+ * @param	mod	pointer to the struct that contains all info about the model
+ */
+void	update_view(t_model *mod)
 {
 	mlx_put_image_to_window(mod->mlx, mod->win, mod->img.mlx_img, 0, 0);
 	if (mod->show_help && mod->dof.auto_zoom == 0)

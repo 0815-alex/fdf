@@ -69,9 +69,9 @@ void	node2point(t_model *mod, t_node *node, t_pnt_2d_clr *point)
 
 	if (!node || !point)
 		dbg_printf(err_block, "no node or point exists");
-	x = (node->pnt->x - mod->center_point.x) * mod->dof.zoom;
-	y = (node->pnt->y - mod->center_point.y) * mod->dof.zoom;
-	z = (node->pnt->z - mod->center_point.z) * mod->dof.z_factor
+	x = (node->pnt->x - mod->center_pnt.x) * mod->dof.zoom;
+	y = (node->pnt->y - mod->center_pnt.y) * mod->dof.zoom;
+	z = (node->pnt->z - mod->center_pnt.z) * mod->dof.z_factor
 		* mod->dof.zoom;
 	point->x = x * cos(mod->dof.rot_rad.y) * cos(mod->dof.rot_rad.z) + y
 		* (cos(mod->dof.rot_rad.z) * sin(mod->dof.rot_rad.x)
@@ -85,8 +85,8 @@ void	node2point(t_model *mod, t_node *node, t_pnt_2d_clr *point)
 			* sin(mod->dof.rot_rad.z)) + z * (-cos(mod->dof.rot_rad.z)
 			* sin(mod->dof.rot_rad.x) + cos(mod->dof.rot_rad.x)
 			* sin(mod->dof.rot_rad.y) * sin(mod->dof.rot_rad.z));
-	point->x += mod->center_point.x + mod->dof.trans.x;
-	point->y += mod->center_point.y + mod->dof.trans.y;
+	point->x += mod->center_pnt.x + mod->dof.trans.x;
+	point->y += mod->center_pnt.y + mod->dof.trans.y;
 	point->clr = node->clr;
 }
 

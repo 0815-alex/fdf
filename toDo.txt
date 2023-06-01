@@ -62,12 +62,12 @@ DONE	- check for printf and stuff im not allowed to use
 3 COMMENTING
 -------------------
 - Add the fucked up comments to all the shit!
-	color.c
+DONE	color.c
 DONE	color_map.c
-	controller_keys.c
-	controller_mouse.c
-	data.c
-	dof_plus.c
+DONE	controller_keys.c
+DONE	controller_mouse.c
+DONE	data.c
+DONE	dof_plus.c
 	img.c
 	line.c
 	list.c
@@ -106,3 +106,9 @@ DONE	file of mapcreator has a problem if u call it twice
 	zoom steps anpassen an map groesse
 	check if all mallocs are safe to fail
 	top view ist -180
+	map creator is fucked
+	
+5 PREPARE EVAULATION
+	img_pix_put - endian and shit
+	
+	puplishing github
