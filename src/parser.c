@@ -47,21 +47,27 @@ static void	str_line(char **arr, int y, t_node **prev_row, t_model *mod)
 static int	open_or_create(char **argv)
 {
 	int		fd;
-	char	*new_map_fn;
+	char	*fn;
 
 	fd = open(argv[1], O_RDONLY);
 	if (fd == -1)
 	{
-		if (ft_strlen(argv[1]) + 5 >= FOPEN_MAX)
-			dbg_printf(no_block, "Input to long :/   | max: %i",
-				FOPEN_MAX - 4);
-		else
+		fn = ft_calloc((ft_strlen(argv[1]) + ft_strlen(P_CHARS) + 20), 1);
+		ft_strlcat(fn, P_NAMES, ft_strlen(P_NAMES) + 1);
+		ft_strlcat(fn, argv[1], ft_strlen(fn) + ft_strlen(argv[1]) + 1);
+		ft_strlcat(fn, ".fdf", ft_strlen(fn) + 5);
+		fd = open(fn, O_RDONLY);
+		free(fn);
+		if (fd == -1)
 		{
-			dbg_printf(no_block,
-				"fdf file not found! => lets create it...");
-			new_map_fn = create_map(argv[1]);
-			fd = open(new_map_fn, O_RDONLY);
-			free(new_map_fn);
+			if (ft_strlen(argv[1]) + 5 >= FOPEN_MAX)
+				dbg_printf(err_block, "max: %i charaters :/", FOPEN_MAX - 4);
+			else
+			{
+				fn = create_map(argv[1]);
+				fd = open(fn, O_RDONLY);
+				free(fn);
+			}
 		}
 	}
 	return (fd);

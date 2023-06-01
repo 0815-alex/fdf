@@ -14,17 +14,17 @@
 
 // static t_pnt_dim	check_dim(void *pnt)
 // {
-// 	t_point_2d	*new_pnt_2d;
-// 	t_point_3d	*new_pnt_3d;
+// 	t_pnt_2d	*new_pnt_2d;
+// 	t_pnt_3d	*new_pnt_3d;
 
-// 	if (sizeof(*((t_point_2d *)pnt)) == sizeof(t_point_2d))
+// 	if (sizeof(*((t_pnt_2d *)pnt)) == sizeof(t_pnt_2d))
 // 	{
-// 		new_pnt_2d = (t_point_2d *)pnt;
+// 		new_pnt_2d = (t_pnt_2d *)pnt;
 // 		return (pnt_dim_2);
 // 	}
-// 	else if (sizeof(*((t_point_3d *)pnt)) == sizeof(t_point_3d))
+// 	else if (sizeof(*((t_pnt_3d *)pnt)) == sizeof(t_pnt_3d))
 // 	{
-// 		new_pnt_3d = (t_point_3d *)pnt;
+// 		new_pnt_3d = (t_pnt_3d *)pnt;
 // 		return (pnt_dim_3);
 // 	}
 // 	else
@@ -35,19 +35,19 @@
 
 void	*new_point(t_pnt_dim dim, int x, int y, int z)
 {
-	t_point_2d	*new_pnt_2d;
-	t_point_3d	*new_pnt_3d;
+	t_pnt_2d	*new_pnt_2d;
+	t_pnt_3d	*new_pnt_3d;
 
 	if (dim == pnt_dim_2)
 	{
-		new_pnt_2d = malloc(sizeof(t_point_2d));
+		new_pnt_2d = malloc(sizeof(t_pnt_2d));
 		new_pnt_2d->x = x;
 		new_pnt_2d->y = y;
 		return (new_pnt_2d);
 	}
 	else if (dim == pnt_dim_3)
 	{
-		new_pnt_3d = malloc(sizeof(t_point_3d));
+		new_pnt_3d = malloc(sizeof(t_pnt_3d));
 		new_pnt_3d->x = x;
 		new_pnt_3d->y = y;
 		new_pnt_3d->z = z;
@@ -57,7 +57,7 @@ void	*new_point(t_pnt_dim dim, int x, int y, int z)
 		return (NULL);
 }
 
-void	print_point(t_point_2d*point)
+void	print_point(t_pnt_2d*point)
 {
 	if (point == NULL)
 		dbg_printf(no_block, "(no point)");

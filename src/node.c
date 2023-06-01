@@ -12,7 +12,7 @@
 
 #include "../include/fdf.h"
 
-t_node	*new_node(t_point_3d *point)
+t_node	*new_node(t_pnt_3d *point)
 {
 	t_node	*new_node;
 
@@ -61,7 +61,7 @@ char	*node2str(t_node *node)
 	}
 }
 
-void	node2point(t_model *mod, t_node *node, t_col_point_2d *point)
+void	node2point(t_model *mod, t_node *node, t_pnt_2d_clr *point)
 {
 	double	x;
 	double	y;
@@ -92,11 +92,11 @@ void	node2point(t_model *mod, t_node *node, t_col_point_2d *point)
 
 void	nodes2line(t_model *mod, t_node *n_a, t_node *n_b)
 {
-	t_col_point_2d	*p1;
-	t_col_point_2d	*p2;
+	t_pnt_2d_clr	*p1;
+	t_pnt_2d_clr	*p2;
 
-	p1 = malloc(sizeof(t_col_point_2d));
-	p2 = malloc(sizeof(t_col_point_2d));
+	p1 = malloc(sizeof(t_pnt_2d_clr));
+	p2 = malloc(sizeof(t_pnt_2d_clr));
 	node2point(mod, n_a, p1);
 	node2point(mod, n_b, p2);
 	draw_line(mod, p1, p2);

@@ -22,7 +22,7 @@ t_model	*new_model(int argc, char **argv)
 	ini_max_values(mod);
 	load_file(argc, argv, mod);
 	determine_net_center(mod);
-	ini_color_maps(mod);
+	ini_clr_maps(mod);
 	ini_colors(mod);
 	ini_win(mod);
 	ini_dof_plus(mod);
@@ -53,9 +53,9 @@ int	auto_changes(t_model *mod)
 	}
 	else if (mod->close_pending)
 		close_model(mod);
-	else if (!mod->dof.auto_rotate)
+	else if (!mod->dof.auto_rot)
 		create_next_img(mod);
-	if (mod->dof.auto_rotate)
+	if (mod->dof.auto_rot)
 		static_auto_rotate(mod);
 	return (0);
 }
@@ -98,7 +98,7 @@ int	close_model(t_model *mod)
 	dbg_printf(start_block, "close_model");
 	mlx_destroy_window(mod->mlx, mod->win);
 	free_list(mod->net);
-	free_color_maps(mod);
+	free_clr_maps(mod);
 	free_help(mod);
 	mlx_destroy_image(mod->mlx, mod->img.mlx_img);
 	free_whatever("pp", mod->help, mod->clr_map);

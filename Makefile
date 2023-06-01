@@ -58,7 +58,7 @@ SRCS = $(addprefix $(SRC_FOLDER), \
 OBJS = $(SRCS:$(SRC_FOLDER)%.c=$(OBJS_FOLDER)%.o)
 
 # TARGETS
-.PHONY: all $(NAME) $(LIBFT_PRINTF) $(MINILIBX) clean fclean re 42 a m p god
+.PHONY: all $(NAME) $(LIBFT_PRINTF) $(MINILIBX) clean fclean re 42 a m p god norm
 
 all: $(NAME)
 
@@ -110,3 +110,16 @@ god:
 	git status
 	git commit -m " -> Makefile Commit <- "
 	git status
+
+norm:
+	@echo "$(ORANGE)\nCHECK SOURCE FILES$(RESET)"
+	@echo "$(ORANGE)-------------------------------\
+	---------------------------------$(RESET)"
+	@norminette $(SRC_FOLDER) && norminette $(LIBFT_PRINTF_FOLDER)src
+	@echo "$(ORANGE)\nCHECK HEADER FILE$(RESET)"
+	@echo "$(ORANGE)-------------------------------\
+	---------------------------------$(RESET)"
+	@norminette $(INCLUDE_FOLDER) && norminette $(LIBFT_PRINTF_FOLDER)libft_printf.h
+	@echo "$(GREEN)\n------------------------------\
+	----------------------------------$(RESET)"
+	@echo "$(GREEN)DONE - ALL GOOD :)\n$(RESET)"

@@ -52,6 +52,17 @@ t_clr	*sum_clr(t_clr *a, t_clr *b, int b_factor)
 	return (clr);
 }
 
+/**
+ * @brief   first checks if the RGB values of 'clr' are in the required range of
+ *          0-255 and adjusts them if necessary
+ *              (this might be necessary due to previous rounding)
+ *          then the RGB values are converted to the unsigned 8-bit int
+ *          'uint8_t' and combined via bit shifting
+ * 
+ * @param   mod		pointer to the struct that contains all info about the model
+ * @param   clr 
+ * @return  int     a true tone color for minilibx
+ */
 int	color2int(t_model *mod, t_clr *clr)
 {
 	int	i_clr;

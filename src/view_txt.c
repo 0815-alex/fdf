@@ -19,9 +19,9 @@ void	ini_help(t_model *mod)
 	char	*cur_line_trimmed;
 	t_list	*cur_node;
 
-	fd = open(PATH_2_HELP, O_RDONLY);
+	fd = open(P_HELP, O_RDONLY);
 	if (fd < 0 || fd > FOPEN_MAX)
-		dbg_printf(err_block, "error opening help file: %s", PATH_2_HELP);
+		dbg_printf(err_block, "error opening help file: %s", P_HELP);
 	mod->help = malloc(sizeof(t_list *));
 	(*mod->help) = NULL;
 	cur_line = get_next_line(fd);
@@ -39,6 +39,10 @@ void	ini_help(t_model *mod)
 	close(fd);
 }
 
+/**
+ * @brief	frees all nodes of the linked list 'help' stored in 'mod'
+ * @param 	mod		pointer to the struct that contains all info about the model
+ */
 void	free_help(t_model *mod)
 {
 	t_list	*cur_node;
@@ -85,7 +89,7 @@ static void	put_stats_frame_to_view(t_model *mod)
 	mlx_string_put(mod->mlx, mod->win, x, 5 * SZ, CLR_G, "|");
 	mlx_string_put(mod->mlx, mod->win, x, 6 * SZ, CLR_G, "|");
 	mlx_string_put(mod->mlx, mod->win, x + SZ, 4 * SZ, CLR_G,
-		ft_btoa(mod->dof.auto_rotate, 1));
+		ft_btoa(mod->dof.auto_rot, 1));
 	mlx_string_put(mod->mlx, mod->win, x + SZ, 5 * SZ, CLR_G,
 		ft_btoa(mod->dof.auto_color_change, 1));
 }

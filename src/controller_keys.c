@@ -57,7 +57,7 @@ static t_bool	check_rotate(int key, t_model *mod)
 	else if (key == 'e')
 		rot_mod(mod, ft_false, new_point(pnt_dim_3, 0, 0, -degree));
 	else if (key == 'r')
-		mod->dof.auto_rotate = !mod->dof.auto_rotate;
+		mod->dof.auto_rot = !mod->dof.auto_rot;
 	else
 		check = ft_false;
 	return (check);
@@ -99,7 +99,7 @@ static t_bool	check_presets(int key, t_model *mod)
 	else if (key == 'p')
 		rot_mod(mod, ft_true, new_point(pnt_dim_3, 45, 45, 0));
 	else if (key == K_TAB)
-		next_color_map(mod);
+		next_clr_map(mod);
 	else if (key == 'c')
 		mod->dof.auto_color_change = !mod->dof.auto_color_change;
 	else

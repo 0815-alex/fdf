@@ -20,15 +20,15 @@
 # include <sys/stat.h>
 # include <unistd.h>
 
-//______MAP CREATOR))___________________________________________________________
-# define PATH_2_CHARS "./maps/letters/"
-# define PATH_2_NAMES "./maps/names/"
-# define PATH_2_RESOURCES "./resources/"
-# define PATH_2_HELP "./resources/help_on_screen.txt"
+//______PATHS___________________________________________________________________
+# define P_CHARS "./maps/letters/"
+# define P_NAMES "./maps/names/"
+# define P_RESOURCES "./resources/"
+# define P_HELP "./resources/help_on_screen.txt"
 
 //______AUTO ZOOM_______________________________________________________________
 # define AUTO_ZOOM_INI_LEVEL 1
-# define AUTO_ZOOM_FRAMES 25
+# define AUTO_ZOOM_FRAMES 15
 
 //______AUTO ROATET & COLOR_SHIFT_______________________________________________
 # define AUTO_MOVE_FRAMES 45
@@ -37,7 +37,6 @@
 # define SZ 15
 
 //______DEFINE KEYS_____________________________________________________________
-
 # define K_ARROW_LEFT 65361
 # define K_ARROW_UP 65362
 # define K_ARROW_RIGHT 65363
@@ -58,8 +57,10 @@
 # define K_ESC 65307
 # define K_SEMICOLON 246
 
-//______DEFINE MOUSE CODES______________________________________________________
-
+//______DEFINE MOUSE CODES LINUX________________________________________________
+# define M_LEFT 1
+# define M_MIDDLE 2
+# define M_RIGHT 3
 # define M_SCROLL_DOWN 4
 # define M_SCROLL_UP 5
 # define M_SCROLL_RIGHT 6
@@ -77,14 +78,6 @@
 # define CLR_B 0xFF0000FF
 
 //______STRUCTS ________________________________________________________________
-
-// typedef struct s_clr
-// {
-// 	int				red;
-// 	int				green;
-// 	int				blue;
-// }						t_clr;
-
 typedef struct s_clr
 {
 	double			red;
@@ -92,53 +85,57 @@ typedef struct s_clr
 	double			blue;
 }						t_clr;
 
-typedef struct s_point_2d
+typedef struct s_pnt_2d
 {
 	int					x;
 	int					y;
-}						t_point_2d;
+}						t_pnt_2d;
 
-typedef struct s_col_point_2d
+typedef struct s_pnt_2d_clr
 {
 	int					x;
 	int					y;
 	t_clr				clr;
-}						t_col_point_2d;
+}						t_pnt_2d_clr;
 
-typedef struct s_point_3d
+typedef struct s_pnt_3d
 {
 	int					x;
 	int					y;
 	int					z;
-}						t_point_3d;
+}						t_pnt_3d;
 
-typedef struct s_point_dbl_3d
+typedef struct s_pnt_3d_dbl
 {
 	double				x;
 	double				y;
 	double				z;
-}						t_point_dbl_3d;
+}						t_pnt_3d_dbl;
+
+typedef enum e_pnt_dim
+{
+	pnt_dim_error = -1,
+	pnt_dim_2 = 2,
+	pnt_dim_3 = 3
+}						t_pnt_dim;
 
 typedef struct s_node
 {
-	t_point_3d			*pnt;
+	t_pnt_3d			*pnt;
 	t_clr				clr;
 	struct s_node		*next;
 	struct s_node		*west;
 	struct s_node		*north;
 }						t_node;
 
-/**
- * @brief dof degrees of fredoom
- * 
- */
+/* dof = degrees of fredoom */
 typedef struct s_dof_plus
 {
-	t_point_2d			trans;
-	t_point_dbl_3d		rot_rad;
+	t_pnt_2d			trans;
+	t_pnt_3d_dbl		rot_rad;
 	double				zoom;
 	double				z_factor;
-	t_bool				auto_rotate;
+	t_bool				auto_rot;
 	t_bool				auto_color_change;
 	int					auto_zoom;
 }						t_dof_plus;
@@ -152,17 +149,14 @@ typedef struct s_img
 	int					endian;
 }						t_img;
 
-/*
-True Color bla bla
-*/
-typedef struct s_color_map
+typedef struct s_clr_map
 {
 	t_clr				min;
 	t_clr				zero;
 	t_clr				max;
-	struct s_color_map	*previous;
-	struct s_color_map	*next;
-}						t_color_map;
+	struct s_clr_map	*previous;
+	struct s_clr_map	*next;
+}						t_clr_map;
 
 typedef struct s_model
 {
@@ -171,46 +165,39 @@ typedef struct s_model
 	int					win_width;
 	int					win_height;
 	t_bool				close_pending;
-	t_bool				show_help;
-	t_bool				show_stats;
 	t_node				*net;
-	t_color_map			*clr_map;
-	t_dof_plus			dof;
-	t_point_2d			net_dim;
-	int					z_max;
+	t_pnt_2d			net_dim;
+	t_pnt_3d			center_point;
 	int					z_min;
-	t_point_3d			center_point;
+	int					z_max;
+	t_dof_plus			dof;
+	t_clr_map			*clr_map;
 	t_img				img;
 	t_list				**help;
+	t_bool				show_help;
+	t_bool				show_stats;
 }						t_model;
-
-typedef enum e_pnt_dim
-{
-	pnt_dim_error = -1,
-	pnt_dim_2 = 2,
-	pnt_dim_3 = 3
-}						t_pnt_dim;
 
 //      ALL FILES AND THEIR NON STATIC FUNCTIONS LISTED ALPHABETICALLY
 //==============================================================================
 
 //______COLOR_MAP.C_____________________________________________________________
-void					ini_color_maps(t_model *model);
-void					next_color_map(t_model *mod);
-void					free_color_maps(t_model *model);
+void					ini_clr_maps(t_model *model);
+void					next_clr_map(t_model *mod);
+void					free_clr_maps(t_model *model);
 
 //______COLOR.C_________________________________________________________________
-t_clr					*step_clr(t_clr start_clr, t_clr end_clr, double n_steps);
+t_clr					*step_clr(t_clr start_clr, t_clr end_clr,
+							double n_steps);
 void					cpy_color(t_clr *src, t_clr *dest);
 t_clr					*sum_clr(t_clr *a, t_clr *b, int b_factor);
 int						color2int(t_model *mod, t_clr *clr);
-
 
 //______CONTROLLER_KEYS.C_______________________________________________________
 int						deal_key(int key, t_model *model);
 
 //______CONTROLLER_MOUSE.C______________________________________________________
-int						deal_mouse(int code, t_model *model);
+int						deal_mouse(int btn, int x, int y, t_model *mod);
 
 //______DATA.C__________________________________________________________________
 void					ini_net_details(t_model *model);
@@ -225,12 +212,12 @@ void					cpy_dof(t_dof_plus *src, t_dof_plus *dest);
 
 //______IMG.C___________________________________________________________________
 void					ini_img(t_model *model);
-void					img_pix_put(t_model *mod, t_point_2d *point, int clr);
+void					img_pix_put(t_model *mod, t_pnt_2d *point, int clr);
 void					create_next_img(t_model *model);
 
 //______LINE.C__________________________________________________________________
 void					draw_line(t_model *mod,
-							t_col_point_2d *pnt_a, t_col_point_2d *pnt_b);
+							t_pnt_2d_clr *pnt_a, t_pnt_2d_clr *pnt_b);
 
 //______LIST.C__________________________________________________________________
 void					node_add_front(t_node **lst, t_node *new);
@@ -252,8 +239,8 @@ void					free_fd_list(t_list **fds, int new_fd);
 
 //______MODEL_MOVE.C____________________________________________________________
 void					trans_mod(t_model *model, t_bool ovr,
-							t_point_2d *trans);
-void					rot_mod(t_model *model, t_bool ovr, t_point_3d *deg);
+							t_pnt_2d *trans);
+void					rot_mod(t_model *model, t_bool ovr, t_pnt_3d *deg);
 void					scale_mod(t_model *model, t_bool ovr, double zoom,
 							double z_factor);
 void					static_auto_rotate(t_model *mod);
@@ -266,11 +253,11 @@ void					shedule_close(t_model *model);
 int						close_model(t_model *model);
 
 //______NODE.C__________________________________________________________________
-t_node					*new_node(t_point_3d *point);
+t_node					*new_node(t_pnt_3d *point);
 void					print_node(t_node *node);
 char					*node2str(t_node *node);
 void					node2point(t_model *model, t_node *node,
-							t_col_point_2d *point);
+							t_pnt_2d_clr *point);
 void					nodes2line(t_model *mod, t_node *n_a, t_node *n_b);
 
 //______PARSER.C________________________________________________________________
@@ -278,7 +265,7 @@ void					load_file(int argc, char **argv, t_model *model);
 
 //______POINT.C_________________________________________________________________
 void					*new_point(t_pnt_dim dim, int x, int y, int z);
-void					print_point(t_point_2d *point);
+void					print_point(t_pnt_2d *point);
 
 //______UTILS.C_________________________________________________________________
 double					degree2radian(int degree);
@@ -296,7 +283,6 @@ void					put_help_to_view(t_model *mod);
 void					put_stats_to_view(t_model *mod);
 
 //______ZOOM.C__________________________________________________________________
-void	ini_zoom(double *zoom_values, t_bool zoom_in, int *sign, t_dof_plus *cur_dof, t_model *mod);
 t_bool					static_auto_zoom(t_model *model, t_bool zoom_in);
 
 #endif

@@ -23,13 +23,13 @@ PLAN HO TO FINISH IT!
 DONE	- create new files
 DONE	- move the fucntions
 DONE	- add missing function
-DONEISH	- check the max line length of functions
-DONEISH	- implement the missiong functions in all of the code
+DONE	- check the max line length of functions
+DONE	- implement the missiong functions in all of the code
 DONE	- check if all functions are static if they need to be
 DONE	- update h-file
 DONE	- implement z scale on startup
 DONE 	- fix zoom aka center
-DONISH	- norminette should be fine now
+DONE	- norminette should be fine now
 
 2 Rethink Structs
 -------------------
@@ -39,7 +39,6 @@ DONE	- all the structs
 DONE		- ...
 DONE		- ...
 DONE		- ...
-- check if all mallocs are safe to fail
 
 3 Bonus
 -------------------
@@ -54,16 +53,36 @@ DONE	- Print help to screen
 DONE		- maybe hook it to the key F1 or mouse click
 DONE	- Animate a zoom in on start and start auto rotate after zoom in
 DONE	- Animate zoom before closing
-- Animate move between presets
-- check if map was already createt before
+DONE	- check if map was already createt before
 DONE	- dash einfuegen
 DONE	- makefile call minilib make
-- color shit an einer linie funktioniert noch nicht wenn r g b unterschiedlich
-- check for printf and stuff im not allowed to use
+DONE	- color shit an einer linie funktioniert noch nicht wenn r g b unterschiedlich
+DONE	- check for printf and stuff im not allowed to use
 
 3 COMMENTING
 -------------------
 - Add the fucked up comments to all the shit!
+	color.c
+DONE	color_map.c
+	controller_keys.c
+	controller_mouse.c
+	data.c
+	dof_plus.c
+	img.c
+	line.c
+	list.c
+	main.c
+	map_creator_utils.c
+	map_creator.c
+	model.c
+	model_move.c
+	node.c
+	parser.c
+	point.c
+	utils.c
+	view.c
+	view_txt.c
+	zoom.c
 
 3 TO LONG FUNCTIONS!
 -----------------------
@@ -78,7 +97,12 @@ DONE	check_presets
 DONE	img_line_put
 DONE	static_auto_zoom
 
-check mouse controll
-
-file of mapcreator has a problem if u call it twice
-
+4 RANDOM STUFF
+-----------------------
+DONE	check mouse controll
+DONE	file of mapcreator has a problem if u call it twice
+	check nice color maps
+	color theme anzeigen
+	zoom steps anpassen an map groesse
+	check if all mallocs are safe to fail
+	top view ist -180

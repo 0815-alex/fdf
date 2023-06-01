@@ -12,7 +12,7 @@
 
 #include "../include/fdf.h"
 
-void	trans_mod(t_model *mod, t_bool ovr, t_point_2d *trans)
+void	trans_mod(t_model *mod, t_bool ovr, t_pnt_2d *trans)
 {
 	if (ovr == ft_true)
 	{
@@ -28,7 +28,7 @@ void	trans_mod(t_model *mod, t_bool ovr, t_point_2d *trans)
 	create_next_img(mod);
 }
 
-void	rot_mod(t_model *mod, t_bool ovr, t_point_3d *deg)
+void	rot_mod(t_model *mod, t_bool ovr, t_pnt_3d *deg)
 {
 	if (ovr == ft_true)
 	{
@@ -92,7 +92,7 @@ void	static_auto_rotate(t_model *mod)
 		step_move = 0;
 	}
 	if (mod->dof.auto_color_change && step_move == 0)
-		next_color_map(mod);
+		next_clr_map(mod);
 	if (random_axis == 1)
 		rot_mod(mod, ft_false, new_point(pnt_dim_3, random_sign * 1, 0, 0));
 	else if (random_axis == 2)

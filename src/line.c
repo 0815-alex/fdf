@@ -31,15 +31,15 @@ static int	calc_cur_clr(t_model *mod, t_clr *clr_start, t_clr *clr_step)
 	return (clr_int);
 }
 
-static void	ini_line(t_point_2d **pnts,
-	t_col_point_2d *pnt_a, t_col_point_2d *pnt_b, t_clr **clr_step)
+static void	ini_line(t_pnt_2d **pnts,
+	t_pnt_2d_clr *pnt_a, t_pnt_2d_clr *pnt_b, t_clr **clr_step)
 {
 	double	hypotenuse;
 
 	pnts[0] = new_point(pnt_dim_2, pnt_a->x, pnt_a->y, 0);
 	pnts[1] = new_point(pnt_dim_2, abs(pnt_b->x - pnt_a->x), -abs(pnt_b->y
 				- pnt_a->y), 0);
-	pnts[2] = malloc(sizeof(t_point_2d));
+	pnts[2] = malloc(sizeof(t_pnt_2d));
 	if (pnt_a->x < pnt_b->x)
 		pnts[2]->x = 1;
 	else
@@ -65,9 +65,9 @@ static void	ini_line(t_point_2d **pnts,
  * @param pnt_a 
  * @param pnt_b 
  */
-void	draw_line(t_model *mod, t_col_point_2d *pnt_a, t_col_point_2d *pnt_b)
+void	draw_line(t_model *mod, t_pnt_2d_clr *pnt_a, t_pnt_2d_clr *pnt_b)
 {
-	t_point_2d	*calc_pnts[3];
+	t_pnt_2d	*calc_pnts[3];
 	int			err[2];
 	t_clr		*clr_step;
 

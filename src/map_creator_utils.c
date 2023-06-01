@@ -25,7 +25,7 @@ void	insert_empty_char(t_list **fds)
 	char	cur_filename[100];
 
 	cur_filename[0] = '\0';
-	ft_strlcat(cur_filename, PATH_2_CHARS, ft_strlen(PATH_2_CHARS) + 1);
+	ft_strlcat(cur_filename, P_CHARS, ft_strlen(P_CHARS) + 1);
 	ft_strlcat(cur_filename, "sp.fdf", ft_strlen(cur_filename) + 7);
 	cur_fd = malloc(sizeof(t_fd));
 	((t_fd *)cur_fd)->next = NULL;
@@ -42,9 +42,9 @@ char	*create_new_file(char *str, int *new_fd)
 
 	dbg_printf(start_block, "create_new_file");
 	new_filename = malloc(sizeof(char) * (ft_strlen(str)
-				+ ft_strlen(PATH_2_CHARS) + 20));
+				+ ft_strlen(P_CHARS) + 20));
 	new_filename[0] = '\0';
-	ft_strlcat(new_filename, PATH_2_NAMES, ft_strlen(PATH_2_NAMES) + 1);
+	ft_strlcat(new_filename, P_NAMES, ft_strlen(P_NAMES) + 1);
 	ft_strlcat(new_filename, str, ft_strlen(new_filename) + ft_strlen(str) + 1);
 	ft_strlcat(new_filename, ".fdf", ft_strlen(new_filename) + 5);
 	dbg_printf(no_block, "new file path: %s\n", new_filename);
@@ -59,10 +59,10 @@ char	*create_filename(char *str)
 	char	*buffer;
 	char	*cur_filename;
 
-	cur_filename = ft_calloc(ft_strlen(PATH_2_CHARS) + 8, sizeof(char));
+	cur_filename = ft_calloc(ft_strlen(P_CHARS) + 8, sizeof(char));
 	buffer = malloc(sizeof(char) * 2);
 	ft_bzero(cur_filename, 8);
-	ft_strlcat(cur_filename, PATH_2_CHARS, ft_strlen(PATH_2_CHARS) + 1);
+	ft_strlcat(cur_filename, P_CHARS, ft_strlen(P_CHARS) + 1);
 	ft_strlcpy(buffer, &str[0], 2);
 	if (ft_isalnum(*buffer))
 		ft_strlcat(cur_filename, buffer, ft_strlen(cur_filename) + 2);
@@ -122,4 +122,5 @@ void	free_fd_list(t_list **fds, int new_fd)
 	ft_lstclear(fds, null_ptr);
 	free(fds);
 	close(new_fd);
+	sleep(1);
 }

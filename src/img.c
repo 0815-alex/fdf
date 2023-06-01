@@ -23,7 +23,7 @@ void	ini_img(t_model *mod)
 	ft_bzero(mod->img.addr, img_size);
 }
 
-void	img_pix_put(t_model *mod, t_point_2d *point, int clr)
+void	img_pix_put(t_model *mod, t_pnt_2d *point, int clr)
 {
 	char	*pixel;
 	int		i;
