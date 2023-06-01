@@ -253,7 +253,6 @@ int						close_model(t_model *model);
 //______NODE.C__________________________________________________________________
 t_node					*new_node(t_pnt_3d *point);
 void					print_node(t_node *node);
-char					*node2str(t_node *node);
 void					node2point(t_model *model, t_node *node,
 							t_pnt_2d_clr *point);
 void					nodes2line(t_model *mod, t_node *n_a, t_node *n_b);
@@ -263,7 +262,8 @@ void					load_file(int argc, char **argv, t_model *model);
 
 //______POINT.C_________________________________________________________________
 void					*new_point(t_pnt_dim dim, int x, int y, int z);
-void					print_point(t_pnt_2d *point);
+void					print_pnt_2d(t_pnt_2d *point);
+void					print_pnt_3d(t_pnt_3d *point);
 
 //______UTILS.C_________________________________________________________________
 double					degree2radian(int degree);

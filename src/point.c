@@ -12,27 +12,6 @@
 
 #include "../include/fdf.h"
 
-// static t_pnt_dim	check_dim(void *pnt)
-// {
-// 	t_pnt_2d	*new_pnt_2d;
-// 	t_pnt_3d	*new_pnt_3d;
-
-// 	if (sizeof(*((t_pnt_2d *)pnt)) == sizeof(t_pnt_2d))
-// 	{
-// 		new_pnt_2d = (t_pnt_2d *)pnt;
-// 		return (pnt_dim_2);
-// 	}
-// 	else if (sizeof(*((t_pnt_3d *)pnt)) == sizeof(t_pnt_3d))
-// 	{
-// 		new_pnt_3d = (t_pnt_3d *)pnt;
-// 		return (pnt_dim_3);
-// 	}
-// 	else
-// 	{
-// 		return (pnt_dim_error);
-// 	}
-// }
-
 void	*new_point(t_pnt_dim dim, int x, int y, int z)
 {
 	t_pnt_2d	*new_pnt_2d;
@@ -57,12 +36,22 @@ void	*new_point(t_pnt_dim dim, int x, int y, int z)
 		return (NULL);
 }
 
-void	print_point(t_pnt_2d*point)
+void	print_pnt_2d(t_pnt_2d*point)
 {
 	if (point == NULL)
 		dbg_printf(no_block, "(no point)");
 	else
 	{
 		dbg_printf(no_block, "(%i|%i)", point->x, point->y);
+	}
+}
+
+void	print_pnt_3d(t_pnt_3d*point)
+{
+	if (point == NULL)
+		dbg_printf(no_block, "(no point)");
+	else
+	{
+		dbg_printf(no_block, "(%i|%i|%i)", point->x, point->y, point->z);
 	}
 }

@@ -69,14 +69,14 @@ DONE	controller_mouse.c
 DONE	data.c
 DONE	dof_plus.c
 DONE	img.c
-	line.c
+DONE	line.c
 	list.c
 	main.c
 	map_creator_utils.c
 	map_creator.c
 	model.c
 	model_move.c
-	node.c
+DONE	node.c
 	parser.c
 	point.c
 	utils.c
