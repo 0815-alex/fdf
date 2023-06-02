@@ -93,16 +93,16 @@ fclean: clean
 re: fclean all
 
 42: all
-	./$(NAME) ./maps/42.fdf
+	@./$(NAME) ./maps/42.fdf
 
 a: all
-	./$(NAME) ./maps/astein2.0.fdf
+	@./$(NAME) ./maps/astein2.0.fdf
 
 m: all
-	./$(NAME) ./maps/mars.fdf
+	@./$(NAME) ./maps/mars.fdf
 
 p: all
-	./$(NAME) ./maps/pylone.fdf
+	@./$(NAME) ./maps/pylone.fdf
 
 god:
 	git status

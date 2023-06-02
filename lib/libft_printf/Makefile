@@ -72,7 +72,6 @@ SRCS = $(addprefix $(SRC_FOLDER), \
 	get_next_line.c \
 	print_char.c \
 	print_dez_to_hexa.c \
-	print_double.c \
 	print_nbr.c \
 	print_ptr.c \
 	print_str.c)

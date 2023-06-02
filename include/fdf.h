@@ -18,7 +18,6 @@
 # include <limits.h>
 # include <stdint.h>
 # include <sys/stat.h>
-# include <unistd.h>
 
 //______PATHS___________________________________________________________________
 # define P_CHARS "./maps/letters/"
@@ -221,14 +220,14 @@ void					draw_line(t_model *mod,
 int						main(int argc, char **argv);
 
 //______MAP_CREATOR.C___________________________________________________________
-char					*create_map(char *str);
+int						create_map(char *str);
 
 //______MAP_CREATOR_UTILS.C_____________________________________________________
 void					insert_empty_char(t_list **fds);
 char					*create_new_file(char *str, int *new_fd);
 char					*create_filename(char *str);
 t_list					**create_fd_list(char *str);
-void					free_fd_list(t_list **fds, int new_fd);
+void					free_fd_list(t_list **fds);
 
 //______MODEL_MOVE.C____________________________________________________________
 void					trans_mod(t_model *model, t_bool ovr,
@@ -276,7 +275,6 @@ void					update_view(t_model *model);
 
 //______VIEW_TXT.C______________________________________________________________
 void					ini_help(t_model *mod);
-void					free_help(t_model *mod);
 void					put_help_to_view(t_model *mod);
 void					put_stats_to_view(t_model *mod);
 

@@ -12,10 +12,22 @@
 
 #include "../libft_printf.h"
 
+/**
+ * @brief	Takes next arg from 'args' and a type identifier 'str' to call the
+ * 			matching print_function of numbers with decimal digits
+ * 
+ * 			EXAMPLE:	ft_printf("here a double %d3\n", 12.3456); -> 12.345
+ * 			WARNING:	'ft_dtoa' is NOT rounding the double properly!
+ * 
+ * @param	args	va_list with all the arguments
+ * @param	str		type identifier (d<NUM>)	with 0 <= NUM <= 9
+ * @return	int		length of printed string
+ */
 int	print_whatever_digits(va_list args, char *str)
 {
 	int		len;
 	char	*digits;
+	char	*str_nbr;
 
 	len = 0;
 	if (*str == 'd')
@@ -25,8 +37,9 @@ int	print_whatever_digits(va_list args, char *str)
 			str++;
 			digits = malloc(sizeof(char) * 2);
 			ft_strlcpy(digits, str, 2 * sizeof(char));
-			print_double(va_arg(args, double), &len, ft_atoi(digits));
-			free(digits);
+			str_nbr = ft_dtoa(va_arg(args, double), ft_atoi(digits));
+			print_str(str_nbr, &len);
+			free_whatever("pp", digits, str_nbr);
 		}
 	}
 	return (len);
@@ -66,7 +79,7 @@ int	print_whatever(va_list args, char *str)
 
 /**
  * @brief	This function prints the string 'str' while replacing the 
- * 			identifiers (%cspdiuxX) with values from va_list
+ * 			identifiers (%cspdiuxXd) with values from va_list
  * 
  * @param 	str	string to be printed
  * @param 	... values to be printed

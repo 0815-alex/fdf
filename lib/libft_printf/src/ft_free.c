@@ -12,19 +12,23 @@
 
 #include "../libft_printf.h"
 
-static void	free_lst(t_list **lst)
+/**
+ * @brief	free the pointer 'ptr'
+ * 
+ * @param	ptr pointer to be freed
+ */
+static void	free_ptr(void *ptr)
 {
-	t_list	*buffer;
-
-	while (*lst)
-	{
-		buffer = *lst;
-		*lst = (*lst)->next;
-		free(buffer);
-	}
-	free(lst);
+	if (ptr)
+		free(ptr);
+	ptr = NULL;
 }
 
+/**
+ * @brief	frees each entry of the array and the pointer to the array itself
+ * 
+ * @param	arr	array to be freed
+ */
 static void	free_arr(void **arr)
 {
 	int	arr_i;
@@ -38,26 +42,39 @@ static void	free_arr(void **arr)
 	free(arr);
 }
 
+/**
+ * @brief	to simplify the freeing process this function can free
+ * 				(symbol 'p')	pointers
+ * 				(symbol 'a')	arrays
+ * 				(symbol 'l')	linked lists of the struct type 't_list'
+ * 
+ * 			EXAMPLE:
+ * 				char	*ptr;
+ * 				char	**arr;
+ * 				t_list	**lst;
+ * 				free_whatever ("pal", ptr, arr, lst);
+ * 
+ * 			NOTE:	the content of nodes int the list are NOT freed!
+ * 
+ * @param	str		symols representing the argument types
+ * @param	...		arguments to be freed
+ * @return	void*	always 'NULL'
+ */
 void	*free_whatever(char *str, ...)
 {
 	va_list	args;
-	void	*ptr;
 
-	ptr = NULL;
 	va_start(args, str);
 	while (*str)
 	{
 		if (*str == 'p')
-		{
-			ptr = va_arg(args, void *);
-			if (ptr)
-				free(ptr);
-			ptr = NULL;
-		}
+			free_ptr(va_arg(args, void *));
 		else if (*str == 'a')
 			free_arr(va_arg(args, void **));
 		else if (*str == 'l')
-			free_lst(va_arg(args, t_list **));
+			ft_lstclear(va_arg(args, t_list **), null_ptr);
+		else if (*str == 'c')
+			ft_lstclear(va_arg(args, t_list **), free_content);
 		else
 			ft_printf("bad param free_whatever: %c\n", str[0]);
 		str++;

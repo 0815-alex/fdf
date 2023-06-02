@@ -83,12 +83,14 @@ DONE	utils.c
 DONE	view.c
 DONE	view_txt.c
 DONE	zoom.c
-	ft_free.c
-	debug.c
-	ft_btoa.c
-	ft_dtoa.c
-	print_double.c
-	ft_strcat_multi.c
+DONE	ft_free.c
+DONE	debug.c
+DONE	ft_btoa.c
+DONE	ft_dtoa.c
+DONE	print_double.c
+DONE	ft_strcat_multi.c
+	add '[return]	' to all parameters wich hold return values
+	add '()' to all functions in comments
 
 3 TO LONG FUNCTIONS!
 -----------------------
@@ -108,8 +110,7 @@ DONE	static_auto_zoom
 DONE	check mouse controll
 DONE	file of mapcreator has a problem if u call it twice
 	check nice color maps
-	color theme anzeigen
-	zoom steps anpassen an map groesse
+DONE	zoom steps anpassen an map groesse
 	check if all mallocs are safe to fail
 	top view ist -180
 	map creator is fucked

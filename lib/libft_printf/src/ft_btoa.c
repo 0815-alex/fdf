@@ -12,6 +12,18 @@
 
 #include "../libft_printf.h"
 
+/**
+ * @brief	converts the boolean 'b' into a readable string defined by the
+ * 			parameter 'flg'
+ *
+ * 			FLG:
+ * 					0 = TRUE, FALSE
+ * 					1 = ON, OFF
+ * 
+ * @param	b		boolean to be converted
+ * @param	flg		parameter defining the resulting string
+ * @return	char*	result of the conversion
+ */
 char	*ft_btoa(t_bool b, int flg)
 {
 	if (b)

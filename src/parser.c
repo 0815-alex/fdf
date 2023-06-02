@@ -88,11 +88,7 @@ static int	open_or_create(char *str)
 			if (ft_strlen(str) + 5 >= FOPEN_MAX)
 				dbg_printf(err_block, "max: %i charaters :/", FOPEN_MAX - 4);
 			else
-			{
-				fn = create_map(str);
-				fd = open(fn, O_RDONLY);
-				free(fn);
-			}
+				fd = create_map(str);
 		}
 	}
 	return (fd);

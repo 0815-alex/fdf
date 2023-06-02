@@ -28,7 +28,7 @@ void	insert_empty_char(t_list **fds)
 	cur_fd = malloc(sizeof(t_fd));
 	((t_fd *)cur_fd)->next = NULL;
 	((t_fd *)cur_fd)->fd = open(cur_filename, O_RDONLY);
-	dbg_printf(no_block, "open file: %s | fd=%d\n",
+	dbg_printf(no_block, "open file: %s | fd=%i\n",
 		cur_filename, ((t_fd *)cur_fd)->fd);
 	ft_lstadd_back(fds, cur_fd);
 	free(cur_filename);
@@ -41,8 +41,7 @@ char	*create_new_file(char *str, int *new_fd)
 	dbg_printf(start_block, "create_new_file");
 	new_filename = ft_strcat_multi(3, P_NAMES, str, ".fdf");
 	dbg_printf(no_block, "new file path: %s\n", new_filename);
-	*new_fd = open(new_filename, O_WRONLY | O_CREAT | O_TRUNC,
-			S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
+	*new_fd = open(new_filename, O_RDWR | O_CREAT);
 	dbg_printf(end_block, "create_new_file");
 	return (new_filename);
 }
@@ -91,7 +90,7 @@ t_list	**create_fd_list(char *str)
 		cur_fd = malloc(sizeof(t_fd));
 		((t_fd *)cur_fd)->next = NULL;
 		((t_fd *)cur_fd)->fd = open(cur_filename, O_RDONLY);
-		dbg_printf(no_block, "closed fd: %d\n", ((t_fd *)cur_fd)->fd);
+		dbg_printf(no_block, "closed fd: %i\n", ((t_fd *)cur_fd)->fd);
 		free(cur_filename);
 		ft_lstadd_back(fds, cur_fd);
 		str++;
@@ -100,7 +99,7 @@ t_list	**create_fd_list(char *str)
 	return (fds);
 }
 
-void	free_fd_list(t_list **fds, int new_fd)
+void	free_fd_list(t_list **fds)
 {
 	t_list	*cur_fd;
 
@@ -108,12 +107,9 @@ void	free_fd_list(t_list **fds, int new_fd)
 	while (cur_fd)
 	{
 		close(((t_fd *)cur_fd)->fd);
-		dbg_printf(no_block, "closed fd: %d\n", ((t_fd *)cur_fd)->fd);
+		dbg_printf(no_block, "closed fd: %i\n", ((t_fd *)cur_fd)->fd);
 		cur_fd = ((t_list *)cur_fd)->next;
 	}
 	cur_fd = *fds;
-	ft_lstclear(fds, null_ptr);
-	free(fds);
-	close(new_fd);
-	sleep(1);
+	free_whatever("lp", fds, fds);
 }

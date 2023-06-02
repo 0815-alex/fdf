@@ -1,34 +1,35 @@
               MOUSE
-====================================
+===========================================
 left    toggle this message
 right   toggle stats
 middel  smooth zoom in
 scroll  rotate the model
 
                KEYS
-====================================
+===========================================
 F1      toggle this message
 F2      toggle stats
 ESC     end program
 
         Zoom
-------------------------------------
+-------------------------------------------
 1  2    zoom out / in
-3  4    increase / decrease z factor
-5  6    smooth zoom out / in
+3  4    big   increase / decrease z factor
+5  6    small increase / decrease z factor
+7  8    smooth zoom out / in
 
         Translate
-------------------------------------
+-------------------------------------------
 use the arrow keys
 
         Rotate
-------------------------------------
+-------------------------------------------
 a  d    rotate around the x-axis
 w  s    rotate around the y-axis
 q  e    rotate around the z-axis
 
         Presets
-------------------------------------
+-------------------------------------------
 0       center model
 t       top view
 f       front view
@@ -36,15 +37,15 @@ l       left side view
 p       45-degree perspective
 
         Colormaps
-------------------------------------
+-------------------------------------------
 TAB     switch to next colormap
 
 
         Let's get funky
-------------------------------------
+-------------------------------------------
 r       toggle auto rotate
 c       toggle auto color switch
 
         GitHub
-------------------------------------
+-------------------------------------------
 -->     0815-alex

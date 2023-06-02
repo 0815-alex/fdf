@@ -31,6 +31,7 @@ t_model	*new_model(int argc, char **argv)
 	mod = malloc(sizeof(t_model));
 	ini_net_details(mod);
 	load_map(argc, argv, mod);
+    // exit(0);
 	determine_net_center(mod);
 	ini_clr_maps(mod);
 	ini_colors(mod);
@@ -129,9 +130,8 @@ int	close_model(t_model *mod)
 	mlx_destroy_window(mod->mlx, mod->win);
 	free_node_lst(mod->net);
 	free_clr_maps(mod);
-	free_help(mod);
 	mlx_destroy_image(mod->mlx, mod->img.mlx_img);
-	free_whatever("pp", mod->help, mod->clr_map);
+	free_whatever("cpp", mod->help, mod->help, mod->clr_map);
 	free(mod);
 	exit(0);
 	return (0);

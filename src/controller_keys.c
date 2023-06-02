@@ -76,21 +76,27 @@ static void	check_rotate(int key, t_model *mod)
 static void	check_zoom(int key, t_model *mod)
 {
 	int		zoom;
-	float	z_factor;
+	float	z_factor_big;
+	float	z_factor_small;
 
 	zoom = 5;
-	z_factor = 0.1;
+	z_factor_big = 0.1;
+	z_factor_small = 0.01;
 	if (key == '1')
 		scale_mod(mod, ft_false, -zoom, 0);
 	else if (key == '2')
 		scale_mod(mod, ft_false, zoom, 0);
 	else if (key == '3')
-		scale_mod(mod, ft_false, 0, -z_factor);
+		scale_mod(mod, ft_false, 0, -z_factor_big);
 	else if (key == '4')
-		scale_mod(mod, ft_false, 0, z_factor);
+		scale_mod(mod, ft_false, 0, z_factor_big);
 	else if (key == '5')
-		mod->dof.auto_zoom = -1;
+		scale_mod(mod, ft_false, 0, -z_factor_small);
 	else if (key == '6')
+		scale_mod(mod, ft_false, 0, z_factor_small);
+	else if (key == '7')
+		mod->dof.auto_zoom = -1;
+	else if (key == '8')
 		mod->dof.auto_zoom = 1;
 }
 

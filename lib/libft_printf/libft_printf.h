@@ -86,7 +86,6 @@ void				print_dez_to_hexa(unsigned long dez_nbr, int *len,
 						t_bool caps);
 void				print_ptr(unsigned long ptr, int *len);
 void				print_nbr(long nbr, int *len);
-void				print_double(double d, int *len, int digits);
 
 //******************************************************************************
 //			Output Functions
@@ -143,7 +142,7 @@ void				*ft_memchr(const void *s, int c, size_t n);
 //******************************************************************************
 int					ft_atoi(const char *nptr);
 char				*ft_itoa(int n);
-char				*ft_dtoa(double d, size_t digits);
+char				*ft_dtoa(double d, unsigned int digits);
 char				*ft_btoa(t_bool b, int flg);
 char				**ft_split(char const *s, char c);
 
@@ -158,6 +157,7 @@ void				ft_lstadd_back(t_list **lst, t_list *new);
 void				ft_lstdelone(t_list *lst, void (*del)(void *));
 void				ft_lstclear(t_list **lst, void (*del)(void *));
 void				null_ptr(void *nothing);
+void				free_content(void *node);
 void				ft_lstiter(t_list *lst, void (*f)(void *));
 t_list				*ft_lstmap(t_list *lst, void *(*f)(void *),
 						void (*del)(void *));

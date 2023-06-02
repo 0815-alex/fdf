@@ -12,23 +12,35 @@
 
 #include "../libft_printf.h"
 
-static void	print_tab_level(t_dbg_flag dbg_flg)
+/**
+ * @brief	keeps track of the indent level of the debug messages. each time a
+ * 			'start_block' / 'end_block' is called the indent level will be
+ * 			in- / decreased to improve the readability of the output.
+ * 
+ * 			'start_block', 	'err_block'	and 'end_block' msgs will be highlighted
+ * 			with color and keywords.
+ * 
+ * 			the current indent level is stored in the static var 'cur_indent'.
+ * 
+ * @param dbg_flg	defining the type of message which should be printed
+ */
+static void	print_indent_level(t_dbg_flag dbg_flg)
 {
-	static int	count_stack_depth;
+	static int	cur_indent;
 	int			tabs;
 	int			tab_width;
 
 	tabs = 0;
 	tab_width = 5;
-	if (dbg_flg == end_block && count_stack_depth > 0)
-		count_stack_depth--;
-	while (tabs < (count_stack_depth) * tab_width)
+	if (dbg_flg == end_block && cur_indent > 0)
+		cur_indent--;
+	while (tabs < (cur_indent) * tab_width)
 	{
 		write(1, " ", 1);
 		tabs++;
 	}
 	if (dbg_flg == start_block)
-		count_stack_depth++;
+		cur_indent++;
 	if (dbg_flg == start_block)
 		ft_putstr_fd(WRITE_COLOR_ORANGE "  [START] >", 1);
 	else if (dbg_flg == end_block)
@@ -38,13 +50,30 @@ static void	print_tab_level(t_dbg_flag dbg_flg)
 	ft_putstr_fd(WRITE_COLOR_DEFAULT, 1);
 }
 
+/**
+ * @brief   prints debug messages folowed by a new line if the DEBUG equals 1.
+ *          the parameter can be set via the MAKEFILE.
+ * 
+ * 			'start_block', 	'err_block'	and 'end_block' msgs will be highlighted
+ * 			with the keywords definded in 'print_indent_level()'.
+ * 
+ * 			each time a 'start_block' / 'end_block' is called the indent level
+ * 			will be in- / decreased to improve the readability of the output.
+ * 
+ *          NOTE:   'err_block' messages will be printed always followed by the
+ *                  'perror' message and the programm will exit!
+ * 
+ * @param dbg_flg   defining the type of message which should be printed
+ * @param str       the message itself following the 'ft_printf' scheme
+ * @param ...       values to be included in the message (see 'ft_printf')
+ */
 void	dbg_printf(t_dbg_flag dbg_flg, char *str, ...)
 {
 	va_list			args;
 
 	if (DEBUG == 1 || dbg_flg == err_block)
 	{
-		print_tab_level(dbg_flg);
+		print_indent_level(dbg_flg);
 		va_start(args, str);
 		while (*str)
 		{

@@ -26,9 +26,9 @@ typedef struct s_fd
  * 						1	get_next_line without linebreak
  * 						2	new filename
  * @param str 
- * @return char* 
+ * @return int
  */
-char	*create_map(char *str)
+int	create_map(char *str)
 {
 	t_list	**fds;
 	int		new_fd;
@@ -44,6 +44,7 @@ char	*create_map(char *str)
 		strs[1] = ft_strtrim(strs[0], "\n");
 		free(strs[0]);
 		write(new_fd, strs[1], ft_strlen(strs[1]));
+		fsync(new_fd);
 		free(strs[1]);
 		cur_fd = ((t_list *)cur_fd)->next;
 		if (!cur_fd)
@@ -53,6 +54,10 @@ char	*create_map(char *str)
 		else
 			write(new_fd, " ", 1);
 	}
-	free_fd_list(fds, new_fd);
-	return (strs[2]);
+	free_fd_list(fds);
+	sleep(5);
+	close(new_fd);
+	sleep(5);
+	new_fd = open(strs[2], O_RDONLY);
+	return (new_fd);
 }

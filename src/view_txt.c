@@ -49,24 +49,6 @@ void	ini_help(t_model *mod)
 }
 
 /**
- * @brief	frees all nodes of the linked list 'mod->help'
- * 
- * @param 	mod	pointer to the struct that contains all info about the model
- */
-void	free_help(t_model *mod)
-{
-	t_list	*cur_node;
-
-	while (*mod->help)
-	{
-		cur_node = *mod->help;
-		*mod->help = (*mod->help)->next;
-		free(cur_node->content);
-		free(cur_node);
-	}
-}
-
-/**
  * @brief	loops through the linked list 'mod->help' and prints each line to
  * 			the window using 'mlx_string_put'
  * 

@@ -15,7 +15,7 @@
 /**
  * @brief	Here everything starts ;)
  * 			
- * 			the whole project is based on a instance of 't_model' here named mod
+ * 			the whole project is based on a instance of 't_model' called 'mod'
  * 			it will be created using 'new_model'
  * 
  * 			the programm allows to different parameters
