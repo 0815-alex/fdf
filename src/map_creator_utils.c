@@ -22,18 +22,16 @@ typedef struct s_fd
 void	insert_empty_char(t_list **fds)
 {
 	t_list	*cur_fd;
-	char	cur_filename[100];
+	char	*cur_filename;
 
-	cur_filename[0] = '\0';
-	ft_strlcat(cur_filename, P_CHARS, ft_strlen(P_CHARS) + 1);
-	ft_strlcat(cur_filename, "sp.fdf", ft_strlen(cur_filename) + 7);
+	cur_filename = ft_strcat_multi(2, P_CHARS, "sp.fdf");
 	cur_fd = malloc(sizeof(t_fd));
 	((t_fd *)cur_fd)->next = NULL;
 	((t_fd *)cur_fd)->fd = open(cur_filename, O_RDONLY);
 	dbg_printf(no_block, "open file: %s | fd=%d\n",
 		cur_filename, ((t_fd *)cur_fd)->fd);
 	ft_lstadd_back(fds, cur_fd);
-	ft_bzero(cur_filename, 100);
+	free(cur_filename);
 }
 
 char	*create_new_file(char *str, int *new_fd)
@@ -41,12 +39,7 @@ char	*create_new_file(char *str, int *new_fd)
 	char	*new_filename;
 
 	dbg_printf(start_block, "create_new_file");
-	new_filename = malloc(sizeof(char) * (ft_strlen(str)
-				+ ft_strlen(P_CHARS) + 20));
-	new_filename[0] = '\0';
-	ft_strlcat(new_filename, P_NAMES, ft_strlen(P_NAMES) + 1);
-	ft_strlcat(new_filename, str, ft_strlen(new_filename) + ft_strlen(str) + 1);
-	ft_strlcat(new_filename, ".fdf", ft_strlen(new_filename) + 5);
+	new_filename = ft_strcat_multi(3, P_NAMES, str, ".fdf");
 	dbg_printf(no_block, "new file path: %s\n", new_filename);
 	*new_fd = open(new_filename, O_WRONLY | O_CREAT | O_TRUNC,
 			S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);

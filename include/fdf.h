@@ -258,7 +258,7 @@ void					node_add_back(t_node **lst, t_node *new);
 void					free_node_lst(t_node *head);
 
 //______PARSER.C________________________________________________________________
-void					load_file(int argc, char **argv, t_model *model);
+void					load_map(int argc, char **argv, t_model *model);
 
 //______POINT.C_________________________________________________________________
 void					*new_point(t_pnt_dim dim, int x, int y, int z);

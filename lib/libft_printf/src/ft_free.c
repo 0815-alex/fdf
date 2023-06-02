@@ -12,6 +12,19 @@
 
 #include "../libft_printf.h"
 
+static void	free_lst(t_list **lst)
+{
+	t_list	*buffer;
+
+	while (*lst)
+	{
+		buffer = *lst;
+		*lst = (*lst)->next;
+		free(buffer);
+	}
+	free(lst);
+}
+
 static void	free_arr(void **arr)
 {
 	int	arr_i;
@@ -43,6 +56,8 @@ void	*free_whatever(char *str, ...)
 		}
 		else if (*str == 'a')
 			free_arr(va_arg(args, void **));
+		else if (*str == 'l')
+			free_lst(va_arg(args, t_list **));
 		else
 			ft_printf("bad param free_whatever: %c\n", str[0]);
 		str++;

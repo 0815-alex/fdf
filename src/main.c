@@ -19,7 +19,7 @@
  * 			it will be created using 'new_model'
  * 
  * 			the programm allows to different parameters
- * 			either	a path to a map 			e.g. './maps/t1.fdf'
+ * 			either	a path to a map 			e.g. './maps/astein.fdf'
  * 			or		a string to create a map	e.g. 'Hello World!'
  *
  * @param	argc 	see above

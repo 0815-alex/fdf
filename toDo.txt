@@ -77,7 +77,7 @@ DONE	main.c
 DONE	model.c
 DONE	model_move.c
 DONE	node.c
-	parser.c
+DONE	parser.c
 DONE	point.c
 DONE	utils.c
 DONE	view.c
@@ -88,11 +88,12 @@ DONE	zoom.c
 	ft_btoa.c
 	ft_dtoa.c
 	print_double.c
+	ft_strcat_multi.c
 
 3 TO LONG FUNCTIONS!
 -----------------------
 DONE	ft_split
-DONE	load_file
+DONE	load_map
 DONE	create_fd_list
 DONE	create_map
 DONE	ini_colors
@@ -112,8 +113,14 @@ DONE	file of mapcreator has a problem if u call it twice
 	check if all mallocs are safe to fail
 	top view ist -180
 	map creator is fucked
+	create mindmap of functions
+	implement freewhatever list everywhere
+DONE	implenent ft_strcat_multi everywhere
 	
 5 PREPARE EVAULATION
 	img_pix_put - endian and shit
 	delete this file and other random files also name maps
+	create md file
+	create screenshots
 	puplishing github
+	

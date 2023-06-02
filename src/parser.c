@@ -12,11 +12,24 @@
 
 #include "../include/fdf.h"
 
-/*
-	first split it to array
-	then create 
-*/
-static void	str_line(char **arr, int y, t_node **prev_row, t_model *mod)
+/**
+ * @brief	creates a nodes for each value of the line stored in 'arr' and
+ * 			appends them to the end of the linked list 'mod->net'
+ * 
+ * 			to do so it:
+ * 				-	converts each value str into an int via 'ft_atoi'
+ * 				-	creates a new node via 'new_node' with the x,y and z values
+ * 				-	updates the max values of the model via 'update_max_values'
+ * 				-	creates links to the WEST and NORTH node (if exisiting)
+ * 				-	add the new created node to the end of 'mod->net'
+ * 				-	returns via ptr param the first node of this line 'prev_row'
+ * 			
+ * @param	arr			all values of a map line stored in a char* array		
+ * @param	y			the index of the current line
+ * @param	prev_row	a ptr to the first node of the previous row
+ * @param	mod			ptr to the struct that contains all info about the model
+ */
+static void	line2nodes(char **arr, int y, t_node **prev_row, t_model *mod)
 {
 	int		i;
 	t_node	*node_prev;
@@ -44,27 +57,39 @@ static void	str_line(char **arr, int y, t_node **prev_row, t_model *mod)
 	*prev_row = node_first_in_row;
 }
 
-static int	open_or_create(char **argv)
+/**
+ * @brief	examples:
+ * 				ex1:	'str' = "./maps/astein.fdf"
+ * 				ex2:	'str' = "hello world!"
+ * 
+ * 			checks if a file with the path and filename 'str' exists (ex1)
+ * 					if not check if a file exists in the 'name' folder (ex2)
+							if not create that file via 'create_map'
+			now that a file exists, it is opened and the fd is returned
+ * 			
+ * @param	str
+ * 				either	a path to a map 			e.g. './maps/astein.fdf'
+ * 				or		a string to create a map	e.g. 'Hello World!'
+ * @return	int	fd of opened map file
+ */
+static int	open_or_create(char *str)
 {
 	int		fd;
 	char	*fn;
 
-	fd = open(argv[1], O_RDONLY);
+	fd = open(str, O_RDONLY);
 	if (fd == -1)
 	{
-		fn = ft_calloc((ft_strlen(argv[1]) + ft_strlen(P_CHARS) + 20), 1);
-		ft_strlcat(fn, P_NAMES, ft_strlen(P_NAMES) + 1);
-		ft_strlcat(fn, argv[1], ft_strlen(fn) + ft_strlen(argv[1]) + 1);
-		ft_strlcat(fn, ".fdf", ft_strlen(fn) + 5);
+		fn = ft_strcat_multi(3, P_NAMES, str, ".fdf");
 		fd = open(fn, O_RDONLY);
 		free(fn);
 		if (fd == -1)
 		{
-			if (ft_strlen(argv[1]) + 5 >= FOPEN_MAX)
+			if (ft_strlen(str) + 5 >= FOPEN_MAX)
 				dbg_printf(err_block, "max: %i charaters :/", FOPEN_MAX - 4);
 			else
 			{
-				fn = create_map(argv[1]);
+				fn = create_map(str);
 				fd = open(fn, O_RDONLY);
 				free(fn);
 			}
@@ -78,7 +103,26 @@ static int	open_or_create(char **argv)
     read line by line and create rows and columns linked list
     return that
 */
-void	load_file(int argc, char **argv, t_model *mod)
+
+/**
+ * @brief	checks if 'argc' = 2 and takes the string from 'argv[1]' to
+ * 			create (if it does't exist) and open the map with 'open_or_create'.
+ *
+ * 			with 'fd' set the map-file is read line by line via 'get_next_line'.
+ * 			each line is split into single values via 'ft_split' and passed to
+ * 			'line2nodes', which creates a new node for each value and appends it
+ * 			to the end of the linked list 'mod->net'. furthermore the pointer
+ * 			'prev_row' is set (by 'line2nodes') to the first node in the current
+ * 			line, so that starting from the second line each node can be linked
+ * 			to its NORTH neighbor node.
+ * 
+ * 			Finally the opened map is closed.
+ * 
+ * @param	argc	see 'main'
+ * @param	argv	see 'main'	 
+ * @param	mod		pointer to the struct that contains all info about the model	
+ */
+void	load_map(int argc, char **argv, t_model *mod)
 {
 	int		fd;
 	char	*line;
@@ -86,21 +130,21 @@ void	load_file(int argc, char **argv, t_model *mod)
 	t_node	*prev_row;
 
 	if (argc != 2)
-		dbg_printf(err_block, "Missing a filename as a parameter!");
+		dbg_printf(err_block, "wrong arguments!");
 	mod->net = NULL;
-	fd = open_or_create(argv);
+	fd = open_or_create(argv[1]);
 	line = get_next_line(fd);
+	dbg_printf(no_block, "read Line: %s", line);
 	cur_row = 1;
 	prev_row = NULL;
 	while (line)
 	{
-		dbg_printf(no_block, "read Line: %s\n", line);
-		str_line(ft_split(line, ' '), cur_row, &prev_row, mod);
+		line2nodes(ft_split(line, ' '), cur_row, &prev_row, mod);
 		free(line);
 		line = get_next_line(fd);
+		dbg_printf(no_block, "read Line: %s", line);
 		cur_row++;
 	}
-	dbg_printf(no_block, "read Line: %s", line);
 	free(line);
 	line = NULL;
 	close(fd);

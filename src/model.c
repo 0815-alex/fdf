@@ -30,7 +30,7 @@ t_model	*new_model(int argc, char **argv)
 	dbg_printf(start_block, "new_model");
 	mod = malloc(sizeof(t_model));
 	ini_net_details(mod);
-	load_file(argc, argv, mod);
+	load_map(argc, argv, mod);
 	determine_net_center(mod);
 	ini_clr_maps(mod);
 	ini_colors(mod);
