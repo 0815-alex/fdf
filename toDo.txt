@@ -109,13 +109,12 @@ DONE	static_auto_zoom
 -----------------------
 DONE	check mouse controll
 DONE	file of mapcreator has a problem if u call it twice
-	check nice color maps
 DONE	zoom steps anpassen an map groesse
-	check if all mallocs are safe to fail
-	top view ist -180
+FUCK IT	check if all mallocs are safe to fail
+FUCK IT	top view ist -180
 DONE	map creator is fucked
-	create mindmap of functions
-	implement freewhatever list everywhere
+FUCK IT	create mindmap of functions
+DONE	implement freewhatever list everywhere
 DONE	implenent ft_strcat_multi everywhere
 	
 5 PREPARE EVAULATION

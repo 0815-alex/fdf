@@ -72,7 +72,7 @@ void	center_model(t_model *mod)
 	else
 		mod->dof.zoom = possbile_zoom_x;
 	if (mod->z_max - mod->z_min == 0)
-		dbg_printf(err_block, "mod is only 2d!");
+		dbg_printf(err_block, "map is only 2d!");
 	mod->dof.z_factor = (double)2 / (mod->z_max - mod->z_min);
 }
 
