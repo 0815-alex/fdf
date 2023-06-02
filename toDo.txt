@@ -72,8 +72,8 @@ DONE	img.c
 DONE	line.c
 DONE	node_lst.c
 DONE	main.c
-	map_creator_utils.c
-	map_creator.c
+DONE	map_creator_utils.c
+DONE	map_creator.c
 DONE	model.c
 DONE	model_move.c
 DONE	node.c
@@ -113,7 +113,7 @@ DONE	file of mapcreator has a problem if u call it twice
 DONE	zoom steps anpassen an map groesse
 	check if all mallocs are safe to fail
 	top view ist -180
-	map creator is fucked
+DONE	map creator is fucked
 	create mindmap of functions
 	implement freewhatever list everywhere
 DONE	implenent ft_strcat_multi everywhere

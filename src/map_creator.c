@@ -12,6 +12,9 @@
 
 #include "../include/fdf.h"
 
+/**
+ * @brief	used to store the fd of all charcaters of the new map
+ */
 typedef struct s_fd
 {
 	int			fd;
@@ -20,14 +23,30 @@ typedef struct s_fd
 }				t_fd;
 
 /**
- * @brief 	Create a map object
+ * @brief 	creates a new map for the string 'str' and returns the fd of it.
  * 
- * 			NOTE:	*strs[3] values are:
+ * 			to do so this happens:
+ * 			- 	all character files are opened and stored in the linked list
+ * 				'fds' via 'create_fd_list()'
+ * 			-	a new file is created and opend via 'create_new_file()'
+ * 			-	a loop through all 'fds' will be started until reaching the EOF
+ * 				- a line of the current fd is read via 'get_next_line()'
+ * 				- the '\n' is cropped of via 'ft_strtrim()'
+ * 				- the cropped line is written to the new map file
+ * 				- if the last fd is reached
+ * 					- a '\n' is written to the new map file
+ * 					- the 'cur_fd' is set back to the beginning of the list
+ * 				- else a ' ' is written
+ * 			-	all files are closed, the list 'fds' is freed and the new map
+ * 				file will be reopend all via 'free_fd_list()'
+ * 
+ * 			NOTE:	'strs' values are:
  * 						[0]	= current get_next_line
  * 						[1]	= current get_next_line without linebreak
  * 						[2]	= new filename
- * @param str 
- * @return int
+ * 
+ * @param	str	the string to create a map for
+ * @return	int	the fd of the new created and opend map
  */
 int	create_map(char *str)
 {

@@ -25,6 +25,7 @@ SRCS = $(addprefix $(SRC_FOLDER), \
 	ft_btoa.c \
 	ft_bzero.c \
 	ft_calloc.c \
+	ft_chr2str.c \
 	ft_dtoa.c \
 	ft_free.c \
 	ft_isalnum.c \

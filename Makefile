@@ -4,7 +4,7 @@
 NAME = fdf
 
 # Prints DEBUG Messages
-DEBUG = 1
+DEBUG = 0
 
 # Compiler options
 CC = cc
@@ -76,8 +76,9 @@ $(LIBFT_PRINTF):
 	@$(MAKE) --no-print-directory -C $(LIBFT_PRINTF_FOLDER) DEBUG=$(DEBUG)
 
 $(MINILIBX):
-	@echo "$(ORANGE)\ncompiling: $(MINILIBX)\n$(RESET)"
+	@echo "$(ORANGE)compiling: $(MINILIBX)$(RESET)"
 	@make --no-print-directory -C > /dev/null 2>&1 $(MLX_FOLDER)
+	@echo "$(GREEN)compiling: $(MINILIBX)	--> DONE\n$(RESET)"
 
 
 clean:
