@@ -20,11 +20,12 @@ typedef struct s_fd
 }				t_fd;
 
 /**
- * @brief Create a map object
+ * @brief 	Create a map object
  * 
- * 	Is store in strs	0	get_next_line
- * 						1	get_next_line without linebreak
- * 						2	new filename
+ * 			NOTE:	*strs[3] values are:
+ * 						[0]	= current get_next_line
+ * 						[1]	= current get_next_line without linebreak
+ * 						[2]	= new filename
  * @param str 
  * @return int
  */
@@ -44,7 +45,6 @@ int	create_map(char *str)
 		strs[1] = ft_strtrim(strs[0], "\n");
 		free(strs[0]);
 		write(new_fd, strs[1], ft_strlen(strs[1]));
-		fsync(new_fd);
 		free(strs[1]);
 		cur_fd = ((t_list *)cur_fd)->next;
 		if (!cur_fd)
@@ -54,10 +54,6 @@ int	create_map(char *str)
 		else
 			write(new_fd, " ", 1);
 	}
-	free_fd_list(fds);
-	sleep(5);
-	close(new_fd);
-	sleep(5);
-	new_fd = open(strs[2], O_RDONLY);
+	free_fd_list(fds, strs[2], &new_fd);
 	return (new_fd);
 }

@@ -28,7 +28,7 @@ void	insert_empty_char(t_list **fds)
 	cur_fd = malloc(sizeof(t_fd));
 	((t_fd *)cur_fd)->next = NULL;
 	((t_fd *)cur_fd)->fd = open(cur_filename, O_RDONLY);
-	dbg_printf(no_block, "open file: %s | fd=%i\n",
+	dbg_printf(no_block, "open file: %s | fd=%i",
 		cur_filename, ((t_fd *)cur_fd)->fd);
 	ft_lstadd_back(fds, cur_fd);
 	free(cur_filename);
@@ -37,11 +37,19 @@ void	insert_empty_char(t_list **fds)
 char	*create_new_file(char *str, int *new_fd)
 {
 	char	*new_filename;
+	mode_t	pmode;
 
 	dbg_printf(start_block, "create_new_file");
+	ft_str_replace_chr(str, '!', '_');
+	ft_str_replace_chr(str, '?', '_');
+	ft_str_replace_chr(str, '.', '_');
+	ft_str_replace_chr(str, ' ', '_');
 	new_filename = ft_strcat_multi(3, P_NAMES, str, ".fdf");
-	dbg_printf(no_block, "new file path: %s\n", new_filename);
-	*new_fd = open(new_filename, O_RDWR | O_CREAT);
+	pmode = S_IRUSR | S_IWUSR;
+	*new_fd = open(new_filename, O_RDWR | O_CREAT, pmode);
+	if (*new_fd == -1)
+		dbg_printf(err_block, "creating new map file: %s", new_filename);
+	dbg_printf(no_block, "new fd %i | file path: %s", *new_fd, new_filename);
 	dbg_printf(end_block, "create_new_file");
 	return (new_filename);
 }
@@ -60,6 +68,8 @@ char	*create_filename(char *str)
 		ft_strlcat(cur_filename, buffer, ft_strlen(cur_filename) + 2);
 	else if (*buffer == '!')
 		ft_strlcat(cur_filename, "em", ft_strlen(cur_filename) + 3);
+	else if (*buffer == '?')
+		ft_strlcat(cur_filename, "qm", ft_strlen(cur_filename) + 3);
 	else if (*buffer == '-')
 		ft_strlcat(cur_filename, "dh", ft_strlen(cur_filename) + 3);
 	else if (*buffer == '.')
@@ -69,7 +79,8 @@ char	*create_filename(char *str)
 	else if (*buffer == ' ')
 		ft_strlcat(cur_filename, "sp", ft_strlen(cur_filename) + 3);
 	else
-		ft_strlcat(cur_filename, "qm", ft_strlen(cur_filename) + 3);
+		dbg_printf(err_block, "char '%c' is not allowed. only a-b, A-Z, 0-9 and"
+				" '!?. _-' are allowed!", buffer[0]);
 	ft_strlcat(cur_filename, ".fdf", ft_strlen(cur_filename) + 5);
 	free(buffer);
 	return (cur_filename);
@@ -90,7 +101,10 @@ t_list	**create_fd_list(char *str)
 		cur_fd = malloc(sizeof(t_fd));
 		((t_fd *)cur_fd)->next = NULL;
 		((t_fd *)cur_fd)->fd = open(cur_filename, O_RDONLY);
-		dbg_printf(no_block, "closed fd: %i\n", ((t_fd *)cur_fd)->fd);
+		if (((t_fd *)cur_fd)->fd == -1)
+			dbg_printf(err_block, "opening letter file: %s", cur_filename);
+		dbg_printf(no_block, "open file: %s | fd=%i",
+			cur_filename, ((t_fd *)cur_fd)->fd);
 		free(cur_filename);
 		ft_lstadd_back(fds, cur_fd);
 		str++;
@@ -99,7 +113,15 @@ t_list	**create_fd_list(char *str)
 	return (fds);
 }
 
-void	free_fd_list(t_list **fds)
+/**
+ * @brief	reopening the new_file to be able to read from the beginning
+ * 
+ * 
+ * @param fds 
+ * @param strs 
+ * @param new_fd 
+ */
+void	free_fd_list(t_list **fds, char *new_fn, int *new_fd)
 {
 	t_list	*cur_fd;
 
@@ -107,9 +129,15 @@ void	free_fd_list(t_list **fds)
 	while (cur_fd)
 	{
 		close(((t_fd *)cur_fd)->fd);
-		dbg_printf(no_block, "closed fd: %i\n", ((t_fd *)cur_fd)->fd);
+		dbg_printf(no_block, "closed file fd=%i", ((t_fd *)cur_fd)->fd);
 		cur_fd = ((t_list *)cur_fd)->next;
 	}
 	cur_fd = *fds;
 	free_whatever("lp", fds, fds);
+	close(*new_fd);
+	*new_fd = open(new_fn, O_RDONLY);
+	if (*new_fd == -1)
+		dbg_printf(err_block, "reopening new map file: %s", new_fn);
+	dbg_printf(no_block, "reopen new map file: %s | fd=%i", new_fn, *new_fd);
+	free(new_fn);
 }

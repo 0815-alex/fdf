@@ -90,6 +90,9 @@ static int	open_or_create(char *str)
 			else
 				fd = create_map(str);
 		}
+		else
+			dbg_printf(no_block, "map with name '%s' already exists so it will"
+				" be opend instead of creating it again", str);
 	}
 	return (fd);
 }

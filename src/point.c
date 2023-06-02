@@ -62,7 +62,7 @@ void	print_pnt_2d(t_pnt_2d *pnt)
 		dbg_printf(no_block, "(no point)");
 	else
 	{
-		dbg_printf(no_block, "(%i|%i)", pnt->x, pnt->y);
+		dbg_printf(no_lb, "(%i|%i)", pnt->x, pnt->y);
 	}
 }
 
@@ -81,6 +81,6 @@ void	print_pnt_3d(t_pnt_3d *pnt)
 		dbg_printf(no_block, "(no point)");
 	else
 	{
-		dbg_printf(no_block, "(%i|%i|%i)", pnt->x, pnt->y, pnt->z);
+		dbg_printf(no_lb, "(%i|%i|%i)", pnt->x, pnt->y, pnt->z);
 	}
 }

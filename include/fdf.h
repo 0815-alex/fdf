@@ -227,7 +227,7 @@ void					insert_empty_char(t_list **fds);
 char					*create_new_file(char *str, int *new_fd);
 char					*create_filename(char *str);
 t_list					**create_fd_list(char *str);
-void					free_fd_list(t_list **fds);
+void					free_fd_list(t_list **fds, char *new_fn, int *new_fd);
 
 //______MODEL_MOVE.C____________________________________________________________
 void					trans_mod(t_model *model, t_bool ovr,

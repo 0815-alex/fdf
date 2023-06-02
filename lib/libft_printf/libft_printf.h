@@ -66,7 +66,9 @@ typedef enum e_dbg_flag
 	err_block = -1,
 	no_block = 0,
 	start_block = 1,
-	end_block = 2
+	end_block = 2,
+	success_block = 3,
+	no_lb = 4
 }					t_dbg_flag;
 
 //******************************************************************************
@@ -117,6 +119,7 @@ char				*ft_strcat_multi(int amount_of_strs, ...);
 int					ft_strncmp(const char *s1, const char *s2, size_t n);
 char				*ft_strchr(const char *s, int c);
 char				*ft_strrchr(const char *s, int c);
+void				ft_str_replace_chr(char *str, char old, char new);
 char				*ft_strnstr(const char *big, const char *little,
 						size_t len);
 char				*ft_strdup(const char *s);
