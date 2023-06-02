@@ -30,7 +30,7 @@
 # define AUTO_ZOOM_FRAMES 15
 
 //______AUTO ROATET & COLOR_SHIFT_______________________________________________
-# define AUTO_MOVE_FRAMES 10
+# define AUTO_MOVE_FRAMES 15
 
 //______SCREEN RESOLUTION_______________________________________________________
 # define SZ 15

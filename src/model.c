@@ -31,7 +31,6 @@ t_model	*new_model(int argc, char **argv)
 	mod = malloc(sizeof(t_model));
 	ini_net_details(mod);
 	load_map(argc, argv, mod);
-    // exit(0);
 	determine_net_center(mod);
 	ini_clr_maps(mod);
 	ini_colors(mod);

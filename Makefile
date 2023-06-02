@@ -26,7 +26,7 @@ LIB_FOLDER = ./lib/
 INCLUDE_FOLDER = ./include/
 LIBFT_PRINTF_FOLDER = $(LIB_FOLDER)libft_printf/
 MLX_FOLDER = $(LIB_FOLDER)minilibx/
-MAPS_FOLDER = ./maps/
+MAPS_FOLDER = ./maps/nice_maps/
 
 # ->Files
 LIBFT_PRINTF = $(LIBFT_PRINTF_FOLDER)libft_printf.a
@@ -93,16 +93,16 @@ fclean: clean
 re: fclean all
 
 42: all
-	@./$(NAME) ./maps/42.fdf
+	@./$(NAME) $(MAPS_FOLDER)42.fdf
 
 a: all
-	@./$(NAME) ./maps/astein2.0.fdf
+	@./$(NAME) $(MAPS_FOLDER)astein2.0.fdf
 
 m: all
-	@./$(NAME) ./maps/mars.fdf
+	@./$(NAME) $(MAPS_FOLDER)mars.fdf
 
 p: all
-	@./$(NAME) ./maps/pylone.fdf
+	@./$(NAME) $(MAPS_FOLDER)pylone.fdf
 
 god:
 	git status
