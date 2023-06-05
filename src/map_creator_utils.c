@@ -59,6 +59,7 @@ static char	*create_filename(char c)
 	char	*fn;
 	char	*buf;
 
+	fn = NULL;
 	if (ft_isalnum(c))
 	{
 		buf = ft_chr2str(c);
@@ -78,8 +79,7 @@ static char	*create_filename(char c)
 	else if (c == ' ')
 		fn = ft_strcat_multi(2, P_CHARS, "sp.fdf");
 	else
-		dbg_printf(err_block, "char '%c' is not allowed. only a-b, A-Z, 0-9 and"
-			" '!?. _-' are allowed!", c);
+		dbg_printf(err_block, "wrong char '%c' (a-z, A-Z, 0-9, '!?. _-')", c);
 	return (fn);
 }
 
