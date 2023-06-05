@@ -75,7 +75,7 @@ DONE	main.c
 DONE	map_creator_utils.c
 DONE	map_creator.c
 DONE	model.c
-DONE	model_move.c
+DONE	model_m>ove.c
 DONE	node.c
 DONE	parser.c
 DONE	point.c
@@ -89,8 +89,8 @@ DONE	ft_btoa.c
 DONE	ft_dtoa.c
 DONE	print_double.c
 DONE	ft_strcat_multi.c
-	add '[return]	' to all parameters wich hold return values
-	add '()' to all functions in comments
+FUCKIT	add '[return]	' to all parameters wich hold return values
+FUCKIT	add '()' to all functions in comments
 
 3 TO LONG FUNCTIONS!
 -----------------------
