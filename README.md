@@ -1,7 +1,5 @@
 # fdf by astein
 
-## useage
-
 [-> key commands](resources/help_on_screen.txt)
 
 ### loading a map
