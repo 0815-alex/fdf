@@ -5,7 +5,7 @@
 ```make```
 
 ### navigation
-![astein.png](https://github.com/0815-alex/fdf/blob/master/img/astein.png)
+![astein.png]([https://github.com/0815-alex/fdf/blob/master/img/astein.png](https://github.com/0815-alex/fdf/blob/master/resources/help_on_screen.txt))
 
 ### loading a map
 ```
@@ -19,7 +19,10 @@
 ```
 ![astein.png](https://github.com/0815-alex/fdf/blob/master/img/astein.png)
 
-Note following symbols have a map in ./maps/letters/:
+
+
+
+Note following symbols have a map in ```./maps/letters/```:
 
 ```./fdf 'abc...xyz'```
 ![abc.png](https://github.com/0815-alex/fdf/blob/master/img/abc.png)
