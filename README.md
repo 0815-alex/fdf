@@ -1,8 +1,8 @@
 # fdf by astein
 
 ## useage
-### navigation
-[a relative link](resources/help_on_screen.txt)
+
+[->key commands](resources/help_on_screen.txt)
 
 ### loading a map
 ```
