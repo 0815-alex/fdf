@@ -30,3 +30,5 @@ Note following symbols have a map in ```./maps/letters/```:
 
 ```./fdf '?! _-.'```
 ![chars.png](https://github.com/0815-alex/fdf/blob/master/img/chars.png)
+
+some of the maps in ```./maps/nice_maps/``` are from @duarte3333 thx!
