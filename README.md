@@ -2,7 +2,7 @@
 
 ## useage
 ### navigation
-resources/help_on_screen.txt
+[a relative link](resources/help_on_screen.txt)
 
 ### loading a map
 ```
