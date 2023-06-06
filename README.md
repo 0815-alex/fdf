@@ -2,7 +2,7 @@
 
 ## useage
 
-[->key commands](resources/help_on_screen.txt)
+[-> key commands](resources/help_on_screen.txt)
 
 ### loading a map
 ```
