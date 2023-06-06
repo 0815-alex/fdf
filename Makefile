@@ -97,7 +97,7 @@ re: fclean all
 	@./$(NAME) $(MAPS_FOLDER)42.fdf
 
 a: all
-	@./$(NAME) $(MAPS_FOLDER)astein2.0.fdf
+	@./$(NAME) $(MAPS_FOLDER)astein.fdf
 
 m: all
 	@./$(NAME) $(MAPS_FOLDER)mars.fdf
