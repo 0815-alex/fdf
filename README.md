@@ -33,3 +33,9 @@ Note following symbols have a map in ```./maps/letters/```:
 
 some of the maps in ```./maps/nice_maps/``` are from [@duarte3333](https://github.com/duarte3333/FdF_Wireframe_model/tree/main/Maps) thx!
 
+## useful links
+[-> creating maps](https://patorjk.com/software/taag/#p=display&h=0&f=Doh&t=astein)
+[-> minilibx](https://harm-smits.github.io/42docs/libs/minilibx/getting_started.html)
+[-> minilibx images](https://aurelienbrabant.fr/blog/pixel-drawing-with-the-minilibx)
+[-> drawing lines](https://en.wikipedia.org/wiki/Bresenham%27s_line_algorithm)
+[-> rotating](https://en.wikipedia.org/wiki/Rotation_matrix)
