@@ -4,17 +4,31 @@
 ### compiling
 ```make```
 
+### navigation
+![astein.png](https://github.com/0815-alex/fdf/blob/master/img/astein.png)
+
 ### loading a map
 ```
 ./fdf ./maps/nice_maps/t2.fdf
-![astein.png](https://github.com/0815-alex/fdf/blob/master/img/astein.png)
 ```
+![t2.png](https://github.com/0815-alex/fdf/blob/master/img/t2.png)
 
 ### creating a map
-```./fdf astein```
-
+```
+./fdf astein
+```
 ![astein.png](https://github.com/0815-alex/fdf/blob/master/img/astein.png)
 
-```
-./fdf 'abc...xyz'
-```
+Note following symbols have a map in ./maps/letters/:
+
+```./fdf 'abc...xyz'```
+![abc.png](https://github.com/0815-alex/fdf/blob/master/img/abc.png)
+
+```./fdf 'ABC...XYZ'```
+![ABC.png](https://github.com/0815-alex/fdf/blob/master/img/ABC.png)
+
+```./fdf '01...89'```
+![012.png](https://github.com/0815-alex/fdf/blob/master/img/012.png)
+
+```./fdf '?! _-.'```
+![chars.png](https://github.com/0815-alex/fdf/blob/master/img/chars.png)
