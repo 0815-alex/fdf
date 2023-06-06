@@ -1,11 +1,8 @@
 # fdf by astein
 
 ## useage
-### compiling
-```make```
-
 ### navigation
-![astein.png]([https://github.com/0815-alex/fdf/blob/master/img/astein.png](https://github.com/0815-alex/fdf/blob/master/resources/help_on_screen.txt))
+resources/help_on_screen.txt
 
 ### loading a map
 ```
