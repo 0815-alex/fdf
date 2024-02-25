@@ -58,7 +58,7 @@ SRCS = $(addprefix $(SRC_FOLDER), \
 OBJS = $(SRCS:$(SRC_FOLDER)%.c=$(OBJS_FOLDER)%.o)
 
 # TARGETS
-.PHONY: all $(NAME) $(LIBFT_PRINTF) $(MINILIBX) clean fclean re 42 a m p god norm
+.PHONY: all $(NAME) $(LIBFT_PRINTF) $(MINILIBX) clean fclean re 42 a m p norm
 
 all: $(NAME)
 
@@ -104,13 +104,6 @@ m: all
 
 p: all
 	@./$(NAME) $(MAPS_FOLDER)pylone.fdf
-
-god:
-	git status
-	git add .
-	git status
-	git commit -m " -> Makefile Commit <- "
-	git status
 
 norm:
 	@echo "$(ORANGE)\nCHECK SOURCE FILES$(RESET)"
