@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 01:07:33 by astein            #+#    #+#             */
-/*   Updated: 2023/05/26 21:19:42 by astein           ###   ########.fr       */
+/*   Updated: 2024/02/26 21:17:57 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,6 @@ static void	insert_empty_char_fd(t_list **fds)
 	cur_fd = malloc(sizeof(t_fd));
 	((t_fd *)cur_fd)->next = NULL;
 	((t_fd *)cur_fd)->fd = open(cur_fn, O_RDONLY);
-	dbg_printf(no_block, "open file: %s | fd=%i",
-		cur_fn, ((t_fd *)cur_fd)->fd);
 	ft_lstadd_back(fds, cur_fd);
 	free(cur_fn);
 }
@@ -79,7 +77,7 @@ static char	*create_filename(char c)
 	else if (c == ' ')
 		fn = ft_strcat_multi(2, P_CHARS, "sp.fdf");
 	else
-		dbg_printf(err_block, "wrong char '%c' (a-z, A-Z, 0-9, '!?. _-')", c);
+		err_exit("create_filename: wrong char (a-z, A-Z, 0-9, '!?. _-')");
 	return (fn);
 }
 
@@ -98,7 +96,6 @@ char	*create_new_file(char *str, int *new_fd)
 	char	*new_fn;
 	mode_t	pmode;
 
-	dbg_printf(start_block, "create_new_file");
 	ft_str_replace_chr(str, '!', '_');
 	ft_str_replace_chr(str, '?', '_');
 	ft_str_replace_chr(str, '.', '_');
@@ -107,9 +104,7 @@ char	*create_new_file(char *str, int *new_fd)
 	pmode = S_IRUSR | S_IWUSR;
 	*new_fd = open(new_fn, O_RDWR | O_CREAT, pmode);
 	if (*new_fd == -1)
-		dbg_printf(err_block, "creating new map file: %s", new_fn);
-	dbg_printf(no_block, "new fd %i | file path: %s", *new_fd, new_fn);
-	dbg_printf(end_block, "create_new_file");
+		err_exit("error: create_new_file: creating new map file");
 	return (new_fn);
 }
 
@@ -141,9 +136,7 @@ t_list	**create_fd_list(char *str)
 		((t_fd *)cur_fd)->next = NULL;
 		((t_fd *)cur_fd)->fd = open(cur_fn, O_RDONLY);
 		if (((t_fd *)cur_fd)->fd == -1)
-			dbg_printf(err_block, "opening letter file: %s", cur_fn);
-		dbg_printf(no_block, "open file: %s | fd=%i",
-			cur_fn, ((t_fd *)cur_fd)->fd);
+			err_exit("error: create_fd_list: opening letter file");
 		free(cur_fn);
 		ft_lstadd_back(fds, cur_fd);
 		str++;
@@ -173,7 +166,6 @@ void	free_fd_list(t_list **fds, char *new_fn, int *new_fd)
 	while (cur_fd)
 	{
 		close(((t_fd *)cur_fd)->fd);
-		dbg_printf(no_block, "closed file fd=%i", ((t_fd *)cur_fd)->fd);
 		cur_fd = ((t_list *)cur_fd)->next;
 	}
 	cur_fd = *fds;
@@ -181,7 +173,6 @@ void	free_fd_list(t_list **fds, char *new_fn, int *new_fd)
 	close(*new_fd);
 	*new_fd = open(new_fn, O_RDONLY);
 	if (*new_fd == -1)
-		dbg_printf(err_block, "reopening new map file: %s", new_fn);
-	dbg_printf(no_block, "reopen new map file: %s | fd=%i", new_fn, *new_fd);
+		err_exit("error: free_fd_list: reopening new map file");
 	free(new_fn);
 }

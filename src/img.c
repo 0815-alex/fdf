@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 14:11:35 by astein            #+#    #+#             */
-/*   Updated: 2023/05/29 13:58:33 by astein           ###   ########.fr       */
+/*   Updated: 2024/02/26 21:15:21 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,9 @@ void	img_pix_put(t_model *mod, t_pnt_2d *point, int clr)
 	int		i;
 
 	if (point->x < 1 || point->x >= mod->win_width)
-		dbg_printf(no_block, "pixel x coordinate out of window");
+		; // pixel x coordinate out of window
 	else if (point->y < 1 || point->y > mod->win_height)
-		dbg_printf(no_block, "pixel y coordinate out of window");
+		; // pixel y coordinate out of window
 	else
 	{
 		i = mod->img.bpp - 8;

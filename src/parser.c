@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 15:30:35 by astein            #+#    #+#             */
-/*   Updated: 2024/02/26 00:07:14 by astein           ###   ########.fr       */
+/*   Updated: 2024/02/26 21:20:31 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static void	line2nodes(char **arr, int y, t_node **prev_row, t_model *mod)
 		node_prev = node_new;
 		i++;
 	}
-	free_whatever("a", arr);
+	free_whatever("m", arr);
 	*prev_row = node_first_in_row;
 }
 
@@ -86,13 +86,10 @@ static int	open_or_create(char *str)
 		if (fd == -1)
 		{
 			if (ft_strlen(str) + 5 >= FOPEN_MAX)
-				dbg_printf(err_block, "max: %i charaters :/", FOPEN_MAX - 6);
+				err_exit("error: open_or_create: max filename length");
 			else
 				fd = create_map(str);
 		}
-		else
-			dbg_printf(no_block, "map with name '%s' already exists so it will"
-				" be opend instead of creating it again", str);
 	}
 	return (fd);
 }
@@ -129,11 +126,10 @@ void	load_map(int argc, char **argv, t_model *mod)
 	t_node	*prev_row;
 
 	if (argc != 2)
-		dbg_printf(err_block, "wrong arguments!");
+		err_exit("error: load_map: wrong arguments!");
 	mod->net = NULL;
 	fd = open_or_create(argv[1]);
 	line = gnl(fd);
-	dbg_printf(no_block, "read Line: %s", line);
 	cur_row = 1;
 	prev_row = NULL;
 	while (line)
@@ -141,7 +137,6 @@ void	load_map(int argc, char **argv, t_model *mod)
 		line2nodes(ft_split(line, ' '), cur_row, &prev_row, mod);
 		free(line);
 		line = gnl(fd);
-		dbg_printf(no_block, "read Line: %s", line);
 		cur_row++;
 	}
 	free(line);

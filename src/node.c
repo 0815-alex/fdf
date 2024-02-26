@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 18:50:54 by astein            #+#    #+#             */
-/*   Updated: 2023/05/25 19:55:19 by astein           ###   ########.fr       */
+/*   Updated: 2024/02/26 21:15:53 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,8 @@ t_node	*new_node(t_pnt_3d *pnt)
  */
 void	print_node(t_node *node)
 {
-	if (node == NULL)
-		dbg_printf(no_block, "(no node)");
-	else
-	{
+	if (node)
 		print_pnt_3d(node->pnt);
-	}
 }
 
 /**
@@ -77,7 +73,7 @@ void	node2point(t_model *mod, t_node *node, t_pnt_2d_clr *pnt)
 	double	z;
 
 	if (!node || !pnt)
-		dbg_printf(err_block, "no node or point exists");
+		err_exit("error: node2point: no node or point exists");
 	x = (node->pnt->x - mod->center_pnt.x) * mod->dof.zoom;
 	y = (node->pnt->y - mod->center_pnt.y) * mod->dof.zoom;
 	z = (node->pnt->z - mod->center_pnt.z) * mod->dof.z_factor

@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 17:08:26 by astein            #+#    #+#             */
-/*   Updated: 2023/05/25 21:34:16 by astein           ###   ########.fr       */
+/*   Updated: 2024/02/26 21:18:26 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ void	ini_win(t_model *mod)
 
 	screen_width = 0;
 	screen_height = 0;
-	dbg_printf(start_block, "ini_win");
 	mod->mlx = mlx_init();
 	mlx_get_screen_size(mod->mlx, &screen_width, &screen_height);
 	mod->win_width = screen_width;
@@ -38,7 +37,6 @@ void	ini_win(t_model *mod)
 			"astein | fdf");
 	mod->close_pending = ft_false;
 	ini_help(mod);
-	dbg_printf(end_block, "ini_win");
 }
 
 /**
@@ -72,7 +70,7 @@ void	center_model(t_model *mod)
 	else
 		mod->dof.zoom = possbile_zoom_x;
 	if (mod->z_max - mod->z_min == 0)
-		dbg_printf(err_block, "map is only 2d!");
+		err_exit("error: center_model: map is only 2d!");
 	mod->dof.z_factor = (double)2 / (mod->z_max - mod->z_min);
 }
 

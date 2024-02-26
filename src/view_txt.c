@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 17:08:26 by astein            #+#    #+#             */
-/*   Updated: 2024/02/26 00:09:21 by astein           ###   ########.fr       */
+/*   Updated: 2024/02/26 21:22:27 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,12 @@ void	ini_help(t_model *mod)
 
 	fd = open(P_HELP, O_RDONLY);
 	if (fd < 0 || fd > FOPEN_MAX)
-		dbg_printf(err_block, "error opening help file: %s", P_HELP);
+		err_exit("error: ini_help: open help file");
 	mod->help = malloc(sizeof(t_list *));
 	(*mod->help) = NULL;
 	cur_line = gnl(fd);
 	while (cur_line)
 	{
-		dbg_printf(no_block, "read help: %s", cur_line);
 		cur_line_trimmed = ft_strtrim(cur_line, "\n");
 		free(cur_line);
 		cur_node = malloc(sizeof(t_list));
@@ -133,5 +132,5 @@ void	put_stats_to_view(t_model *mod)
 	mlx_string_put(mod->mlx, mod->win, x + 7 * SZ, 4 * SZ, CLR_G, v[5]);
 	mlx_string_put(mod->mlx, mod->win, x + 7 * SZ, 5 * SZ, CLR_G, v[5]);
 	mlx_string_put(mod->mlx, mod->win, x + 7 * SZ, 6 * SZ, CLR_G, v[6]);
-	free_whatever ("a", v);
+	free_whatever ("m", v);
 }

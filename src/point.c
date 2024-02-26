@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 21:58:19 by astein            #+#    #+#             */
-/*   Updated: 2024/02/26 00:08:38 by astein           ###   ########.fr       */
+/*   Updated: 2024/02/26 21:17:04 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,12 +58,7 @@ void	*new_point(t_pnt_dim dim, int x, int y, int z)
  */
 void	print_pnt_2d(t_pnt_2d *pnt)
 {
-	if (pnt == NULL)
-		dbg_printf(no_block, "(no point)");
-	else
-	{
-		dbg_printf(0, "(%i|%i)", pnt->x, pnt->y);
-	}
+	(void)pnt;
 }
 
 /**
@@ -77,10 +72,5 @@ void	print_pnt_2d(t_pnt_2d *pnt)
  */
 void	print_pnt_3d(t_pnt_3d *pnt)
 {
-	if (pnt == NULL)
-		dbg_printf(no_block, "(no point)");
-	else
-	{
-		dbg_printf(0, "(%i|%i|%i)", pnt->x, pnt->y, pnt->z);
-	}
+	(void)pnt;
 }

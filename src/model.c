@@ -27,7 +27,6 @@ t_model	*new_model(int argc, char **argv)
 {
 	t_model	*mod;
 
-	dbg_printf(start_block, "new_model");
 	mod = malloc(sizeof(t_model));
 	ini_net_details(mod);
 	load_map(argc, argv, mod);
@@ -45,7 +44,6 @@ t_model	*new_model(int argc, char **argv)
 	mlx_hook(mod->win, B_CLS_WIN, 0, close_model, mod);
 	mlx_mouse_hook(mod->win, deal_mouse, mod);
 	mlx_loop_hook(mod->mlx, auto_changes, mod);
-	dbg_printf(end_block, "new_model");
 	return (mod);
 }
 
@@ -125,7 +123,6 @@ void	shedule_close(t_model *mod)
  */
 int	close_model(t_model *mod)
 {
-	dbg_printf(start_block, "close_model");
 	mlx_destroy_window(mod->mlx, mod->win);
 	free_node_lst(mod->net);
 	free_clr_maps(mod);

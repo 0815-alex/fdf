@@ -1,4 +1,4 @@
-# Makefile for ftf
+# Makefile for FDF
 
 # Variables
 NAME = fdf
@@ -8,8 +8,8 @@ DEBUG = 0
 
 # Compiler options
 CC = cc
-CFLAGS = -D DEBUG=$(DEBUG) -g -Wall -Werror -Wextra -fsanitize=address -fsanitize-address-use-after-scope
-CLIBS = -L$(LIB_FOLDER)libft -L$(MLX_FOLDER) -lm
+CFLAGS = -D DEBUG=$(DEBUG) -g -Wall -Werror -Wextra
+CLIBS = -L$(LIBFT_FOLDER) -L$(MLX_FOLDER) -lft -lm -lmlx -lX11 -lXext
 CINCLUDES  = -I$(INCLUDE_FOLDER) -I$(MLX_FOLDER)
 RM = rm -f
 
@@ -29,8 +29,9 @@ MLX_FOLDER = $(LIB_FOLDER)minilibx-linux/
 MAPS_FOLDER = ./maps/nice_maps/
 
 # ->Files
-libfT = $(LIBFT_FOLDER)libft.a
-MINILIBX = $(MLX_FOLDER)libmlx.a
+LIBFT = $(LIBFT_FOLDER)libft.a
+MLX = $(MLX_FOLDER)libmlx.a
+BANNER = $(LIBFT_FOLDER)make_banner.sh
 SRCS = $(addprefix $(SRC_FOLDER), \
 	color.c \
 	color_map.c \
@@ -58,38 +59,35 @@ SRCS = $(addprefix $(SRC_FOLDER), \
 OBJS = $(SRCS:$(SRC_FOLDER)%.c=$(OBJS_FOLDER)%.o)
 
 # TARGETS
-.PHONY: all $(NAME) $(LIBFT) $(MINILIBX) clean fclean re 42 a m p norm
+.PHONY: all $(NAME) $(LIBFT) $(MLX) clean fclean re 42 a m p
 
-all: $(NAME)
+all: MSG_START $(NAME) MSG_DONE
 
-$(NAME): $(LIBFT) $(MINILIBX) $(OBJS) 
-	@$(CC) $(OBJS) $(CFLAGS) -D DEBUG=$(DEBUG) $(CLIBS) $(CINCLUDES) -lft_printf -lmlx -lX11 -lXext -lm -o $(NAME)
-	@echo "$(GREEN)\n$(NAME): created\n$(RESET)"
+$(NAME): $(OBJS) $(LIBFT) $(MLX) 
+	@$(CC) $(OBJS) $(CFLAGS) -D DEBUG=$(DEBUG) $(CLIBS) $(CINCLUDES) -o $(NAME)
 
 $(OBJS_FOLDER)%.o: $(SRC_FOLDER)%.c
 	@mkdir -p $(@D)
-	@echo -n "."
-	@$(CC) $(CFLAGS) -c $< -o $@
+	@echo -n "$(BLUE).$(RESET)"
+	@$(CC) $(CFLAGS) $(CINCLUDES) -c $< -o $@
 
 $(LIBFT):
-	@echo "$(ORANGE)\ncompiling: $(LIBFT)\n$(RESET)"
 	@$(MAKE) --no-print-directory -C $(LIBFT_FOLDER) DEBUG=$(DEBUG)
 
-$(MINILIBX):
-	@echo "$(ORANGE)compiling: $(MINILIBX)$(RESET)"
+$(MLX):
+	@$(BANNER) MLX compiling "$(ORANGE)"
 	@make --no-print-directory -C > /dev/null 2>&1 $(MLX_FOLDER)
-	@echo "$(GREEN)compiling: $(MINILIBX)	--> DONE\n$(RESET)"
-
+	@$(BANNER) MLX compiled "$(GREEN)"
 
 clean:
+	@make --no-print-directory -C $(LIBFT_FOLDER) clean
 	@$(RM) $(OBJS)
-	@echo "$(RED)$(NAME): cleaned object files$(RESET)"
-
+	@$(BANNER) $(NAME) "removed object files" "$(RED)"
 
 fclean: clean
 	@make --no-print-directory -C $(LIBFT_FOLDER) fclean
 	@$(RM) $(NAME)
-	@echo "$(RED)$(NAME): cleaned program$(RESET)"
+	@$(BANNER) $(NAME) "removed program" "$(RED)"
 
 re: fclean all
 
@@ -105,15 +103,8 @@ m: all
 p: all
 	@./$(NAME) $(MAPS_FOLDER)pylone.fdf
 
-norm:
-	@echo "$(ORANGE)\nCHECK SOURCE FILES$(RESET)"
-	@echo "$(ORANGE)-------------------------------\
-	---------------------------------$(RESET)"
-	@norminette $(SRC_FOLDER) && norminette $(LIBFT_FOLDER)src
-	@echo "$(ORANGE)\nCHECK HEADER FILE$(RESET)"
-	@echo "$(ORANGE)-------------------------------\
-	---------------------------------$(RESET)"
-	@norminette $(INCLUDE_FOLDER) && norminette $(LIBFT_FOLDER)libft.h
-	@echo "$(GREEN)\n------------------------------\
-	----------------------------------$(RESET)"
-	@echo "$(GREEN)DONE - ALL GOOD :)\n$(RESET)"
+MSG_START:
+	@$(BANNER) $(NAME) compiling "$(ORANGE)"
+
+MSG_DONE:
+	@$(BANNER) $(NAME) compiled "$(GREEN)"

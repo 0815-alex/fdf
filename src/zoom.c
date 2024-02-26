@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 18:42:22 by astein            #+#    #+#             */
-/*   Updated: 2023/05/26 00:11:01 by astein           ###   ########.fr       */
+/*   Updated: 2024/02/26 21:15:36 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,13 +101,11 @@ t_bool	static_auto_zoom(t_model *mod, t_bool zoom_in)
 			zoom_rng[1] = mod->dof.zoom;
 			cpy_dof(cur_dof, &mod->dof);
 			free(cur_dof);
-			dbg_printf(no_block, "(%d2 -> %d2)\n", mod->dof.zoom, zoom_rng[1]);
 		}
 		else
 		{
 			zoom_rng[0] = mod->dof.zoom;
 			zoom_rng[1] = AUTO_ZOOM_INI_LEVEL;
-			dbg_printf(no_block, "(%d2 -> %d2)\n", mod->dof.zoom, zoom_rng[1]);
 		}
 	}
 	return (do_zoom_step(mod, zoom_rng));

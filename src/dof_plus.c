@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 19:32:46 by astein            #+#    #+#             */
-/*   Updated: 2023/05/25 21:25:38 by astein           ###   ########.fr       */
+/*   Updated: 2024/02/26 21:17:41 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@
  */
 void	ini_dof_plus(t_model *mod)
 {
-	dbg_printf(start_block, "ini_dof_plus");
 	mod->dof.trans.x = 100;
 	mod->dof.trans.y = 100;
 	mod->dof.rot_rad.x = degree2radian(0);
@@ -31,7 +30,6 @@ void	ini_dof_plus(t_model *mod)
 	mod->dof.auto_rot = ft_true;
 	mod->dof.auto_zoom = ft_true;
 	mod->dof.auto_color_change = ft_true;
-	dbg_printf(end_block, "ini_dof_plus");
 }
 
 /**

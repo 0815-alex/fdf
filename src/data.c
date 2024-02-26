@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 18:42:14 by astein            #+#    #+#             */
-/*   Updated: 2023/05/25 12:58:59 by astein           ###   ########.fr       */
+/*   Updated: 2024/02/26 21:14:58 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,11 +71,7 @@ void	update_max_values(t_model *mod, int x, int y, int z)
  */
 void	determine_net_center(t_model *mod)
 {
-	dbg_printf(no_block, "net dimension (%i|%i)", mod->net_dim.x,
-		mod->net_dim.y);
 	mod->center_pnt.x = ((mod->net_dim.x + 1) / 2);
 	mod->center_pnt.y = ((mod->net_dim.y + 1) / 2);
 	mod->center_pnt.z = ((mod->z_max - mod->z_min) / 2);
-	dbg_printf(no_block, "net center (%i|%i|%i)", mod->center_pnt.x,
-		mod->center_pnt.y, mod->center_pnt.z);
 }
