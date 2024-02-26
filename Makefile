@@ -9,7 +9,7 @@ DEBUG = 0
 # Compiler options
 CC = cc
 CFLAGS = -D DEBUG=$(DEBUG) -g -Wall -Werror -Wextra -fsanitize=address -fsanitize-address-use-after-scope
-CLIBS = -L$(LIB_FOLDER)libft_printf -L$(LIB_FOLDER)minilibx -lm
+CLIBS = -L$(LIB_FOLDER)libft -L$(MLX_FOLDER) -lm
 CINCLUDES  = -I$(INCLUDE_FOLDER) -I$(MLX_FOLDER)
 RM = rm -f
 
@@ -24,12 +24,12 @@ SRC_FOLDER = ./src/
 OBJS_FOLDER = ./obj/
 LIB_FOLDER = ./lib/
 INCLUDE_FOLDER = ./include/
-LIBFT_PRINTF_FOLDER = $(LIB_FOLDER)libft_printf/
-MLX_FOLDER = $(LIB_FOLDER)minilibx/
+LIBFT_FOLDER = $(LIB_FOLDER)libft/
+MLX_FOLDER = $(LIB_FOLDER)minilibx-linux/
 MAPS_FOLDER = ./maps/nice_maps/
 
 # ->Files
-LIBFT_PRINTF = $(LIBFT_PRINTF_FOLDER)libft_printf.a
+libfT = $(LIBFT_FOLDER)libft.a
 MINILIBX = $(MLX_FOLDER)libmlx.a
 SRCS = $(addprefix $(SRC_FOLDER), \
 	color.c \
@@ -58,11 +58,11 @@ SRCS = $(addprefix $(SRC_FOLDER), \
 OBJS = $(SRCS:$(SRC_FOLDER)%.c=$(OBJS_FOLDER)%.o)
 
 # TARGETS
-.PHONY: all $(NAME) $(LIBFT_PRINTF) $(MINILIBX) clean fclean re 42 a m p norm
+.PHONY: all $(NAME) $(LIBFT) $(MINILIBX) clean fclean re 42 a m p norm
 
 all: $(NAME)
 
-$(NAME): $(OBJS) $(LIBFT_PRINTF) $(MINILIBX)
+$(NAME): $(LIBFT) $(MINILIBX) $(OBJS) 
 	@$(CC) $(OBJS) $(CFLAGS) -D DEBUG=$(DEBUG) $(CLIBS) $(CINCLUDES) -lft_printf -lmlx -lX11 -lXext -lm -o $(NAME)
 	@echo "$(GREEN)\n$(NAME): created\n$(RESET)"
 
@@ -71,9 +71,9 @@ $(OBJS_FOLDER)%.o: $(SRC_FOLDER)%.c
 	@echo -n "."
 	@$(CC) $(CFLAGS) -c $< -o $@
 
-$(LIBFT_PRINTF):
-	@echo "$(ORANGE)\ncompiling: $(LIBFT_PRINTF)\n$(RESET)"
-	@$(MAKE) --no-print-directory -C $(LIBFT_PRINTF_FOLDER) DEBUG=$(DEBUG)
+$(LIBFT):
+	@echo "$(ORANGE)\ncompiling: $(LIBFT)\n$(RESET)"
+	@$(MAKE) --no-print-directory -C $(LIBFT_FOLDER) DEBUG=$(DEBUG)
 
 $(MINILIBX):
 	@echo "$(ORANGE)compiling: $(MINILIBX)$(RESET)"
@@ -87,7 +87,7 @@ clean:
 
 
 fclean: clean
-	@make --no-print-directory -C $(LIBFT_PRINTF_FOLDER) fclean
+	@make --no-print-directory -C $(LIBFT_FOLDER) fclean
 	@$(RM) $(NAME)
 	@echo "$(RED)$(NAME): cleaned program$(RESET)"
 
@@ -109,11 +109,11 @@ norm:
 	@echo "$(ORANGE)\nCHECK SOURCE FILES$(RESET)"
 	@echo "$(ORANGE)-------------------------------\
 	---------------------------------$(RESET)"
-	@norminette $(SRC_FOLDER) && norminette $(LIBFT_PRINTF_FOLDER)src
+	@norminette $(SRC_FOLDER) && norminette $(LIBFT_FOLDER)src
 	@echo "$(ORANGE)\nCHECK HEADER FILE$(RESET)"
 	@echo "$(ORANGE)-------------------------------\
 	---------------------------------$(RESET)"
-	@norminette $(INCLUDE_FOLDER) && norminette $(LIBFT_PRINTF_FOLDER)libft_printf.h
+	@norminette $(INCLUDE_FOLDER) && norminette $(LIBFT_FOLDER)libft.h
 	@echo "$(GREEN)\n------------------------------\
 	----------------------------------$(RESET)"
 	@echo "$(GREEN)DONE - ALL GOOD :)\n$(RESET)"

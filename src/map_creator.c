@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 01:07:33 by astein            #+#    #+#             */
-/*   Updated: 2023/05/26 21:19:42 by astein           ###   ########.fr       */
+/*   Updated: 2024/02/26 00:06:56 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	create_map(char *str)
 	strs[2] = create_new_file(str, &new_fd);
 	while (cur_fd && strs[0])
 	{
-		strs[0] = get_next_line(((t_fd *)cur_fd)->fd);
+		strs[0] = gnl(((t_fd *)cur_fd)->fd);
 		strs[1] = ft_strtrim(strs[0], "\n");
 		free(strs[0]);
 		write(new_fd, strs[1], ft_strlen(strs[1]));

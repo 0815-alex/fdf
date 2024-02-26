@@ -6,15 +6,15 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 16:51:18 by astein            #+#    #+#             */
-/*   Updated: 2023/05/29 14:04:45 by astein           ###   ########.fr       */
+/*   Updated: 2024/02/26 00:05:38 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FDF_H
 # define FDF_H
 
-# include "../lib/libft_printf/libft_printf.h"
-# include "../lib/minilibx/mlx.h"
+# include "../lib/libft/libft_gnl_printf.h"
+# include "../lib/minilibx-linux/mlx.h"
 # include <limits.h>
 # include <stdint.h>
 # include <sys/stat.h>

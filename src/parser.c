@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 15:30:35 by astein            #+#    #+#             */
-/*   Updated: 2023/05/26 04:00:55 by astein           ###   ########.fr       */
+/*   Updated: 2024/02/26 00:07:14 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,7 @@ void	load_map(int argc, char **argv, t_model *mod)
 		dbg_printf(err_block, "wrong arguments!");
 	mod->net = NULL;
 	fd = open_or_create(argv[1]);
-	line = get_next_line(fd);
+	line = gnl(fd);
 	dbg_printf(no_block, "read Line: %s", line);
 	cur_row = 1;
 	prev_row = NULL;
@@ -140,7 +140,7 @@ void	load_map(int argc, char **argv, t_model *mod)
 	{
 		line2nodes(ft_split(line, ' '), cur_row, &prev_row, mod);
 		free(line);
-		line = get_next_line(fd);
+		line = gnl(fd);
 		dbg_printf(no_block, "read Line: %s", line);
 		cur_row++;
 	}

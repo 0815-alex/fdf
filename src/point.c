@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 21:58:19 by astein            #+#    #+#             */
-/*   Updated: 2023/05/23 22:31:34 by astein           ###   ########.fr       */
+/*   Updated: 2024/02/26 00:08:38 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	print_pnt_2d(t_pnt_2d *pnt)
 		dbg_printf(no_block, "(no point)");
 	else
 	{
-		dbg_printf(no_lb, "(%i|%i)", pnt->x, pnt->y);
+		dbg_printf(0, "(%i|%i)", pnt->x, pnt->y);
 	}
 }
 
@@ -81,6 +81,6 @@ void	print_pnt_3d(t_pnt_3d *pnt)
 		dbg_printf(no_block, "(no point)");
 	else
 	{
-		dbg_printf(no_lb, "(%i|%i|%i)", pnt->x, pnt->y, pnt->z);
+		dbg_printf(0, "(%i|%i|%i)", pnt->x, pnt->y, pnt->z);
 	}
 }

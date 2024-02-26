@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 17:08:26 by astein            #+#    #+#             */
-/*   Updated: 2023/05/29 14:06:28 by astein           ###   ########.fr       */
+/*   Updated: 2024/02/26 00:09:21 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	ini_help(t_model *mod)
 		dbg_printf(err_block, "error opening help file: %s", P_HELP);
 	mod->help = malloc(sizeof(t_list *));
 	(*mod->help) = NULL;
-	cur_line = get_next_line(fd);
+	cur_line = gnl(fd);
 	while (cur_line)
 	{
 		dbg_printf(no_block, "read help: %s", cur_line);
@@ -43,7 +43,7 @@ void	ini_help(t_model *mod)
 		cur_node->content = (char *)cur_line_trimmed;
 		cur_node->next = NULL;
 		ft_lstadd_back(mod->help, cur_node);
-		cur_line = get_next_line(fd);
+		cur_line = gnl(fd);
 	}
 	close(fd);
 }
