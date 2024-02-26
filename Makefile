@@ -3,12 +3,9 @@
 # Variables
 NAME = fdf
 
-# Prints DEBUG Messages
-DEBUG = 0
-
 # Compiler options
 CC = cc
-CFLAGS = -D DEBUG=$(DEBUG) -g -Wall -Werror -Wextra
+CFLAGS = -g -Wall -Werror -Wextra
 CLIBS = -L$(LIBFT_FOLDER) -L$(MLX_FOLDER) -lft -lm -lmlx -lX11 -lXext
 CINCLUDES  = -I$(INCLUDE_FOLDER) -I$(MLX_FOLDER)
 RM = rm -f
@@ -64,7 +61,7 @@ OBJS = $(SRCS:$(SRC_FOLDER)%.c=$(OBJS_FOLDER)%.o)
 all: MSG_START $(NAME) MSG_DONE
 
 $(NAME): $(OBJS) $(LIBFT) $(MLX) 
-	@$(CC) $(OBJS) $(CFLAGS) -D DEBUG=$(DEBUG) $(CLIBS) $(CINCLUDES) -o $(NAME)
+	@$(CC) $(OBJS) $(CFLAGS) $(CLIBS) $(CINCLUDES) -o $(NAME)
 
 $(OBJS_FOLDER)%.o: $(SRC_FOLDER)%.c
 	@mkdir -p $(@D)
@@ -72,7 +69,7 @@ $(OBJS_FOLDER)%.o: $(SRC_FOLDER)%.c
 	@$(CC) $(CFLAGS) $(CINCLUDES) -c $< -o $@
 
 $(LIBFT):
-	@$(MAKE) --no-print-directory -C $(LIBFT_FOLDER) DEBUG=$(DEBUG)
+	@$(MAKE) --no-print-directory -C $(LIBFT_FOLDER)
 
 $(MLX):
 	@$(BANNER) MLX compiling "$(ORANGE)"

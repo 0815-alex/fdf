@@ -123,10 +123,11 @@ void	shedule_close(t_model *mod)
  */
 int	close_model(t_model *mod)
 {
-	mlx_destroy_window(mod->mlx, mod->win);
 	free_node_lst(mod->net);
 	free_clr_maps(mod);
 	mlx_destroy_image(mod->mlx, mod->img.mlx_img);
+	mlx_destroy_window(mod->mlx, mod->win);
+	mlx_destroy_display(mod->mlx);
 	free_whatever("cpp", mod->help, mod->help, mod->clr_map);
 	free(mod);
 	exit(0);
