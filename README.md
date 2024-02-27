@@ -8,9 +8,24 @@ An overview of all the projects I completed at 42 can be found here: <a href="ht
 
 ---
 <!-- ahokcool HEADER END-->
+
+<!-- PROJECT HEADER START -->
+<br />
+<div align="center">
+  <a href="./">
+    <img src="images/logo.png" alt="Logo" width="224" height="300">
+  </a>
+  <h1 align="center">fdf</h1>
+<p align="center">
+    The idea of the fdf project, French "fil de fer" for "wireframe model", is to visualise wireframe models. This is done by reading a map with 3-D coordinates from a file and storing it in a linked list. These 3D coordinates are then transformed into 2D coordinates according to the user's preferences and displayed in a window.
+</p>
+</div>
+<br>
+<!-- PROJECT HEADER END -->
+
 # fdf
 
-The idea of the fdf project, French "fil de fer" for "wireframe model", is to visualise wireframe models. This is done by reading a map with 3-D coordinates from a file and storing it in a linked list. These 3D coordinates are then transformed into 2D coordinates according to the user's preferences and displayed in a window.
+
 ## Lessons learned
 - working with the API of [a graphics library](https://github.com/42Paris/minilibx-linux)
 - understanding points in 2 and 3 dimensional space, vectors and trigonometric functions
