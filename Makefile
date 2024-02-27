@@ -78,6 +78,7 @@ $(MLX):
 
 clean:
 	@make --no-print-directory -C $(LIBFT_FOLDER) clean
+	@make --no-print-directory -sC $(MLX_FOLDER) clean
 	@$(RM) $(OBJS)
 	@$(BANNER) $(NAME) "removed object files" "$(RED)"
 
