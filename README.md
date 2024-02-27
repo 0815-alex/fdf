@@ -18,7 +18,7 @@
 <br />
 <div align="center">
   <a href="./">
-    <img src="images/logo.gif" alt="Logo" height="300">
+    <img src="images/logo.gif" alt="Logo" width="600">
   </a>
   <h1 align="center">fdf</h1>
 <p align="center">
