@@ -28,46 +28,46 @@
 <br>
 <!-- PROJECT HEADER END -->
 
-## Lessons learned
+## :bulb: Lessons learned
 - working with the API of [a graphics library](https://github.com/42Paris/minilibx-linux)
 - understanding points in 2 and 3 dimensional space, vectors and trigonometric functions
 - [Bresenham's line algorithm](https://en.wikipedia.org/wiki/Bresenham%27s_line_algorithm)
 - Using a [rotation matrix](https://en.wikipedia.org/wiki/Rotation_matrix) to transform coordinates
 
-[📄key commands](resources/help_on_screen.txt)
-<br />
-### loading a map
+---
+
+**To use the prorgram you can either load a map...**
 ```
 ./fdf ./maps/nice_maps/t2.fdf
 ```
-![t2.png](./img/t2.png)
+![t2.png](./images/t2.png)
 <br />
-### creating a map
+
+**... or create a map...**
 ```
 ./fdf astein
 ```
-![astein.png](./img/astein.png)
+![astein.png](./images/astein.png)
 
+---
 
-
-
-note: following symbols have a map in ```./maps/letters/```:
+:bulb: note: following symbols have a map in ```./maps/letters/```:
 
 ```./fdf 'abc...xyz'```
-![abc.png](./img/abc.png)
+![abc.png](./images/abc.png)
 
 ```./fdf 'ABC...XYZ'```
-![ABC.png](./img/ABC.png)
+![ABC.png](./images/ABC.png)
 
 ```./fdf '01...89'```
-![012.png](./img/012.png)
+![012.png](./images/012.png)
 
 ```./fdf '?! _-.'```
-![chars.png](./img/chars.png)
+![chars.png](./images/chars.png)
 
 some of the maps in ```./maps/nice_maps/``` are from [@duarte3333](https://github.com/duarte3333/FdF_Wireframe_model/tree/main/Maps) thx!
 <br />
-## useful links
+## List of literature
 [:link:creating maps](https://patorjk.com/software/taag/#p=display&h=0&f=Doh&t=astein)<br />
 [:link:minilibx](https://harm-smits.github.io/42docs/libs/minilibx/getting_started.html)<br />
 [:link:minilibx images](https://aurelienbrabant.fr/blog/pixel-drawing-with-the-minilibx)<br />
