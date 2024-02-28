@@ -39,7 +39,7 @@
 $ git clone --recurse-submodules https://github.com/ahokcool/fdf.git    # Clone
 $ cd fdf                                                                # Change directory
 $ make                                                                  # Compile
-$ ./fdf map_file                                                        # Run
+$ ./fdf <map_file>                                                      # Run
 ```
 
 **To use the prorgram you can either load a map...**
