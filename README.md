@@ -34,7 +34,13 @@
 - [Bresenham's line algorithm](https://en.wikipedia.org/wiki/Bresenham%27s_line_algorithm)
 - Using a [rotation matrix](https://en.wikipedia.org/wiki/Rotation_matrix) to transform coordinates
 
----
+## Installation
+```
+$ git clone --recurse-submodules https://github.com/ahokcool/fdf.git)		# Clone
+$ cd fdf  	                                                            # Change directory
+$ make                                                                  # Compile
+$ ./fdf map_file            												                    # Run (Option: --info)
+```
 
 **To use the prorgram you can either load a map...**
 ```
