@@ -39,7 +39,8 @@
 $ git clone --recurse-submodules https://github.com/ahokcool/fdf.git    # Clone
 $ cd fdf                                                                # Change directory
 $ make                                                                  # Compile
-$ ./fdf <map_file>                                                      # Run
+$ ./fdf <map_file>                                                      # Open a map from a file
+$ ./fdf <a string>                                                      # Create a map from a string
 ```
 
 **To use the prorgram you can either load a map...**
