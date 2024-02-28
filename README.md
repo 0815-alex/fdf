@@ -28,17 +28,12 @@
 <br>
 <!-- PROJECT HEADER END -->
 
-# fdf
-
-
 ## Lessons learned
 - working with the API of [a graphics library](https://github.com/42Paris/minilibx-linux)
 - understanding points in 2 and 3 dimensional space, vectors and trigonometric functions
 - [Bresenham's line algorithm](https://en.wikipedia.org/wiki/Bresenham%27s_line_algorithm)
 - Using a [rotation matrix](https://en.wikipedia.org/wiki/Rotation_matrix) to transform coordinates
 
-
-## (fil de fer) wire-frame models
 [📄key commands](resources/help_on_screen.txt)
 <br />
 ### loading a map
