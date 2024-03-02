@@ -7,7 +7,7 @@
   </a><br>
   An overview of all my projects can be found here: <a href="https://github.com/ahokcool/ahokcool/blob/main/README.md" target="_blank">ahokcool</a><br><br>
   <a href="https://www.42lisboa.com">
-    <img src="./lib/libft/images/logo42.png" alt="42" width="100">
+    <img src="lib/libft/images/logo42.png" alt="42" width="100">
   </a><br>
   This project was created as part of my studies at: <a href="https://www.42lisboa.com" target="_blank">42 Lisboa</a><br>
 </div>
